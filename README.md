@@ -1,6 +1,6 @@
 # ***IN DEVELOPMENT!!!***
 
-[![Get a UNICORN DepthCache Cluster for Binance License](https://raw.githubusercontent.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/master/images/logo/LUCIT-UTS-License-Offer.png)](https://shop.lucit.services/software/unicorn-trading-suite)
+[![Get a UNICORN DepthCache Cluster for Binance License](https://raw.githubusercontent.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/master/images/logo/LUCIT-UBDCC-License-Offer.png)](https://shop.lucit.services/software/unicorn-binance-depthcache-cluster)
 
 [![GitHub Release](https://img.shields.io/github/release/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster.svg?label=github)](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/releases)
 [![GitHub Downloads](https://img.shields.io/github/downloads/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/total?color=blue)](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/releases)
