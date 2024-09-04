@@ -1,0 +1,17 @@
+blank_issues_enabled: true
+contact_links:
+  - name: UNICORN Devs Chat
+    url: https://t.me/unicorndevs
+    about: Chat with the community about the UNICORN Binance DepthCache Cluster and ask general questions.
+  - name: UNICORN Binance DepthCache Cluster Discussions
+    url: https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/discussions
+    about: Ask general questions.
+  - name: UNICORN Binance DepthCache Cluster documentation
+    url: https://unicorn-binance-depthcache-cluster.docs.lucit.tech/
+    about: The complete UNICORN Binance DepthCache Cluster documentation.
+  - name: Get Professional and Fast Support
+    url: https://www.lucit.tech/get-support.html
+    about: Contact the LUCIT Development Team.
+  - name: Get a UNICORN Trading Suite License
+    url: https://shop.lucit.services/software/unicorn-trading-suite
+    about: LUCIT Online Shop

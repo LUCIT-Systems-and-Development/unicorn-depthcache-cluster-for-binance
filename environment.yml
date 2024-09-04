@@ -1,0 +1,22 @@
+name: unicorn-binance-depthcache-cluster
+
+channels:
+  - lucit
+  - conda-forge
+  - defaults
+
+dependencies:
+  - python>=3.7
+  - lucit::lucit-licensing-python >=1.8.2
+  - cheroot
+  - colorama
+  - Cython
+  - flask
+  - flask-restful
+  - psutil
+  - PySocks
+  - requests>=2.31.0
+  - ujson
+  - websocket-client
+  - websockets==11.0.3
+  - typing_extensions

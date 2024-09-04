@@ -1,0 +1,60 @@
+{% set name = "unicorn-binance-depthcache-cluster" %}
+{% set version = "0.1.0" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  path: .
+
+build:
+  number: 0
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  script_env:
+    - PYTHONNOUSERSITE=1
+
+channels:
+  - lucit
+  - conda-forge
+  - default
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - mypy
+  host:
+    - python
+    - mypy
+    - lucit::lucit-licensing-python >=1.8.2
+    - Cython
+  run:
+    - python
+    - lucit::lucit-licensing-python >=1.8.2
+
+dependencies:
+  - anaconda-client
+  - conda-build
+
+test:
+  imports:
+    - unicorn_binance_depthcache_cluster
+  commands:
+    - pip check
+  requires:
+    - pip
+
+about:
+  summary: | 
+
+  description: |
+
+  dev_url: https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster
+  doc_url: https://unicorn-binance-depthcache-cluster.docs.lucit.tech
+  home: https://www.lucit.tech/unicorn-binance-depthcache-cluster.html
+  license: LSOSL
+  license_file: LICENSE
+
+extra:
+  recipe-maintainers:
+    - oliver-zehentleitner

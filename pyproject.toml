@@ -1,0 +1,48 @@
+[tool.poetry]
+name = "unicorn-binance-depthcache-cluster"
+version = "0.1.0"
+description = ""
+authors = ["LUCIT Systems and Development <info@lucit.tech>"]
+license = "LSOSL - LUCIT Synergetic Open Source License"
+readme = "README.md"
+homepage = "https://www.lucit.tech/unicorn-binance-depthcache-cluster.html"
+documentation = "https://unicorn-binance-depthcache-cluster.docs.lucit.tech"
+repository = "https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster"
+
+[tool.poetry.urls]
+'Howto' = 'https://www.lucit.tech/unicorn-binance-depthcache-cluster.html#howto'
+'Documentation' = 'https://unicorn-binance-depthcache-cluster.docs.lucit.tech'
+'Wiki' = 'https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/wiki'
+'Author' = 'https://www.lucit.tech'
+'Changes' = 'https://unicorn-binance-depthcache-cluster.docs.lucit.tech/changelog.html'
+'License' = 'https://unicorn-binance-depthcache-cluster.docs.lucit.tech/license.html'
+'Issue Tracker' = 'https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/issues'
+'Telegram' = 'https://t.me/unicorndevs'
+'Chat' = 'https://app.gitter.im/#/room/#unicorn-binance-depthcache-cluster:gitter.im'
+'Get Support' = 'https://www.lucit.tech/get-support.html'
+'LUCIT Online Shop' = 'https://shop.lucit.services/software/unicorn-trading-suite'
+
+[tool.poetry.dependencies]
+python = ">=3.7.0"
+cheroot = "*"
+colorama = "*"
+Cython = "*"
+flask = "*"
+flask_restful = "*"
+lucit-licensing-python = ">=1.8.2"
+psutil = "*"
+PySocks = "*"
+requests = ">=2.31.0"
+ujson = "*"
+websocket-client = "*"
+websockets = "11.0.3"
+typing_extensions = "*"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["setuptools", "wheel", "Cython", "pip", "mypy"]
+build-backend = "setuptools.build_meta"
+
+[tool.poetry.package_data]
+"unicorn_binance_depthcache_cluster" = ["*.so", "*.dll", "*.py", "*.pyd", "*.pyi"]
