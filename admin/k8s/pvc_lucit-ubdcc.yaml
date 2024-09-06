@@ -1,0 +1,14 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: lucit-ubdcc-pve
+  namespace: lucit-ubdcc
+  labels:
+    app: lucit-ubdcc-mgmt
+spec:
+  storageClassName: csi-cinder-classic
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi

@@ -7,11 +7,3 @@
 colorama
 Cython
 lucit-licensing-python>=1.8.2
-psutil
-PySocks
-requests>=2.31.0
-simplejson
-ujson
-websocket-client
-websockets==11.0.3
-typing_extensions

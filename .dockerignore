@@ -1,0 +1,14 @@
+config/
+config/main.ini
+
+.git/
+.idea/
+admin/
+
+.dockerignore
+.gitignore
+Dockerfile*
+*.log
+
+services/ubdcc-mgmt/*.log
+services/ubdcc-mgmt/*.py.log

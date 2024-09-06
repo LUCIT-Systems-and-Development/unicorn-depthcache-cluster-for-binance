@@ -23,7 +23,7 @@
 [![Gitter](https://img.shields.io/badge/community-gitter-41ab8c)](https://gitter.im/unicorn-trading-suite/unicorn-binance-depthcache-cluster?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Get Free Professional Support](https://img.shields.io/badge/chat-lucit%20support-004166)](https://www.lucit.tech/get-support.html)
 
-[![LUCIT-UBWA-Banner](https://raw.githubusercontent.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/master/images/logo/LUCIT-UBWA-Banner-Readme.png)](https://www.lucit.tech/unicorn-binance-depthcache-cluster.html)
+[![LUCIT-UBDCC-Banner](https://raw.githubusercontent.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/master/images/logo/LUCIT-UBDCC-Banner-Readme.png)](https://www.lucit.tech/unicorn-binance-depthcache-cluster.html)
 
 # UNICORN Binance DepthCache Cluster
 

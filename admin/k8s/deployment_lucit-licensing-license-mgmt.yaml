@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: lucit-ubdcc-mgmt
+  namespace: lucit-ubdcc
+  annotations:
+    author: LUCIT <it@lucit.tech>
+spec:
+  serviceName: "lucit-ubdcc-mgmt"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lucit-ubdcc-mgmt
+  template:
+    metadata:
+      labels:
+        app: lucit-ubdcc-mgmt
+      annotations:
+        author: LUCIT <it@lucit.tech>
+    spec:
+      imagePullSecrets:
+        - name: lucit-harbor-credentials
+      containers:
+        - name: lucit-ubdcc-mgmt
+          image:
+          env:
+            - name: LOG_FILE_DIR
+              value: "/app/logs"
+            - name: LOG_LEVEL
+              value: "ERROR"
+            - name: LUCIT_UBDCC_CONFIG_JSON
+              valueFrom:
+                secretKeyRef:
+                  name: lucit-ubdcc
+                  key: config.json
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "30Mi"
+            limits:
+              cpu: "200m"
+              memory: "256Mi"
+          volumeMounts:
+            - name: lucit-ubdcc-pve
+              mountPath: /app/logs
+      volumes:
+        - name: lucit-ubdcc-pve
+          persistentVolumeClaim:
+            claimName: lucit-ubdcc-pve
