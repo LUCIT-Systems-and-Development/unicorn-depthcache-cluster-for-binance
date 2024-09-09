@@ -6,9 +6,9 @@ metadata:
   labels:
     app: lucit-ubdcc-mgmt
 spec:
-  storageClassName: csi-cinder-classic
+  storageClassName: do-block-storage
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 1Gi
+      storage: 10Gi

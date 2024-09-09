@@ -1,5 +1,5 @@
 name: Bug report
-description: Report a bug with this library.
+description: Report a bug with this ubdcc-lib.
 labels: bug
 assignees:
   - oliver-zehentleitner
@@ -14,17 +14,17 @@ body:
   - type: checkboxes
     id: Confirmation
     attributes:
-      label: Solution to Issue cannot be found in the documentation or other Issues and also occurs in the latest version of this library.
+      label: Solution to Issue cannot be found in the documentation or other Issues and also occurs in the latest version of this ubdcc-lib.
       description: |
         I have searched for other Issues with the same problem or similar feature requests and have looked in the documentation. This issue also affects the latest version of this library.
       options:
-        - label: I checked the documentation and other Issues. I am using the latest version of this library.
+        - label: I checked the documentation and other Issues. I am using the latest version of this ubdcc-lib.
           required: true
 
   - type: textarea
     id: Version
     attributes:
-      label: Version of this library.
+      label: Version of this ubdcc-lib.
       description: |
         Please control what version you are using with [this script](https://github.com/LUCIT-Systems-and-Development/unicorn-trading-suite/blob/master/tools/get_versions_of_unicorn_packages.py) and post the output:
     validations:

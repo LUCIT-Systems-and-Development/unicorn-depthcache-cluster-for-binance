@@ -18,28 +18,18 @@ spec:
       annotations:
         author: LUCIT <it@lucit.tech>
     spec:
-      imagePullSecrets:
-        - name: lucit-harbor-credentials
       containers:
         - name: lucit-ubdcc-mgmt
-          image:
+          image: i018oau9.c1.de1.container-registry.ovh.net/library/lucit-ubdcc-mgmt@sha256:9e22c27b6e2d7433457238af38d7be2918bd9ce179a4154dd2bb679f43592b24
           env:
             - name: LOG_FILE_DIR
               value: "/app/logs"
             - name: LOG_LEVEL
               value: "ERROR"
-            - name: LUCIT_UBDCC_CONFIG_JSON
-              valueFrom:
-                secretKeyRef:
-                  name: lucit-ubdcc
-                  key: config.json
           resources:
             requests:
-              cpu: "10m"
-              memory: "30Mi"
-            limits:
-              cpu: "200m"
-              memory: "256Mi"
+              cpu: "250m"
+              memory: "512Mi"
           volumeMounts:
             - name: lucit-ubdcc-pve
               mountPath: /app/logs

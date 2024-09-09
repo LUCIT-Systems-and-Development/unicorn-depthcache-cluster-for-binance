@@ -1,5 +1,1 @@
 cython
-psycopg2
-python-dateutil
-requests
-stripe

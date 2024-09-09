@@ -1,13 +1,13 @@
 
 FROM python:3.12.3-slim
 
-VOLUME /app/lucit_ubdcc_pve
+VOLUME /app/lucit_ubdcc_pvc
 
 WORKDIR /app/lucit_ubdcc/services/ubdcc-mgmt/
 
 COPY . /app/lucit_ubdcc
 
 RUN pip install -r requirements.txt
-RUN ln -f -s ../../lib ./lib
+RUN ln -f -s ../../ubdcc-lib ./ubdcc-lib
 
 CMD ["python", "ubdcc-mgmt.py"]

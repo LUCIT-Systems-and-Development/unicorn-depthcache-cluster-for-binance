@@ -1,6 +1,0 @@
-[General]
-; stage = production
-stage = development
-
-[RESTAPI]
-client_request_interval_minutes = 20

@@ -1,1 +1,1 @@
-docker build -f Dockerfile.license-mgmt -t lucit-ubdcc-mgmt .
+docker build -f Dockerfile.ubdcc-mgmt -t lucit-ubdcc-mgmt .
