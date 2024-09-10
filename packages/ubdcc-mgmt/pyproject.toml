@@ -30,13 +30,7 @@ Cython = "*"
 flask = "*"
 flask_restful = "*"
 lucit-licensing-python = ">=1.8.2"
-psutil = "*"
-PySocks = "*"
-requests = ">=2.31.0"
-ujson = "*"
-websocket-client = "*"
-websockets = "11.0.3"
-typing_extensions = "*"
+
 
 [tool.poetry.dev-dependencies]
 
@@ -45,4 +39,4 @@ requires = ["setuptools", "wheel", "Cython", "pip", "mypy"]
 build-backend = "setuptools.build_meta"
 
 [tool.poetry.package_data]
-"unicorn_binance_depthcache_cluster" = ["*.so", "*.dll", "*.py", "*.pyd", "*.pyi"]
+"unicorn_binance_depthcache_cluster" = ["*.so", "*.dll", "*.pyd"]

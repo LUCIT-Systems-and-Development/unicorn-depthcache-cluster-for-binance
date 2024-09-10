@@ -29,7 +29,7 @@ extensions = [
 ]
 
 # Setup
-with open("README.md", "r") as fh:
+with open("../../README.md", "r") as fh:
     print("Using README.md content as `long_description` ...")
     long_description = fh.read()
 

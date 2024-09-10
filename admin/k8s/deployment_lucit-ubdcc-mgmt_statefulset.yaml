@@ -20,12 +20,7 @@ spec:
     spec:
       containers:
         - name: lucit-ubdcc-mgmt
-          image: i018oau9.c1.de1.container-registry.ovh.net/library/lucit-ubdcc-mgmt@sha256:9e22c27b6e2d7433457238af38d7be2918bd9ce179a4154dd2bb679f43592b24
-          env:
-            - name: LOG_FILE_DIR
-              value: "/app/logs"
-            - name: LOG_LEVEL
-              value: "ERROR"
+          image: i018oau9.c1.de1.container-registry.ovh.net/library/lucit-ubdcc-mgmt@sha256:5ee4dd9f547e09e8f1ca9c22a1816009b79c9ab9e8ef3ded321d40a6b07bdcb2
           resources:
             requests:
               cpu: "250m"

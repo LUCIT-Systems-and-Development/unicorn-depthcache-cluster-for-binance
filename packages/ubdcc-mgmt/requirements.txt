@@ -1,0 +1,4 @@
+cython
+fastapi
+kubernetes
+lucit-ubdcc-shared-modules

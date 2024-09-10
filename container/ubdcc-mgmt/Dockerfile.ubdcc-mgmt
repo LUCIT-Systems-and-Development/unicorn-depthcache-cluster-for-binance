@@ -1,0 +1,11 @@
+
+FROM python:3.12.3-slim
+
+WORKDIR /app/lucit_ubdcc/ubdcc-mgmt
+
+RUN mkdir -vp /app/lucit_ubdcc
+COPY ./container/ubdcc-mgmt/ /app/lucit_ubdcc/ubdcc-mgmt
+
+RUN pip install -r requirements.txt
+
+CMD ["python", "start_ubdcc_mgmt.py"]

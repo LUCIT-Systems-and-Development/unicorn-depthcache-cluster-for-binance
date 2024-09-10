@@ -1,9 +1,0 @@
-# Changes must also be made in the following files:
-# ./environment.yml
-# ./meta.yaml
-# ./pyproject.toml
-# ./setup.py
-
-colorama
-Cython
-lucit-licensing-python>=1.8.2

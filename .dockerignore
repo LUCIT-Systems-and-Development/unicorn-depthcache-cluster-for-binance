@@ -1,14 +1,15 @@
-config/
-config/main.ini
-
 .git/
 .idea/
 admin/
+images/
+packages/
 
 .dockerignore
 .gitignore
-Dockerfile*
 *.log
 
-services/ubdcc-mgmt/*.log
-services/ubdcc-mgmt/*.py.log
+container/ubdcc-mgmt/Dockerfile.ubdcc-mgmt
+container/ubdcc-mgmt/*.log
+container/ubdcc-mgmt/*.py.log
+container/ubdcc-mgmt/ubdcc_mgmt
+container/ubdcc-mgmt/ubdcc_shared_modules

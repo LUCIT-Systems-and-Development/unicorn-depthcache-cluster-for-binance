@@ -1,1 +1,1 @@
-docker build -f Dockerfile.ubdcc-mgmt -t lucit-ubdcc-mgmt .
+docker build -f container/ubdcc-mgmt/Dockerfile.ubdcc-mgmt -t lucit-ubdcc-mgmt .
