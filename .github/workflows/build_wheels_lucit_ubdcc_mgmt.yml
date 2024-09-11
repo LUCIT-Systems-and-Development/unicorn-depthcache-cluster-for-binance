@@ -53,21 +53,6 @@ jobs:
           name: artifact
           path: dist
 
-      - name: Create GitHub Release
-        uses: softprops/action-gh-release@v1
-        with:
-          body: |
-            Please read the [CHANGELOG](https://unicorn-binance-depthcache-cluster.docs.lucit.tech/changelog.html) for further information.
-          discussion_category_name: releases
-          draft: false
-          files: | 
-            dist/*.whl
-          generate_release_notes: true
-          name: lucit-ubdcc-mgmt
-          prerelease: false
-          tag_name: 0.0.6
-          token: ${{ secrets.PAT_TOKEN }}
-
       - name: Create PyPi Release
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
