@@ -13,10 +13,7 @@
 
 # UNICORN Binance DepthCache Cluster
 
-[Description](#description) | [Installation](#installation-and-upgrade) | [How To](#howto) | 
-[Documentation](#documentation) | [Examples](#examples) | [Change Log](#change-log) | [Wiki](#wiki) | 
-[Social](#social) | [Notifications](#receive-notifications) | [Bugs](#how-to-report-bugs-or-suggest-improvements) | 
-[Contributing](#contributing) | [Disclaimer](#disclaimer) | [Commercial Support](#commercial-support)
+A Kubernetes cluster with Binance DepthCaches
 
 [Get help](https://www.lucit.tech/get-support.html)!
 
