@@ -1,0 +1,2 @@
+0.0.4
+dev/deploy/lucit-ubdcc-mgmt.sh,packages/lucit-ubdcc-mgmt/pyproject.toml,packages/lucit-ubdcc-mgmt/setup.py

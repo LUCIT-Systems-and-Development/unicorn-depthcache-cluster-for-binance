@@ -6,7 +6,7 @@ metadata:
   annotations:
     author: LUCIT <it@lucit.tech>
 spec:
-  serviceName: "lucit-ubdcc-mgmt"
+  serviceName: "lucit-lucit-lucit-ubdcc-mgmt"
   replicas: 1
   selector:
     matchLabels:
@@ -19,8 +19,8 @@ spec:
         author: LUCIT <it@lucit.tech>
     spec:
       containers:
-        - name: lucit-ubdcc-mgmt
-          image: i018oau9.c1.de1.container-registry.ovh.net/library/lucit-ubdcc-mgmt@sha256:5ee4dd9f547e09e8f1ca9c22a1816009b79c9ab9e8ef3ded321d40a6b07bdcb2
+        - name: lucit-lucit-lucit-ubdcc-mgmt
+          image: i018oau9.c1.de1.container-registry.ovh.net/library/lucit-lucit-lucit-ubdcc-mgmt@sha256:5ee4dd9f547e09e8f1ca9c22a1816009b79c9ab9e8ef3ded321d40a6b07bdcb2
           resources:
             requests:
               cpu: "250m"

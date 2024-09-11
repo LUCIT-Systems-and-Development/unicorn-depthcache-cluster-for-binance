@@ -1,9 +1,9 @@
-#!/usr/bin/env python3
+#!/usr/bin/env bash
 # -*- coding: utf-8 -*-
-# ¯\_(ツ)_/¯
 #
-# File: unicorn_binance_depthcache_cluster/container/ubdcc-mgmt/start_ubdcc_mgmt.py
+# File: pypi/upload_wheel.sh
 #
+# Part of ‘UNICORN Binance WebSocket API’
 # Project website: https://www.lucit.tech/unicorn-binance-depthcache-cluster.html
 # Github: https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster
 # Documentation: https://unicorn-binance-depthcache-cluster.docs.lucit.tech
@@ -15,10 +15,12 @@
 #
 # Author: LUCIT Systems and Development
 #
-# Copyright (c) 2024-2024, LUCIT Systems and Development (https://www.lucit.tech)
+# Copyright (c) 2019-2024, LUCIT Systems and Development (https://www.lucit.tech)
 # All rights reserved.
+#
+# create this file:
+# ~/.pypirc
 
-import os
-from ubdcc_mgmt import Service
+set -xeuo pipefail
 
-Service.start(cwd=os.path.dirname(os.path.abspath(__file__)))
+python3 -m twine upload wheelhouse/*

@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # ¯\_(ツ)_/¯
 #
-# File: unicorn_binance_depthcache_cluster/services/ubdcc-mgmt/start_ubdcc_mgmt.py
+# File: unicorn_binance_depthcache_cluster/services/lucit-lucit-ubdcc-mgmt/start_ubdcc_mgmt.py
 #
 # Project website: https://www.lucit.tech/unicorn-binance-depthcache-cluster.html
 # Github: https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster
@@ -25,7 +25,7 @@ import socket
 import sys
 import time
 import kubernetes
-from ubdcc_shared_modules.AppClass import AppClass
+from lucit_ubdcc_shared_modules.AppClass import AppClass
 
 
 def start(cwd=None):
@@ -47,7 +47,7 @@ def start(cwd=None):
         pod_info = "not available"
 
     # App Identity
-    app = {'name': "lucit-ubdcc-mgmt",
+    app = {'name': "lucit-lucit-lucit-ubdcc-mgmt",
            'version': "0.0.0",
            'author': "LUCIT Systems and Development",
            'pod_info': pod_info}
@@ -58,10 +58,10 @@ def start(cwd=None):
         os.chdir(cwd)
 
     # Variables
-    service_name = "lucit-ubdcc-mgmt.lucit-ubdcc.svc.cluster.local"
+    service_name = "lucit-lucit-lucit-ubdcc-mgmt.lucit-ubdcc.svc.cluster.local"
 
     # Init Modules
-    info = f"Init lucit-ubdcc-mgmt Service {app['version']} ..."
+    info = f"Init lucit-lucit-lucit-ubdcc-mgmt Service {app['version']} ..."
     print(info)
     print(f"Configure Logging ...")
     logger = logging.getLogger("unicorn_binance_depthcache_cluster")
@@ -78,7 +78,8 @@ def start(cwd=None):
     app_class.register_graceful_shutdown()
 
     app_class.stdout_msg(f"Compiled: {str(cython.compiled)}", log="info")
-    app_class.stdout_msg(f"DNS test (resolving 'google.com'): {socket.gethostbyname("google.com")}", log="info")
+    google_ip = socket.gethostbyname("google.com")
+    app_class.stdout_msg(f"DNS test (resolving 'google.com'): {google_ip}", log="info")
 
     time.sleep(10)
 

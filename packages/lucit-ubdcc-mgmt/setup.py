@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# File: setup.py
+# File: packages/lucit-ubdcc-mgmt/setup.py
 #
 # Part of ‘UNICORN Binance DepthCache Cluster’
 # Project website: https://www.lucit.tech/unicorn-binance-depthcache-cluster.html
@@ -19,27 +19,23 @@
 # All rights reserved.
 
 from Cython.Build import cythonize
-from setuptools import setup, find_packages, Extension
+from setuptools import setup
 
-name = "unicorn-binance-depthcache-cluster"
-source_dir = "unicorn_binance_depthcache_cluster"
-
-extensions = [
-    Extension("*", [f"{source_dir}/*.py"]),
-]
+name = "lucit-ubdcc-mgmt"
+source_dir = "lucit_ubdcc_mgmt"
 
 # Setup
-with open("../../README.md", "r") as fh:
+with open("README.md", "r") as fh:
     print("Using README.md content as `long_description` ...")
     long_description = fh.read()
 
 setup(
     name=name,
-    version="0.1.0",
+    version="0.0.5",
     author="LUCIT Systems and Development",
     author_email='info@lucit.tech',
     url="https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster",
-    description="",
+    description="UBDCC Mgmt Service",
     long_description=long_description,
     long_description_content_type="text/markdown",
     license='LSOSL - LUCIT Synergetic Open Source License',
@@ -58,11 +54,13 @@ setup(
         'Get Support': 'https://www.lucit.tech/get-support.html',
         'LUCIT Online Shop': 'https://shop.lucit.services/software',
     },
-    packages=find_packages(exclude=[f"dev/{source_dir}"], include=[source_dir]),
-    ext_modules=cythonize(extensions, compiler_directives={'language_level': "3"}),
+    ext_modules=cythonize(['lucit_ubdcc_mgmt/__init__.py',
+                           'lucit_ubdcc_mgmt/RestApiEndpoints.py',
+                           'lucit_ubdcc_mgmt/Service.py'],
+                          compiler_directives={'language_level': "3"}),
     python_requires='>=3.7.0',
-    package_data={'': ['*.so', '*.dll', '*.pyd']},
-    include_package_data=True,
+    package_data={'': ['lucit_ubdcc_mgmt/*.so']},
+    exclude_package_data={'': ['lucit_ubdcc_mgmt/*.py']},
     classifiers=[
         "Development Status :: 4 - Beta",
         "Programming Language :: Python :: 3.7",

@@ -1,6 +1,6 @@
 .git/
 .idea/
-admin/
+dev/
 images/
 packages/
 
@@ -8,8 +8,8 @@ packages/
 .gitignore
 *.log
 
-container/ubdcc-mgmt/Dockerfile.ubdcc-mgmt
-container/ubdcc-mgmt/*.log
-container/ubdcc-mgmt/*.py.log
-container/ubdcc-mgmt/ubdcc_mgmt
-container/ubdcc-mgmt/ubdcc_shared_modules
+container/lucit-ubdcc-mgmt/Dockerfile.lucit-ubdcc-mgmt
+container/lucit-ubdcc-mgmt/*.log
+container/lucit-ubdcc-mgmt/*.py.log
+container/lucit-ubdcc-mgmt/lucit_ubdcc_mgmt
+container/lucit-ubdcc-mgmt/lucit_ubdcc_shared_modules

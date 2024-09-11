@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "unicorn-binance-depthcache-cluster"
-version = "0.1.0"
-description = ""
+name = "lucit-ubdcc-mgmt"
+version = "0.0.5"
+description = "UBDCC Mgmt Service"
 authors = ["LUCIT Systems and Development <info@lucit.tech>"]
 license = "LSOSL - LUCIT Synergetic Open Source License"
 readme = "README.md"
@@ -24,18 +24,13 @@ repository = "https://github.com/LUCIT-Systems-and-Development/unicorn-binance-d
 
 [tool.poetry.dependencies]
 python = ">=3.7.0"
-cheroot = "*"
-colorama = "*"
 Cython = "*"
-flask = "*"
-flask_restful = "*"
 lucit-licensing-python = ">=1.8.2"
-
 
 [tool.poetry.dev-dependencies]
 
 [build-system]
-requires = ["setuptools", "wheel", "Cython", "pip", "mypy"]
+requires = ["setuptools", "wheel", "Cython", "pip"]
 build-backend = "setuptools.build_meta"
 
 [tool.poetry.package_data]

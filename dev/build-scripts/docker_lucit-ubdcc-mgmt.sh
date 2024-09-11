@@ -1,0 +1,1 @@
+docker build -f container/lucit-ubdcc-mgmt/Dockerfile.lucit-ubdcc-mgmt -t lucit-ubdcc-mgmt .
