@@ -1,2 +1,2 @@
-0.0.6
+0.0.8
 dev/deploy/lucit-ubdcc-mgmt.sh,.github/workflows/gh_release.yml,packages/lucit-ubdcc-mgmt/pyproject.toml,packages/lucit-ubdcc-mgmt/setup.py,.github/workflows/build_wheels_lucit_ubdcc_mgmt.yml,packages/lucit-ubdcc-shared-modules/pyproject.toml,packages/lucit-ubdcc-shared-modules/setup.py,.github/workflows/build_wheels_lucit_ubdcc_shared_modules.yml
