@@ -43,7 +43,11 @@ def start(cwd=None):
         print(f"Pod Namespace: {pod_info.metadata.namespace}")
         print(f"Node Name: {pod_info.spec.node_name}")
         print(f"Pod Labels: {pod_info.metadata.labels}")
+    except kubernetes.client.exceptions.ApiException as error_msg:
+        print(f"K8 error_msg: {error_msg}")
+        pod_info = "not available"
     except kubernetes.config.config_exception.ConfigException as error_msg:
+        print(f"K8 error_msg: {error_msg}")
         pod_info = "not available"
 
     # App Identity
