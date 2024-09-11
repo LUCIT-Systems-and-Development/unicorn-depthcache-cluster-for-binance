@@ -20,6 +20,9 @@ jobs:
           git config core.sparseCheckout true
           echo "packages/lucit-ubdcc-mgmt/" >> .git/info/sparse-checkout
           git pull origin ${{ github.ref }}
+          shopt -s extglob
+          mv packages/lucit-ubdcc-mgmt/* ./
+          rm -rf packages
 
       - name: Check out subdirectory
         uses: actions/checkout@v4
