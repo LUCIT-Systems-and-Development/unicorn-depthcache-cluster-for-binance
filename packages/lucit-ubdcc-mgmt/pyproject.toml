@@ -23,7 +23,7 @@ repository = "https://github.com/LUCIT-Systems-and-Development/unicorn-binance-d
 'LUCIT Online Shop' = 'https://shop.lucit.services/software/unicorn-trading-suite'
 
 [tool.poetry.dependencies]
-python = ">=3.7.0"
+python = ">=3.12.0"
 Cython = "*"
 lucit-licensing-python = ">=1.8.2"
 
@@ -34,4 +34,4 @@ requires = ["setuptools", "wheel", "Cython", "pip"]
 build-backend = "setuptools.build_meta"
 
 [tool.poetry.package_data]
-"unicorn_binance_depthcache_cluster" = ["*.so", "*.dll", "*.pyd"]
+"lucit_ubdcc_mgmt" = ["*.so", "*.dll", "*.pyd"]
