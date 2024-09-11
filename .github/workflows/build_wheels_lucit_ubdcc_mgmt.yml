@@ -13,23 +13,18 @@ jobs:
       CIBW_BUILD: "cp312-*"
       CIBW_SKIP: "cp36-* cp37-* cp38-* cp39-* cp310-* cp311-* pp36-* pp37-* pp38-* pp39-* pp310-* pp311-*"
     steps:
-      - name: Set up Git
-        run: |
-          git init
-          git remote add origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
-          git config core.sparseCheckout true
-          echo "packages/lucit-ubdcc-mgmt/" >> .git/info/sparse-checkout
-          git pull origin ${{ github.ref }}
-          shopt -s extglob
-          mv packages/lucit-ubdcc-mgmt/* ./
-          rm -rf packages
-
-      - name: Check out subdirectory
+      - name: Checkout specific directory
         uses: actions/checkout@v4
         with:
           repository: ${{ github.repository }}
           ref: ${{ github.ref }}
+          path: lucit-ubdcc-mgmt
           sparse-checkout: 'packages/lucit-ubdcc-mgmt/'
+
+      - name: Move directory contents
+        run: |
+          mv lucit-ubdcc-mgmt/packages/lucit-ubdcc-mgmt/* ./
+          rm -rf lucit-ubdcc-mgmt
 
       - name: Upgrade pip
         run: ls -l
