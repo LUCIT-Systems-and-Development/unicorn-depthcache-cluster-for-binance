@@ -1,5 +1,3 @@
-# ***IN DEVELOPMENT!!!***
-
 [![GitHub Release](https://img.shields.io/github/release/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster.svg?label=github)](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/releases)
 [![GitHub Downloads](https://img.shields.io/github/downloads/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/total?color=blue)](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/releases)
 [![PyPi Release](https://img.shields.io/pypi/v/lucit-ubdcc-shared-modules?color=blue)](https://pypi.org/project/lucit-ubdcc-shared-modules/)
