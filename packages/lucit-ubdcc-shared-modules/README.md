@@ -13,7 +13,7 @@
 [![Get Free Professional Support](https://img.shields.io/badge/chat-lucit%20support-004166)](https://www.lucit.tech/get-support.html)
 
 # UNICORN Binance DepthCache Cluster Shared Modules
-The general `lucit-ubdcc-shared-modules` module for the UNICORN Binance DepthCache Cluster Pods.
+The general `lucit-ubdcc-shared-modules` module for the K8 Pods of the UNICORN Binance DepthCache Cluster.
 
 Part of '[UNICORN Binance DepthCache Cluster](https://www.lucit.tech/unicorn-binance-depthcache-cluster.html)'.
 

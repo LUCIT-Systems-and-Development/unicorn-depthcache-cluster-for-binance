@@ -25,3 +25,10 @@ spec:
             requests:
               cpu: "250m"
               memory: "512Mi"
+          volumeMounts:
+            - name: lucit-ubdcc-pve
+              mountPath: /app/logs
+      volumes:
+        - name: lucit-ubdcc-pve
+          persistentVolumeClaim:
+            claimName: lucit-ubdcc-pve
