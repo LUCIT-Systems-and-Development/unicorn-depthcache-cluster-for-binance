@@ -16,7 +16,7 @@ jobs:
       - name: Set up Git
         run: |
           git init
-          git remote add origin ${{ github.repository }}
+          git remote add origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
           git config core.sparseCheckout true
           echo "packages/lucit-ubdcc-mgmt/" >> .git/info/sparse-checkout
           git pull origin ${{ github.ref }}
