@@ -5,9 +5,7 @@
 [![License](https://img.shields.io/badge/license-LSOSL-blue)](https://unicorn-binance-depthcache-cluster.docs.lucit.tech/license.html)
 [![Supported Python Version](https://img.shields.io/pypi/pyversions/lucit-ubdcc-mgmt.svg)](https://www.python.org/downloads/)
 [![PyPI - Status](https://img.shields.io/pypi/status/lucit-ubdcc-mgmt.svg)](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/issues)
-[![CodeQL](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/actions/workflows/codeql-analysis.yml)
-[![Unit Tests](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/actions/workflows/unit-tests.yml/badge.svg)](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/actions/workflows/unit-tests.yml)
-[![Build and Publish GH+PyPi](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/actions/workflows/build_wheels_lucit_ubdcc_mgmt.yml/badge.svg)](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/actions/workflows/build_wheels_lucit_ubdcc_mgmt.yml)
+[![Build and Publish PyPi](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/actions/workflows/build_wheels_lucit_ubdcc_mgmt.yml/badge.svg)](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/actions/workflows/build_wheels_lucit_ubdcc_mgmt.yml)
 [![Read the Docs](https://img.shields.io/badge/read-%20docs-yellow)](https://unicorn-binance-depthcache-cluster.docs.lucit.tech)
 [![Github](https://img.shields.io/badge/source-github-cbc2c8)](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/tree/master/packages/lucit-ubdcc-mgmt)
 [![Telegram](https://img.shields.io/badge/community-telegram-41ab8c)](https://t.me/unicorndevs)
@@ -16,17 +14,9 @@
 
 # UNICORN Binance DepthCache Cluster Management
 
-[Description](#description) | [Installation](#installation-and-upgrade) | [How To](#howto) | 
-[Documentation](#documentation) | [Examples](#examples) | [Change Log](#change-log) | [Wiki](#wiki) | 
-[Social](#social) | [Notifications](#receive-notifications) | [Bugs](#how-to-report-bugs-or-suggest-improvements) | 
-[Contributing](#contributing) | [Disclaimer](#disclaimer) | [Commercial Support](#commercial-support)
-
-[Get help](https://www.lucit.tech/get-support.html)!
-
 ## Get a UNICORN Binance DepthCache Cluster License
 
 To run modules of the *UNICORN Binance DepthCache Cluster* you need a [valid license](#)!
-
 
 ## How to report Bugs or suggest Improvements?
 [List of planned features](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/issues?q=is%3Aissue+is%3Aopen+label%3Aenhancement) - click ![thumbs-up](https://raw.githubusercontent.com/lucit-systems-and-development/unicorn-binance-depthcache-cluster/master/images/misc/thumbup.png) if you need one of them or suggest a new feature!
