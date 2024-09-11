@@ -1,4 +1,4 @@
-name: Build and Publish GH+PyPi (lucit-ubdcc-shared-modules)
+name: Build and Publish PyPi (lucit-ubdcc-shared-modules)
 
 on:
   workflow_dispatch:

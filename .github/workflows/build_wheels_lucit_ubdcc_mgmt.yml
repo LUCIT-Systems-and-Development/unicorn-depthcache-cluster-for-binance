@@ -1,4 +1,4 @@
-name: Build and Publish GH+PyPi (lucit-ubdcc-mgmt)
+name: Build and Publish PyPi (lucit-ubdcc-mgmt)
 
 on:
   workflow_dispatch:
