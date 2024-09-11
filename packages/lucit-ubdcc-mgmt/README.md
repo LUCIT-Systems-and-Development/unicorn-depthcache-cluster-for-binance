@@ -13,10 +13,13 @@
 [![Get Free Professional Support](https://img.shields.io/badge/chat-lucit%20support-004166)](https://www.lucit.tech/get-support.html)
 
 # UNICORN Binance DepthCache Cluster Management
+The `lucit-ubdcc-mgmt` module for UNICORN Binance DepthCache Cluster Management.
+
+Part of '[UNICORN Binance DepthCache Cluster](https://www.lucit.tech/unicorn-binance-depthcache-cluster.html)'.
 
 ## Get a UNICORN Binance DepthCache Cluster License
 
-To run modules of the *UNICORN Binance DepthCache Cluster* you need a [valid license](#)!
+To run modules of the *UNICORN Binance DepthCache Cluster* you need a [valid license](https://shop.lucit.services/software/unicorn-depthcache-cluster-for-binance)!
 
 ## How to report Bugs or suggest Improvements?
 [List of planned features](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/issues?q=is%3Aissue+is%3Aopen+label%3Aenhancement) - click ![thumbs-up](https://raw.githubusercontent.com/lucit-systems-and-development/unicorn-binance-suite/master/images/misc/thumbup.png) if you need one of them or suggest a new feature!

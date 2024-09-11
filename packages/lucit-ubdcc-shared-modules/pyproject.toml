@@ -6,7 +6,7 @@ authors = ["LUCIT Systems and Development <info@lucit.tech>"]
 license = "LSOSL - LUCIT Synergetic Open Source License"
 readme = "README.md"
 homepage = "https://www.lucit.tech/unicorn-binance-depthcache-cluster.html"
-documentation = "https://unicorn-binance-depthcache-cluster.docs.lucit.tech"
+documentation = "https://www.lucit.tech/unicorn-binance-depthcache-cluster.html"
 repository = "https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster"
 
 [tool.poetry.urls]

@@ -1,4 +1,4 @@
 cython
 fastapi
 kubernetes
-lucit-ubdcc-shared-modules
+lucit-ubdcc-shared-modules==0.0.6

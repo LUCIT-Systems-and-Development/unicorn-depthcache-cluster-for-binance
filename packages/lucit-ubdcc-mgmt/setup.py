@@ -39,11 +39,11 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     license='LSOSL - LUCIT Synergetic Open Source License',
-    install_requires=['lucit-licensing-python>=1.8.2', 'Cython'],
+    install_requires=['Cython', 'lucit-licensing-python>=1.8.2', 'lucit-ubdcc-shared-modules==0.0.6'],
     keywords='',
     project_urls={
         'Howto': 'https://www.lucit.tech/unicorn-binance-depthcache-cluster.html#howto',
-        'Documentation': 'https://unicorn-binance-depthcache-cluster.docs.lucit.tech',
+        'Documentation': 'https://www.lucit.tech/unicorn-binance-depthcache-cluster.html',
         'Wiki': 'https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/wiki',
         'Author': 'https://www.lucit.tech',
         'Changes': 'https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/blob/master/packages/lucit-ubdcc-mgmt/CHANGELOG.md',

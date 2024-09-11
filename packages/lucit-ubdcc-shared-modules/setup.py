@@ -43,7 +43,7 @@ setup(
     keywords='',
     project_urls={
         'Howto': 'https://www.lucit.tech/unicorn-binance-depthcache-cluster.html#howto',
-        'Documentation': 'https://unicorn-binance-depthcache-cluster.docs.lucit.tech',
+        'Documentation': 'https://www.lucit.tech/unicorn-binance-depthcache-cluster.html',
         'Wiki': 'https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/wiki',
         'Author': 'https://www.lucit.tech',
         'Changes': 'https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/blob/master/packages/lucit-ubdcc-mgmt/CHANGELOG.md',
