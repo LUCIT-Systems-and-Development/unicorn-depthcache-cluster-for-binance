@@ -10,6 +10,7 @@ jobs:
     name: Build Linux wheels for Python 3.12
     runs-on: ubuntu-20.04
     env:
+      CIBW_PROJECT_REQUIRES_PYPROJECT: "packages/lucit-ubdcc-mgmt"
       CIBW_BUILD: "cp312-*"
       CIBW_SKIP: "cp36-* cp37-* cp38-* cp39-* cp310-* cp311-* pp36-* pp37-* pp38-* pp39-* pp310-* pp311-*"
     steps:
