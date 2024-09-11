@@ -10,12 +10,23 @@ jobs:
     name: Build Linux wheels for Python 3.12
     runs-on: ubuntu-20.04
     env:
-      CIBW_PROJECT_REQUIRES_PYPROJECT: "packages/lucit-ubdcc-mgmt"
       CIBW_BUILD: "cp312-*"
       CIBW_SKIP: "cp36-* cp37-* cp38-* cp39-* cp310-* cp311-* pp36-* pp37-* pp38-* pp39-* pp310-* pp311-*"
     steps:
-      - name: GitHub Checkout
+      - name: Set up Git
+        run: |
+          git init
+          git remote add origin ${{ github.repository_url }}
+          git config core.sparseCheckout true
+          echo "packages/lucit-ubdcc-mgmt/" >> .git/info/sparse-checkout
+          git pull origin ${{ github.ref }}
+
+      - name: Check out subdirectory
         uses: actions/checkout@v4
+        with:
+          repository: ${{ github.repository }}
+          ref: ${{ github.ref }}
+          sparse-checkout: 'packages/lucit-ubdcc-mgmt/'
 
       - name: Upgrade pip
         run: python -m pip install --upgrade pip
