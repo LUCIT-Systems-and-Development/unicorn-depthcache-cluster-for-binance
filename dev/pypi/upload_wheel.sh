@@ -23,4 +23,4 @@
 
 set -xeuo pipefail
 
-python3 -m twine upload wheelhouse/*
+python3 -m twine upload dist/*

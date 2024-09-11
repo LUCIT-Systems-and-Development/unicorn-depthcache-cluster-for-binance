@@ -27,3 +27,5 @@ rm ./*.egg-info -r
 
 rm lucit_ubdcc_mgmt/*.so
 rm lucit_ubdcc_mgmt/*.c
+rm lucit_ubdcc_shared_modules/*.so
+rm lucit_ubdcc_shared_modules/*.c
