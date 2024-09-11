@@ -1,2 +1,2 @@
-0.0.4
-dev/deploy/lucit-ubdcc-mgmt.sh,packages/lucit-ubdcc-mgmt/pyproject.toml,packages/lucit-ubdcc-mgmt/setup.py
+0.0.7
+dev/deploy/lucit-ubdcc-mgmt.sh,packages/lucit-ubdcc-mgmt/pyproject.toml,packages/lucit-ubdcc-mgmt/setup.py,.github/workflows/build_wheels_lucit_ubdcc_mgmt.yml

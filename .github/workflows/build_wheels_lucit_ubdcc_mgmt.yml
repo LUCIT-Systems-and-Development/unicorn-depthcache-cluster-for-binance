@@ -61,12 +61,11 @@ jobs:
           discussion_category_name: releases
           draft: false
           files: | 
-            dist/*.tar.gz
             dist/*.whl
           generate_release_notes: true
           name: lucit-ubdcc-mgmt
           prerelease: false
-          tag_name: 0.0.5
+          tag_name: 0.0.7
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create PyPi Release
