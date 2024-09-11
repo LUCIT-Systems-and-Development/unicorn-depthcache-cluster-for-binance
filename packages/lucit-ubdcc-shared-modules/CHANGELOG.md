@@ -1,6 +1,7 @@
-# lucit-ubdcc-mgmt
+# lucit-ubdcc-shared-modules - LUCIT UBDCC Shared Modules
 
 ## 0.1.0
 ```
-sha256:8ca71342be20129b06135f267c4bd9b2740e4688705e340099698bfb0c2a1903
+
 ```
+### Added

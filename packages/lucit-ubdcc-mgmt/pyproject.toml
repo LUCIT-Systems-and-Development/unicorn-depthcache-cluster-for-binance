@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "lucit-ubdcc-mgmt"
 version = "0.0.6"
-description = "UBDCC Mgmt Service"
+description = "LUCIT UBDCC Mgmt Service"
 authors = ["LUCIT Systems and Development <info@lucit.tech>"]
 license = "LSOSL - LUCIT Synergetic Open Source License"
 readme = "README.md"

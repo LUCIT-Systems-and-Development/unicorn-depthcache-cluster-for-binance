@@ -1,4 +1,4 @@
-# lucit-ubdcc-mgmt
+# lucit-ubdcc-mgmt - LUCIT UBDCC Mgmt
 
 ## 0.1.0
 ```

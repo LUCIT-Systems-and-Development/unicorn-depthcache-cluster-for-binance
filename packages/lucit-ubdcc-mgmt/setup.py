@@ -35,7 +35,7 @@ setup(
     author="LUCIT Systems and Development",
     author_email='info@lucit.tech',
     url="https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster",
-    description="UBDCC Mgmt Service",
+    description="LUCIT UBDCC Mgmt",
     long_description=long_description,
     long_description_content_type="text/markdown",
     license='LSOSL - LUCIT Synergetic Open Source License',
@@ -58,7 +58,7 @@ setup(
                            'lucit_ubdcc_mgmt/RestApiEndpoints.py',
                            'lucit_ubdcc_mgmt/Service.py'],
                           compiler_directives={'language_level': "3"}),
-    python_requires='>=3.7.0',
+    python_requires='>=3.12.0',
     package_data={'': ['lucit_ubdcc_mgmt/*.so']},
     exclude_package_data={'': ['lucit_ubdcc_mgmt/*.py']},
     classifiers=[
