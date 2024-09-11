@@ -14,13 +14,13 @@ repository = "https://github.com/LUCIT-Systems-and-Development/unicorn-binance-d
 'Documentation' = 'https://unicorn-binance-depthcache-cluster.docs.lucit.tech'
 'Wiki' = 'https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/wiki'
 'Author' = 'https://www.lucit.tech'
-'Changes' = 'https://unicorn-binance-depthcache-cluster.docs.lucit.tech/changelog.html'
-'License' = 'https://unicorn-binance-depthcache-cluster.docs.lucit.tech/license.html'
+'Changes' = 'https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/blob/master/packages/lucit-ubdcc-mgmt/CHANGELOG.md'
+'License' = 'https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/blob/master/LICENSE'
 'Issue Tracker' = 'https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/issues'
 'Telegram' = 'https://t.me/unicorndevs'
 'Chat' = 'https://app.gitter.im/#/room/#unicorn-binance-depthcache-cluster:gitter.im'
 'Get Support' = 'https://www.lucit.tech/get-support.html'
-'LUCIT Online Shop' = 'https://shop.lucit.services/software/unicorn-trading-suite'
+'LUCIT Online Shop' = 'https://shop.lucit.services/software/unicorn-depthcache-cluster-for-binance'
 
 [tool.poetry.dependencies]
 python = ">=3.12.0"

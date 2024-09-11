@@ -2,13 +2,13 @@
 # -*- coding: utf-8 -*-
 # ¯\_(ツ)_/¯
 #
-# File: unicorn_binance_depthcache_cluster/services/lucit-lucit-ubdcc-mgmt/start_ubdcc_mgmt.py
+# File: packages/lucit-ubdcc-mgmt/lucit_ubdcc_mgmt/Service.py
 #
 # Project website: https://www.lucit.tech/unicorn-binance-depthcache-cluster.html
 # Github: https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster
 # Documentation: https://unicorn-binance-depthcache-cluster.docs.lucit.tech
-# PyPI: https://pypi.org/project/unicorn-binance-depthcache-cluster
-# LUCIT Online Shop: https://shop.lucit.services/software
+# PyPI: https://pypi.org/project/lucit-ubdcc-mgmt
+# LUCIT Online Shop: https://shop.lucit.services/software/unicorn-depthcache-cluster-for-binance
 #
 # License: LSOSL - LUCIT Synergetic Open Source License
 # https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/blob/master/LICENSE
