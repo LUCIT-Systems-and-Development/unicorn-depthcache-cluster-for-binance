@@ -26,9 +26,32 @@ import sys
 import time
 import kubernetes
 from lucit_ubdcc_shared_modules.AppClass import AppClass
+from lucit_ubdcc_shared_modules.Database import Database
 
 
 def start(cwd=None):
+    # App Identity
+    app = {'name': "lucit-ubdcc-mgmt",
+           'version': AppClass.get_version(),
+           'author': "LUCIT Systems and Development"}
+    print(f"App Info: {app}")
+
+    info = f"Init lucit-ubdcc-mgmt Service {app['version']} ..."
+    print(info)
+    print(f"Configure Logging ...")
+    logger = logging.getLogger("unicorn_binance_depthcache_cluster")
+    logging.basicConfig(level=logging.DEBUG,
+                        filename=f"{socket.gethostname()}-{os.path.basename(__file__)}.log",
+                        format="{asctime} [{levelname:8}] {process} {thread} {module}: {message}",
+                        style="{")
+    logger.info(info)
+    info = "Logging is ready!"
+    print(info)
+    logger.info(info)
+
+    app_class = AppClass(logger=logger)
+    app_class.register_graceful_shutdown()
+
     # K8 Information
     try:
         kubernetes.config.load_incluster_config()
@@ -50,36 +73,18 @@ def start(cwd=None):
         print(f"K8 error_msg: {error_msg}")
         pod_info = "not available"
 
-    # App Identity
-    app = {'name': "lucit-lucit-lucit-ubdcc-mgmt",
-           'version': "0.0.0",
-           'author': "LUCIT Systems and Development",
-           'pod_info': pod_info}
-    print(f"App Info: {app}")
+
 
     # Working Directory
     if cwd:
         os.chdir(cwd)
 
+    # Database
+    db = Database()
+
     # Variables
-    service_name = "lucit-lucit-lucit-ubdcc-mgmt.lucit-ubdcc.svc.cluster.local"
+    service_name = "lucit-ubdcc-mgmt.lucit-ubdcc.svc.cluster.local"
 
-    # Init Modules
-    info = f"Init lucit-lucit-lucit-ubdcc-mgmt Service {app['version']} ..."
-    print(info)
-    print(f"Configure Logging ...")
-    logger = logging.getLogger("unicorn_binance_depthcache_cluster")
-    logging.basicConfig(level=logging.DEBUG,
-                        filename=f"{socket.gethostname()}-{os.path.basename(__file__)}.log",
-                        format="{asctime} [{levelname:8}] {process} {thread} {module}: {message}",
-                        style="{")
-    logger.info(info)
-    info = "Logging is ready!"
-    print(info)
-    logger.info(info)
-
-    app_class = AppClass(logger=logger)
-    app_class.register_graceful_shutdown()
 
     app_class.stdout_msg(f"Compiled: {str(cython.compiled)}", log="info")
     google_ip = socket.gethostbyname("google.com")
@@ -94,7 +99,7 @@ def start(cwd=None):
             except socket.gaierror:
                 service_ip = "unknown"
             print(f"Hallo Olli @ {service_ip} {time.time()}")
-            time.sleep(1)
+            time.sleep(10)
             app_class.stdout_msg(f"Loop finished ...", log="info")
     except Exception as error_msg:
         app_class.stdout_msg(f"ERROR: {error_msg}", log="critical")

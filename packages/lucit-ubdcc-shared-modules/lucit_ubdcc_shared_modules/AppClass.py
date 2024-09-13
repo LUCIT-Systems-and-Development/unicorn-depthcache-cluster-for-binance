@@ -21,10 +21,17 @@
 import signal
 
 
+VERSION = "0.0.10"
+
+
 class AppClass:
     def __init__(self, logger=None):
         self.logger = logger
         self.sigterm = False
+
+    @staticmethod
+    def get_version():
+        return VERSION
 
     def is_shutdown(self):
         return self.sigterm
@@ -59,3 +66,4 @@ class AppClass:
         if stdout is True:
             print(msg)
         return True
+

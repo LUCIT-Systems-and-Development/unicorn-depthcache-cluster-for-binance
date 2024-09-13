@@ -39,7 +39,7 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     license='LSOSL - LUCIT Synergetic Open Source License',
-    install_requires=['lucit-licensing-python>=1.8.2', 'Cython'],
+    install_requires=['Cython', 'etcd3', 'lucit-licensing-python>=1.8.2', 'protobuf==3.20.3'],
     keywords='',
     project_urls={
         'Howto': 'https://www.lucit.tech/unicorn-binance-depthcache-cluster.html#howto',

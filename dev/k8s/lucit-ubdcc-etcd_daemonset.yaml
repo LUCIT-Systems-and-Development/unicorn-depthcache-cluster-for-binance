@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: lucit-ubdcc-etcd
+  namespace: lucit-ubdcc
+  labels:
+    app: lucit-ubdcc-etcd
+spec:
+  selector:
+    matchLabels:
+      app: lucit-ubdcc-etcd
+  template:
+    metadata:
+      labels:
+        app: lucit-ubdcc-etcd
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                    - lucit-ubdcc-etcd
+              topologyKey: "kubernetes.io/hostname"
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: etcd-enabled
+                    operator: In
+                    values:
+                    - "true"
+      containers:
+      - name: etcd
+        image: bitnami/etcd:latest
+        ports:
+        - containerPort: 2379
+        - containerPort: 2380
+        env:
+        - name: ALLOW_NONE_AUTHENTICATION
+          value: "yes"
+        - name: ETCD_ENABLE_V2
+          value: "false"
+        command:
+        - /bin/sh
+        - -c
+        - |
+          etcd --name ${HOSTNAME} \
+               --initial-advertise-peer-urls http://${HOSTNAME}:2380 \
+               --listen-peer-urls http://0.0.0.0:2380 \
+               --advertise-client-urls http://${HOSTNAME}:2379 \
+               --listen-client-urls http://0.0.0.0:2379 \
+               --initial-cluster ${HOSTNAME}=http://${HOSTNAME}:2380 \
+               --initial-cluster-state new \
+               --data-dir /tmp/etcd-data
