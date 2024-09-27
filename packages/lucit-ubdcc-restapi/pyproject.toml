@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "lucit-ubdcc-mgmt"
+name = "lucit-ubdcc-restapi"
 version = "0.0.13"
-description = "LUCIT UBDCC Mgmt Service"
+description = "LUCIT UBDCC REST API"
 authors = ["LUCIT Systems and Development <info@lucit.tech>"]
 license = "LSOSL - LUCIT Synergetic Open Source License"
 readme = "README.md"
@@ -14,7 +14,7 @@ repository = "https://github.com/LUCIT-Systems-and-Development/unicorn-binance-d
 'Documentation' = 'https://unicorn-binance-depthcache-cluster.docs.lucit.tech'
 'Wiki' = 'https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/wiki'
 'Author' = 'https://www.lucit.tech'
-'Changes' = 'https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/blob/master/packages/lucit-ubdcc-mgmt/CHANGELOG.md'
+'Changes' = 'https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/blob/master/packages/lucit-ubdcc-restapi/CHANGELOG.md'
 'License' = 'https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/blob/master/LICENSE'
 'Issue Tracker' = 'https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/issues'
 'Telegram' = 'https://t.me/unicorndevs'
@@ -26,7 +26,6 @@ repository = "https://github.com/LUCIT-Systems-and-Development/unicorn-binance-d
 python = ">=3.12.0"
 Cython = "*"
 fastapi = "*"
-kubernetes = "*"
 lucit-licensing-python = ">=1.8.2"
 lucit-ubdcc-shared-modules = "==0.0.13"
 

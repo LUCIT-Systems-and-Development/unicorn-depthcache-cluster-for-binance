@@ -27,7 +27,7 @@ import sys
 import kubernetes
 
 
-VERSION = "0.0.12"
+VERSION = "0.0.13"
 
 
 class AppClass:

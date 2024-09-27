@@ -19,8 +19,8 @@ Version 1.0, November 2023
 1. INTRODUCTION
 
 The "LUCIT Synergetic Open Source License" oversees the utilization and distribution of the UNICORN Binance DepthCache
-Cluster and all its modules (lucit-ubdcc-mgmt, lucit-ubdcc-shared-modules) and Docker images (lucit-ubdcc-mgmt) by
-LUCIT IT-Management GmbH.
+Cluster and all its modules (lucit-ubdcc-mgmt, lucit-ubdcc-restapi, lucit-ubdcc-shared-modules) and Docker images
+(lucit-ubdcc-generic_loader) by LUCIT IT-Management GmbH.
 
 
 2. PROJECT INFORMATION
