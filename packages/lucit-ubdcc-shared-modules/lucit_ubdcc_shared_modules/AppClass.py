@@ -92,7 +92,7 @@ class AppClass:
         if self.logger is None:
             self.logger = logging.getLogger("unicorn_binance_depthcache_cluster")
             logging.basicConfig(level=logging.DEBUG,
-                                filename=f"{socket.gethostname()}-{os.path.basename(__file__)}.log",
+                                filename=f"{socket.gethostname()}.log",
                                 format="{asctime} [{levelname:8}] {process} {thread} {module}: {message}",
                                 style="{")
             self.logger.info(info)

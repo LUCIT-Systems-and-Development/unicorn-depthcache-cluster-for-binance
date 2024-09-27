@@ -21,4 +21,4 @@
 import os
 from lucit_ubdcc_mgmt import Service
 
-Service.start(cwd=os.path.dirname(os.path.abspath(__file__)))
+Service.Service(cwd=os.path.dirname(os.path.abspath(__file__)))
