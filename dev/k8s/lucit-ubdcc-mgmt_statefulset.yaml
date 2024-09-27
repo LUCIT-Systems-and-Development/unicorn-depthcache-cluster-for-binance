@@ -6,7 +6,7 @@ metadata:
   annotations:
     author: LUCIT <it@lucit.tech>
 spec:
-  serviceName: "generic_loader"
+  serviceName: "lucit-ubdcc-mgmt"
   replicas: 1
   selector:
     matchLabels:
@@ -19,8 +19,8 @@ spec:
         author: LUCIT <it@lucit.tech>
     spec:
       containers:
-        - name: generic_loader
-          image: i018oau9.c1.de1.container-registry.ovh.net/library/generic_loader@sha256:9b4a853d8420e89b18faf5252d3a01f73141572f8254580650acbd6a161f41d7
+        - name: lucit-ubdcc-mgmt
+          image: i018oau9.c1.de1.container-registry.ovh.net/library/lucit-ubdcc-mgmt@sha256:84bed6662abee12c65c9cee1f653a2c4341b8e4505ab0e5aac61616cdf458640
           resources:
             requests:
               cpu: "250m"

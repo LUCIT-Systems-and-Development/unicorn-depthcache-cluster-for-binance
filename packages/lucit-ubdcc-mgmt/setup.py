@@ -21,7 +21,7 @@
 from Cython.Build import cythonize
 from setuptools import setup
 
-name = "generic_loader"
+name = "lucit-ubdcc-mgmt"
 source_dir = "lucit_ubdcc_mgmt"
 
 # Setup
