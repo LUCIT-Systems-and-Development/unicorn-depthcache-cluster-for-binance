@@ -1,2 +1,2 @@
-0.0.10
-dev/deploy/lucit-ubdcc-mgmt.sh,container/lucit-ubdcc-mgmt/requirements.txt,.github/workflows/gh_release.yml,packages/lucit-ubdcc-mgmt/pyproject.toml,packages/lucit-ubdcc-mgmt/setup.py,.github/workflows/build_wheels_lucit_ubdcc_mgmt.yml,packages/lucit-ubdcc-shared-modules/pyproject.toml,packages/lucit-ubdcc-shared-modules/setup.py,.github/workflows/build_wheels_lucit_ubdcc_shared_modules.yml
+0.0.11
+dev/release/lucit-ubdcc-mgmt.sh,container/generic_loader/requirements-ubdcc_mgmt.txt,.github/workflows/gh_release.yml,packages/lucit-ubdcc-mgmt/pyproject.toml,packages/lucit-ubdcc-mgmt/setup.py,.github/workflows/build_wheels_lucit_ubdcc_mgmt.yml,packages/lucit-ubdcc-shared-modules/lucit_ubdcc_shared_modules/AppClass.py,packages/lucit-ubdcc-shared-modules/pyproject.toml,packages/lucit-ubdcc-shared-modules/setup.py,.github/workflows/build_wheels_lucit_ubdcc_shared_modules.yml

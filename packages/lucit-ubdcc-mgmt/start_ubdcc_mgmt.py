@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # ¯\_(ツ)_/¯
 #
-# File: unicorn_binance_depthcache_cluster/packages/lucit-ubdcc-mgmt/start_ubdcc_mgmt.py
+# File: unicorn_binance_depthcache_cluster/packages/generic_loader/start_ubdcc_mgmt.py
 #
 # Project website: https://www.lucit.tech/unicorn-binance-depthcache-cluster.html
 # Github: https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster
@@ -21,4 +21,4 @@
 import os
 from lucit_ubdcc_mgmt import Service
 
-Service.start(cwd=os.path.dirname(os.path.abspath(__file__)))
+Service.Service(cwd=os.path.dirname(os.path.abspath(__file__)))

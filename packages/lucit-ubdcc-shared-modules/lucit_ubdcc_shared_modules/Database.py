@@ -29,8 +29,7 @@ class Database:
         else:
             self.client = etcd3.client(host='etcd-service.lucit-ubdcc.svc.cluster.local', port=2379)
 
-    def put(self, key, value):
-        self.client.put(key, value)
+    def put(self, key, value):        self.client.put(key, value)
 
     def get(self, key):
         read_value, _ = self.client.get(key)

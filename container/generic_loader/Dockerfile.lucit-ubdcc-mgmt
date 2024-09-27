@@ -1,0 +1,9 @@
+
+FROM python:3.12.3-slim
+
+WORKDIR /app/generic_loader
+
+RUN mkdir -vp /app/generic_loader
+COPY ./container/generic_loader/ /app/generic_loader
+
+CMD ["sh", "-c", "pip install -r requirements-lucit_ubdcc_mgmt.txt && python start_ubdcc_mgmt.py"]

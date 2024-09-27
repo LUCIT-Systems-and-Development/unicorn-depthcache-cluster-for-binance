@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # ¯\_(ツ)_/¯
 #
-# File: packages/lucit-ubdcc-mgmt/lucit_ubdcc_mgmt/RestApiEndpoints.py
+# File: packages/generic_loader/lucit_ubdcc_mgmt/RestApiEndpoints.py
 #
 # Project website: https://www.lucit.tech/unicorn-binance-depthcache-cluster.html
 # Github: https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster

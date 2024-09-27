@@ -1,4 +1,4 @@
-name: Build and Publish PyPi (lucit-ubdcc-mgmt)
+name: Build and Publish PyPi (generic_loader)
 
 on:
   workflow_dispatch:
@@ -18,8 +18,8 @@ jobs:
         with:
           repository: ${{ github.repository }}
           ref: ${{ github.ref }}
-          path: lucit-ubdcc-mgmt
-          sparse-checkout: 'packages/lucit-ubdcc-mgmt/'
+          path: generic_loader
+          sparse-checkout: 'packages/generic_loader/'
 
       - name: Move directory contents
         run: |

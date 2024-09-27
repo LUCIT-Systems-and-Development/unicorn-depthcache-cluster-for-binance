@@ -8,8 +8,8 @@ packages/
 .gitignore
 *.log
 
-container/lucit-ubdcc-mgmt/Dockerfile.lucit-ubdcc-mgmt
+container/generic_loader/Dockerfile.lucit-ubdcc-mgmt
 container/lucit-ubdcc-mgmt/*.log
 container/lucit-ubdcc-mgmt/*.py.log
-container/lucit-ubdcc-mgmt/lucit_ubdcc_mgmt
-container/lucit-ubdcc-mgmt/lucit_ubdcc_shared_modules
+container/generic_loader/lucit_ubdcc_mgmt
+container/generic_loader/lucit_ubdcc_shared_modules
