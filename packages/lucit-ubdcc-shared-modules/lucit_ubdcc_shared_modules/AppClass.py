@@ -28,7 +28,7 @@ import sys
 import kubernetes
 
 
-VERSION = "0.0.15"
+VERSION = "0.0.16"
 
 
 class AppClass:
@@ -36,7 +36,6 @@ class AppClass:
         self.app = None
         self.app_name = app_name
         self.cwd = cwd
-        self.cython = None
         self.fastapi = None
         self.k8_client = None
         self.logger = logger
@@ -48,8 +47,9 @@ class AppClass:
     def get_version() -> str:
         return VERSION
 
-    def is_compiled(self) -> bool:
-        return self.cython.compiled
+    @staticmethod
+    def is_compiled() -> bool:
+        return cython.compiled
 
     def is_shutdown(self) -> bool:
         return self.sigterm
@@ -86,37 +86,31 @@ class AppClass:
         return True
 
     def start(self) -> None:
-        # App Identity
-        self.app = {'name': self.app_name,
-                    'version': self.get_version(),
-                    'author': "LUCIT Systems and Development"}
-        print(f"App Info: {self.app}")
-
-        # Start Message
-        info = f"Init {self.app['name']} Service {self.app['version']} ..."
-        print(info)
-
         # Working Directory
         if self.cwd:
             os.chdir(self.cwd)
 
         # Logging
-        print(f"Configure Logging ...")
         if self.logger is None:
             self.logger = logging.getLogger("unicorn_binance_depthcache_cluster")
             logging.basicConfig(level=logging.DEBUG,
                                 filename=f"{socket.gethostname()}.log",
                                 format="{asctime} [{levelname:8}] {process} {thread} {module}: {message}",
                                 style="{")
-            self.logger.info(info)
-            info = "Logging is ready!"
-            self.stdout_msg(info, log="info")
+
+        # App Identity
+        self.app = {'name': self.app_name,
+                    'version': self.get_version(),
+                    'author': "LUCIT Systems and Development"}
+        info = (f"Starting {self.app['name']}_{self.app['version']}_{("compiled" if self.is_compiled() else "source")} by "
+                f"{self.app['author']} ...")
+        print(info)
+        self.logger.info(info)
 
         # Catch Termination Signals
         self.register_graceful_shutdown()
 
         # Modules
-        self.cython = cython
         self.fastapi = fastapi
 
         # Runtime Information
@@ -128,22 +122,17 @@ class AppClass:
                 namespace = f.read().strip()
             self.k8_client = kubernetes.client.CoreV1Api()
             self.pod_info = self.k8_client.read_namespaced_pod(name=pod_name, namespace=namespace)
-            print(f"Pod Name: {self.pod_info.metadata.name}")
-            print(f"Pod UID: {self.pod_info.metadata.uid}")
-            print(f"Pod Namespace: {self.pod_info.metadata.namespace}")
-            print(f"Node Name: {self.pod_info.spec.node_name}")
-            print(f"Pod Labels: {self.pod_info.metadata.labels}")
+            self.stdout_msg(f"Pod Name: {self.pod_info.metadata.name}", log="info")
+            self.stdout_msg(f"Pod UID: {self.pod_info.metadata.uid}", log="info")
+            self.stdout_msg(f"Pod Namespace: {self.pod_info.metadata.namespace}", log="info")
+            self.stdout_msg(f"Node Name: {self.pod_info.spec.node_name}", log="info")
+            self.stdout_msg(f"Pod Labels: {self.pod_info.metadata.labels}", log="info")
         except kubernetes.client.exceptions.ApiException as error_msg:
-            print(f"K8 error_msg: {error_msg}")
+            self.stdout_msg(f"K8 error_msg: {error_msg}", log="warn")
             self.pod_info = "not available"
         except kubernetes.config.config_exception.ConfigException as error_msg:
-            print(f"K8 error_msg: {error_msg}")
+            self.stdout_msg(f"K8 error_msg: {error_msg}", log="warn")
             self.pod_info = "not available"
-
-        self.stdout_msg(f"Compiled: {self.is_compiled()}", log="info")
-
-        google_ip = socket.gethostbyname("google.com")
-        self.stdout_msg(f"DNS test (resolving 'google.com'): {google_ip}", log="info")
 
         # Running the core app
         try:
