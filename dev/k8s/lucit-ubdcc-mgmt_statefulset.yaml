@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: lucit-ubdcc-mgmt
-          image: i018oau9.c1.de1.container-registry.ovh.net/library/lucit-ubdcc-mgmt@sha256:3c2fb1e6b72249ad1e87e689a96063c8852f2f226dc8da20f587dd93fcff5358
+          image: i018oau9.c1.de1.container-registry.ovh.net/library/lucit-ubdcc-mgmt@sha256:1a6fe808ac2eca04ea12dfe4acdf7adeea2450950c4efed30c5c1b352e13341f
           resources:
             requests:
               cpu: "250m"
