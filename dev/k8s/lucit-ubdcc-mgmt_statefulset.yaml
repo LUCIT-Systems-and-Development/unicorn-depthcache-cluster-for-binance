@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: generic_loader
-          image: i018oau9.c1.de1.container-registry.ovh.net/library/generic_loader@sha256:9a44812f88bb4a5e5a9c512153253353928194df6aef303a96ebfac8476bec38
+          image: i018oau9.c1.de1.container-registry.ovh.net/library/generic_loader@sha256:9b4a853d8420e89b18faf5252d3a01f73141572f8254580650acbd6a161f41d7
           resources:
             requests:
               cpu: "250m"
