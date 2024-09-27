@@ -1,5 +1,9 @@
 .idea
 config/main.ini
+container/generic_loader/lucit_ubdcc_mgmt
+container/generic_loader/lucit_ubdcc_shared_modules
+packages/lucit-ubdcc-mgmt/lucit_ubdcc_shared_modules
+packages/lucit-ubdcc-mgmt/lucit_ubdcc_mgmt/lucit_ubdcc_shared_modules
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-cd container/lucit-ubdcc-mgmt/
+cd container/generic_loader/
 ln -s ../../packages/lucit-ubdcc-mgmt/lucit_ubdcc_mgmt .
 ln -s ../../packages/lucit-ubdcc-shared-modules/lucit_ubdcc_shared_modules .
 
