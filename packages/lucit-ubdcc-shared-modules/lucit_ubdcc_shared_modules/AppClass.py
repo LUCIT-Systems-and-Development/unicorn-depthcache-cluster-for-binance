@@ -20,6 +20,7 @@
 
 import cython
 import logging
+import fastapi
 import os
 import signal
 import socket
@@ -27,7 +28,7 @@ import sys
 import kubernetes
 
 
-VERSION = "0.0.13"
+VERSION = "0.0.14"
 
 
 class AppClass:
@@ -35,27 +36,32 @@ class AppClass:
         self.app = None
         self.app_name = app_name
         self.cwd = cwd
-        self.logger = logger
+        self.cython = None
+        self.fastapi = None
         self.k8_client = None
+        self.logger = logger
         self.pod_info = None
         self.service_call = service_call
         self.sigterm = False
 
     @staticmethod
-    def get_version():
+    def get_version() -> str:
         return VERSION
 
-    def is_shutdown(self):
+    def is_compiled(self) -> bool:
+        return self.cython.compiled
+
+    def is_shutdown(self) -> bool:
         return self.sigterm
 
-    def register_graceful_shutdown(self):
+    def register_graceful_shutdown(self) -> None:
         signal.signal(signal.SIGINT, self.sigterm_handler)
         signal.signal(signal.SIGTERM, self.sigterm_handler)
 
-    def sigterm_handler(self, signal, frame):
+    def sigterm_handler(self, signal, frame) -> None:
         self.sigterm = True
         print("Received SIGTERM, performing graceful shutdown ...")
-        self.logger.warning("Received SIGTERM, performing graceful shutdown ...")
+        self.logger.warning(f"Received SIGTERM, performing graceful shutdown ... - {signal} - {frame}")
 
     def stdout_msg(self, msg=None, log=None, stdout=True) -> bool:
         if msg is None:
@@ -79,15 +85,22 @@ class AppClass:
             print(msg)
         return True
 
-    def start(self):
+    def start(self) -> None:
         # App Identity
         self.app = {'name': self.app_name,
                     'version': self.get_version(),
                     'author': "LUCIT Systems and Development"}
         print(f"App Info: {self.app}")
 
+        # Start Message
         info = f"Init {self.app['name']} Service {self.app['version']} ..."
         print(info)
+
+        # Working Directory
+        if self.cwd:
+            os.chdir(self.cwd)
+
+        # Logging
         print(f"Configure Logging ...")
         if self.logger is None:
             self.logger = logging.getLogger("unicorn_binance_depthcache_cluster")
@@ -99,9 +112,14 @@ class AppClass:
             info = "Logging is ready!"
             self.stdout_msg(info, log="info")
 
+        # Catch Termination Signals
         self.register_graceful_shutdown()
 
-        # K8 Information
+        # Modules
+        self.cython = cython
+        self.fastapi = fastapi
+
+        # Runtime Information
         try:
             kubernetes.config.load_incluster_config()
             with open("/etc/hostname", "r") as f:
@@ -122,18 +140,17 @@ class AppClass:
             print(f"K8 error_msg: {error_msg}")
             self.pod_info = "not available"
 
-        # Working Directory
-        if self.cwd:
-            os.chdir(self.cwd)
+        self.stdout_msg(f"Compiled: {self.is_compiled()}", log="info")
 
-        self.stdout_msg(f"Compiled: {str(cython.compiled)}", log="info")
         google_ip = socket.gethostbyname("google.com")
         self.stdout_msg(f"DNS test (resolving 'google.com'): {google_ip}", log="info")
 
+        # Running the core app
         try:
             self.service_call()
         except Exception as error_msg:
             self.stdout_msg(f"ERROR: {error_msg}", log="critical")
             sys.exit(1)
 
+        # Shutdown
         self.stdout_msg(f"Gracefully shutdown finished! Thank you and good bye ...", log="info")

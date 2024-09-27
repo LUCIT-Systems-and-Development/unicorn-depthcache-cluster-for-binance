@@ -31,15 +31,15 @@ with open("README.md", "r") as fh:
 
 setup(
     name=name,
-    version="0.0.13",
+    version="0.0.14",
     author="LUCIT Systems and Development",
     author_email='info@lucit.tech',
     url="https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster",
-    description="LUCIT UBDCC Mgmt",
+    description="LUCIT UBDCC REST API",
     long_description=long_description,
     long_description_content_type="text/markdown",
     license='LSOSL - LUCIT Synergetic Open Source License',
-    install_requires=['Cython', 'fastapi', 'lucit-licensing-python>=1.8.2', 'lucit-ubdcc-shared-modules==0.0.13', 'kubernetes'],
+    install_requires=['lucit-licensing-python>=1.8.2', 'lucit-ubdcc-shared-modules==0.0.14'],
     keywords='',
     project_urls={
         'Howto': 'https://www.lucit.tech/unicorn-binance-depthcache-cluster.html#howto',
@@ -56,7 +56,7 @@ setup(
     },
     ext_modules=cythonize(['lucit_ubdcc_mgmt/__init__.py',
                            'lucit_ubdcc_mgmt/RestApiEndpoints.py',
-                           'lucit_ubdcc_mgmt/Service.py'],
+                           'lucit_ubdcc_mgmt/Mgmt.py'],
                           compiler_directives={'language_level': "3"}),
     python_requires='>=3.12.0',
     package_data={'': ['lucit_ubdcc_mgmt/*.so']},

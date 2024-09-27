@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "lucit-ubdcc-restapi"
-version = "0.0.13"
+version = "0.0.14"
 description = "LUCIT UBDCC REST API"
 authors = ["LUCIT Systems and Development <info@lucit.tech>"]
 license = "LSOSL - LUCIT Synergetic Open Source License"
@@ -24,10 +24,8 @@ repository = "https://github.com/LUCIT-Systems-and-Development/unicorn-binance-d
 
 [tool.poetry.dependencies]
 python = ">=3.12.0"
-Cython = "*"
-fastapi = "*"
 lucit-licensing-python = ">=1.8.2"
-lucit-ubdcc-shared-modules = "==0.0.13"
+lucit-ubdcc-shared-modules = "==0.0.14"
 
 [tool.poetry.dev-dependencies]
 
@@ -36,4 +34,4 @@ requires = ["setuptools", "wheel", "Cython", "pip"]
 build-backend = "setuptools.build_meta"
 
 [tool.poetry.package_data]
-"lucit_ubdcc_mgmt" = ["*.so", "*.dll", "*.pyd"]
+"lucit_ubdcc_restapi" = ["*.so", "*.dll", "*.pyd"]

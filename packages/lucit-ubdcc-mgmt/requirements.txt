@@ -1,3 +1,1 @@
-cython
-fastapi
-lucit-ubdcc-shared-modules==0.0.13
+lucit-ubdcc-shared-modules==0.0.14
