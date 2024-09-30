@@ -7,7 +7,7 @@ spec:
   selector:
     app: lucit-ubdcc-mgmt
   ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 8080
-  clusterIP: None
+    - name: http
+      port: 4280
+      targetPort: rest-private
+  type: ClusterIP
