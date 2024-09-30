@@ -28,7 +28,7 @@ import sys
 import kubernetes
 
 
-VERSION = "0.0.16"
+VERSION = "0.0.17"
 
 
 class AppClass:
@@ -102,8 +102,8 @@ class AppClass:
         self.app = {'name': self.app_name,
                     'version': self.get_version(),
                     'author': "LUCIT Systems and Development"}
-        info = (f"Starting {self.app['name']}_{self.app['version']}_{("compiled" if self.is_compiled() else "source")} by "
-                f"{self.app['author']} ...")
+        build_type = "compiled" if self.is_compiled() else "source"
+        info = f"Starting {self.app['name']}_{self.app['version']}_{build_type} by {self.app['author']} ..."
         print(info)
         self.logger.info(info)
 
