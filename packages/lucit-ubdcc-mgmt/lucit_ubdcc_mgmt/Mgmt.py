@@ -25,12 +25,15 @@ from lucit_ubdcc_shared_modules import AppClass, RestServer
 
 class Service:
     def __init__(self, cwd=None):
-        self.app_class = AppClass(app_name="lucit-ubdcc-mgmt", cwd=cwd, service_call=self.run, stop_call=self.stop)
+        self.app_class = AppClass.AppClass(app_name="lucit-ubdcc-mgmt",
+                                           cwd=cwd,
+                                           service_call=self.run,
+                                           stop_call=self.stop)
         self.app_class.start()
         self.rest_server = None
 
     def run(self):
-        self.rest_server = RestServer(app_class=self.app_class, endpoints=RestEndpoints)
+        self.rest_server = RestServer.RestServer(app_class=self.app_class, endpoints=RestEndpoints)
         self.rest_server.start()
         while self.app_class.is_shutdown() is False:
             print(f"Hallo Olli @ {time.time()}")
