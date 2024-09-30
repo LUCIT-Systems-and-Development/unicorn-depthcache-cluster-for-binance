@@ -18,6 +18,8 @@ __pycache__/
 # C extensions
 *.so
 *.db
+*.c
++/*/*/*.c
 
 # Distribution / packaging
 .Python
