@@ -30,7 +30,7 @@ class RestServer(threading.Thread):
         self.app_class = app_class
         self.endpoints = endpoints(app_class=self.app_class)
         self.endpoints.register()
-        LOGGING_CONFIG["formatters"]["access"]["fmt"] = f"%(asctime)s {LOGGING_CONFIG["formatters"]["access"]["fmt"]}"
+        LOGGING_CONFIG["formatters"]["access"]["fmt"] = f"%(asctime)s {LOGGING_CONFIG['formatters']['access']['fmt']}"
         self.uvicorn = uvicorn.Server(uvicorn.Config(self.app_class.get_fastapi_instance(), host="0.0.0.0", port=8080))
 
     def run(self):

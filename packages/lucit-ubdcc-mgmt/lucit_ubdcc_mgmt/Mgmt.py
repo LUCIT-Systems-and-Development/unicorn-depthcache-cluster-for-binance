@@ -33,10 +33,9 @@ class Service:
     def run(self):
         self.rest_server = RestServer(app_class=self.app_class, endpoints=RestEndpoints)
         self.rest_server.start()
-
         while self.app_class.is_shutdown() is False:
             print(f"Hallo Olli @ {time.time()}")
-            time.sleep(2)
+            time.sleep(5)
             self.app_class.stdout_msg(f"Loop finished ...", log="info")
 
     def stop(self):
