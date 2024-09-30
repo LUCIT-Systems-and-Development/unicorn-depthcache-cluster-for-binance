@@ -17,7 +17,7 @@
 #
 # Copyright (c) 2024-2024, LUCIT Systems and Development (https://www.lucit.tech)
 # All rights reserved.
-import socket
+
 import time
 from .RestEndpoints import RestEndpoints
 from lucit_ubdcc_shared_modules.AppClass import AppClass

@@ -9,5 +9,5 @@ spec:
   ports:
     - name: http
       port: 4280
-      targetPort: rest-private
-  type: ClusterIP
+      targetPort: 8080
+  type: NodePort
