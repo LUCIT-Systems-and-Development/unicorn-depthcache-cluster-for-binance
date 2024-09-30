@@ -28,7 +28,7 @@ import kubernetes
 from fastapi import FastAPI
 
 
-VERSION = "0.0.22"
+VERSION = "0.0.23"
 
 
 class AppClass:
