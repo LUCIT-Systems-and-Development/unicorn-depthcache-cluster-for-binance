@@ -17,23 +17,40 @@
 #
 # Copyright (c) 2024-2024, LUCIT Systems and Development (https://www.lucit.tech)
 # All rights reserved.
-import socket
+
 import time
-from lucit_ubdcc_shared_modules.AppClass import AppClass
+from .RestEndpoints import RestEndpoints
+from lucit_ubdcc_shared_modules import AppClass, RestServer
 
 
 class Service:
     def __init__(self, cwd=None):
-        self.app_class = AppClass(app_name="lucit-ubdcc-restapi", cwd=cwd, service_call=self.run)
+        self.app_class = AppClass.AppClass(app_name="lucit-ubdcc-restapi",
+                                           cwd=cwd,
+                                           service_call=self.run,
+                                           stop_call=self.stop)
+        self.rest_server = None
         self.app_class.start()
 
     def run(self):
-        service_name = f"{self.app_class.app_name}lucit-ubdcc.svc.cluster.local"
-        while self.app_class.is_shutdown() is False:
-            try:
-                service_ip = socket.gethostbyname(service_name)
-            except socket.gaierror:
-                service_ip = "unknown"
-            print(f"Hallo Olli @ {service_ip} {time.time()}")
-            time.sleep(10)
-            self.app_class.stdout_msg(f"Loop finished ...", log="info")
+        bl = Mgmt(service=self)
+        bl.main()
+
+    def stop(self):
+        try:
+            self.rest_server.stop()
+        except AttributeError as error_msg:
+            print(f"ERROR: {error_msg}")
+
+
+class Mgmt:
+    def __init__(self, service=None):
+        self.service = service
+
+    def main(self):
+        self.service.rest_server = RestServer.RestServer(app_class=self.service.app_class, endpoints=RestEndpoints)
+        self.service.rest_server.start()
+        while self.service.app_class.is_shutdown() is False:
+            print(f"Hallo Olli! @ {self.service.app_class.app_name} - {time.time()}")
+            time.sleep(5)
+            self.service.app_class.stdout_msg(f"Loop finished ...", log="info")
