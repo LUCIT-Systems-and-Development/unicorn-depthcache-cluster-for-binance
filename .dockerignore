@@ -9,6 +9,7 @@ packages/
 *.log
 
 container/generic_loader/Dockerfile.lucit-ubdcc-mgmt
+container/generic_loader/Dockerfile.lucit-ubdcc-mgmt-latest
 container/lucit-ubdcc-mgmt/*.log
 container/lucit-ubdcc-mgmt/*.py.log
 container/generic_loader/lucit_ubdcc_mgmt

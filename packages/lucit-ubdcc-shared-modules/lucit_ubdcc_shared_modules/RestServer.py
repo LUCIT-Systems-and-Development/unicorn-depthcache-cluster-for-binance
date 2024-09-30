@@ -33,13 +33,15 @@ class RestServer(threading.Thread):
         LOGGING_CONFIG["formatters"]["access"]["fmt"] = f"%(asctime)s {LOGGING_CONFIG['formatters']['access']['fmt']}"
         self.uvicorn = uvicorn.Server(uvicorn.Config(self.app_class.get_fastapi_instance(), host="0.0.0.0", port=8080))
 
-    def run(self):
+    def run(self) -> None:
         print(f"# Starting REST Server ...")
         try:
             self.uvicorn.run()
         except (ConnectionError, HTTPException) as error_msg:
             self.app_class.stdout_msg(f"# ERROR: {error_msg}", log="critical")
+        return None
 
-    def stop(self):
+    def stop(self) -> bool:
         print(f"# Stopping REST Server ...")
         self.uvicorn.should_exit = True
+        return True

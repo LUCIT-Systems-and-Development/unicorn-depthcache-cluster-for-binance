@@ -20,8 +20,7 @@
 
 import time
 from .RestEndpoints import RestEndpoints
-from lucit_ubdcc_shared_modules.AppClass import AppClass
-from lucit_ubdcc_shared_modules.RestServer import RestServer
+from lucit_ubdcc_shared_modules import AppClass, RestServer
 
 
 class Service:

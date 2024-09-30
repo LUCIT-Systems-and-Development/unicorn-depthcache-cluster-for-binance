@@ -28,7 +28,7 @@ import kubernetes
 from fastapi import FastAPI
 
 
-VERSION = "0.0.20"
+VERSION = "0.0.21"
 
 
 class AppClass:
@@ -44,7 +44,7 @@ class AppClass:
         self.sigterm = False
         self.stop_call = stop_call
 
-    def get_fastapi_instance(self):
+    def get_fastapi_instance(self) -> FastAPI:
         return self.fastapi
 
     @staticmethod
