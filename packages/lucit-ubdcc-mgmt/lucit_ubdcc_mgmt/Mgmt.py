@@ -19,21 +19,25 @@
 # All rights reserved.
 import socket
 import time
+from .RestEndpoints import RestEndpoints
 from lucit_ubdcc_shared_modules.AppClass import AppClass
+from lucit_ubdcc_shared_modules.RestServer import RestServer
 
 
 class Service:
     def __init__(self, cwd=None):
-        self.app_class = AppClass(app_name="lucit-ubdcc-mgmt", cwd=cwd, service_call=self.run)
+        self.app_class = AppClass(app_name="lucit-ubdcc-mgmt", cwd=cwd, service_call=self.run, stop_call=self.stop)
         self.app_class.start()
+        self.rest_server = None
 
     def run(self):
-        service_name = f"{self.app_class.app_name}lucit-ubdcc.svc.cluster.local"
+        self.rest_server = RestServer(app_class=self.app_class, endpoints=RestEndpoints)
+        self.rest_server.start()
+
         while self.app_class.is_shutdown() is False:
-            try:
-                service_ip = socket.gethostbyname(service_name)
-            except socket.gaierror:
-                service_ip = "unknown"
-            print(f"Hallo Olli @ {service_ip} {time.time()}")
-            time.sleep(10)
+            print(f"Hallo Olli @ {time.time()}")
+            time.sleep(2)
             self.app_class.stdout_msg(f"Loop finished ...", log="info")
+
+    def stop(self):
+        self.rest_server.stop()

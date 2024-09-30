@@ -20,28 +20,32 @@
 
 import cython
 import logging
-import fastapi
 import os
-import signal
+import signal as sys_signal
 import socket
 import sys
 import kubernetes
+from fastapi import FastAPI
 
 
-VERSION = "0.0.17"
+VERSION = "0.0.18"
 
 
 class AppClass:
-    def __init__(self, app_name=None, cwd=None, logger=None, service_call=None):
+    def __init__(self, app_name=None, cwd=None, logger=None, service_call=None, stop_call=None):
         self.app = None
         self.app_name = app_name
         self.cwd = cwd
-        self.fastapi = None
+        self.fastapi = FastAPI(docs_url=None, redoc_url=None)
         self.k8_client = None
         self.logger = logger
         self.pod_info = None
         self.service_call = service_call
         self.sigterm = False
+        self.stop_call = stop_call
+
+    def get_fastapi_instance(self):
+        return self.fastapi
 
     @staticmethod
     def get_version() -> str:
@@ -55,13 +59,13 @@ class AppClass:
         return self.sigterm
 
     def register_graceful_shutdown(self) -> None:
-        signal.signal(signal.SIGINT, self.sigterm_handler)
-        signal.signal(signal.SIGTERM, self.sigterm_handler)
+        sys_signal.signal(sys_signal.SIGINT, self.sigterm_handler)
+        sys_signal.signal(sys_signal.SIGTERM, self.sigterm_handler)
 
     def sigterm_handler(self, signal, frame) -> None:
         self.sigterm = True
-        print("Received SIGTERM, performing graceful shutdown ...")
-        self.logger.warning(f"Received SIGTERM, performing graceful shutdown ... - {signal} - {frame}")
+        print("# Received SIGTERM, performing graceful shutdown ...")
+        self.logger.warning(f"# Received SIGTERM, performing graceful shutdown ... - {signal} - {frame}")
 
     def stdout_msg(self, msg=None, log=None, stdout=True) -> bool:
         if msg is None:
@@ -103,15 +107,12 @@ class AppClass:
                     'version': self.get_version(),
                     'author': "LUCIT Systems and Development"}
         build_type = "compiled" if self.is_compiled() else "source"
-        info = f"Starting {self.app['name']}_{self.app['version']}_{build_type} by {self.app['author']} ..."
+        info = f"# Starting {self.app['name']}_{self.app['version']}_{build_type} by {self.app['author']} ..."
         print(info)
         self.logger.info(info)
 
         # Catch Termination Signals
         self.register_graceful_shutdown()
-
-        # Modules
-        self.fastapi = fastapi
 
         # Runtime Information
         try:
@@ -122,24 +123,38 @@ class AppClass:
                 namespace = f.read().strip()
             self.k8_client = kubernetes.client.CoreV1Api()
             self.pod_info = self.k8_client.read_namespaced_pod(name=pod_name, namespace=namespace)
-            self.stdout_msg(f"Pod Name: {self.pod_info.metadata.name}", log="info")
-            self.stdout_msg(f"Pod UID: {self.pod_info.metadata.uid}", log="info")
-            self.stdout_msg(f"Pod Namespace: {self.pod_info.metadata.namespace}", log="info")
-            self.stdout_msg(f"Node Name: {self.pod_info.spec.node_name}", log="info")
-            self.stdout_msg(f"Pod Labels: {self.pod_info.metadata.labels}", log="info")
+            self.stdout_msg(f"# Pod Name: {self.pod_info.metadata.name}", log="info")
+            self.stdout_msg(f"# Pod UID: {self.pod_info.metadata.uid}", log="info")
+            self.stdout_msg(f"# Pod Namespace: {self.pod_info.metadata.namespace}", log="info")
+            self.stdout_msg(f"# Node Name: {self.pod_info.spec.node_name}", log="info")
+            self.stdout_msg(f"# Pod Labels: {self.pod_info.metadata.labels}", log="info")
         except kubernetes.client.exceptions.ApiException as error_msg:
-            self.stdout_msg(f"K8 error_msg: {error_msg}", log="warn")
+            self.stdout_msg(f"# K8 error_msg: {error_msg}", log="warn")
             self.pod_info = "not available"
         except kubernetes.config.config_exception.ConfigException as error_msg:
-            self.stdout_msg(f"K8 error_msg: {error_msg}", log="warn")
+            self.stdout_msg(f"# K8 error_msg: {error_msg}", log="warn")
             self.pod_info = "not available"
 
         # Running the core app
+        exception_shutdown = False
+        exception_shutdown_error = None
         try:
             self.service_call()
+        except KeyboardInterrupt:
+            print(f"Keyboard interrupt was caught!")
         except Exception as error_msg:
-            self.stdout_msg(f"ERROR: {error_msg}", log="critical")
-            sys.exit(1)
+            exception_shutdown = True
+            exception_shutdown_error = error_msg
+        finally:
+            if exception_shutdown is True:
+                if exception_shutdown_error:
+                    self.stdout_msg(f"# ERROR: {exception_shutdown_error}", log="critical")
+                self.stop_call()
+                self.stdout_msg(f"# The system was gracefully shut down after a critical error was encountered.",
+                                log="info")
+                sys.exit(1)
 
         # Shutdown
-        self.stdout_msg(f"Gracefully shutdown finished! Thank you and good bye ...", log="info")
+        self.stop_call()
+        self.stdout_msg(f"# Gracefully shutdown finished! Thank you and good bye ...", log="info")
+        sys.exit(0)

@@ -24,7 +24,7 @@ from lucit_ubdcc_shared_modules.AppClass import AppClass
 
 class Service:
     def __init__(self, cwd=None):
-        self.app_class = AppClass(app_name="lucit-ubdcc-mgmt", cwd=cwd, service_call=self.run)
+        self.app_class = AppClass(app_name="lucit-ubdcc-restapi", cwd=cwd, service_call=self.run)
         self.app_class.start()
 
     def run(self):
