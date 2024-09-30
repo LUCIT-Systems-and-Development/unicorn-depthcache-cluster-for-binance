@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "lucit-ubdcc-mgmt"
-version = "0.0.22"
+version = "0.0.23"
 description = "LUCIT UBDCC Mgmt Service"
 authors = ["LUCIT Systems and Development <info@lucit.tech>"]
 license = "LSOSL - LUCIT Synergetic Open Source License"
@@ -25,7 +25,7 @@ repository = "https://github.com/LUCIT-Systems-and-Development/unicorn-binance-d
 [tool.poetry.dependencies]
 python = ">=3.12.0"
 lucit-licensing-python = ">=1.8.2"
-lucit-ubdcc-shared-modules = "==0.0.22"
+lucit-ubdcc-shared-modules = "==0.0.23"
 
 [tool.poetry.dev-dependencies]
 

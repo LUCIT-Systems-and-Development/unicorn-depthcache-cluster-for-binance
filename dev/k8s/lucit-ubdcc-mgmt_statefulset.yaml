@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: lucit-ubdcc-mgmt
-          image: i018oau9.c1.de1.container-registry.ovh.net/library/lucit-ubdcc-mgmt@sha256:77ceef90e7d64a3fd5560ce745e883ae0deca8bc0720e99745977421697fd832
+          image: i018oau9.c1.de1.container-registry.ovh.net/library/lucit-ubdcc-mgmt@sha256:fcaed5e66a43601a813929c5a769562d26405c33ba5e53bd8e5760dafde29cf8
           # command: ["/bin/sh", "-c", "tail -f /dev/null"]
           ports:
             - name: rest-private
