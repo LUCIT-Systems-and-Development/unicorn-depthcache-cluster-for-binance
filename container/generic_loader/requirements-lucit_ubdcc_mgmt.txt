@@ -1,1 +1,1 @@
-lucit-ubdcc-mgmt==0.0.28
+lucit-ubdcc-mgmt==0.0.30

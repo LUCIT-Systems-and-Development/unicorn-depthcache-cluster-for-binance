@@ -39,6 +39,7 @@ class Mgmt(ServiceBase):
             k8s_nodes = self.app.get_k8s_node_names()
             nodes = {}
             print(f"{k8s_nodes}")
+
             self.db.set("nodes", {})
             self.db.set("depth_caches", {})
             self.db.set("depth_cache_distribution", {})
