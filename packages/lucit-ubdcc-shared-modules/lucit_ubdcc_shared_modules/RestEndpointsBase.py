@@ -34,6 +34,6 @@ class RestEndpointsBase:
 
         @self.fastapi.get("/test")
         async def test(request: Request):
-            self.app_class.stdout_msg(f"'Hello World!' and request headers ...", log="debug")
             return {"message": f"Hello World!",
-                    "headers": f"{request.headers}"}
+                    "headers": f"{request.headers}",
+                    "app": f"{self.app_class.app}"}
