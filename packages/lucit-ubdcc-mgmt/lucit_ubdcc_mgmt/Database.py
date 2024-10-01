@@ -20,34 +20,40 @@
 
 import json
 import threading
-import time
 
 
 class Database:
-    def __init__(self):
+    def __init__(self, app_class=None):
+        self.app_class = app_class
         self.data = {}
+        self.data_lock = threading.Lock()
 
-    def load(self):
-        # Todo:
-        pass
+    def delete(self, key) -> bool:
+        with self.data_lock:
+            if key in self.data:
+                del self.data[key]
+                self.app_class.stdout_msg(f"# DB entry deleted: {key}", log="info")
+                return True
+        self.app_class.stdout_msg(f"# DB entry {key} not found.", log="info")
+        return False
 
-    def save(self):
-        # Todo:
-        pass
+    def export(self) -> str:
+        with self.data_lock:
+            return json.dumps(self.data, indent=4)
 
     def get(self, key):
         return self.data.get(key)
 
-    def set(self, key, value):
-        self.data[key] = value
-        print(f"Entry added/updated: {key} = {value}")
-
-    def delete(self, key):
-        if key in self.data:
-            del self.data[key]
-            print(f"Entry deleted: {key}")
-        else:
-            print(f"Entry {key} not found.")
-
-    def get_all(self):
+    def get_all(self) -> dict:
         return self.data
+
+    def load(self, data_json) -> bool:
+        with self.data_lock:
+            self.data = json.loads(data_json)
+        return True
+
+    def set(self, key, value) -> bool:
+        with self.data_lock:
+            self.data[key] = value
+        self.app_class.stdout_msg(f"# DB entry added/updated: {key} = {value}", log="debug")
+        return True

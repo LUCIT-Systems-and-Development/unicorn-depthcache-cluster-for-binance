@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: lucit-ubdcc-mgmt
-          image: i018oau9.c1.de1.container-registry.ovh.net/library/lucit-ubdcc-mgmt@sha256:e04d833f0fc8826b0cb3a7a7be4e0088e23ceb81d731917964a3317db6efad5f
+          image: i018oau9.c1.de1.container-registry.ovh.net/library/lucit-ubdcc-mgmt@sha256:5cf9750706e9d6dfb2a8c9be22b220d4abc442a8f47505990e0ba2402c28b99f
           # command: ["/bin/sh", "-c", "tail -f /dev/null"]  # Keep alive after failing to provide a terminal for debugging
           ports:
             - name: rest-private

@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # ¯\_(ツ)_/¯
 #
-# File: packages/lucit-ubdcc-shared-modules/lucit_ubdcc_shared_modules/Service.py
+# File: packages/lucit-ubdcc-shared-modules/lucit_ubdcc_shared_modules/ServiceBase.py
 #
 # Project website: https://www.lucit.tech/unicorn-binance-depthcache-cluster.html
 # Github: https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster
@@ -22,7 +22,7 @@ from .AppClass import AppClass
 from .RestServer import RestServer
 
 
-class Service:
+class ServiceBase:
     def __init__(self, app_name=None, cwd=None):
         self.rest_server = None
         self.app_class = AppClass(app_name=app_name,
@@ -36,6 +36,7 @@ class Service:
         pass
 
     def run(self) -> None:
+        self.app_class.stdout_msg(f"# Starting the main execution flow ...", log="info")
         self.main()
 
     def start_rest_server(self, endpoints=None) -> bool:
@@ -48,5 +49,5 @@ class Service:
             self.rest_server.stop()
             return True
         except AttributeError as error_msg:
-            print(f"# ERROR: {error_msg}")
+            self.app_class.stdout_msg(f"# ERROR: {error_msg}", log="info")
         return False

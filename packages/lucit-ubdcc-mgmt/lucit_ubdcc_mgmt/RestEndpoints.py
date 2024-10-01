@@ -18,24 +18,19 @@
 # Copyright (c) 2024-2024, LUCIT Systems and Development (https://www.lucit.tech)
 # All rights reserved.
 
-from fastapi import Request
+from lucit_ubdcc_shared_modules.RestEndpointsBase import RestEndpointsBase, Request
 
 
-class RestEndpoints:
+class RestEndpoints(RestEndpointsBase):
     def __init__(self, app_class=None):
-        self.fastapi = app_class.fastapi
-
-    def get_fastapi_instance(self):
-        return self.fastapi
+        super().__init__(app_class=app_class)
 
     def register(self):
-        # ENDPOINTS
-        @self.fastapi.get("/test")
+        super().register()
+
+        @self.fastapi.get("/test2")
         async def test(request: Request):
-            """
-                Just a test to proof if the backend is reachable (no request validation)
-                Access: Public
-            """
+            self.app_class.stdout_msg(f"Returning 'Hello World!'", log="info")
             return {"message": "Hello World!"}
 
 

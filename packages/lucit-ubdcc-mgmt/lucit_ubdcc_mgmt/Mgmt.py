@@ -21,18 +21,18 @@
 import time
 from .Database import Database
 from .RestEndpoints import RestEndpoints
-from lucit_ubdcc_shared_modules.Service import Service
+from lucit_ubdcc_shared_modules.ServiceBase import ServiceBase
 
 
-class Mgmt(Service):
+class Mgmt(ServiceBase):
     def __init__(self, cwd=None):
         self.db = None
         super().__init__(app_name="lucit-ubdcc-mgmt", cwd=cwd)
 
     def db_init(self) -> bool:
-        print(f"# Init Database ...")
+        self.app_class.stdout_msg(f"# Init Database ...", log="info")
         if self.db is None:
-            self.db = Database()
+            self.db = Database(app_class=self.app_class)
             # Todo:
             #   1. Load Backup if available
 
@@ -47,6 +47,5 @@ class Mgmt(Service):
         self.db_init()
         self.start_rest_server(endpoints=RestEndpoints)
         while self.app_class.is_shutdown() is False:
-            print(f"Hallo Olli! @ {self.app_class.app_name} - {time.time()}")
             time.sleep(5)
-            self.app_class.stdout_msg(f"Loop finished ...", log="info")
+

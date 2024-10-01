@@ -30,6 +30,7 @@ class RestApi(Service):
     def main(self):
         self.start_rest_server(endpoints=RestEndpoints)
         while self.app_class.is_shutdown() is False:
-            print(f"Hallo Olli! @ {self.app_class.app_name} - {time.time()}")
+            print("Test")
+            self.app_class.stdout_msg(f"Hey Olli! @ {self.app_class.app_name} - {time.time()}", log="info")
             time.sleep(5)
             self.app_class.stdout_msg(f"Loop finished ...", log="info")

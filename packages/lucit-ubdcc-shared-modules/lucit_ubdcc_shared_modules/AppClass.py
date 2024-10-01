@@ -28,7 +28,7 @@ import kubernetes
 from fastapi import FastAPI
 
 
-VERSION = "0.0.25"
+VERSION = "0.0.26"
 
 
 class AppClass:
@@ -64,8 +64,8 @@ class AppClass:
 
     def sigterm_handler(self, signal, frame) -> None:
         self.sigterm = True
-        print("# Received SIGTERM, performing graceful shutdown ...")
-        self.logger.warning(f"# Received SIGTERM, performing graceful shutdown ... - {signal} - {frame}")
+        self.stdout_msg(f"# Processing SIGTERM - signal: {signal} - frame: {frame}", log="debug", stdout=False)
+        self.stdout_msg(f"# Received SIGTERM, performing graceful shutdown ...", log="warn")
 
     def stdout_msg(self, msg=None, log=None, stdout=True) -> bool:
         if msg is None:
@@ -108,8 +108,7 @@ class AppClass:
                     'author': "LUCIT Systems and Development"}
         build_type = "compiled" if self.is_compiled() else "source"
         info = f"# Starting {self.app['name']}_{self.app['version']}_{build_type} by {self.app['author']} ..."
-        print(info)
-        self.logger.info(info)
+        self.stdout_msg(info, log="info")
 
         # Catch Termination Signals
         self.register_graceful_shutdown()
@@ -141,7 +140,7 @@ class AppClass:
         try:
             self.service_call()
         except KeyboardInterrupt:
-            print(f"Keyboard interrupt was caught!")
+            self.stdout_msg(f"Keyboard interrupt was caught!", log="warn")
         except Exception as error_msg:
             exception_shutdown = True
             exception_shutdown_error = error_msg

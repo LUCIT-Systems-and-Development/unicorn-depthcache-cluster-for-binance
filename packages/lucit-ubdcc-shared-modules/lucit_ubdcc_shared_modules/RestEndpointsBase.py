@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # ¯\_(ツ)_/¯
 #
-# File: packages/generic_loader/lucit_ubdcc_rest/RestEndpoints.py
+# File: packages/lucit-ubdcc-shared-modules/lucit_ubdcc_shared_modules/RestEndpointsBase.py
 #
 # Project website: https://www.lucit.tech/unicorn-binance-depthcache-cluster.html
 # Github: https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster
@@ -21,7 +21,7 @@
 from fastapi import Request
 
 
-class RestEndpoints:
+class RestEndpointsBase:
     def __init__(self, app_class=None):
         self.app_class = app_class
         self.fastapi = app_class.fastapi
@@ -30,16 +30,10 @@ class RestEndpoints:
         return self.fastapi
 
     def register(self):
-        # ENDPOINTS
         self.app_class.stdout_msg(f"# Registering REST endpoints ...", log="info")
 
         @self.fastapi.get("/test")
         async def test(request: Request):
-            """
-                Just a test to proof if the backend is reachable (no request validation)
-                Access: Public
-            """
-            self.app_class.stdout_msg(f"Returning 'Hello World!'", log="info")
-            return {"message": "Hello World!"}
-
-
+            self.app_class.stdout_msg(f"'Hello World!' and request headers ...", log="debug")
+            return {"message": f"Hello World!",
+                    "headers": f"{request.headers}"}
