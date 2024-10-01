@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # ¯\_(ツ)_/¯
 #
-# File: packages/generic_loader/lucit_ubdcc_mgmt/Mgmt.py
+# File: packages/lucit-ubdcc-restapi/lucit_ubdcc_restapi/RestApi.py
 #
 # Project website: https://www.lucit.tech/unicorn-binance-depthcache-cluster.html
 # Github: https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster
@@ -20,37 +20,16 @@
 
 import time
 from .RestEndpoints import RestEndpoints
-from lucit_ubdcc_shared_modules import AppClass, RestServer
+from lucit_ubdcc_shared_modules.Service import Service
 
 
-class Service:
+class RestApi(Service):
     def __init__(self, cwd=None):
-        self.app_class = AppClass.AppClass(app_name="lucit-ubdcc-restapi",
-                                           cwd=cwd,
-                                           service_call=self.run,
-                                           stop_call=self.stop)
-        self.rest_server = None
-        self.app_class.start()
-
-    def run(self):
-        bl = Mgmt(service=self)
-        bl.main()
-
-    def stop(self):
-        try:
-            self.rest_server.stop()
-        except AttributeError as error_msg:
-            print(f"ERROR: {error_msg}")
-
-
-class Mgmt:
-    def __init__(self, service=None):
-        self.service = service
+        super().__init__(app_name="lucit-ubdcc-restapi", cwd=cwd)
 
     def main(self):
-        self.service.rest_server = RestServer.RestServer(app_class=self.service.app_class, endpoints=RestEndpoints)
-        self.service.rest_server.start()
-        while self.service.app_class.is_shutdown() is False:
-            print(f"Hallo Olli! @ {self.service.app_class.app_name} - {time.time()}")
+        self.start_rest_server(endpoints=RestEndpoints)
+        while self.app_class.is_shutdown() is False:
+            print(f"Hallo Olli! @ {self.app_class.app_name} - {time.time()}")
             time.sleep(5)
-            self.service.app_class.stdout_msg(f"Loop finished ...", log="info")
+            self.app_class.stdout_msg(f"Loop finished ...", log="info")

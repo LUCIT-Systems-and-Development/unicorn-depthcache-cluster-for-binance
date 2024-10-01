@@ -21,4 +21,4 @@
 import os
 from lucit_ubdcc_mgmt import Mgmt
 
-Mgmt.Service(cwd=os.path.dirname(os.path.abspath(__file__)))
+Mgmt.Mgmt(cwd=os.path.dirname(os.path.abspath(__file__)))

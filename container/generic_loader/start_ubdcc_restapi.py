@@ -21,4 +21,4 @@
 import os
 from lucit_ubdcc_restapi import RestApi
 
-RestApi.Service(cwd=os.path.dirname(os.path.abspath(__file__)))
+RestApi.RestApi(cwd=os.path.dirname(os.path.abspath(__file__)))

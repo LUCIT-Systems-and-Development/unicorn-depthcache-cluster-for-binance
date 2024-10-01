@@ -28,7 +28,7 @@ import kubernetes
 from fastapi import FastAPI
 
 
-VERSION = "0.0.23"
+VERSION = "0.0.24"
 
 
 class AppClass:
@@ -129,10 +129,10 @@ class AppClass:
             self.stdout_msg(f"# Node Name: {self.pod_info.spec.node_name}", log="info")
             self.stdout_msg(f"# Pod Labels: {self.pod_info.metadata.labels}", log="info")
         except kubernetes.client.exceptions.ApiException as error_msg:
-            self.stdout_msg(f"# K8 error_msg: {error_msg}", log="warn")
+            self.stdout_msg(f"# WARNING: K8s - {error_msg}", log="warn")
             self.pod_info = "not available"
         except kubernetes.config.config_exception.ConfigException as error_msg:
-            self.stdout_msg(f"# K8 error_msg: {error_msg}", log="warn")
+            self.stdout_msg(f"# WARNING: K8s - {error_msg}", log="warn")
             self.pod_info = "not available"
 
         # Running the core app

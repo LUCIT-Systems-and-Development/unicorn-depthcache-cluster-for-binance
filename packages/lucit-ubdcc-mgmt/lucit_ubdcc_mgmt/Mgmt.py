@@ -21,41 +21,32 @@
 import time
 from .Database import Database
 from .RestEndpoints import RestEndpoints
-from lucit_ubdcc_shared_modules import AppClass, RestServer
+from lucit_ubdcc_shared_modules.Service import Service
 
 
-class Service:
+class Mgmt(Service):
     def __init__(self, cwd=None):
-        self.app_class = AppClass.AppClass(app_name="lucit-ubdcc-mgmt",
-                                           cwd=cwd,
-                                           service_call=self.run,
-                                           stop_call=self.stop)
-        self.rest_server = None
-        self.app_class.start()
+        self.db = None
+        super().__init__(app_name="lucit-ubdcc-mgmt", cwd=cwd)
 
-    def run(self):
-        bl = Mgmt(service=self)
-        bl.main()
+    def db_init(self) -> bool:
+        print(f"# Init Database ...")
+        if self.db is None:
+            self.db = Database()
+            # Todo:
+            #   1. Load Backup if available
 
-    def stop(self):
-        try:
-            self.rest_server.stop()
-        except AttributeError as error_msg:
-            print(f"ERROR: {error_msg}")
-
-
-class Mgmt:
-    def __init__(self, service=None):
-        self.service = service
-        self.db = Database()
-        self.db.set("nodes", {})
-        self.db.set("depth_caches", {})
-        self.db.set("depth_cache_distribution", {})
+            # Init variables
+            self.db.set("nodes", {})
+            self.db.set("depth_caches", {})
+            self.db.set("depth_cache_distribution", {})
+            return True
+        return False
 
     def main(self):
-        self.service.rest_server = RestServer.RestServer(app_class=self.service.app_class, endpoints=RestEndpoints)
-        self.service.rest_server.start()
-        while self.service.app_class.is_shutdown() is False:
-            print(f"Hallo Olli! @ {self.service.app_class.app_name} - {time.time()}")
+        self.db_init()
+        self.start_rest_server(endpoints=RestEndpoints)
+        while self.app_class.is_shutdown() is False:
+            print(f"Hallo Olli! @ {self.app_class.app_name} - {time.time()}")
             time.sleep(5)
-            self.service.app_class.stdout_msg(f"Loop finished ...", log="info")
+            self.app_class.stdout_msg(f"Loop finished ...", log="info")
