@@ -18,19 +18,15 @@
 # Copyright (c) 2024-2024, LUCIT Systems and Development (https://www.lucit.tech)
 # All rights reserved.
 
-import time
 from .RestEndpoints import RestEndpoints
-from lucit_ubdcc_shared_modules.Service import Service
+from lucit_ubdcc_shared_modules.ServiceBase import ServiceBase
 
 
-class RestApi(Service):
+class RestApi(ServiceBase):
     def __init__(self, cwd=None):
         super().__init__(app_name="lucit-ubdcc-restapi", cwd=cwd)
 
     def main(self):
         self.start_rest_server(endpoints=RestEndpoints)
-        while self.app_class.is_shutdown() is False:
-            print("Test")
-            self.app_class.stdout_msg(f"Hey Olli! @ {self.app_class.app_name} - {time.time()}", log="info")
-            time.sleep(5)
-            self.app_class.stdout_msg(f"Loop finished ...", log="info")
+        while self.app.is_shutdown() is False:
+            self.app.sleep(seconds=10)

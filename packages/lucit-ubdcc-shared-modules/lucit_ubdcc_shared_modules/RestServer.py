@@ -25,23 +25,25 @@ from uvicorn.config import LOGGING_CONFIG
 
 
 class RestServer(threading.Thread):
-    def __init__(self, app_class=None, endpoints=None):
+    def __init__(self, app=None, endpoints=None):
         super().__init__()
-        self.app_class = app_class
-        self.endpoints = endpoints(app_class=self.app_class)
+        self.app = app
+        self.endpoints = endpoints(app=self.app)
         self.endpoints.register()
         LOGGING_CONFIG["formatters"]["access"]["fmt"] = f"%(asctime)s {LOGGING_CONFIG['formatters']['access']['fmt']}"
-        self.uvicorn = uvicorn.Server(uvicorn.Config(self.app_class.get_fastapi_instance(), host="0.0.0.0", port=8080))
+        self.uvicorn = uvicorn.Server(uvicorn.Config(self.app.get_fastapi_instance(),
+                                                     host="0.0.0.0",
+                                                     port=self.app.rest_server_port))
 
     def run(self) -> None:
-        self.app_class.stdout_msg(f"# Starting REST Server ...", log="info")
+        self.app.stdout_msg(f"Starting REST Server ...", log="info")
         try:
             self.uvicorn.run()
         except (ConnectionError, HTTPException) as error_msg:
-            self.app_class.stdout_msg(f"# ERROR: {error_msg}", log="critical")
+            self.app.stdout_msg(f"ERROR: {error_msg}", log="critical")
         return None
 
     def stop(self) -> bool:
-        self.app_class.stdout_msg(f"# Stopping REST Server ...", log="info")
+        self.app.stdout_msg(f"Stopping REST Server ...", log="info")
         self.uvicorn.should_exit = True
         return True

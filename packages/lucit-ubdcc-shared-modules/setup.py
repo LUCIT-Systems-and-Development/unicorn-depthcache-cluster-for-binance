@@ -31,7 +31,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name=name,
-    version="0.0.27",
+    version="0.0.28",
     author="LUCIT Systems and Development",
     author_email='info@lucit.tech',
     url="https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster",
@@ -55,7 +55,7 @@ setup(
         'LUCIT Online Shop': 'https://shop.lucit.services/software/unicorn-depthcache-cluster-for-binance',
     },
     ext_modules=cythonize(['lucit_ubdcc_shared_modules/__init__.py',
-                           'lucit_ubdcc_shared_modules/AppClass.py',
+                           'lucit_ubdcc_shared_modules/App.py',
                            'lucit_ubdcc_shared_modules/RestEndpointsBase.py',
                            'lucit_ubdcc_shared_modules/RestServer.py',
                            'lucit_ubdcc_shared_modules/ServiceBase.py'],

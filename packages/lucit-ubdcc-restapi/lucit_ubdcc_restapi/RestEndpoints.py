@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # ¯\_(ツ)_/¯
 #
-# File: packages/generic_loader/lucit_ubdcc_rest/RestEndpoints.py
+# File: packages/lucit-ubdcc-restapi/lucit_ubdcc_restapi/RestEndpoints.py
 #
 # Project website: https://www.lucit.tech/unicorn-binance-depthcache-cluster.html
 # Github: https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster
@@ -18,28 +18,55 @@
 # Copyright (c) 2024-2024, LUCIT Systems and Development (https://www.lucit.tech)
 # All rights reserved.
 
-from fastapi import Request
+from lucit_ubdcc_shared_modules.RestEndpointsBase import RestEndpointsBase, Request
 
 
-class RestEndpoints:
-    def __init__(self, app_class=None):
-        self.app_class = app_class
-        self.fastapi = app_class.fastapi
-
-    def get_fastapi_instance(self):
-        return self.fastapi
+class RestEndpoints(RestEndpointsBase):
+    def __init__(self, app=None):
+        super().__init__(app=app)
 
     def register(self):
-        # ENDPOINTS
-        self.app_class.stdout_msg(f"# Registering REST endpoints ...", log="info")
+        super().register()
 
-        @self.fastapi.get("/test")
-        async def test(request: Request):
-            """
-                Just a test to proof if the backend is reachable (no request validation)
-                Access: Public
-            """
-            self.app_class.stdout_msg(f"Returning 'Hello World!'", log="info")
-            return {"message": "Hello World!"}
+        @self.fastapi.get("/create_depthcache")
+        async def create_depthcache(request: Request):
+            # Todo: Manage DB to create the DepthCache on a DepthCacheNode
+            return {"event": "CREATE_DEPTHCACHE",
+                    "result": "NOT_IMPLEMENTED"}
 
+        @self.fastapi.get("/get_asks")
+        async def get_asks(request: Request):
+            # Todo: Return information about the UBDCC
+            return {"event": "GET_ASKS",
+                    "result": "NOT_IMPLEMENTED"}
+
+        @self.fastapi.get("/get_bids")
+        async def get_bids(request: Request):
+            # Todo: Return information about the UBDCC
+            return {"event": "GET_BIDS",
+                    "result": "NOT_IMPLEMENTED"}
+
+        @self.fastapi.get("/get_cluster_info")
+        async def get_cluster_info(request: Request):
+            # Todo: Return information about the UBDCC
+            return {"event": "GET_CLUSTER_INFO",
+                    "result": "NOT_IMPLEMENTED"}
+
+        @self.fastapi.get("/get_depthcache_list")
+        async def get_depthcache_list(request: Request):
+            # Todo: Return a list of all DepthCaches
+            return {"event": "GET_DEPTHCACHE_LIST",
+                    "result": "NOT_IMPLEMENTED"}
+
+        @self.fastapi.get("/get_depthcache_status")
+        async def get_depthcache_status(request: Request):
+            # Todo: Return the status of the DepthCache
+            return {"event": "GET_DEPTHCACHE_STATUS",
+                    "result": "NOT_IMPLEMENTED"}
+
+        @self.fastapi.get("/stop_depthcache")
+        async def stop_depthcache(request: Request):
+            # Todo: Manage DB to stop the DepthCache
+            return {"event": "STOP_DEPTHCACHE",
+                    "result": "NOT_IMPLEMENTED"}
 

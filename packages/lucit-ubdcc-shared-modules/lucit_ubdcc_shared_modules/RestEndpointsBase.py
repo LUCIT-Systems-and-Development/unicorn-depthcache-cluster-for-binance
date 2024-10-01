@@ -22,18 +22,18 @@ from fastapi import Request
 
 
 class RestEndpointsBase:
-    def __init__(self, app_class=None):
-        self.app_class = app_class
-        self.fastapi = app_class.fastapi
+    def __init__(self, app=None):
+        self.app = app
+        self.fastapi = app.fastapi
 
     def get_fastapi_instance(self):
         return self.fastapi
 
     def register(self):
-        self.app_class.stdout_msg(f"# Registering REST endpoints ...", log="info")
+        self.app.stdout_msg(f"# Registering REST endpoints ...", log="info")
 
         @self.fastapi.get("/test")
         async def test(request: Request):
             return {"message": f"Hello World!",
                     "headers": f"{request.headers}",
-                    "app": f"{self.app_class.app}"}
+                    "app": f"{self.app.info}"}

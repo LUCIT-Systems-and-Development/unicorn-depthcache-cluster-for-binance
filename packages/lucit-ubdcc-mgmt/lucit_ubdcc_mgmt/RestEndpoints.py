@@ -22,8 +22,8 @@ from lucit_ubdcc_shared_modules.RestEndpointsBase import RestEndpointsBase, Requ
 
 
 class RestEndpoints(RestEndpointsBase):
-    def __init__(self, app_class=None):
-        super().__init__(app_class=app_class)
+    def __init__(self, app=None):
+        super().__init__(app=app)
 
     def register(self):
         super().register()

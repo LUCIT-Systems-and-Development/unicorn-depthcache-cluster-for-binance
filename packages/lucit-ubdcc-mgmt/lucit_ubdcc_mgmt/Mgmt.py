@@ -18,7 +18,6 @@
 # Copyright (c) 2024-2024, LUCIT Systems and Development (https://www.lucit.tech)
 # All rights reserved.
 
-import time
 from .Database import Database
 from .RestEndpoints import RestEndpoints
 from lucit_ubdcc_shared_modules.ServiceBase import ServiceBase
@@ -30,13 +29,16 @@ class Mgmt(ServiceBase):
         super().__init__(app_name="lucit-ubdcc-mgmt", cwd=cwd)
 
     def db_init(self) -> bool:
-        self.app_class.stdout_msg(f"# Init Database ...", log="info")
+        self.app.stdout_msg(f"Starting database ...", log="info")
         if self.db is None:
-            self.db = Database(app_class=self.app_class)
+            self.db = Database(app=self.app)
             # Todo:
             #   1. Load Backup if available
 
             # Init variables
+            k8s_nodes = self.app.get_k8s_node_names()
+            nodes = {}
+            print(f"{k8s_nodes}")
             self.db.set("nodes", {})
             self.db.set("depth_caches", {})
             self.db.set("depth_cache_distribution", {})
@@ -46,6 +48,5 @@ class Mgmt(ServiceBase):
     def main(self):
         self.db_init()
         self.start_rest_server(endpoints=RestEndpoints)
-        while self.app_class.is_shutdown() is False:
-            time.sleep(5)
-
+        while self.app.is_shutdown() is False:
+            self.app.sleep(seconds=10)

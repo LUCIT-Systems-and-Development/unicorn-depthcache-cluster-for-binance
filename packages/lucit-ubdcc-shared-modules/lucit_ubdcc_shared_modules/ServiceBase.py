@@ -18,29 +18,29 @@
 # Copyright (c) 2024-2024, LUCIT Systems and Development (https://www.lucit.tech)
 # All rights reserved.
 
-from .AppClass import AppClass
+from .App import App
 from .RestServer import RestServer
 
 
 class ServiceBase:
     def __init__(self, app_name=None, cwd=None):
         self.rest_server = None
-        self.app_class = AppClass(app_name=app_name,
-                                  cwd=cwd,
-                                  service_call=self.run,
-                                  stop_call=self.stop)
-        self.app_class.start()
+        self.app = App(app_name=app_name,
+                       cwd=cwd,
+                       service_call=self.run,
+                       stop_call=self.stop)
+        self.app.start()
 
     def main(self) -> None:
         # Override with specific Service main() function
         pass
 
     def run(self) -> None:
-        self.app_class.stdout_msg(f"# Starting the main execution flow ...", log="info")
+        self.app.stdout_msg(f"Starting the main execution flow ...", log="debug", stdout=False)
         self.main()
 
     def start_rest_server(self, endpoints=None) -> bool:
-        self.rest_server = RestServer(app_class=self.app_class, endpoints=endpoints)
+        self.rest_server = RestServer(app=self.app, endpoints=endpoints)
         self.rest_server.start()
         return True
 
@@ -49,5 +49,5 @@ class ServiceBase:
             self.rest_server.stop()
             return True
         except AttributeError as error_msg:
-            self.app_class.stdout_msg(f"# ERROR: {error_msg}", log="info")
+            self.app.stdout_msg(f"ERROR: {error_msg}", log="info")
         return False

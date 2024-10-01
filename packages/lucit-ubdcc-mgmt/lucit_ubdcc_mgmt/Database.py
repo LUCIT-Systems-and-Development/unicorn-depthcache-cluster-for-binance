@@ -23,8 +23,8 @@ import threading
 
 
 class Database:
-    def __init__(self, app_class=None):
-        self.app_class = app_class
+    def __init__(self, app=None):
+        self.app = app
         self.data = {}
         self.data_lock = threading.Lock()
 
@@ -32,9 +32,9 @@ class Database:
         with self.data_lock:
             if key in self.data:
                 del self.data[key]
-                self.app_class.stdout_msg(f"# DB entry deleted: {key}", log="debug", stdout=False)
+                self.app.stdout_msg(f"# DB entry deleted: {key}", log="debug", stdout=False)
                 return True
-        self.app_class.stdout_msg(f"# DB entry {key} not found.", log="debug", stdout=False)
+        self.app.stdout_msg(f"# DB entry {key} not found.", log="debug", stdout=False)
         return False
 
     def export(self) -> str:
@@ -55,5 +55,5 @@ class Database:
     def set(self, key, value) -> bool:
         with self.data_lock:
             self.data[key] = value
-        self.app_class.stdout_msg(f"DB entry added/updated: {key} = {value}", log="debug", stdout=False)
+        self.app.stdout_msg(f"DB entry added/updated: {key} = {value}", log="debug", stdout=False)
         return True
