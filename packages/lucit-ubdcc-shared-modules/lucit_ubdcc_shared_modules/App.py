@@ -30,7 +30,7 @@ import time
 from fastapi import FastAPI
 
 REST_SERVER_PORT = 8080
-VERSION = "0.0.41"
+VERSION = "0.0.42"
 
 
 class App:

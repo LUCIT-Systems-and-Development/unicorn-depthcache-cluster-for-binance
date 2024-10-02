@@ -38,13 +38,13 @@ class RestEndpoints(RestEndpointsBase):
                     "result": "NOT_IMPLEMENTED"}
 
         @self.fastapi.get("/get_cluster_info")
-        async def get_cluster_info(request: Request):
-            # Todo: Return information about the UBDCC
+        async def get_cluster_info():
             return {"event": "GET_CLUSTER_INFO",
                     "db": {"nodes": self.db.get('nodes'),
                            "pods": self.db.get('pods'),
                            "depthcaches": self.db.get('depthcaches'),
-                           "depthcache_distribution": self.db.get('depthcache_distribution')}}
+                           "depthcache_distribution": self.db.get('depthcache_distribution')},
+                    "version": self.app.get_version()}
 
         @self.fastapi.get("/get_depthcache_list")
         async def get_depthcache_list(request: Request):

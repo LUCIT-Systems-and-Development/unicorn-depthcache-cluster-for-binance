@@ -1,0 +1,1 @@
+# curl "http://10.244.2.35:8080/ubdcc_node_registration?name=DCN04&uid=LASDKF222l2lKLDJF"
