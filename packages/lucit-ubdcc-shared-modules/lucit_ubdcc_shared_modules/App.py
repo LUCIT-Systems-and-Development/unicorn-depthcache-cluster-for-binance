@@ -29,7 +29,7 @@ import time
 from fastapi import FastAPI
 
 REST_SERVER_PORT = 8080
-VERSION = "0.0.32"
+VERSION = "0.0.33"
 
 
 class App:
@@ -57,16 +57,25 @@ class App:
             raise RuntimeError(f"Instance is not running!")
         if self.k8s_client is not None:
             k8s_nodes = self.k8s_client.list_node()
-            node_names = [node.metadata.name for node in k8s_nodes.items]
             result_nodes = {}
-            for node_name in node_names:
+            for node in k8s_nodes.items:
+                node_name = node.metadata.name
                 metrics = self.k8s_metrics_client.get_cluster_custom_object(
                     group="metrics.k8s.io", version="v1beta1", plural="nodes", name=node_name
                 )
+                cpu_usage = metrics['usage']['cpu']
+                memory_usage = metrics['usage']['memory']
+                cpu_capacity = node.status.capacity['cpu']
+                memory_capacity = node.status.capacity['memory']
+                cpu_usage_milli = int(cpu_usage[:-1])
+                cpu_capacity_milli = int(cpu_capacity) * 1000
+                cpu_percentage = (cpu_usage_milli / cpu_capacity_milli) * 100
+                memory_usage_bytes = int(memory_usage[:-2]) * 1024
+                memory_capacity_bytes = int(memory_capacity[:-2]) * 1024
+                memory_percentage = (memory_usage_bytes / memory_capacity_bytes) * 100
                 result_nodes[node_name] = {"NODE": node_name,
-                                           "CPU_USAGE": metrics['usage']['cpu'],
-                                           "MEMORY_USAGE": metrics['usage']['memory']}
-
+                                           "CPU_USAGE": cpu_percentage,
+                                           "MEMORY_USAGE": memory_percentage}
             return result_nodes
         return {}
 
