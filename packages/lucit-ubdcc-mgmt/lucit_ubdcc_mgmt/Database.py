@@ -57,3 +57,6 @@ class Database:
             self.data[key] = value
         self.app.stdout_msg(f"DB entry added/updated: {key} = {value}", log="debug", stdout=False)
         return True
+
+    def update_nodes(self):
+        self.set(key="nodes", value=self.app.get_k8s_nodes())

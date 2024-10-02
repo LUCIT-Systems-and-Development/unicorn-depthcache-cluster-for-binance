@@ -29,7 +29,7 @@ import time
 from fastapi import FastAPI
 
 REST_SERVER_PORT = 8080
-VERSION = "0.0.34"
+VERSION = "0.0.35"
 
 
 class App:
@@ -67,12 +67,17 @@ class App:
                 memory_usage = metrics['usage']['memory']
                 cpu_capacity = node.status.capacity['cpu']
                 memory_capacity = node.status.capacity['memory']
-                if cpu_usage.endswith('m'):
-                    cpu_usage_milli = int(cpu_usage[:-1])
+
+                if cpu_usage.endswith('m'):  # CPU-Wert in milliCores (z.B. 100m)
+                    cpu_usage_milli = int(cpu_usage[:-1])  # Entferne das 'm' und konvertiere in int
+                elif cpu_usage.endswith('n'):  # CPU-Wert in Nanocores (z.B. 631138068n)
+                    cpu_usage_milli = int(cpu_usage[:-1]) / 1_000_000  # Konvertiere Nanocores in milliCores
                 else:
-                    cpu_usage_milli = int(cpu_usage) * 1000
-                cpu_capacity_milli = int(cpu_capacity) * 1000
+                    cpu_usage_milli = int(cpu_usage) * 1000  # Wenn kein Suffix, dann volle Cores * 1000
+
+                cpu_capacity_milli = int(cpu_capacity) * 1000  # Umwandeln in milliCores (1 Core = 1000m)
                 cpu_percentage = (cpu_usage_milli / cpu_capacity_milli) * 100
+
                 memory_usage_bytes = int(memory_usage[:-2]) * 1024
                 memory_capacity_bytes = int(memory_capacity[:-2]) * 1024
                 memory_percentage = (memory_usage_bytes / memory_capacity_bytes) * 100
