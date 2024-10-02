@@ -18,6 +18,7 @@
 # Copyright (c) 2024-2024, LUCIT Systems and Development (https://www.lucit.tech)
 # All rights reserved.
 
+import asyncio
 from .App import App
 from .RestServer import RestServer
 
@@ -31,13 +32,13 @@ class ServiceBase:
                        stop_call=self.stop)
         self.app.start()
 
-    def main(self) -> None:
+    async def main(self) -> None:
         # Override with specific Service main() function
         pass
 
     def run(self) -> None:
         self.app.stdout_msg(f"Starting the main execution flow ...", log="debug", stdout=False)
-        self.main()
+        asyncio.run(self.main())
 
     def start_rest_server(self, endpoints=None) -> bool:
         self.rest_server = RestServer(app=self.app, endpoints=endpoints)

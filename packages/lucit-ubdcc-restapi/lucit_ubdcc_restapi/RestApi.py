@@ -26,7 +26,7 @@ class RestApi(ServiceBase):
     def __init__(self, cwd=None):
         super().__init__(app_name="lucit-ubdcc-restapi", cwd=cwd)
 
-    def main(self):
+    async def main(self):
         self.start_rest_server(endpoints=RestEndpoints)
         while self.app.is_shutdown() is False:
-            self.app.sleep(seconds=10)
+            await self.app.sleep(seconds=10)

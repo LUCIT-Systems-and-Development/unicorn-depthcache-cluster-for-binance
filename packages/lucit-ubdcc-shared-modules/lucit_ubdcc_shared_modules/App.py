@@ -18,6 +18,7 @@
 # Copyright (c) 2024-2024, LUCIT Systems and Development (https://www.lucit.tech)
 # All rights reserved.
 
+import asyncio
 import cython
 import logging
 import os
@@ -29,7 +30,7 @@ import time
 from fastapi import FastAPI
 
 REST_SERVER_PORT = 8080
-VERSION = "0.0.39"
+VERSION = "0.0.40"
 
 
 class App:
@@ -128,7 +129,7 @@ class App:
             print(msg, flush=True)
         return True
 
-    def sleep(self, seconds: int = None) -> bool:
+    async def sleep(self, seconds: int = None) -> bool:
         if seconds is None:
             raise ValueError("Parameter 'seconds' is mandatory!")
         internal_sleep_time = 3
@@ -136,7 +137,7 @@ class App:
         time_limit = time_start + seconds
         for i in range(int(seconds/internal_sleep_time)):
             if time.time() < time_limit and self.is_shutdown() is False:
-                time.sleep(internal_sleep_time)
+                await asyncio.sleep(internal_sleep_time)
             else:
                 break
         return True
