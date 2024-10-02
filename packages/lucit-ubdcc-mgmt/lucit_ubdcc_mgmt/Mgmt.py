@@ -47,5 +47,5 @@ class Mgmt(ServiceBase):
         self.db_init()
         self.start_rest_server(endpoints=RestEndpoints)
         while self.app.is_shutdown() is False:
-            self.app.stdout_msg(self.app.get_k8s_nodes(), log="info")
+            self.app.stdout_msg(self.db.get("nodes"), log="info")
             self.app.sleep(seconds=10)

@@ -29,7 +29,7 @@ import time
 from fastapi import FastAPI
 
 REST_SERVER_PORT = 8080
-VERSION = "0.0.35"
+VERSION = "0.0.36"
 
 
 class App:
@@ -60,6 +60,7 @@ class App:
             result_nodes = {}
             for node in k8s_nodes.items:
                 node_name = node.metadata.name
+                node_uid = node.metadata.uid
 
                 metrics = self.k8s_metrics_client.get_cluster_custom_object(
                     group="metrics.k8s.io", version="v1beta1", plural="nodes", name=node_name
@@ -69,23 +70,21 @@ class App:
                 memory_usage = metrics['usage']['memory']
                 cpu_capacity = node.status.capacity['cpu']
                 memory_capacity = node.status.capacity['memory']
-
                 if cpu_usage.endswith('m'):
                     cpu_usage_milli = int(cpu_usage[:-1])
                 elif cpu_usage.endswith('n'):
                     cpu_usage_milli = int(cpu_usage[:-1]) / 1_000_000
                 else:
                     cpu_usage_milli = int(cpu_usage) * 1000
-
                 cpu_capacity_milli = int(cpu_capacity) * 1000
                 cpu_percentage = (cpu_usage_milli / cpu_capacity_milli) * 100
-
                 memory_usage_bytes = int(memory_usage[:-2]) * 1024
                 memory_capacity_bytes = int(memory_capacity[:-2]) * 1024
                 memory_percentage = (memory_usage_bytes / memory_capacity_bytes) * 100
-                result_nodes[node_name] = {"NODE": node_name,
-                                           "CPU_USAGE": f"{cpu_percentage:.2f}%",
-                                           "MEMORY_USAGE": f"{memory_percentage:.2f}%"}
+                result_nodes[node_uid] = {"NAME": node_name,
+                                          "UID": node_uid,
+                                          "USAGE_CPU_PERCENT": f"{cpu_percentage:.2f}",
+                                          "USAGE_MEMORY_PERCENT": f"{memory_percentage:.2f}"}
             return result_nodes
         return {}
 
