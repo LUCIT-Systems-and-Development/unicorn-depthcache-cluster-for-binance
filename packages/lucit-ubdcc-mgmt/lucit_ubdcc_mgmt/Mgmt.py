@@ -33,12 +33,6 @@ class Mgmt(ServiceBase):
         self.app.stdout_msg(f"Starting database ...", log="info")
         if self.db is None:
             self.db = Database(app=self.app)
-            # Todo: Load Backup if available
-            # Init variables
-            self.db.update_nodes()
-            self.db.set("depth_caches", {})
-            self.db.set("depth_cache_distribution", {})
-            self.db.set("pods", {})
             return True
         return False
 
@@ -46,8 +40,9 @@ class Mgmt(ServiceBase):
         self.db_init()
         self.start_rest_server(endpoints=RestEndpoints)
         while self.app.is_shutdown() is False:
-            self.app.stdout_msg(f"Start updating 'nodes' DB ... {time.time()}", log="info")
+            self.app.stdout_msg(f"Starting cronjobs ...", log="info")
+            self.app.stdout_msg(f"Updating DB key 'nodes' ...", log="info")
             self.db.update_nodes()
-            self.app.stdout_msg(f"Finished updating 'nodes' DB ... {time.time()}", log="info")
             self.app.stdout_msg(self.db.get("nodes"), log="info")
-            self.app.sleep(seconds=10)
+            self.app.stdout_msg(f"Finished cronjobs!")
+            self.app.sleep(seconds=30)

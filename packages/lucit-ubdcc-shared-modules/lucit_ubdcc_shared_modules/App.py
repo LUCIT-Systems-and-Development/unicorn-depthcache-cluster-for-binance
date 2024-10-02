@@ -29,7 +29,7 @@ import time
 from fastapi import FastAPI
 
 REST_SERVER_PORT = 8080
-VERSION = "0.0.37"
+VERSION = "0.0.38"
 
 
 class App:
@@ -61,11 +61,9 @@ class App:
             for node in k8s_nodes.items:
                 node_name = node.metadata.name
                 node_uid = node.metadata.uid
-
                 metrics = self.k8s_metrics_client.get_cluster_custom_object(
                     group="metrics.k8s.io", version="v1beta1", plural="nodes", name=node_name
                 )
-
                 cpu_usage = metrics['usage']['cpu']
                 memory_usage = metrics['usage']['memory']
                 cpu_capacity = node.status.capacity['cpu']

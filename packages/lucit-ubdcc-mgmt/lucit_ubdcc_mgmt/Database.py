@@ -27,6 +27,17 @@ class Database:
         self.app = app
         self.data = {}
         self.data_lock = threading.Lock()
+        self._init()
+        # Todo: Load Backup if available
+
+    def _init(self) -> bool:
+        self.app.stdout_msg(f"Initiating DB ...", log="info")
+        self.set(key="depth_caches", value={})
+        self.set(key="depth_cache_distribution", value={})
+        self.set(key="pods", value={})
+        self.set(key="nodes", value={})
+        self.update_nodes()
+        return True
 
     def delete(self, key) -> bool:
         with self.data_lock:
