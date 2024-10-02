@@ -30,7 +30,7 @@ class RestEndpointsBase:
         return self.fastapi
 
     def register(self):
-        self.app.stdout_msg(f"# Registering REST endpoints ...", log="info")
+        self.app.stdout_msg(f"Registering REST endpoints ...", log="info")
 
         @self.fastapi.get("/test")
         async def test(request: Request):

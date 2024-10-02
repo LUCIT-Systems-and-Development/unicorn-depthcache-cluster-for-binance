@@ -39,14 +39,36 @@ class Database:
         self.update_nodes()
         return True
 
+    def add_pod(self, name=None, uid=None, node=None, role=None, ip=None, api_port=None, last_seen=None,
+                status=None) -> bool:
+        pod = {"NAME": name,
+               "UID": uid,
+               "NODE": node,
+               "ROLE": role,
+               "IP": ip,
+               "API_PORT": api_port,
+               "LAST_SEEN": last_seen,
+               "STATUS": status}
+        with self.data_lock:
+            self.data['pods'][uid] = pod
+        return True
+
     def delete(self, key) -> bool:
         with self.data_lock:
             if key in self.data:
                 del self.data[key]
-                self.app.stdout_msg(f"# DB entry deleted: {key}", log="debug", stdout=False)
+                self.app.stdout_msg(f"DB entry deleted: {key}", log="debug", stdout=False)
                 return True
-        self.app.stdout_msg(f"# DB entry {key} not found.", log="debug", stdout=False)
+        self.app.stdout_msg(f"DB entry {key} not found.", log="debug", stdout=False)
         return False
+
+    def delete_pod(self, uid=None):
+        if uid is None:
+            raise ValueError("Parameter 'uid' is mandatory!")
+        with self.data_lock:
+            del self.data["pods"][uid]
+        self.app.stdout_msg(f"DB pod deleted: {uid}", log="debug", stdout=False)
+        return True
 
     def export(self) -> str:
         with self.data_lock:
@@ -69,5 +91,24 @@ class Database:
         self.app.stdout_msg(f"DB entry added/updated: {key} = {value}", log="debug", stdout=False)
         return True
 
-    def update_nodes(self):
+    def update_nodes(self) -> bool:
         self.set(key="nodes", value=self.app.get_k8s_nodes())
+        self.app.stdout_msg(f"DB all nodes updated!", log="debug", stdout=False)
+        return True
+
+    def update_pod(self, uid=None, node=None, ip=None, api_port=None, last_seen=None, status=None) -> bool:
+        if uid is None:
+            raise ValueError("Parameter 'uid' is mandatory!")
+        with self.data_lock:
+            if node is not None:
+                self.data['pods'][uid]['NODE'] = node
+            if ip is not None:
+                self.data['pods'][uid]['IP'] = ip
+            if api_port is not None:
+                self.data['pods'][uid]['API_PORT'] = api_port
+            if last_seen is not None:
+                self.data['pods'][uid]['LAST_SEEN'] = last_seen
+            if status is not None:
+                self.data['pods'][uid]['STATUS'] = status
+        self.app.stdout_msg(f"DB pod updated: {uid}", log="debug", stdout=False)
+        return True

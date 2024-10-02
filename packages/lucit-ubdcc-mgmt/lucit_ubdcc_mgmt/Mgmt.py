@@ -17,7 +17,6 @@
 #
 # Copyright (c) 2024-2024, LUCIT Systems and Development (https://www.lucit.tech)
 # All rights reserved.
-import time
 
 from .Database import Database
 from .RestEndpoints import RestEndpoints
@@ -39,6 +38,25 @@ class Mgmt(ServiceBase):
     def main(self):
         self.db_init()
         self.start_rest_server(endpoints=RestEndpoints)
+        self.db.add_pod(name="testname1",
+                        uid="USAIDFJSDLFJ23323wsfdsfDF",
+                        node="A",
+                        role="rolle",
+                        ip="1.1.1.1",
+                        api_port=42930,
+                        last_seen="now",
+                        status="OK")
+        self.db.add_pod(name="testname2",
+                        uid="safdSAIDFJSDLFJ23323ws3221fdsfDF",
+                        node="A",
+                        role="rolle",
+                        ip="1.1.1.2",
+                        api_port=42940,
+                        last_seen="now",
+                        status="OK")
+        self.app.stdout_msg(f"PODS: {self.db.get('pods')}")
+        self.db.delete_pod(uid="USAIDFJSDLFJ23323wsfdsfDF")
+        self.app.stdout_msg(f"PODS: {self.db.get('pods')}")
         while self.app.is_shutdown() is False:
             self.app.stdout_msg(f"Starting cronjobs ...", log="info")
             self.app.stdout_msg(f"Updating DB key 'nodes' ...", log="info")
