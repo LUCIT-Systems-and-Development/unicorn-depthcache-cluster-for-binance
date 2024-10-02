@@ -29,7 +29,7 @@ import time
 from fastapi import FastAPI
 
 REST_SERVER_PORT = 8080
-VERSION = "0.0.33"
+VERSION = "0.0.34"
 
 
 class App:
@@ -63,19 +63,29 @@ class App:
                 metrics = self.k8s_metrics_client.get_cluster_custom_object(
                     group="metrics.k8s.io", version="v1beta1", plural="nodes", name=node_name
                 )
-                cpu_usage = metrics['usage']['cpu']
-                memory_usage = metrics['usage']['memory']
-                cpu_capacity = node.status.capacity['cpu']
-                memory_capacity = node.status.capacity['memory']
-                cpu_usage_milli = int(cpu_usage[:-1])
-                cpu_capacity_milli = int(cpu_capacity) * 1000
+                cpu_usage = metrics['usage']['cpu']  # Beispiel: '100m' für 100 milliCores
+                memory_usage = metrics['usage']['memory']  # Beispiel: '500Mi' für 500 MiB
+
+                # Node-Kapazität abrufen
+                cpu_capacity = node.status.capacity['cpu']  # Anzahl der Cores, z.B. '4'
+                memory_capacity = node.status.capacity['memory']  # Arbeitsspeicher in Ki, z.B. '16384000Ki'
+
+                # CPU-Auslastung in Prozent berechnen
+                if cpu_usage.endswith('m'):  # CPU-Wert in milliCores (z.B. 100m)
+                    cpu_usage_milli = int(cpu_usage[:-1])  # Entferne das 'm' und konvertiere in int
+                else:
+                    cpu_usage_milli = int(cpu_usage) * 1000  # Wenn kein 'm', dann volle Cores * 1000
+
+                cpu_capacity_milli = int(cpu_capacity) * 1000  # Umwandeln in milliCores (1 Core = 1000m)
                 cpu_percentage = (cpu_usage_milli / cpu_capacity_milli) * 100
-                memory_usage_bytes = int(memory_usage[:-2]) * 1024
-                memory_capacity_bytes = int(memory_capacity[:-2]) * 1024
+
+                # Speicher-Auslastung in Prozent berechnen
+                memory_usage_bytes = int(memory_usage[:-2]) * 1024  # Entferne das 'Mi' und konvertiere in Bytes
+                memory_capacity_bytes = int(memory_capacity[:-2]) * 1024  # Entferne das 'Ki' und konvertiere in Bytes
                 memory_percentage = (memory_usage_bytes / memory_capacity_bytes) * 100
                 result_nodes[node_name] = {"NODE": node_name,
-                                           "CPU_USAGE": cpu_percentage,
-                                           "MEMORY_USAGE": memory_percentage}
+                                           "CPU_USAGE": f"{cpu_percentage:.2f}%",
+                                           "MEMORY_USAGE": f"{memory_percentage:.2f}%"}
             return result_nodes
         return {}
 
