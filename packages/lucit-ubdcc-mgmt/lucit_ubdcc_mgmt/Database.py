@@ -57,7 +57,7 @@ class Database:
             raise ValueError("Parameter 'symbol' and 'pod_uid' are mandatory!")
         distribution = {"SYMBOL": symbol,
                         "POD_UID": pod_uid,
-                        "CREATED_TIME": time.time(),
+                        "CREATED_TIME": self.app.get_timestamp(),
                         "LAST_RESTART_TIME": last_restart_time,
                         "STATUS": status}
         with self.data_lock:
@@ -113,15 +113,23 @@ class Database:
         self.app.stdout_msg(f"DB pod deleted: {uid}", log="debug", stdout=False)
         return True
 
+    def exists_pod(self, uid: str) -> bool:
+        if uid is None:
+            raise ValueError("Parameter 'uid' ist mandatory!")
+        with self.data_lock:
+            return uid in self.data['pods']
+
     def export(self) -> str:
         with self.data_lock:
             return json.dumps(self.data, indent=4)
 
     def get(self, key: str = None):
-        return self.data.get(key)
+        with self.data_lock:
+            return self.data.get(key)
 
     def get_all(self) -> dict:
-        return self.data
+        with self.data_lock:
+            return self.data
 
     def load(self, data_json: str = None) -> bool:
         with self.data_lock:

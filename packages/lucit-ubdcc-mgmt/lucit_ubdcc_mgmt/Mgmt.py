@@ -32,6 +32,7 @@ class Mgmt(ServiceBase):
         self.app.stdout_msg(f"Starting database ...", log="info")
         if self.db is None:
             self.db = Database(app=self.app)
+            self.app.data['db'] = self.db
             return True
         return False
 
@@ -39,6 +40,7 @@ class Mgmt(ServiceBase):
         self.db_init()
         self.start_rest_server(endpoints=RestEndpoints)
         while self.app.is_shutdown() is False:
+            # Update K8s Nodes
             self.db.update_nodes()
-            self.app.stdout_msg(f"Timed update of the DB key 'nodes': {self.db.get("nodes")}", log="info")
+            self.app.stdout_msg(f"Timed update of the DB key 'nodes': {self.db.get('nodes')}", log="info")
             await self.app.sleep(seconds=30)

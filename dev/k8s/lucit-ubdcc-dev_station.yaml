@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lucit-ubdcc-dev-station
+  namespace: lucit-ubdcc
+  annotations:
+    author: LUCIT <it@lucit.tech>
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lucit-ubdcc-dev-station
+  template:
+    metadata:
+      labels:
+        app: lucit-ubdcc-dev-station
+      annotations:
+        author: LUCIT <it@lucit.tech>
+    spec:
+      containers:
+        - name: lucit-ubdcc-dev-station
+          image: i018oau9.c1.de1.container-registry.ovh.net/library/lucit-ubdcc-dev_station@sha256:0f9ef6c35af2384f05c136b7c49a67627e040cac2710aada131e356dc0f1ea85
+          command: ["/bin/sh", "-c", "tail -f /dev/null"]
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "512Mi"

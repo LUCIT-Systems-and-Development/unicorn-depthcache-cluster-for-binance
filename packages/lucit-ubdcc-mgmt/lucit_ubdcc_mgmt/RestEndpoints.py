@@ -18,12 +18,15 @@
 # Copyright (c) 2024-2024, LUCIT Systems and Development (https://www.lucit.tech)
 # All rights reserved.
 
+from fastapi import HTTPException
+from .Database import Database
 from lucit_ubdcc_shared_modules.RestEndpointsBase import RestEndpointsBase, Request
 
 
 class RestEndpoints(RestEndpointsBase):
     def __init__(self, app=None):
         super().__init__(app=app)
+        self.db: Database = self.app.data['db']
 
     def register(self):
         super().register()
@@ -38,7 +41,10 @@ class RestEndpoints(RestEndpointsBase):
         async def get_cluster_info(request: Request):
             # Todo: Return information about the UBDCC
             return {"event": "GET_CLUSTER_INFO",
-                    "result": "NOT_IMPLEMENTED"}
+                    "db": {"nodes": self.db.get('nodes'),
+                           "pods": self.db.get('pods'),
+                           "depthcaches": self.db.get('depthcaches'),
+                           "depthcache_distribution": self.db.get('depthcache_distribution')}}
 
         @self.fastapi.get("/get_depthcache_list")
         async def get_depthcache_list(request: Request):
@@ -66,12 +72,30 @@ class RestEndpoints(RestEndpointsBase):
 
         @self.fastapi.get("/ubdcc_node_registration")
         async def ubdcc_node_registration(request: Request):
-            # Todo: Manage Db and add the node
-            return {"event": "UBDCC_NODE_REGISTRATION",
-                    "result": "NOT_IMPLEMENTED"}
+            return await self.ubdcc_node_registration(request=request)
 
         @self.fastapi.get("/ubdcc_node_sync")
         async def ubdcc_node_sync(request: Request):
             # Todo: Manage Db and update the node (take and give!)
             return {"event": "UBDCC_NODE_SYNC",
                     "result": "NOT_IMPLEMENTED"}
+
+    async def ubdcc_node_registration(self, request: Request):
+        if request.query_params.get("name", None) is None or request.query_params.get("uid", None) is None:
+            raise HTTPException(status_code=400, detail="Missing required parameter: name, uid")
+        if self.db.exists_pod(uid=request.query_params.get("uid", None)):
+            raise HTTPException(status_code=400, detail="A pod with this 'uid' already exists!")
+        result = self.db.add_pod(name=request.query_params.get("name", None),
+                                 uid=request.query_params.get("uid", None),
+                                 node=request.query_params.get("node", None),
+                                 role=request.query_params.get("role", None),
+                                 ip=request.client.host,
+                                 api_port=request.query_params.get("api_port", None),
+                                 last_seen=self.app.get_timestamp(),
+                                 status=request.query_params.get("status", None))
+        if result is True:
+            return {"event": "UBDCC_NODE_REGISTRATION",
+                    "result": "OK"}
+        else:
+            return {"event": "UBDCC_NODE_REGISTRATION",
+                    "result": "ERROR"}

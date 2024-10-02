@@ -30,16 +30,16 @@ import time
 from fastapi import FastAPI
 
 REST_SERVER_PORT = 8080
-VERSION = "0.0.40"
+VERSION = "0.0.41"
 
 
 class App:
     def __init__(self, app_name=None, cwd=None, logger=None, service_call=None, stop_call=None):
-        self.info = None
         self.app_name = app_name
         self.app_version = VERSION
         self.cwd = cwd
         self.fastapi = FastAPI(docs_url=None, redoc_url=None)
+        self.info = None
         self.k8s_client = None
         self.k8s_metrics_client = None
         self.logger = logger
@@ -49,6 +49,7 @@ class App:
         self.sigterm = False
         self.stop_call = stop_call
         self.status = "starting"
+        self.data: dict = {}
 
     def get_fastapi_instance(self) -> FastAPI:
         return self.fastapi
@@ -86,6 +87,10 @@ class App:
                                           "USAGE_MEMORY_PERCENT": f"{memory_percentage:.2f}"}
             return result_nodes
         return {}
+
+    @staticmethod
+    def get_timestamp():
+        return time.time()
 
     @staticmethod
     def get_version() -> str:

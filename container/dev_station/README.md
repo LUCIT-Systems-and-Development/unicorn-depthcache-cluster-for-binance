@@ -25,7 +25,7 @@
 
 [![LUCIT-UBDCC-Banner](https://raw.githubusercontent.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/master/images/logo/LUCIT-UBDCC-Banner-Readme.png)](https://www.lucit.tech/unicorn-binance-depthcache-cluster.html)
 
-# UNICORN Binance DepthCache Cluster - UBDCC Generic Loader (Docker Image)
+# UNICORN Binance DepthCache Cluster - UBDCC Dev Station (Docker Image)
 
 [Description](#description) | [Installation](#installation-and-upgrade) | [How To](#howto) | 
 [Documentation](#documentation) | [Examples](#examples) | [Change Log](#change-log) | [Wiki](#wiki) | 
