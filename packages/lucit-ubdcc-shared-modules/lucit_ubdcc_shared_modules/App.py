@@ -60,22 +60,24 @@ class App:
             result_nodes = {}
             for node in k8s_nodes.items:
                 node_name = node.metadata.name
+
                 metrics = self.k8s_metrics_client.get_cluster_custom_object(
                     group="metrics.k8s.io", version="v1beta1", plural="nodes", name=node_name
                 )
+
                 cpu_usage = metrics['usage']['cpu']
                 memory_usage = metrics['usage']['memory']
                 cpu_capacity = node.status.capacity['cpu']
                 memory_capacity = node.status.capacity['memory']
 
-                if cpu_usage.endswith('m'):  # CPU-Wert in milliCores (z.B. 100m)
-                    cpu_usage_milli = int(cpu_usage[:-1])  # Entferne das 'm' und konvertiere in int
-                elif cpu_usage.endswith('n'):  # CPU-Wert in Nanocores (z.B. 631138068n)
-                    cpu_usage_milli = int(cpu_usage[:-1]) / 1_000_000  # Konvertiere Nanocores in milliCores
+                if cpu_usage.endswith('m'):
+                    cpu_usage_milli = int(cpu_usage[:-1])
+                elif cpu_usage.endswith('n'):
+                    cpu_usage_milli = int(cpu_usage[:-1]) / 1_000_000
                 else:
-                    cpu_usage_milli = int(cpu_usage) * 1000  # Wenn kein Suffix, dann volle Cores * 1000
+                    cpu_usage_milli = int(cpu_usage) * 1000
 
-                cpu_capacity_milli = int(cpu_capacity) * 1000  # Umwandeln in milliCores (1 Core = 1000m)
+                cpu_capacity_milli = int(cpu_capacity) * 1000
                 cpu_percentage = (cpu_usage_milli / cpu_capacity_milli) * 100
 
                 memory_usage_bytes = int(memory_usage[:-2]) * 1024
