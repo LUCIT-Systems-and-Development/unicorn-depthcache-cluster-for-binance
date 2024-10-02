@@ -36,14 +36,10 @@ class Mgmt(ServiceBase):
             #   1. Load Backup if available
 
             # Init variables
-            result_nodes = self.app.get_k8s_node_names()
-            nodes = {}
-            for node in result_nodes:
-                nodes[node] = {"NODE": nodes}
-
-            self.db.set("nodes", {})
+            self.db.set("nodes", self.app.get_k8s_nodes())
             self.db.set("depth_caches", {})
             self.db.set("depth_cache_distribution", {})
+            self.db.set("pods", {})
             return True
         return False
 
@@ -51,4 +47,5 @@ class Mgmt(ServiceBase):
         self.db_init()
         self.start_rest_server(endpoints=RestEndpoints)
         while self.app.is_shutdown() is False:
+            self.app.stdout_msg(self.app.get_k8s_nodes(), log="info")
             self.app.sleep(seconds=10)

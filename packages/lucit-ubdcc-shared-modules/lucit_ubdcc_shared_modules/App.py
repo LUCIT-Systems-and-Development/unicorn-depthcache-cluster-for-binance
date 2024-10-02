@@ -29,7 +29,7 @@ import time
 from fastapi import FastAPI
 
 REST_SERVER_PORT = 8080
-VERSION = "0.0.31"
+VERSION = "0.0.32"
 
 
 class App:
@@ -39,7 +39,8 @@ class App:
         self.app_version = VERSION
         self.cwd = cwd
         self.fastapi = FastAPI(docs_url=None, redoc_url=None)
-        self.k8_client = None
+        self.k8s_client = None
+        self.k8s_metrics_client = None
         self.logger = logger
         self.pod_info = None
         self.rest_server_port = REST_SERVER_PORT
@@ -51,15 +52,23 @@ class App:
     def get_fastapi_instance(self) -> FastAPI:
         return self.fastapi
 
-    def get_k8s_node_names(self):
+    def get_k8s_nodes(self) -> dict:
         if self.status != "running":
             raise RuntimeError(f"Instance is not running!")
-        if self.k8_client is not None:
-            nodes = self.k8_client.list_node()
-            print(nodes)
-            node_names = [node.metadata.name for node in nodes.items]
-            return node_names
-        return None
+        if self.k8s_client is not None:
+            k8s_nodes = self.k8s_client.list_node()
+            node_names = [node.metadata.name for node in k8s_nodes.items]
+            result_nodes = {}
+            for node_name in node_names:
+                metrics = self.k8s_metrics_client.get_cluster_custom_object(
+                    group="metrics.k8s.io", version="v1beta1", plural="nodes", name=node_name
+                )
+                result_nodes[node_name] = {"NODE": node_name,
+                                           "CPU_USAGE": metrics['usage']['cpu'],
+                                           "MEMORY_USAGE": metrics['usage']['memory']}
+
+            return result_nodes
+        return {}
 
     @staticmethod
     def get_version() -> str:
@@ -147,8 +156,9 @@ class App:
                 pod_name = f.read().strip()
             with open("/var/run/secrets/kubernetes.io/serviceaccount/namespace", "r") as f:
                 namespace = f.read().strip()
-            self.k8_client = kubernetes.client.CoreV1Api()
-            self.pod_info = self.k8_client.read_namespaced_pod(name=pod_name, namespace=namespace)
+            self.k8s_client = kubernetes.client.CoreV1Api()
+            self.k8s_metrics_client = kubernetes.client.CustomObjectsApi()
+            self.pod_info = self.k8s_client.read_namespaced_pod(name=pod_name, namespace=namespace)
             self.stdout_msg(f"Pod Name: {self.pod_info.metadata.name}", log="info")
             self.stdout_msg(f"Pod UID: {self.pod_info.metadata.uid}", log="info")
             self.stdout_msg(f"Pod Namespace: {self.pod_info.metadata.namespace}", log="info")
@@ -156,11 +166,11 @@ class App:
             self.stdout_msg(f"Pod Labels: {self.pod_info.metadata.labels}", log="info")
         except kubernetes.client.exceptions.ApiException as error_msg:
             self.stdout_msg(f"WARNING: K8s - {error_msg}", log="warn")
-            self.k8_client = None
+            self.k8s_client = None
             self.pod_info = "not available"
         except kubernetes.config.config_exception.ConfigException as error_msg:
             self.stdout_msg(f"WARNING: K8s - {error_msg}", log="warn")
-            self.k8_client = None
+            self.k8s_client = None
             self.pod_info = "not available"
 
         # Running the core app
