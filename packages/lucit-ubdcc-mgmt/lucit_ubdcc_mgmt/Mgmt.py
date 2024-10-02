@@ -36,9 +36,10 @@ class Mgmt(ServiceBase):
             #   1. Load Backup if available
 
             # Init variables
-            k8s_nodes = self.app.get_k8s_node_names()
+            result_nodes = self.app.get_k8s_node_names()
             nodes = {}
-            print(f"{k8s_nodes}")
+            for node in result_nodes:
+                nodes[node] = {"NODE": nodes}
 
             self.db.set("nodes", {})
             self.db.set("depth_caches", {})

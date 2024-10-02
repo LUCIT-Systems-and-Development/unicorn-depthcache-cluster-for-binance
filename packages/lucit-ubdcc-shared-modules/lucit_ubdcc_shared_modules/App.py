@@ -29,7 +29,7 @@ import time
 from fastapi import FastAPI
 
 REST_SERVER_PORT = 8080
-VERSION = "0.0.30"
+VERSION = "0.0.31"
 
 
 class App:
@@ -56,6 +56,7 @@ class App:
             raise RuntimeError(f"Instance is not running!")
         if self.k8_client is not None:
             nodes = self.k8_client.list_node()
+            print(nodes)
             node_names = [node.metadata.name for node in nodes.items]
             return node_names
         return None
