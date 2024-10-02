@@ -32,9 +32,7 @@ class Mgmt(ServiceBase):
         self.app.stdout_msg(f"Starting database ...", log="info")
         if self.db is None:
             self.db = Database(app=self.app)
-            # Todo:
-            #   1. Load Backup if available
-
+            # Todo: Load Backup if available
             # Init variables
             self.db.update_nodes()
             self.db.set("depth_caches", {})
@@ -47,5 +45,7 @@ class Mgmt(ServiceBase):
         self.db_init()
         self.start_rest_server(endpoints=RestEndpoints)
         while self.app.is_shutdown() is False:
+            self.app.stdout_msg("Updating 'nodes' DB ... ")
+            self.db.update_nodes()
             self.app.stdout_msg(self.db.get("nodes"), log="info")
             self.app.sleep(seconds=10)
