@@ -17,6 +17,7 @@
 #
 # Copyright (c) 2024-2024, LUCIT Systems and Development (https://www.lucit.tech)
 # All rights reserved.
+import time
 
 from .Database import Database
 from .RestEndpoints import RestEndpoints
@@ -45,7 +46,8 @@ class Mgmt(ServiceBase):
         self.db_init()
         self.start_rest_server(endpoints=RestEndpoints)
         while self.app.is_shutdown() is False:
-            self.app.stdout_msg("Updating 'nodes' DB ... ")
+            self.app.stdout_msg(f"Start updating 'nodes' DB ... {time.time()}", log="info")
             self.db.update_nodes()
+            self.app.stdout_msg(f"Finished updating 'nodes' DB ... {time.time()}", log="info")
             self.app.stdout_msg(self.db.get("nodes"), log="info")
             self.app.sleep(seconds=10)
