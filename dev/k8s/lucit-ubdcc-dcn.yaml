@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lucit-ubdcc-dcn
+  namespace: lucit-ubdcc
+spec:
+  replicas: 6
+  selector:
+    matchLabels:
+      app: lucit-ubdcc-dcn
+  template:
+    metadata:
+      labels:
+        app: lucit-ubdcc-dcn
+    spec:
+      affinity:
+        podAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchLabels:
+                  app: lucit-ubdcc-dcn
+              topologyKey: "kubernetes.io/hostname"
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchLabels:
+                  app: lucit-ubdcc-dcn
+              topologyKey: "kubernetes.io/hostname"
+      containers:
+        - name: example-container
+          image: i018oau9.c1.de1.container-registry.ovh.net/library/lucit-ubdcc-dcn@sha256:892a3a7e25c3ba86c54744006bffd6a73079629e19d5bc8f2ddebd1c3c13cebf

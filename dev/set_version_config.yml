@@ -19,4 +19,4 @@ files:
 - packages/lucit-ubdcc-shared-modules/lucit_ubdcc_shared_modules/App.py
 - packages/lucit-ubdcc-shared-modules/pyproject.toml
 - packages/lucit-ubdcc-shared-modules/setup.py
-version: 0.0.49
+version: 0.0.50
