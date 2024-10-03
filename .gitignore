@@ -6,6 +6,9 @@ container/generic_loader/lucit_ubdcc_mgmt
 container/generic_loader/lucit_ubdcc_restapi
 container/generic_loader/lucit_ubdcc_shared_modules
 
+packages/lucit-ubdcc-dcn/lucit_ubdcc_shared_modules
+packages/lucit-ubdcc-dcn/lucit_ubdcc_dcn/lucit_ubdcc_shared_modules
+
 packages/lucit-ubdcc-mgmt/lucit_ubdcc_shared_modules
 packages/lucit-ubdcc-mgmt/lucit_ubdcc_mgmt/lucit_ubdcc_shared_modules
 
