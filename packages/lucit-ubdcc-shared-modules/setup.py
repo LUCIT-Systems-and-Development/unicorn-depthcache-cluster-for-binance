@@ -31,7 +31,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name=name,
-    version="0.0.47",
+    version="0.0.48",
     author="LUCIT Systems and Development",
     author_email='info@lucit.tech',
     url="https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster",

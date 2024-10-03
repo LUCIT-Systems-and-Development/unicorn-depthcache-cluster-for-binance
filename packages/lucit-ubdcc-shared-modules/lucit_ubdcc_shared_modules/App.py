@@ -34,7 +34,7 @@ REST_SERVER_PORT = 8080
 REST_SERVER_PORT_DEV_DCN = 42082
 REST_SERVER_PORT_DEV_MGMT = 42080
 REST_SERVER_PORT_DEV_RESTAPI = 42081
-VERSION = "0.0.47"
+VERSION = "0.0.48"
 
 
 class App:
@@ -82,9 +82,13 @@ class App:
             for node in k8s_nodes.items:
                 node_name = node.metadata.name
                 node_uid = node.metadata.uid
-                metrics = self.k8s_metrics_client.get_cluster_custom_object(
-                    group="metrics.k8s.io", version="v1beta1", plural="nodes", name=node_name
-                )
+                try:
+                    metrics = self.k8s_metrics_client.get_cluster_custom_object(
+                        group="metrics.k8s.io", version="v1beta1", plural="nodes", name=node_name
+                    )
+                except kubernetes.client.exceptions.ApiException as error_msg:
+                    self.stdout_msg(f"Error when querying the K8s nodes: {error_msg}", log="error")
+                    return {}
                 cpu_usage = metrics['usage']['cpu']
                 memory_usage = metrics['usage']['memory']
                 cpu_capacity = node.status.capacity['cpu']
@@ -213,12 +217,12 @@ class App:
         except kubernetes.client.exceptions.ApiException as error_msg:
             self.stdout_msg(f"WARNING: K8s - {error_msg}", log="warn")
             self.k8s_client = None
-            self.pod_info = "not available"
+            self.pod_info = None
             self.dev_mode = True
         except kubernetes.config.config_exception.ConfigException as error_msg:
             self.stdout_msg(f"WARNING: K8s - {error_msg}", log="warn")
             self.k8s_client = None
-            self.pod_info = "not available"
+            self.pod_info = None
             self.dev_mode = True
 
         # Running the core app

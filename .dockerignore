@@ -8,9 +8,14 @@ packages/
 .gitignore
 *.log
 
+container/generic_loader/*.log
+container/generic_loader/*.py.log
+
 container/generic_loader/Dockerfile.lucit-ubdcc-mgmt
 container/generic_loader/Dockerfile.lucit-ubdcc-mgmt-latest
-container/lucit-ubdcc-mgmt/*.log
-container/lucit-ubdcc-mgmt/*.py.log
+container/generic_loader/Dockerfile.lucit-ubdcc-restapi
+container/generic_loader/Dockerfile.lucit-ubdcc-restapi-latest
+
 container/generic_loader/lucit_ubdcc_mgmt
+container/generic_loader/lucit_ubdcc_restapi
 container/generic_loader/lucit_ubdcc_shared_modules

@@ -142,9 +142,14 @@ class Database:
         return True
 
     def update_nodes(self) -> bool:
-        self.set(key="nodes", value=self.app.get_k8s_nodes())
-        self.app.stdout_msg(f"DB all nodes updated!", log="debug", stdout=False)
-        return True
+        nodes = self.app.get_k8s_nodes()
+        if nodes:
+            self.set(key="nodes", value=nodes)
+            self.app.stdout_msg(f"DB all nodes updated!", log="debug", stdout=False)
+            return True
+        else:
+            self.app.stdout_msg(f"Query of the k8s nodes was empty, no update is performed!", log="error", stdout=True)
+            return False
 
     def update_depthcache(self, symbol: str = None, desired_quantity: int = None, update_interval: int = None) -> bool:
         if symbol is None:

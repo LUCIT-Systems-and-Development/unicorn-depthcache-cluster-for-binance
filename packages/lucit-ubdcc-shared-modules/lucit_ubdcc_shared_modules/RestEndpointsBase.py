@@ -49,6 +49,15 @@ class RestEndpointsBase:
 
         @self.fastapi.get("/test")
         async def test(request: Request):
-            return {"message": f"Hello World!",
-                    "headers": f"{request.headers}",
-                    "app": f"{self.app.info}"}
+            response = {"message": f"Hello World!",
+                        "headers": f"{request.headers}",
+                        "app": f"{self.app.info}"}
+            if self.app.pod_info is not None:
+                pod = {"name": self.app.pod_info.metadata.name,
+                       "uid": self.app.pod_info.metadata.uid,
+                       "namespace": self.app.pod_info.metadata.namespace,
+                       "labels": self.app.pod_info.metadata.labels,
+                       "pod_node": self.app.pod_info.spec.node_name}
+                response['pod'] = pod
+
+            return self.get_ok_response(event="TEST", params=response)
