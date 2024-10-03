@@ -101,7 +101,7 @@ class RestEndpoints(RestEndpointsBase):
         api_port_rest = request.query_params.get("api_port_rest")
         status = request.query_params.get("status")
         if not name or not uid or not node or not role or not api_port_rest or not status:
-            return self.get_error_response(event="UBDCC_NODE_CANCELLATION",
+            return self.get_error_response(event="UBDCC_NODE_REGISTRATION",
                                            message="Missing required parameter: name, uid, node, role, api_port_rest, "
                                                    "status")
         if self.db.exists_pod(uid=uid):
@@ -112,7 +112,7 @@ class RestEndpoints(RestEndpointsBase):
                                  node=node,
                                  role=role,
                                  ip=request.client.host,
-                                 api_port_rest=api_port_rest,
+                                 api_port_rest=int(api_port_rest),
                                  status=status)
         if result is True:
             return self.get_ok_response(event="UBDCC_NODE_REGISTRATION")
@@ -123,6 +123,8 @@ class RestEndpoints(RestEndpointsBase):
         uid = request.query_params.get("uid")
         node = request.query_params.get("node")
         status = request.query_params.get("status")
+        if not uid:
+            return self.get_error_response(event="UBDCC_NODE_SYNC", message="Missing required parameter: uid")
         if not self.db.exists_pod(uid=uid):
             return self.get_error_response(event="UBDCC_NODE_SYNC", message=f"Registration for pod '{uid}' not found!")
         result = self.db.update_pod(uid=uid,
