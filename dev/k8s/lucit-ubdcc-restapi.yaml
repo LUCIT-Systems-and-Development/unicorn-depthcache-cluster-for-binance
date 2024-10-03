@@ -24,7 +24,7 @@ spec:
     spec:
       containers:
         - name: lucit-ubdcc-restapi
-          image: i018oau9.c1.de1.container-registry.ovh.net/library/lucit-ubdcc-restapi@sha256:15f31b4aae4a4b6b8e72c1babcd742813582a93e7843e297948718d2a9a9aabe
+          image: i018oau9.c1.de1.container-registry.ovh.net/library/lucit-ubdcc-restapi@sha256:f4966649ad1549dc05f3b55ca23709f94f558504b9c57a8359c3ed04357edb6b
           ports:
             - name: rest-private
               containerPort: 8080
