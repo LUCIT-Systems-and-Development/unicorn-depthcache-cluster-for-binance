@@ -19,15 +19,30 @@
 # All rights reserved.
 
 from fastapi import Request
+from fastapi.responses import JSONResponse
 
 
 class RestEndpointsBase:
     def __init__(self, app=None):
         self.app = app
-        self.fastapi = app.fastapi
+        self.fastapi = app.get_fastapi_instance()
 
     def get_fastapi_instance(self):
         return self.fastapi
+
+    def get_error_response(self, event: str = None, message: str = None, params: dict = None):
+        response = {"event": event, "message": message, "result": "ERROR"}
+        if params:
+            response.update(params)
+        response_sorted = self.app.sort_dict(input_dict=response)
+        return JSONResponse(status_code=400, content=response_sorted)
+
+    def get_ok_response(self, event: str = None, params: dict = None):
+        response = {"event": event, "result": "OK"}
+        if params:
+            response.update(params)
+        response_sorted = self.app.sort_dict(input_dict=response)
+        return JSONResponse(status_code=200, content=response_sorted)
 
     def register(self):
         self.app.stdout_msg(f"Registering REST endpoints ...", log="info")

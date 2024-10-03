@@ -30,7 +30,6 @@ class Database:
         self.data = {}
         self.data_lock = threading.Lock()
         self._init()
-        # Todo: Load Backup if available
 
     def _init(self) -> bool:
         self.app.stdout_msg(f"Initiating database ...", log="info")
@@ -65,7 +64,7 @@ class Database:
         return True
 
     def add_pod(self, name: str = None, uid: str = None, node: str = None, role: str = None, ip: str = None,
-                api_port: int = None, last_seen: float = None, status: str = None) -> bool:
+                api_port_rest: int = None, status: str = None) -> bool:
         if uid is None:
             raise ValueError("Parameter 'uid' is mandatory!")
         pod = {"NAME": name,
@@ -73,8 +72,8 @@ class Database:
                "NODE": node,
                "ROLE": role,
                "IP": ip,
-               "API_PORT": api_port,
-               "LAST_SEEN": last_seen,
+               "API_PORT_REST": api_port_rest,
+               "LAST_SEEN": self.app.get_unix_timestamp(),
                "STATUS": status}
         with self.data_lock:
             self.data['pods'][uid] = pod
@@ -170,19 +169,18 @@ class Database:
         self.app.stdout_msg(f"DB depthcaches updated: {symbol}_{pod_uid}", log="debug", stdout=False)
         return True
 
-    def update_pod(self, uid: str = None, node: str = None, ip: str = None, api_port: int = None, last_seen: str = None,
+    def update_pod(self, uid: str = None, node: str = None, ip: str = None, api_port_rest: int = None,
                    status: str = None) -> bool:
         if uid is None:
             raise ValueError("Parameter 'uid' is mandatory!")
         with self.data_lock:
-            if node is not None:
-                self.data['pods'][uid]['NODE'] = node
+            self.data['pods'][uid]['LAST_SEEN'] = self.app.get_unix_timestamp()
+            if api_port_rest is not None:
+                self.data['pods'][uid]['API_PORT_REST'] = api_port_rest
             if ip is not None:
                 self.data['pods'][uid]['IP'] = ip
-            if api_port is not None:
-                self.data['pods'][uid]['API_PORT'] = api_port
-            if last_seen is not None:
-                self.data['pods'][uid]['LAST_SEEN'] = last_seen
+            if node is not None:
+                self.data['pods'][uid]['NODE'] = node
             if status is not None:
                 self.data['pods'][uid]['STATUS'] = status
         self.app.stdout_msg(f"DB pod updated: {uid}", log="debug", stdout=False)

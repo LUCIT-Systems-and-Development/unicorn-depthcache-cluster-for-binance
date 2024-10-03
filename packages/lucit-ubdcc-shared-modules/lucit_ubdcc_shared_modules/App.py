@@ -29,8 +29,12 @@ import kubernetes
 import time
 from fastapi import FastAPI
 
+
 REST_SERVER_PORT = 8080
-VERSION = "0.0.42"
+REST_SERVER_PORT_DEV_DCN = 42082
+REST_SERVER_PORT_DEV_MGMT = 42080
+REST_SERVER_PORT_DEV_RESTAPI = 42081
+VERSION = "0.0.43"
 
 
 class App:
@@ -38,13 +42,17 @@ class App:
         self.app_name = app_name
         self.app_version = VERSION
         self.cwd = cwd
-        self.fastapi = FastAPI(docs_url=None, redoc_url=None)
+        self.dev_mode = False
+        self.fastapi = None
         self.info = None
         self.k8s_client = None
         self.k8s_metrics_client = None
         self.logger = logger
         self.pod_info = None
         self.rest_server_port = REST_SERVER_PORT
+        self.rest_server_port_dev_dcn = REST_SERVER_PORT_DEV_DCN
+        self.rest_server_port_dev_mgmt = REST_SERVER_PORT_DEV_MGMT
+        self.rest_server_port_dev_restapi = REST_SERVER_PORT_DEV_RESTAPI
         self.service_call = service_call
         self.sigterm = False
         self.stop_call = stop_call
@@ -52,7 +60,16 @@ class App:
         self.data: dict = {}
 
     def get_fastapi_instance(self) -> FastAPI:
-        return self.fastapi
+        if self.fastapi:
+            return self.fastapi
+        else:
+            if self.dev_mode:
+                # DEV MODE!!!
+                self.fastapi = FastAPI()
+            else:
+                # PRODUCTIVE MODE!!!
+                self.fastapi = FastAPI(docs_url=None, redoc_url=None)
+            return self.fastapi
 
     def get_k8s_nodes(self) -> dict:
         if self.status != "running":
@@ -89,7 +106,7 @@ class App:
         return {}
 
     @staticmethod
-    def get_timestamp():
+    def get_unix_timestamp():
         return time.time()
 
     @staticmethod
@@ -138,14 +155,19 @@ class App:
         if seconds is None:
             raise ValueError("Parameter 'seconds' is mandatory!")
         internal_sleep_time = 3
-        time_start = time.time()
+        time_start = self.get_unix_timestamp()
         time_limit = time_start + seconds
         for i in range(int(seconds/internal_sleep_time)):
-            if time.time() < time_limit and self.is_shutdown() is False:
+            if self.get_unix_timestamp() < time_limit and self.is_shutdown() is False:
                 await asyncio.sleep(internal_sleep_time)
             else:
                 break
         return True
+
+    @staticmethod
+    def sort_dict(input_dict: dict, reverse: bool = False) -> dict:
+        sorted_items = sorted(input_dict.items(), key=lambda item: item[0], reverse=reverse)
+        return dict(sorted_items)
 
     def start(self) -> None:
         # Working Directory
@@ -190,17 +212,21 @@ class App:
             self.stdout_msg(f"WARNING: K8s - {error_msg}", log="warn")
             self.k8s_client = None
             self.pod_info = "not available"
+            self.dev_mode = True
         except kubernetes.config.config_exception.ConfigException as error_msg:
             self.stdout_msg(f"WARNING: K8s - {error_msg}", log="warn")
             self.k8s_client = None
             self.pod_info = "not available"
+            self.dev_mode = True
 
         # Running the core app
         exception_shutdown = False
         exception_shutdown_error = None
         self.status = "running"
+
+        self.service_call()
         try:
-            self.service_call()
+            pass
         except KeyboardInterrupt:
             self.stdout_msg(f"Keyboard interrupt was caught!", log="warn")
         except Exception as error_msg:
