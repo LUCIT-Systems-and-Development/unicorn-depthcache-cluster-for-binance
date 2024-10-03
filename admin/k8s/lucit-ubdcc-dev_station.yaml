@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: lucit-ubdcc-dev-station
-          image: i018oau9.c1.de1.container-registry.ovh.net/library/lucit-ubdcc-dev_station@sha256:0f9ef6c35af2384f05c136b7c49a67627e040cac2710aada131e356dc0f1ea85
+          image: i018oau9.c1.de1.container-registry.ovh.net/library/lucit-ubdcc-dev_station@sha256:69dab7006be0f16555c6081a96f8e541d456e1d4839a0615cba2a7f0e1246f93
           command: ["/bin/sh", "-c", "tail -f /dev/null"]
           resources:
             requests:

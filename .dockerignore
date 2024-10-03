@@ -4,9 +4,12 @@ dev/
 images/
 packages/
 
+
 .dockerignore
 .gitignore
 *.log
+
+container/dev_station/Dockerfile
 
 container/generic_loader/*.log
 container/generic_loader/*.py.log
