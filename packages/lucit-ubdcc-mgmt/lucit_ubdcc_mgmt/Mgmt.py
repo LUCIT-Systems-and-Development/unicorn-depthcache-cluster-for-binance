@@ -29,7 +29,7 @@ class Mgmt(ServiceBase):
         super().__init__(app_name="lucit-ubdcc-mgmt", cwd=cwd)
 
     def db_init(self) -> bool:
-        self.app.stdout_msg(f"Starting database ...", log="info")
+        self.app.stdout_msg(f"Starting Database ...", log="info")
         if self.db is None:
             self.db = Database(app=self.app)
             self.app.data['db'] = self.db

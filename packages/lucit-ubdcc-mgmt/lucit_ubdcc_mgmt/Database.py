@@ -32,7 +32,7 @@ class Database:
         self._init()
 
     def _init(self) -> bool:
-        self.app.stdout_msg(f"Initiating database ...", log="info")
+        self.app.stdout_msg(f"Initiating Database ...", log="info")
         self.set(key="depthcaches", value={})
         self.set(key="depthcache_distribution", value={})
         self.set(key="pods", value={})

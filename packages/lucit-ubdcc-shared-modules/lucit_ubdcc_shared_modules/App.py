@@ -34,7 +34,7 @@ REST_SERVER_PORT = 8080
 REST_SERVER_PORT_DEV_DCN = 42082
 REST_SERVER_PORT_DEV_MGMT = 42080
 REST_SERVER_PORT_DEV_RESTAPI = 42081
-VERSION = "0.0.43"
+VERSION = "0.0.44"
 
 
 class App:
@@ -65,9 +65,11 @@ class App:
         else:
             if self.dev_mode:
                 # DEV MODE!!!
+                self.stdout_msg("Starting REST Server in DEV MODE!!!", log="info")
                 self.fastapi = FastAPI()
             else:
                 # PRODUCTIVE MODE!!!
+                self.stdout_msg("Starting REST Server in PRODUCTIVE MODE!!!", log="info")
                 self.fastapi = FastAPI(docs_url=None, redoc_url=None)
             return self.fastapi
 

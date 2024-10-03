@@ -78,8 +78,8 @@ class RestEndpoints(RestEndpointsBase):
         @self.fastapi.get("/ubdcc_node_sync")
         async def ubdcc_node_sync(request: Request,
                                   uid: str = Query(..., description="K8s UID of the node."),
-                                  node: str = Query(..., description="K8s node on which the pod runs."),
-                                  status: str = Query(..., description="Status of the node.")):
+                                  node: str = Query(None, description="K8s node on which the pod runs."),
+                                  status: str = Query(None, description="Status of the node.")):
             return await self.ubdcc_node_sync(request=request, uid=uid, node=node, status=status)
 
     async def get_cluster_info(self, request: Request):

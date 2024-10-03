@@ -44,12 +44,13 @@ class RestServer(threading.Thread):
         else:
             # PRODUCTIVE MODE!!!
             rest_server_port = self.app.rest_server_port
+        self.app.stdout_msg(f"Registering REST Server on port {rest_server_port} ...", log="info")
         self.uvicorn = uvicorn.Server(uvicorn.Config(self.app.get_fastapi_instance(),
                                                      host="0.0.0.0",
                                                      port=rest_server_port))
 
     def run(self) -> None:
-        self.app.stdout_msg(f"Starting REST Server ...", log="info")
+        self.app.stdout_msg(f"Starting REST Server Engine ...", log="info")
         try:
             self.uvicorn.run()
         except (ConnectionError, HTTPException) as error_msg:
@@ -57,6 +58,6 @@ class RestServer(threading.Thread):
         return None
 
     def stop(self) -> bool:
-        self.app.stdout_msg(f"Stopping REST Server ...", log="info")
+        self.app.stdout_msg(f"Stopping REST Server Engine ...", log="info")
         self.uvicorn.should_exit = True
         return True
