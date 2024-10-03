@@ -18,7 +18,6 @@
 # Copyright (c) 2024-2024, LUCIT Systems and Development (https://www.lucit.tech)
 # All rights reserved.
 
-from fastapi import Query
 from .Database import Database
 from lucit_ubdcc_shared_modules.RestEndpointsBase import RestEndpointsBase, Request
 
@@ -60,27 +59,16 @@ class RestEndpoints(RestEndpointsBase):
                     "result": "NOT_IMPLEMENTED"}
 
         @self.fastapi.get("/ubdcc_node_cancellation")
-        async def ubdcc_node_cancellation(request: Request,
-                                          uid: str = Query(..., description="K8s UID of the node.")):
-            return await self.ubdcc_node_cancellation(request=request, uid=uid)
+        async def ubdcc_node_cancellation(request: Request):
+            return await self.ubdcc_node_cancellation(request=request)
 
         @self.fastapi.get("/ubdcc_node_registration")
-        async def ubdcc_node_registration(request: Request,
-                                          name: str = Query(..., description="Name of the node."),
-                                          uid: str = Query(..., description="K8s UID of the node."),
-                                          node: str = Query(..., description="K8s node on which the pod runs."),
-                                          role: str = Query(..., description="Role of the node."),
-                                          api_port_rest: str = Query(..., description="Rest API port."),
-                                          status: str = Query(..., description="Status of the node.")):
-            return await self.ubdcc_node_registration(request=request, name=name, uid=uid, node=node, role=role,
-                                                      api_port_rest=api_port_rest, status=status)
+        async def ubdcc_node_registration(request: Request):
+            return await self.ubdcc_node_registration(request=request)
 
         @self.fastapi.get("/ubdcc_node_sync")
-        async def ubdcc_node_sync(request: Request,
-                                  uid: str = Query(..., description="K8s UID of the node."),
-                                  node: str = Query(None, description="K8s node on which the pod runs."),
-                                  status: str = Query(None, description="Status of the node.")):
-            return await self.ubdcc_node_sync(request=request, uid=uid, node=node, status=status)
+        async def ubdcc_node_sync(request: Request):
+            return await self.ubdcc_node_sync(request=request)
 
     async def get_cluster_info(self, request: Request):
         response = {"db": {"depthcaches": self.db.get('depthcaches'),
@@ -90,11 +78,14 @@ class RestEndpoints(RestEndpointsBase):
                     "version": self.app.get_version()}
         return self.get_ok_response(event="GET_CLUSTER_INFO", params=response)
 
-    async def ubdcc_node_cancellation(self, request: Request, uid: str = None):
+    async def ubdcc_node_cancellation(self, request: Request):
+        uid = request.query_params.get("uid")
+        if not uid:
+            return self.get_error_response(event="UBDCC_NODE_CANCELLATION",
+                                           message="Missing required parameter: uid")
         if not self.db.exists_pod(uid=uid):
             return self.get_error_response(event="UBDCC_NODE_CANCELLATION",
-                                           message=f"A pod with the uid '{uid}' "
-                                                   f"does not exist!")
+                                           message=f"A pod with the uid '{uid}' does not exist!")
         # Todo: Tasks to remove the pod (restructuring DC distribution)
         result = self.db.delete_pod(uid=uid)
         if result is True:
@@ -102,8 +93,17 @@ class RestEndpoints(RestEndpointsBase):
         else:
             return self.get_error_response(event="UBDCC_NODE_CANCELLATION", message="An unknown error has occurred!")
 
-    async def ubdcc_node_registration(self, request: Request, name: str = None, uid: str = None, node: str = None,
-                                      role: str = None, api_port_rest: str = None, status: str = None):
+    async def ubdcc_node_registration(self, request: Request):
+        name = request.query_params.get("name")
+        uid = request.query_params.get("uid")
+        node = request.query_params.get("node")
+        role = request.query_params.get("role")
+        api_port_rest = request.query_params.get("api_port_rest")
+        status = request.query_params.get("status")
+        if not name or not uid or not node or not role or not api_port_rest or not status:
+            return self.get_error_response(event="UBDCC_NODE_CANCELLATION",
+                                           message="Missing required parameter: name, uid, node, role, api_port_rest, "
+                                                   "status")
         if self.db.exists_pod(uid=uid):
             return self.get_error_response(event="UBDCC_NODE_REGISTRATION",
                                            message=f"A pod with the uid '{uid}' already exists!")
@@ -119,10 +119,12 @@ class RestEndpoints(RestEndpointsBase):
         else:
             return self.get_error_response(event="UBDCC_NODE_REGISTRATION", message="An unknown error has occurred!")
 
-    async def ubdcc_node_sync(self, request: Request, uid: str = None, node: str = None, status: str = None):
+    async def ubdcc_node_sync(self, request: Request):
+        uid = request.query_params.get("uid")
+        node = request.query_params.get("node")
+        status = request.query_params.get("status")
         if not self.db.exists_pod(uid=uid):
-            return self.get_error_response(event="UBDCC_NODE_SYNC",
-                                           message=f"Registration for pod '{uid}' not found!")
+            return self.get_error_response(event="UBDCC_NODE_SYNC", message=f"Registration for pod '{uid}' not found!")
         result = self.db.update_pod(uid=uid,
                                     node=node,
                                     ip=request.client.host,
