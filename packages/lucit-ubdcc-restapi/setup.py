@@ -21,8 +21,8 @@
 from Cython.Build import cythonize
 from setuptools import setup
 
-name = "lucit-ubdcc-mgmt"
-source_dir = "lucit_ubdcc_mgmt"
+name = "lucit-ubdcc-restapi"
+source_dir = "lucit_ubdcc_restapi"
 
 # Setup
 with open("README.md", "r") as fh:
@@ -46,7 +46,7 @@ setup(
         'Documentation': 'https://www.lucit.tech/unicorn-binance-depthcache-cluster.html',
         'Wiki': 'https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/wiki',
         'Author': 'https://www.lucit.tech',
-        'Changes': 'https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/blob/master/packages/lucit-ubdcc-mgmt/CHANGELOG.md',
+        'Changes': 'https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/blob/master/packages/lucit-ubdcc-restapi/CHANGELOG.md',
         'License': 'https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/blob/master/LICENSE',
         'Issue Tracker': 'https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/issues',
         'Chat': 'https://gitter.im/unicorn-trading-suite/unicorn-binance-depthcache-cluster',
