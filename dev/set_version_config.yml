@@ -10,6 +10,9 @@ files:
 - dev/release/lucit-ubdcc-mgmt-latest.sh
 - dev/release/lucit-ubdcc-restapi.sh
 - dev/release/lucit-ubdcc-restapi-latest.sh
+- packages/lucit-ubdcc-dcn/pyproject.toml
+- packages/lucit-ubdcc-dcn/requirements.txt
+- packages/lucit-ubdcc-dcn/setup.py
 - packages/lucit-ubdcc-mgmt/pyproject.toml
 - packages/lucit-ubdcc-mgmt/requirements.txt
 - packages/lucit-ubdcc-mgmt/setup.py

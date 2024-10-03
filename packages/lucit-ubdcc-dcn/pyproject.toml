@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "lucit-ubdcc-dcn"
-version = "0.0.48"
+version = "0.0.50"
 description = "LUCIT UBDCC DepthCacheNode"
 authors = ["LUCIT Systems and Development <info@lucit.tech>"]
 license = "LSOSL - LUCIT Synergetic Open Source License"
