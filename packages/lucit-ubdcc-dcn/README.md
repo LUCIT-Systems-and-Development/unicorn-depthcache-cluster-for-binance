@@ -12,8 +12,8 @@
 [![Gitter](https://img.shields.io/badge/community-gitter-41ab8c)](https://gitter.im/unicorn-trading-suite/unicorn-binance-depthcache-cluster?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Get Free Professional Support](https://img.shields.io/badge/chat-lucit%20support-004166)](https://www.lucit.tech/get-support.html)
 
-# UNICORN Binance DepthCache Cluster REST API
-The `lucit-ubdcc-restapi` module for UNICORN Binance DepthCache Cluster REST API.
+# UNICORN Binance DepthCache Cluster DepthCacheNode
+The `lucit-ubdcc-dcn` module for UNICORN Binance DepthCache Cluster DepthCacheNode.
 
 Part of '[UNICORN Binance DepthCache Cluster](https://www.lucit.tech/unicorn-binance-depthcache-cluster.html)'.
 

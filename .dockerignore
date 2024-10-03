@@ -11,11 +11,14 @@ packages/
 container/generic_loader/*.log
 container/generic_loader/*.py.log
 
+container/generic_loader/Dockerfile.lucit-ubdcc-dcn
+container/generic_loader/Dockerfile.lucit-ubdcc-dcn-latest
 container/generic_loader/Dockerfile.lucit-ubdcc-mgmt
 container/generic_loader/Dockerfile.lucit-ubdcc-mgmt-latest
 container/generic_loader/Dockerfile.lucit-ubdcc-restapi
 container/generic_loader/Dockerfile.lucit-ubdcc-restapi-latest
 
+container/generic_loader/lucit_ubdcc_dcn
 container/generic_loader/lucit_ubdcc_mgmt
 container/generic_loader/lucit_ubdcc_restapi
 container/generic_loader/lucit_ubdcc_shared_modules

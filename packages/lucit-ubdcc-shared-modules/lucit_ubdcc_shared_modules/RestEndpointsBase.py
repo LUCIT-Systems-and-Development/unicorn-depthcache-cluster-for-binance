@@ -57,7 +57,7 @@ class RestEndpointsBase:
                        "uid": self.app.pod_info.metadata.uid,
                        "namespace": self.app.pod_info.metadata.namespace,
                        "labels": self.app.pod_info.metadata.labels,
-                       "pod_node": self.app.pod_info.spec.node_name}
+                       "node": self.app.pod_info.spec.node_name}
                 response['pod'] = pod
 
             return self.get_ok_response(event="TEST", params=response)

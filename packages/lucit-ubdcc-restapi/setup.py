@@ -31,7 +31,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name=name,
-    version="0.0.48",
+    version="0.0.49",
     author="LUCIT Systems and Development",
     author_email='info@lucit.tech',
     url="https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster",
@@ -39,7 +39,7 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     license='LSOSL - LUCIT Synergetic Open Source License',
-    install_requires=['lucit-licensing-python>=1.8.2', 'lucit-ubdcc-shared-modules==0.0.48'],
+    install_requires=['lucit-licensing-python>=1.8.2', 'lucit-ubdcc-shared-modules==0.0.49'],
     keywords='',
     project_urls={
         'Howto': 'https://www.lucit.tech/unicorn-binance-depthcache-cluster.html#howto',
@@ -54,13 +54,13 @@ setup(
         'Get Support': 'https://www.lucit.tech/get-support.html',
         'LUCIT Online Shop': 'https://shop.lucit.services/software/unicorn-depthcache-cluster-for-binance',
     },
-    ext_modules=cythonize(['lucit_ubdcc_restapi/__init__.py',
-                           'lucit_ubdcc_restapi/RestEndpoints.py',
-                           'lucit_ubdcc_restapi/RestApi.py'],
+    ext_modules=cythonize(['lucit_ubdcc_dcn/__init__.py',
+                           'lucit_ubdcc_dcn/RestEndpoints.py',
+                           'lucit_ubdcc_dcn/DepthCacheNode.py'],
                           compiler_directives={'language_level': "3"}),
     python_requires='>=3.12.0',
-    package_data={'': ['lucit_ubdcc_restapi/*.so']},
-    exclude_package_data={'': ['lucit_ubdcc_restapi/*.py']},
+    package_data={'': ['lucit_ubdcc_dcn/*.so']},
+    exclude_package_data={'': ['lucit_ubdcc_dcn/*.py']},
     classifiers=[
         "Development Status :: 4 - Beta",
         "Programming Language :: Python :: 3.12",

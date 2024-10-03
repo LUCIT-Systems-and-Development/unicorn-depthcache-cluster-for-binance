@@ -3,7 +3,9 @@ files:
 - .github/workflows/build_wheels_lucit_ubdcc_shared_modules.yml
 - .github/workflows/gh_release.yml
 - container/generic_loader/requirements-lucit_ubdcc_mgmt.txt
-- container/generic_loader/requirements-lucit_ubdcc_restapi.txt
+- container/generic_loader/requirements-lucit_ubdcc_mgmt.txt
+- dev/release/lucit-ubdcc-dcn.sh
+- dev/release/lucit-ubdcc-dcn-latest.sh
 - dev/release/lucit-ubdcc-mgmt.sh
 - dev/release/lucit-ubdcc-mgmt-latest.sh
 - dev/release/lucit-ubdcc-restapi.sh
@@ -17,4 +19,4 @@ files:
 - packages/lucit-ubdcc-shared-modules/lucit_ubdcc_shared_modules/App.py
 - packages/lucit-ubdcc-shared-modules/pyproject.toml
 - packages/lucit-ubdcc-shared-modules/setup.py
-version: 0.0.48
+version: 0.0.49

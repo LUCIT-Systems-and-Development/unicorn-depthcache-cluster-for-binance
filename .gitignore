@@ -1,5 +1,7 @@
 .idea
 config/main.ini
+
+container/generic_loader/lucit_ubdcc_dcn
 container/generic_loader/lucit_ubdcc_mgmt
 container/generic_loader/lucit_ubdcc_restapi
 container/generic_loader/lucit_ubdcc_shared_modules

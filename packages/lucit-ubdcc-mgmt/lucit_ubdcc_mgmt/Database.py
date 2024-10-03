@@ -148,7 +148,8 @@ class Database:
             self.app.stdout_msg(f"DB all nodes updated!", log="debug", stdout=False)
             return True
         else:
-            self.app.stdout_msg(f"Query of the k8s nodes was empty, no update is performed!", log="error", stdout=True)
+            self.app.stdout_msg(f"Timed update of the DB key 'nodes': Query of the k8s nodes was empty, no "
+                                f"update is performed!", log="error", stdout=True)
             return False
 
     def update_depthcache(self, symbol: str = None, desired_quantity: int = None, update_interval: int = None) -> bool:
