@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lucit-ubdcc-restapi
+  namespace: lucit-ubdcc
+  annotations:
+    author: LUCIT <it@lucit.tech>
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: lucit-ubdcc-restapi
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: lucit-ubdcc-restapi
+      annotations:
+        author: LUCIT <it@lucit.tech>
+    spec:
+      containers:
+        - name: lucit-ubdcc-restapi
+          image: i018oau9.c1.de1.container-registry.ovh.net/library/lucit-ubdcc-restapi@sha256:15f31b4aae4a4b6b8e72c1babcd742813582a93e7843e297948718d2a9a9aabe
+          ports:
+            - name: rest-private
+              containerPort: 8080
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "512Mi"
+          readinessProbe:
+            httpGet:
+              path: /test
+              port: rest-private
+            initialDelaySeconds: 40
+          livenessProbe:
+            httpGet:
+              path: /test
+              port: rest-private
+            initialDelaySeconds: 40

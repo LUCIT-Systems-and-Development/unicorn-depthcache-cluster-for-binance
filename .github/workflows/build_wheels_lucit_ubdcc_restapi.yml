@@ -1,4 +1,4 @@
-name: Build and Publish PyPi (lucit-ubdcc-shared-modules)
+name: Build and Publish PyPi (lucit-ubdcc-restapi)
 
 on:
   workflow_dispatch:
@@ -18,14 +18,13 @@ jobs:
         with:
           repository: ${{ github.repository }}
           ref: ${{ github.ref }}
-          path: lucit-ubdcc-shared-modules
-          sparse-checkout: 'packages/lucit-ubdcc-shared-modules/'
+          path: lucit-ubdcc-restapi
+          sparse-checkout: 'packages/lucit-ubdcc-restapi/'
 
       - name: Move directory contents
         run: |
-          mv lucit-ubdcc-shared-modules/packages/lucit-ubdcc-shared-modules/* ./
-          rm -rf lucit-ubdcc-shared-modules
-
+          mv lucit-ubdcc-restapi/packages/lucit-ubdcc-restapi/* ./
+          rm -rf lucit-ubdcc-restapi
       - name: ls -l
         run: ls -l
 

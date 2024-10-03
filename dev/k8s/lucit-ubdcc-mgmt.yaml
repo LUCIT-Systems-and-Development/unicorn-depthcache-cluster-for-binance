@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - name: lucit-ubdcc-mgmt
-          image: i018oau9.c1.de1.container-registry.ovh.net/library/lucit-ubdcc-mgmt@sha256:911870c2ef06402c5173cba9c9655e7c437a3c75339bc24a7dcdad185c58e5f0
+          image: i018oau9.c1.de1.container-registry.ovh.net/library/lucit-ubdcc-mgmt@sha256:15f31b4aae4a4b6b8e72c1babcd742813582a93e7843e297948718d2a9a9aabe
           ports:
             - name: rest-private
               containerPort: 8080
