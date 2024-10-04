@@ -27,6 +27,7 @@ import socket
 import sys
 import kubernetes
 import time
+import traceback
 from fastapi import FastAPI
 
 
@@ -34,7 +35,7 @@ REST_SERVER_PORT = 8080
 REST_SERVER_PORT_DEV_DCN = 42082
 REST_SERVER_PORT_DEV_MGMT = 42080
 REST_SERVER_PORT_DEV_RESTAPI = 42081
-VERSION = "0.0.51"
+VERSION = "0.0.52"
 
 
 class App:
@@ -110,6 +111,32 @@ class App:
                                           "USAGE_MEMORY_PERCENT": f"{memory_percentage:.2f}"}
             return result_nodes
         return {}
+
+    def get_k8s_runtime_information(self):
+        try:
+            kubernetes.config.load_incluster_config()
+            with open("/etc/hostname", "r") as f:
+                pod_name = f.read().strip()
+            with open("/var/run/secrets/kubernetes.io/serviceaccount/namespace", "r") as f:
+                namespace = f.read().strip()
+            self.k8s_client = kubernetes.client.CoreV1Api()
+            self.k8s_metrics_client = kubernetes.client.CustomObjectsApi()
+            self.pod_info = self.k8s_client.read_namespaced_pod(name=pod_name, namespace=namespace)
+            self.stdout_msg(f"Pod Name: {self.pod_info.metadata.name}", log="info")
+            self.stdout_msg(f"Pod UID: {self.pod_info.metadata.uid}", log="info")
+            self.stdout_msg(f"Pod Namespace: {self.pod_info.metadata.namespace}", log="info")
+            self.stdout_msg(f"Node Name: {self.pod_info.spec.node_name}", log="info")
+            self.stdout_msg(f"Pod Labels: {self.pod_info.metadata.labels}", log="info")
+        except kubernetes.client.exceptions.ApiException as error_msg:
+            self.stdout_msg(f"WARNING: K8s - {error_msg}", log="warn")
+            self.k8s_client = None
+            self.pod_info = None
+            self.dev_mode = True
+        except kubernetes.config.config_exception.ConfigException as error_msg:
+            self.stdout_msg(f"WARNING: K8s - {error_msg}", log="warn")
+            self.k8s_client = None
+            self.pod_info = None
+            self.dev_mode = True
 
     @staticmethod
     def get_unix_timestamp():
@@ -188,56 +215,34 @@ class App:
                                 format="{asctime} [{levelname:8}] {process} {thread} {module}: {message}",
                                 style="{")
 
-        # App Identity
+        # App Info
         self.info = {'name': self.app_name,
                      'version': self.get_version(),
-                     'author': "LUCIT Systems and Development"}
-        build_type = "compiled" if self.is_compiled() else "source"
-        info = f"Starting {self.info['name']}_{self.info['version']}_{build_type} by {self.info['author']} ..."
+                     'author': "LUCIT Systems and Development",
+                     'build_type': "compiled" if self.is_compiled() else "source"}
+        info = (f"Starting {self.info['name']}_{self.info['version']}_{self.info['build_type']} by "
+                f"{self.info['author']} ...")
         self.stdout_msg(info, log="info")
 
         # Catch Termination Signals
         self.register_graceful_shutdown()
 
         # Runtime Information
-        try:
-            kubernetes.config.load_incluster_config()
-            with open("/etc/hostname", "r") as f:
-                pod_name = f.read().strip()
-            with open("/var/run/secrets/kubernetes.io/serviceaccount/namespace", "r") as f:
-                namespace = f.read().strip()
-            self.k8s_client = kubernetes.client.CoreV1Api()
-            self.k8s_metrics_client = kubernetes.client.CustomObjectsApi()
-            self.pod_info = self.k8s_client.read_namespaced_pod(name=pod_name, namespace=namespace)
-            self.stdout_msg(f"Pod Name: {self.pod_info.metadata.name}", log="info")
-            self.stdout_msg(f"Pod UID: {self.pod_info.metadata.uid}", log="info")
-            self.stdout_msg(f"Pod Namespace: {self.pod_info.metadata.namespace}", log="info")
-            self.stdout_msg(f"Node Name: {self.pod_info.spec.node_name}", log="info")
-            self.stdout_msg(f"Pod Labels: {self.pod_info.metadata.labels}", log="info")
-        except kubernetes.client.exceptions.ApiException as error_msg:
-            self.stdout_msg(f"WARNING: K8s - {error_msg}", log="warn")
-            self.k8s_client = None
-            self.pod_info = None
-            self.dev_mode = True
-        except kubernetes.config.config_exception.ConfigException as error_msg:
-            self.stdout_msg(f"WARNING: K8s - {error_msg}", log="warn")
-            self.k8s_client = None
-            self.pod_info = None
-            self.dev_mode = True
+        self.get_k8s_runtime_information()
 
         # Running the core app
         exception_shutdown = False
         exception_shutdown_error = None
         self.status = "running"
-
-        self.service_call()
         try:
-            pass
+            self.service_call()
         except KeyboardInterrupt:
             self.stdout_msg(f"Keyboard interrupt was caught!", log="warn")
         except Exception as error_msg:
             exception_shutdown = True
             exception_shutdown_error = error_msg
+            print("Exception occurred:")
+            traceback.print_exc()
         finally:
             if exception_shutdown is True:
                 if exception_shutdown_error:

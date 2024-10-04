@@ -47,7 +47,8 @@ class ServiceBase:
 
     def stop(self) -> bool:
         try:
-            self.rest_server.stop()
+            if self.rest_server:
+                self.rest_server.stop()
             return True
         except AttributeError as error_msg:
             self.app.stdout_msg(f"ERROR: {error_msg}", log="info")

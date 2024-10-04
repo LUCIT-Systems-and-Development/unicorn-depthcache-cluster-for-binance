@@ -51,7 +51,7 @@ class RestEndpointsBase:
         async def test(request: Request):
             response = {"message": f"Hello World!",
                         "headers": f"{request.headers}",
-                        "app": f"{self.app.info}"}
+                        "app": self.app.info}
             if self.app.pod_info is not None:
                 pod = {"name": self.app.pod_info.metadata.name,
                        "uid": self.app.pod_info.metadata.uid,

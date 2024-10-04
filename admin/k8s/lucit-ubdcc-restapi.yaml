@@ -1,20 +1,17 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
+
 metadata:
   name: lucit-ubdcc-restapi
   namespace: lucit-ubdcc
   annotations:
     author: LUCIT <it@lucit.tech>
 spec:
-  replicas: 2
+  serviceName: lucit-ubdcc-restapi
+  replicas: 3
   selector:
     matchLabels:
       app: lucit-ubdcc-restapi
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 0
   template:
     metadata:
       labels:
@@ -22,6 +19,13 @@ spec:
       annotations:
         author: LUCIT <it@lucit.tech>
     spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchLabels:
+                  app: lucit-ubdcc-restapi
+              topologyKey: "kubernetes.io/hostname"
       containers:
         - name: lucit-ubdcc-restapi
           image: i018oau9.c1.de1.container-registry.ovh.net/library/lucit-ubdcc-restapi@sha256:f4966649ad1549dc05f3b55ca23709f94f558504b9c57a8359c3ed04357edb6b

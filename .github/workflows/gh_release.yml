@@ -16,8 +16,8 @@ jobs:
     - name: Create GitHub Release
       uses: softprops/action-gh-release@v1
       with:
-        tag_name: 0.0.51
-        name: Release 0.0.51
+        tag_name: 0.0.52
+        name: Release 0.0.52
         body: |
           Please read the [CHANGELOG](https://unicorn-binance-depthcache-cluster.docs.lucit.tech/changelog.html) for further information.
         draft: false
