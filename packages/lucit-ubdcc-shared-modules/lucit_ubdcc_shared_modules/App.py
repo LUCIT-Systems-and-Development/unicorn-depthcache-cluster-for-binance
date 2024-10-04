@@ -24,6 +24,9 @@ import logging
 import os
 import signal as sys_signal
 import socket
+import random
+import requests
+import string
 import sys
 import kubernetes
 import time
@@ -31,21 +34,23 @@ import traceback
 from fastapi import FastAPI
 
 
-REST_SERVER_PORT = 8080
-REST_SERVER_PORT_DEV_DCN = 42082
-REST_SERVER_PORT_DEV_MGMT = 42080
-REST_SERVER_PORT_DEV_RESTAPI = 42081
-VERSION = "0.0.52"
+REST_SERVER_PORT: int = 8080
+REST_SERVER_PORT_DEV_DCN: int = 42082
+REST_SERVER_PORT_DEV_MGMT: int = 42080
+REST_SERVER_PORT_DEV_RESTAPI: int = 42081
+VERSION: str = "0.0.53"
 
 
 class App:
     def __init__(self, app_name=None, cwd=None, logger=None, service_call=None, stop_call=None):
         self.app_name = app_name
         self.app_version = VERSION
+        self.api_port_rest: int = 0
         self.cwd = cwd
+        self.ubdcc_mgmt_url = None
         self.dev_mode = False
         self.fastapi = None
-        self.info = None
+        self.info: dict = {}
         self.k8s_client = None
         self.k8s_metrics_client = None
         self.logger = logger
@@ -59,6 +64,7 @@ class App:
         self.stop_call = stop_call
         self.status = "starting"
         self.data: dict = {}
+        self.id: dict = {}
 
     def get_fastapi_instance(self) -> FastAPI:
         if self.fastapi:
@@ -138,6 +144,34 @@ class App:
             self.pod_info = None
             self.dev_mode = True
 
+        self.id['name'] = self.generate_string(random.randint(10, 15)) if self.dev_mode else self.pod_info.metadata.name
+        self.id['uid'] = self.generate_string(random.randint(20, 20)) if self.dev_mode else self.pod_info.metadata.uid
+        self.id['node'] = self.generate_string(random.randint(15, 15)) if self.dev_mode else self.pod_info.spec.node_name
+
+    def get_cluster_mgmt_address(self):
+        if self.dev_mode:
+            # DEV MODE!!!
+            url = f"http://localhost:{self.rest_server_port_dev_mgmt}"
+        else:
+            # PRODUCTIVE MODE!!!
+            url = f"http://lucit-ubdcc-mgmt.lucit-ubdcc.svc.cluster.local"
+        return url
+
+    @staticmethod
+    def generate_string(length):
+        letters = string.ascii_letters + string.digits
+        return ''.join(random.choice(letters) for i in range(length))
+
+    @staticmethod
+    def get_request(url, params=None, headers=None, timeout=10) -> dict:
+        try:
+            response = requests.get(url, params=params, headers=headers, timeout=timeout)
+            response.raise_for_status()
+            return response.json()
+        except requests.exceptions.RequestException as error_msg:
+            print(f"An error occurred: {error_msg}")
+            return {"error": error_msg}
+
     @staticmethod
     def get_unix_timestamp():
         return time.time()
@@ -156,6 +190,25 @@ class App:
     def register_graceful_shutdown(self) -> None:
         sys_signal.signal(sys_signal.SIGINT, self.sigterm_handler)
         sys_signal.signal(sys_signal.SIGTERM, self.sigterm_handler)
+
+    def set_api_rest_port(self):
+        if self.dev_mode:
+            # DEV MODE!!!
+            if self.info['name'] == "lucit-ubdcc-dcn":
+                self.api_port_rest = self.rest_server_port_dev_dcn
+            elif self.info['name'] == "lucit-ubdcc-mgmt":
+                self.api_port_rest = self.rest_server_port_dev_mgmt
+            elif self.info['name'] == "lucit-ubdcc-restapi":
+                self.api_port_rest = self.rest_server_port_dev_restapi
+            else:
+                raise ValueError(f"Not able to choose the right rest server port for app '{self.info['name']}'")
+        else:
+            # PRODUCTIVE MODE!!!
+            self.api_port_rest = self.rest_server_port
+
+    def set_status_running(self) -> bool:
+        self.status = "running"
+        return True
 
     def sigterm_handler(self, signal, frame) -> None:
         self.sigterm = True
@@ -230,6 +283,9 @@ class App:
         # Runtime Information
         self.get_k8s_runtime_information()
 
+        # Define and set the rest server port
+        self.set_api_rest_port()
+
         # Running the core app
         exception_shutdown = False
         exception_shutdown_error = None
@@ -256,3 +312,29 @@ class App:
         self.stop_call()
         self.stdout_msg(f"Gracefully shutdown finished! Thank you and good bye ...", log="info")
         sys.exit(0)
+
+    def ubdcc_node_cancellation(self):
+        pass
+
+    def ubdcc_node_registration(self) -> dict:
+        endpoint = "/ubdcc_node_registration"
+        host = self.get_cluster_mgmt_address()
+        query = (f"?name={self.id['name']}&"
+                 f"uid={self.id['uid']}&"
+                 f"node={self.id['node']}&"
+                 f"role={self.info['name']}&"
+                 f"api_port_rest={self.api_port_rest}&"
+                 f"status={self.status}&"
+                 f"version={self.get_version()}")
+        url = host + endpoint + query
+        return self.get_request(url=url)
+
+    def ubdcc_node_sync(self) -> dict:
+        endpoint = "/ubdcc_node_sync"
+        host = self.get_cluster_mgmt_address()
+        query = (f"?uid={self.id['uid']}&"
+                 f"node={self.id['node']}&"
+                 f"status={self.status}")
+        url = host + endpoint + query
+        return self.get_request(url=url)
+

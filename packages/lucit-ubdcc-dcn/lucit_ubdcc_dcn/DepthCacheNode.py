@@ -28,5 +28,8 @@ class DepthCacheNode(ServiceBase):
 
     async def main(self):
         self.start_rest_server(endpoints=RestEndpoints)
+        self.app.set_status_running()
+        self.app.ubdcc_node_registration()
         while self.app.is_shutdown() is False:
             await self.app.sleep(seconds=10)
+            self.app.ubdcc_node_sync()

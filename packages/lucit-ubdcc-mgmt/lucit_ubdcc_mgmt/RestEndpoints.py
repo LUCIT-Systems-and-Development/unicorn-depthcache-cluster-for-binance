@@ -100,6 +100,7 @@ class RestEndpoints(RestEndpointsBase):
         role = request.query_params.get("role")
         api_port_rest = request.query_params.get("api_port_rest")
         status = request.query_params.get("status")
+        version = request.query_params.get("version")
         if not name or not uid or not node or not role or not api_port_rest or not status:
             return self.get_error_response(event="UBDCC_NODE_REGISTRATION",
                                            message="Missing required parameter: name, uid, node, role, api_port_rest, "
@@ -113,7 +114,8 @@ class RestEndpoints(RestEndpointsBase):
                                  role=role,
                                  ip=request.client.host,
                                  api_port_rest=int(api_port_rest),
-                                 status=status)
+                                 status=status,
+                                 version=version)
         if result is True:
             return self.get_ok_response(event="UBDCC_NODE_REGISTRATION")
         else:

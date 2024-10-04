@@ -20,7 +20,6 @@
 
 import json
 import threading
-import time
 from typing import Union
 
 
@@ -64,7 +63,7 @@ class Database:
         return True
 
     def add_pod(self, name: str = None, uid: str = None, node: str = None, role: str = None, ip: str = None,
-                api_port_rest: int = None, status: str = None) -> bool:
+                api_port_rest: int = None, status: str = None, version: str = None) -> bool:
         if uid is None:
             raise ValueError("Parameter 'uid' is mandatory!")
         pod = {"NAME": name,
@@ -74,7 +73,8 @@ class Database:
                "IP": ip,
                "API_PORT_REST": api_port_rest,
                "LAST_SEEN": self.app.get_unix_timestamp(),
-               "STATUS": status}
+               "STATUS": status,
+               "VERSION": version}
         with self.data_lock:
             self.data['pods'][uid] = pod
         return True

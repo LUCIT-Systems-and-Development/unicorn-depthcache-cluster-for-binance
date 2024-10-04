@@ -14,10 +14,10 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Create GitHub Release
-      uses: softprops/action-gh-release@v1
+      uses: softprops/action-gh-docker@v1
       with:
-        tag_name: 0.0.52
-        name: Release 0.0.52
+        tag_name: 0.0.53
+        name: Release 0.0.53
         body: |
           Please read the [CHANGELOG](https://unicorn-binance-depthcache-cluster.docs.lucit.tech/changelog.html) for further information.
         draft: false

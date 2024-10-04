@@ -31,6 +31,7 @@ class ServiceBase:
                        service_call=self.run,
                        stop_call=self.stop)
         self.app.start()
+        # Never gets executed ;)
 
     async def main(self) -> None:
         # Override with specific Service main() function
@@ -41,7 +42,7 @@ class ServiceBase:
         asyncio.run(self.main())
 
     def start_rest_server(self, endpoints=None) -> bool:
-        self.rest_server = RestServer(app=self.app, endpoints=endpoints)
+        self.rest_server = RestServer(app=self.app, endpoints=endpoints, port=self.app.api_port_rest)
         self.rest_server.start()
         return True
 

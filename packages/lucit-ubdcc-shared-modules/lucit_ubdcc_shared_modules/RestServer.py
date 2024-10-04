@@ -25,29 +25,16 @@ from uvicorn.config import LOGGING_CONFIG
 
 
 class RestServer(threading.Thread):
-    def __init__(self, app=None, endpoints=None):
+    def __init__(self, app=None, endpoints=None, port=None):
         super().__init__()
         self.app = app
         self.endpoints = endpoints(app=self.app)
         self.endpoints.register()
         LOGGING_CONFIG["formatters"]["access"]["fmt"] = f"%(asctime)s {LOGGING_CONFIG['formatters']['access']['fmt']}"
-        if self.app.dev_mode:
-            # DEV MODE!!!
-            if self.app.info['name'] == "lucit-ubdcc-dcn":
-                rest_server_port = self.app.rest_server_port_dev_dcn
-            elif self.app.info['name'] == "lucit-ubdcc-mgmt":
-                rest_server_port = self.app.rest_server_port_dev_mgmt
-            elif self.app.info['name'] == "lucit-ubdcc-restapi":
-                rest_server_port = self.app.rest_server_port_dev_restapi
-            else:
-                raise ValueError(f"Not able to choose the right rest server port for app '{self.app.info['name']}'")
-        else:
-            # PRODUCTIVE MODE!!!
-            rest_server_port = self.app.rest_server_port
-        self.app.stdout_msg(f"Registering REST Server on port {rest_server_port} ...", log="info")
+        self.app.stdout_msg(f"Registering REST Server on port {port} ...", log="info")
         self.uvicorn = uvicorn.Server(uvicorn.Config(self.app.get_fastapi_instance(),
                                                      host="0.0.0.0",
-                                                     port=rest_server_port))
+                                                     port=port))
 
     def run(self) -> None:
         self.app.stdout_msg(f"Starting REST Server Engine ...", log="info")
