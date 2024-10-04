@@ -34,11 +34,12 @@ import traceback
 from fastapi import FastAPI
 
 
+K8S_SERVICE_PORT_MGMT: int = 4280
 REST_SERVER_PORT: int = 8080
 REST_SERVER_PORT_DEV_DCN: int = 42082
 REST_SERVER_PORT_DEV_MGMT: int = 42080
 REST_SERVER_PORT_DEV_RESTAPI: int = 42081
-VERSION: str = "0.0.54"
+VERSION: str = "0.0.55"
 
 
 class App:
@@ -55,6 +56,7 @@ class App:
         self.k8s_metrics_client = None
         self.logger = logger
         self.pod_info = None
+        self.k8s_service_port_mgmt = K8S_SERVICE_PORT_MGMT
         self.rest_server_port = REST_SERVER_PORT
         self.rest_server_port_dev_dcn = REST_SERVER_PORT_DEV_DCN
         self.rest_server_port_dev_mgmt = REST_SERVER_PORT_DEV_MGMT
@@ -154,7 +156,7 @@ class App:
             url = f"http://localhost:{self.rest_server_port_dev_mgmt}"
         else:
             # PRODUCTIVE MODE!!!
-            url = f"http://lucit-ubdcc-mgmt.lucit-ubdcc.svc.cluster.local:8080"
+            url = f"http://lucit-ubdcc-mgmt.lucit-ubdcc.svc.cluster.local:{self.k8s_service_port_mgmt}"
         return url
 
     @staticmethod
