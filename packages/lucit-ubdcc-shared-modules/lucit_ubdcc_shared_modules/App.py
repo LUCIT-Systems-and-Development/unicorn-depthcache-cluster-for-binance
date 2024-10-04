@@ -38,7 +38,7 @@ REST_SERVER_PORT: int = 8080
 REST_SERVER_PORT_DEV_DCN: int = 42082
 REST_SERVER_PORT_DEV_MGMT: int = 42080
 REST_SERVER_PORT_DEV_RESTAPI: int = 42081
-VERSION: str = "0.0.53"
+VERSION: str = "0.0.54"
 
 
 class App:
@@ -154,7 +154,7 @@ class App:
             url = f"http://localhost:{self.rest_server_port_dev_mgmt}"
         else:
             # PRODUCTIVE MODE!!!
-            url = f"http://lucit-ubdcc-mgmt.lucit-ubdcc.svc.cluster.local"
+            url = f"http://lucit-ubdcc-mgmt.lucit-ubdcc.svc.cluster.local:8080"
         return url
 
     @staticmethod
@@ -169,7 +169,7 @@ class App:
             response.raise_for_status()
             return response.json()
         except requests.exceptions.RequestException as error_msg:
-            print(f"An error occurred: {error_msg}")
+            print(f"An error occurred during a get request:\r\n{error_msg}")
             return {"error": error_msg}
 
     @staticmethod
@@ -209,6 +209,10 @@ class App:
     def set_status_running(self) -> bool:
         self.status = "running"
         return True
+
+    def shutdown(self, message=None) -> None:
+        self.sigterm = True
+        self.stdout_msg(f"Shutdown is performed: {message}", log="warn")
 
     def sigterm_handler(self, signal, frame) -> None:
         self.sigterm = True
@@ -316,7 +320,7 @@ class App:
     def ubdcc_node_cancellation(self):
         pass
 
-    def ubdcc_node_registration(self) -> dict:
+    def ubdcc_node_registration(self) -> bool:
         endpoint = "/ubdcc_node_registration"
         host = self.get_cluster_mgmt_address()
         query = (f"?name={self.id['name']}&"
@@ -327,14 +331,22 @@ class App:
                  f"status={self.status}&"
                  f"version={self.get_version()}")
         url = host + endpoint + query
-        return self.get_request(url=url)
+        result = self.get_request(url=url)
+        if result.get('error') is None:
+            return True
+        else:
+            return False
 
-    def ubdcc_node_sync(self) -> dict:
+    def ubdcc_node_sync(self) -> bool:
         endpoint = "/ubdcc_node_sync"
         host = self.get_cluster_mgmt_address()
         query = (f"?uid={self.id['uid']}&"
                  f"node={self.id['node']}&"
                  f"status={self.status}")
         url = host + endpoint + query
-        return self.get_request(url=url)
+        result = self.get_request(url=url)
+        if result.get('error') is None:
+            return True
+        else:
+            return False
 

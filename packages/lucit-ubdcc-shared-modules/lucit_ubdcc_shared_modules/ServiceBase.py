@@ -19,6 +19,8 @@
 # All rights reserved.
 
 import asyncio
+import time
+
 from .App import App
 from .RestServer import RestServer
 
@@ -44,6 +46,7 @@ class ServiceBase:
     def start_rest_server(self, endpoints=None) -> bool:
         self.rest_server = RestServer(app=self.app, endpoints=endpoints, port=self.app.api_port_rest)
         self.rest_server.start()
+        time.sleep(1)
         return True
 
     def stop(self) -> bool:

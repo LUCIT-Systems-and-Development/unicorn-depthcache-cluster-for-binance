@@ -29,7 +29,8 @@ class DepthCacheNode(ServiceBase):
     async def main(self):
         self.start_rest_server(endpoints=RestEndpoints)
         self.app.set_status_running()
-        self.app.ubdcc_node_registration()
+        if self.app.ubdcc_node_registration() is False:
+            self.app.shutdown(message="Node registration failed!")
         while self.app.is_shutdown() is False:
             await self.app.sleep(seconds=10)
             self.app.ubdcc_node_sync()
