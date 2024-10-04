@@ -187,6 +187,12 @@ class App:
     def is_shutdown(self) -> bool:
         return self.sigterm
 
+    def login_or_restart(self, retries=5):
+        i = 0
+        while retries > i:
+            self.app.ubdcc_node_registration() is False
+            self.app.shutdown(message="Node registration failed!")
+
     def register_graceful_shutdown(self) -> None:
         sys_signal.signal(sys_signal.SIGINT, self.sigterm_handler)
         sys_signal.signal(sys_signal.SIGTERM, self.sigterm_handler)
@@ -320,7 +326,7 @@ class App:
     def ubdcc_node_cancellation(self):
         pass
 
-    def ubdcc_node_registration(self) -> bool:
+    def ubdcc_node_registration(self, retries=5) -> bool:
         endpoint = "/ubdcc_node_registration"
         host = self.get_cluster_mgmt_address()
         query = (f"?name={self.id['name']}&"
@@ -331,11 +337,14 @@ class App:
                  f"status={self.status}&"
                  f"version={self.get_version()}")
         url = host + endpoint + query
-        result = self.get_request(url=url)
-        if result.get('error') is None:
-            return True
-        else:
-            return False
+        loops = 0
+        while loops < retries:
+            loops += 1
+            result = self.get_request(url=url)
+            if result.get('error') is None:
+                return True
+            time.sleep(1)
+        return False
 
     def ubdcc_node_sync(self) -> bool:
         endpoint = "/ubdcc_node_sync"
