@@ -142,11 +142,11 @@ class Database:
         with self.data_lock:
             return self.data
 
-    def get_license_api_secret(self) -> dict:
+    def get_license_api_secret(self) -> str:
         with self.data_lock:
             return self.data['license']['api_secret']
 
-    def get_license_license_token(self) -> dict:
+    def get_license_license_token(self) -> str:
         with self.data_lock:
             return self.data['license']['license_token']
 
