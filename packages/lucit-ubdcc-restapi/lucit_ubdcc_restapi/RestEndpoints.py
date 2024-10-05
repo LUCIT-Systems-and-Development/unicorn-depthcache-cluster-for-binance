@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # ¯\_(ツ)_/¯
 #
-# File: packages/lucit-ubdcc-restapi/lucit_ubdcc_dcn/RestEndpoints.py
+# File: packages/lucit-ubdcc-restapi/lucit_ubdcc_restapi/RestEndpoints.py
 #
 # Project website: https://www.lucit.tech/unicorn-binance-depthcache-cluster.html
 # Github: https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster
@@ -48,15 +48,11 @@ class RestEndpoints(RestEndpointsBase):
 
         @self.fastapi.get("/get_cluster_info")
         async def get_cluster_info(request: Request):
-            # Todo: Return information about the UBDCC
-            return {"event": "GET_CLUSTER_INFO",
-                    "result": "NOT_IMPLEMENTED"}
+            return await self.get_cluster_info(request=request)
 
         @self.fastapi.get("/get_depthcache_list")
         async def get_depthcache_list(request: Request):
-            # Todo: Return a list of all DepthCaches
-            return {"event": "GET_DEPTHCACHE_LIST",
-                    "result": "NOT_IMPLEMENTED"}
+            return await self.get_depthcache_list(request=request)
 
         @self.fastapi.get("/get_depthcache_status")
         async def get_depthcache_status(request: Request):
@@ -70,3 +66,11 @@ class RestEndpoints(RestEndpointsBase):
             return {"event": "STOP_DEPTHCACHE",
                     "result": "NOT_IMPLEMENTED"}
 
+    async def get_cluster_info(self, request: Request):
+        endpoint = "/get_cluster_info"
+        host = self.app.get_cluster_mgmt_address()
+        url = host + endpoint
+        return self.app.request(url=url, method="get")
+
+    async def get_depthcache_list(self, request: Request):
+        return self.app.data['db-rest']['depthcaches']

@@ -26,6 +26,7 @@ from typing import Union
 class Database:
     def __init__(self, app=None):
         self.app = app
+        self.app.data['db'] = self
         self.data = {}
         self.data_lock = threading.Lock()
         self._init()
@@ -129,6 +130,12 @@ class Database:
     def get_all(self) -> dict:
         with self.data_lock:
             return self.data
+
+    def get_backup_string(self):
+        data = {"timestamp": self.app.get_unix_timestamp()}
+        with self.data_lock:
+            data.update(self.app.data['db'].data)
+        return self.app.sort_dict(input_dict=data)
 
     def load(self, data_json: str = None) -> bool:
         with self.data_lock:

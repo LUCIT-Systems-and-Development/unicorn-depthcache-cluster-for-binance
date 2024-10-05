@@ -17,6 +17,7 @@
 #
 # Copyright (c) 2024-2024, LUCIT Systems and Development (https://www.lucit.tech)
 # All rights reserved.
+import json
 
 from .Database import Database
 from lucit_ubdcc_shared_modules.RestEndpointsBase import RestEndpointsBase, Request
@@ -39,18 +40,6 @@ class RestEndpoints(RestEndpointsBase):
         @self.fastapi.get("/get_cluster_info")
         async def get_cluster_info(request: Request):
             return await self.get_cluster_info(request=request)
-
-        @self.fastapi.get("/get_depthcache_list")
-        async def get_depthcache_list(request: Request):
-            # Todo: Return a list of all DepthCaches
-            return {"event": "GET_DEPTHCACHE_LIST",
-                    "result": "NOT_IMPLEMENTED"}
-
-        @self.fastapi.get("/get_depthcache_status")
-        async def get_depthcache_status(request: Request):
-            # Todo: Return the status of the DepthCache
-            return {"event": "GET_DEPTHCACHE_STATUS",
-                    "result": "NOT_IMPLEMENTED"}
 
         @self.fastapi.get("/stop_depthcache")
         async def stop_depthcache(request: Request):
@@ -81,17 +70,18 @@ class RestEndpoints(RestEndpointsBase):
     async def ubdcc_node_cancellation(self, request: Request):
         uid = request.query_params.get("uid")
         if not uid:
-            return self.get_error_response(event="UBDCC_NODE_CANCELLATION",
+            return self.get_error_response(event="UBDCC_NODE_CANCELLATION", error_id="#1004",
                                            message="Missing required parameter: uid")
         if not self.db.exists_pod(uid=uid):
-            return self.get_error_response(event="UBDCC_NODE_CANCELLATION",
+            return self.get_error_response(event="UBDCC_NODE_CANCELLATION", error_id="#1005",
                                            message=f"A pod with the uid '{uid}' does not exist!")
         # Todo: Tasks to remove the pod (restructuring DC distribution)
         result = self.db.delete_pod(uid=uid)
         if result is True:
             return self.get_ok_response(event="UBDCC_NODE_CANCELLATION")
         else:
-            return self.get_error_response(event="UBDCC_NODE_CANCELLATION", message="An unknown error has occurred!")
+            return self.get_error_response(event="UBDCC_NODE_CANCELLATION", error_id="#9000",
+                                           message="An unknown error has occurred!")
 
     async def ubdcc_node_registration(self, request: Request):
         name = request.query_params.get("name")
@@ -102,11 +92,11 @@ class RestEndpoints(RestEndpointsBase):
         status = request.query_params.get("status")
         version = request.query_params.get("version")
         if not name or not uid or not node or not role or not api_port_rest or not status:
-            return self.get_error_response(event="UBDCC_NODE_REGISTRATION",
+            return self.get_error_response(event="UBDCC_NODE_REGISTRATION", error_id="#1002",
                                            message="Missing required parameter: name, uid, node, role, api_port_rest, "
                                                    "status")
         if self.db.exists_pod(uid=uid):
-            return self.get_error_response(event="UBDCC_NODE_REGISTRATION",
+            return self.get_error_response(event="UBDCC_NODE_REGISTRATION", error_id="#1003",
                                            message=f"A pod with the uid '{uid}' already exists!")
         result = self.db.add_pod(name=name,
                                  uid=uid,
@@ -117,18 +107,22 @@ class RestEndpoints(RestEndpointsBase):
                                  status=status,
                                  version=version)
         if result is True:
+            self.app.send_backup_to_node(host=request.client.host, port=api_port_rest)
             return self.get_ok_response(event="UBDCC_NODE_REGISTRATION")
         else:
-            return self.get_error_response(event="UBDCC_NODE_REGISTRATION", message="An unknown error has occurred!")
+            return self.get_error_response(event="UBDCC_NODE_REGISTRATION", error_id="#9000",
+                                           message="An unknown error has occurred!")
 
     async def ubdcc_node_sync(self, request: Request):
         uid = request.query_params.get("uid")
         node = request.query_params.get("node")
         status = request.query_params.get("status")
         if not uid:
-            return self.get_error_response(event="UBDCC_NODE_SYNC", message="Missing required parameter: uid")
+            return self.get_error_response(event="UBDCC_NODE_SYNC", error_id="#1000",
+                                           message="Missing required parameter: uid")
         if not self.db.exists_pod(uid=uid):
-            return self.get_error_response(event="UBDCC_NODE_SYNC", message=f"Registration for pod '{uid}' not found!")
+            return self.get_error_response(event="UBDCC_NODE_SYNC", error_id="#1001",
+                                           message=f"Registration for pod '{uid}' not found!")
         result = self.db.update_pod(uid=uid,
                                     node=node,
                                     ip=request.client.host,
@@ -136,4 +130,5 @@ class RestEndpoints(RestEndpointsBase):
         if result is True:
             return self.get_ok_response(event="UBDCC_NODE_SYNC")
         else:
-            return self.get_error_response(event="UBDCC_NODE_SYNC", message="An unknown error has occurred!")
+            return self.get_error_response(event="UBDCC_NODE_SYNC", error_id="#9000",
+                                           message="An unknown error has occurred!")

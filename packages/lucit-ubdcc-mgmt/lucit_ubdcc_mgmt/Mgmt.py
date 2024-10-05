@@ -32,7 +32,6 @@ class Mgmt(ServiceBase):
         self.app.stdout_msg(f"Starting Database ...", log="info")
         if self.db is None:
             self.db = Database(app=self.app)
-            self.app.data['db'] = self.db
             return True
         return False
 

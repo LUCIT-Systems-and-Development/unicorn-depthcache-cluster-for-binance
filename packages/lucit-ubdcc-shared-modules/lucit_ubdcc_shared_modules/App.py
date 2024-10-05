@@ -21,6 +21,7 @@
 import asyncio
 import cython
 import logging
+import json
 import os
 import signal as sys_signal
 import socket
@@ -39,7 +40,7 @@ REST_SERVER_PORT: int = 8080
 REST_SERVER_PORT_DEV_DCN: int = 42082
 REST_SERVER_PORT_DEV_MGMT: int = 42080
 REST_SERVER_PORT_DEV_RESTAPI: int = 42081
-VERSION: str = "0.0.55"
+VERSION: str = "0.0.56"
 
 
 class App:
@@ -65,8 +66,14 @@ class App:
         self.sigterm = False
         self.stop_call = stop_call
         self.status = "starting"
+        self.ubdcc_mgmt_backup: str = ""
         self.data: dict = {}
         self.id: dict = {}
+
+    def get_backup_from_node(self, host, port) -> dict:
+        data = self.request(f"http://{host}:{port}/ubdcc_mgmt_backup", method="get")
+        data = json.loads(data['db'])
+        return data
 
     def get_fastapi_instance(self) -> FastAPI:
         if self.fastapi:
@@ -148,7 +155,8 @@ class App:
 
         self.id['name'] = self.generate_string(random.randint(10, 15)) if self.dev_mode else self.pod_info.metadata.name
         self.id['uid'] = self.generate_string(random.randint(20, 20)) if self.dev_mode else self.pod_info.metadata.uid
-        self.id['node'] = self.generate_string(random.randint(15, 15)) if self.dev_mode else self.pod_info.spec.node_name
+        self.id['node'] = self.generate_string(random.randint(15, 15)) if self.dev_mode else (
+                                                                                        self.pod_info.spec.node_name)
 
     def get_cluster_mgmt_address(self):
         if self.dev_mode:
@@ -165,16 +173,6 @@ class App:
         return ''.join(random.choice(letters) for i in range(length))
 
     @staticmethod
-    def get_request(url, params=None, headers=None, timeout=10) -> dict:
-        try:
-            response = requests.get(url, params=params, headers=headers, timeout=timeout)
-            response.raise_for_status()
-            return response.json()
-        except requests.exceptions.RequestException as error_msg:
-            print(f"An error occurred during a get request:\r\n{error_msg}")
-            return {"error": error_msg}
-
-    @staticmethod
     def get_unix_timestamp():
         return time.time()
 
@@ -189,15 +187,33 @@ class App:
     def is_shutdown(self) -> bool:
         return self.sigterm
 
-    def login_or_restart(self, retries=5):
-        i = 0
-        while retries > i:
-            self.app.ubdcc_node_registration() is False
-            self.app.shutdown(message="Node registration failed!")
+    def register_or_restart(self):
+        if self.ubdcc_node_registration() is False:
+            self.shutdown(message="Node registration failed!")
 
     def register_graceful_shutdown(self) -> None:
         sys_signal.signal(sys_signal.SIGINT, self.sigterm_handler)
         sys_signal.signal(sys_signal.SIGTERM, self.sigterm_handler)
+
+    @staticmethod
+    def request(url, method, params=None, headers=None, timeout=10) -> dict:
+        try:
+            if method == "get":
+                response = requests.get(url, params=params, headers=headers, timeout=timeout)
+            elif method == "post":
+                response = requests.post(url, json=json.dumps(params),
+                                         headers={"Content-Type": "application/json"})
+            else:
+                raise ValueError("Allowed 'method' values: get, post")
+            response.raise_for_status()
+            return response.json()
+        except requests.exceptions.RequestException as error_msg:
+            print(f"An error occurred: {error_msg}")
+            return {"error": error_msg}
+
+    def send_backup_to_node(self, host, port) -> dict:
+        return self.request(f"http://{host}:{port}/ubdcc_mgmt_backup", method="post",
+                            params=self.data['db'].get_backup_string())
 
     def set_api_rest_port(self):
         if self.dev_mode:
@@ -227,31 +243,7 @@ class App:
         self.stdout_msg(f"Processing SIGTERM - signal: {signal} - frame: {frame}", log="debug", stdout=False)
         self.stdout_msg(f"Received SIGTERM, performing graceful shutdown ...", log="warn")
 
-    def stdout_msg(self, msg=None, log=None, stdout=True) -> bool:
-        if msg is None:
-            return False
-        if log is None and stdout is False:
-            return False
-        if log is not None:
-            if log == "debug":
-                self.logger.debug(msg)
-            elif log == "info":
-                self.logger.info(msg)
-            elif log == "warn":
-                self.logger.warn(msg)
-            elif log == "error":
-                self.logger.error(msg)
-            elif log == "critical":
-                self.logger.critical(msg)
-            else:
-                return False
-        if stdout is True:
-            print(msg, flush=True)
-        return True
-
-    async def sleep(self, seconds: int = None) -> bool:
-        if seconds is None:
-            raise ValueError("Parameter 'seconds' is mandatory!")
+    async def sleep(self, seconds: int = 10) -> bool:
         internal_sleep_time = 3
         time_start = self.get_unix_timestamp()
         time_limit = time_start + seconds
@@ -325,10 +317,33 @@ class App:
         self.stdout_msg(f"Gracefully shutdown finished! Thank you and good bye ...", log="info")
         sys.exit(0)
 
+    def stdout_msg(self, msg=None, log=None, stdout=True) -> bool:
+        if msg is None:
+            return False
+        if log is None and stdout is False:
+            return False
+        if log is not None:
+            if log == "debug":
+                self.logger.debug(msg)
+            elif log == "info":
+                self.logger.info(msg)
+            elif log == "warn":
+                self.logger.warn(msg)
+            elif log == "error":
+                self.logger.error(msg)
+            elif log == "critical":
+                self.logger.critical(msg)
+            else:
+                return False
+        if stdout is True:
+            print(msg, flush=True)
+        return True
+
     def ubdcc_node_cancellation(self):
         pass
 
-    def ubdcc_node_registration(self, retries=5) -> bool:
+    def ubdcc_node_registration(self, retries=30) -> bool:
+        self.stdout_msg(f"Starting node registration ...", log="info")
         endpoint = "/ubdcc_node_registration"
         host = self.get_cluster_mgmt_address()
         query = (f"?name={self.id['name']}&"
@@ -340,24 +355,38 @@ class App:
                  f"version={self.get_version()}")
         url = host + endpoint + query
         loops = 0
+        result = None
         while loops < retries:
             loops += 1
-            result = self.get_request(url=url)
+            result = self.request(url=url, method="get")
             if result.get('error') is None:
+                self.stdout_msg(f"Node registration succeeded!", log="info")
                 return True
             time.sleep(1)
+        self.stdout_msg(f"Error during node registration: {result.get('error_id')} - {result.get('error')}",
+                        log="error")
         return False
 
     def ubdcc_node_sync(self) -> bool:
+        self.stdout_msg(f"Starting node sync ...", log="info")
         endpoint = "/ubdcc_node_sync"
         host = self.get_cluster_mgmt_address()
         query = (f"?uid={self.id['uid']}&"
                  f"node={self.id['node']}&"
                  f"status={self.status}")
         url = host + endpoint + query
-        result = self.get_request(url=url)
-        if result.get('error') is None:
+        result = self.request(url=url, method="get")
+        if result.get('error_id') is None and result.get('error') is None:
+            self.stdout_msg(f"Node sync succeeded!", log="info")
             return True
-        else:
+        elif result.get('error') is not None:
+            self.stdout_msg(f"Error during node sync: {result.get('error')}", log="warn")
             return False
-
+        elif result.get('error_id') == "#1001":
+            self.stdout_msg(f"The node is no longer recognized by {url}.", log="warn")
+            # Todo: Sync local settings with mgmt!
+            return self.ubdcc_node_registration()
+        else:
+            self.stdout_msg(f"Error during node sync: {result.get('error_id')} - {result.get('message')}",
+                            log="error")
+            return False
