@@ -17,9 +17,8 @@
 #
 # Copyright (c) 2024-2024, LUCIT Systems and Development (https://www.lucit.tech)
 # All rights reserved.
-import json
 
-from .Database import Database
+from lucit_ubdcc_shared_modules.Database import Database
 from lucit_ubdcc_shared_modules.RestEndpointsBase import RestEndpointsBase, Request
 
 
@@ -127,7 +126,9 @@ class RestEndpoints(RestEndpointsBase):
                                     node=node,
                                     ip=request.client.host,
                                     status=status)
+        pod = self.db.get_pod_by_uid(uid=uid)
         if result is True:
+            self.app.send_backup_to_node(host=request.client.host, port=pod['API_PORT_REST'])
             return self.get_ok_response(event="UBDCC_NODE_SYNC")
         else:
             return self.get_error_response(event="UBDCC_NODE_SYNC", error_id="#9000",

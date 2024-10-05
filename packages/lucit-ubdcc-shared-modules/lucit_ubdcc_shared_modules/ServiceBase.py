@@ -20,13 +20,14 @@
 
 import asyncio
 import time
-
 from .App import App
 from .RestServer import RestServer
+from .Database import Database
 
 
 class ServiceBase:
     def __init__(self, app_name=None, cwd=None):
+        self.db: Database | None = None
         self.rest_server = None
         self.app = App(app_name=app_name,
                        cwd=cwd,
@@ -34,6 +35,13 @@ class ServiceBase:
                        stop_call=self.stop)
         self.app.start()
         # Never gets executed ;)
+
+    def db_init(self) -> bool:
+        self.app.stdout_msg(f"Starting Database ...", log="info")
+        if self.db is None:
+            self.db = Database(app=self.app)
+            return True
+        return False
 
     async def main(self) -> None:
         # Override with specific Service main() function

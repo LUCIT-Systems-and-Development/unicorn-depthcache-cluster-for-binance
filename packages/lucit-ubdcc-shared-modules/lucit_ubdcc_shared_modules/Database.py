@@ -33,10 +33,11 @@ class Database:
 
     def _init(self) -> bool:
         self.app.stdout_msg(f"Initiating Database ...", log="info")
-        self.set(key="depthcaches", value={})
-        self.set(key="depthcache_distribution", value={})
-        self.set(key="pods", value={})
-        self.set(key="nodes", value={})
+        if not self.data:
+            self.set(key="depthcaches", value={})
+            self.set(key="depthcache_distribution", value={})
+            self.set(key="pods", value={})
+            self.set(key="nodes", value={})
         self.update_nodes()
         return True
 
@@ -131,15 +132,21 @@ class Database:
         with self.data_lock:
             return self.data
 
+    def get_pod_by_uid(self, uid=None) -> dict:
+        if uid is None:
+            raise ValueError("Parameter 'uid' ist mandatory!")
+        with self.data_lock:
+            return self.data['pods'][uid]
+
     def get_backup_string(self):
         data = {"timestamp": self.app.get_unix_timestamp()}
         with self.data_lock:
             data.update(self.app.data['db'].data)
         return self.app.sort_dict(input_dict=data)
 
-    def load(self, data_json: str = None) -> bool:
+    def replace_data(self, data: dict = None):
         with self.data_lock:
-            self.data = json.loads(data_json)
+            self.data = data
         return True
 
     def set(self, key: str = None, value: Union[dict, str, list, set, tuple] = None) -> bool:

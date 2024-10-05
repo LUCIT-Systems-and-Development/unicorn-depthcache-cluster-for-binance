@@ -30,6 +30,8 @@ class RestApi(ServiceBase):
         self.start_rest_server(endpoints=RestEndpoints)
         self.app.set_status_running()
         self.app.register_or_restart()
+        self.db_init()
         while self.app.is_shutdown() is False:
             await self.app.sleep()
             self.app.ubdcc_node_sync()
+            print(self.db.get_all())

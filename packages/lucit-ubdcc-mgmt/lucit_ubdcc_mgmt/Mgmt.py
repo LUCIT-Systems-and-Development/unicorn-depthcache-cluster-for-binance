@@ -18,22 +18,13 @@
 # Copyright (c) 2024-2024, LUCIT Systems and Development (https://www.lucit.tech)
 # All rights reserved.
 
-from .Database import Database
 from .RestEndpoints import RestEndpoints
 from lucit_ubdcc_shared_modules.ServiceBase import ServiceBase
 
 
 class Mgmt(ServiceBase):
     def __init__(self, cwd=None):
-        self.db = None
         super().__init__(app_name="lucit-ubdcc-mgmt", cwd=cwd)
-
-    def db_init(self) -> bool:
-        self.app.stdout_msg(f"Starting Database ...", log="info")
-        if self.db is None:
-            self.db = Database(app=self.app)
-            return True
-        return False
 
     async def main(self):
         self.db_init()
