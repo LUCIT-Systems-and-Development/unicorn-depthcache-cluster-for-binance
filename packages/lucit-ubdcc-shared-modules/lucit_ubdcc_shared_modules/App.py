@@ -41,7 +41,7 @@ REST_SERVER_PORT: int = 8080
 REST_SERVER_PORT_DEV_DCN: int = 42082
 REST_SERVER_PORT_DEV_MGMT: int = 42080
 REST_SERVER_PORT_DEV_RESTAPI: int = 42081
-VERSION: str = "0.0.57"
+VERSION: str = "0.0.58"
 
 
 class App:
@@ -72,23 +72,26 @@ class App:
         self.id: dict = {}
         self.llm: LucitLicensingManager | None = None
 
-    def start_licensing(self):
-        self.llm = LucitLicensingManager(api_secret=self.lucit_api_secret,
-                                         license_ini=self.lucit_license_ini,
-                                         license_profile=self.lucit_license_profile,
-                                         license_token=self.lucit_license_token,
-                                         parent_shutdown_function=self.stop_manager,
-                                         program_used=self.name,
-                                         needed_license_type="UNICORN-BINANCE-SUITE",
-                                         start=True)
-        licensing_exception = self.llm.get_license_exception()
-        if licensing_exception is not None:
-            raise NoValidatedLucitLicense(licensing_exception)
+    def deactivate_license(self, close_api_session: bool = True) -> bool | None:
+        self.data['db'].set_license_status(status="INVALID")
+        if close_api_session is True:
+            self.llm.close()
+        return True
 
     def get_backup_from_node(self, host, port) -> dict:
         data = self.request(f"http://{host}:{port}/ubdcc_mgmt_backup", method="get")
         data = json.loads(data['db'])
         return data
+
+    def get_backup_timestamp_from_node(self, host, port) -> float | None:
+        data = self.request(f"http://{host}:{port}/ubdcc_mgmt_backup?get_backup_timestamp", method="get")
+        try:
+            data = json.loads(data['db'])
+        except KeyError:
+            return None
+        if data.get('timestamp'):
+            return float(data.get('timestamp'))
+        return None
 
     def get_fastapi_instance(self) -> FastAPI:
         if self.fastapi:
@@ -251,6 +254,7 @@ class App:
 
     def shutdown(self, message=None) -> None:
         self.sigterm = True
+        self.deactivate_license()
         self.stdout_msg(f"Shutdown is performed: {message}", log="warn")
 
     def sigterm_handler(self, signal, frame) -> None:
@@ -332,6 +336,23 @@ class App:
         self.stdout_msg(f"Gracefully shutdown finished! Thank you and good bye ...", log="info")
         sys.exit(0)
 
+    def start_licensing_manager(self) -> bool:
+        try:
+            self.llm = LucitLicensingManager(api_secret=self.data['db'].get_license_api_secret(),
+                                             license_token=self.data['db'].get_license_license_token(),
+                                             parent_shutdown_function=self.deactivate_license,
+                                             program_used=self.app_name,
+                                             needed_license_type="UNICORN-BINANCE-SUITE",
+                                             start=True)
+        except NoValidatedLucitLicense as error_msg:
+            self.stdout_msg(error_msg, log="critical")
+            return False
+        if self.llm.get_license_exception() is None:
+            self.data['db'].set_license_status(status="VALID")
+            return True
+        else:
+            return False
+
     def stdout_msg(self, msg=None, log=None, stdout=True) -> bool:
         if msg is None:
             return False
@@ -374,8 +395,11 @@ class App:
         while loops < retries:
             loops += 1
             result = self.request(url=url, method="get")
-            if result.get('error') is None:
+            if result.get('error_id') is None and result.get('error') is None:
                 self.stdout_msg(f"Node registration succeeded!", log="info")
+                return True
+            elif result.get('error_id') == "#1003":
+                self.stdout_msg(f"The node is already recognized by {url}.", log="warn")
                 return True
             time.sleep(1)
         self.stdout_msg(f"Error during node registration: {result.get('error_id')} - {result.get('error')}",
@@ -388,6 +412,7 @@ class App:
         host = self.get_cluster_mgmt_address()
         query = (f"?uid={self.id['uid']}&"
                  f"node={self.id['node']}&"
+                 f"api_port_rest={self.api_port_rest}&"
                  f"status={self.status}")
         url = host + endpoint + query
         result = self.request(url=url, method="get")
@@ -404,4 +429,21 @@ class App:
         else:
             self.stdout_msg(f"Error during node sync: {result.get('error_id')} - {result.get('message')}",
                             log="error")
+            return False
+
+    def verify_license(self) -> bool:
+        llm = LucitLicensingManager(api_secret=self.data['db'].get_license_api_secret(),
+                                    license_token=self.data['db'].get_license_license_token(),
+                                    program_used=self.app_name,
+                                    needed_license_type="UNICORN-BINANCE-SUITE",
+                                    start=False)
+        result = llm.verify(api_secret=self.data['db'].get_license_api_secret(),
+                            license_token=self.data['db'].get_license_license_token())
+        try:
+            if result.get('license').get('status') == "VALID":
+                return True
+            else:
+                return False
+        except AttributeError as error_msg:
+            self.stdout_msg(f"Invalid license! - AttributeError: {error_msg}", log="error")
             return False

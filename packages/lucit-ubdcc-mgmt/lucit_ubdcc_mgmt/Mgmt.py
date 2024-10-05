@@ -33,3 +33,5 @@ class Mgmt(ServiceBase):
             self.db.update_nodes()
             self.app.stdout_msg(f"Timed update of the DB key 'nodes': {self.db.get('nodes')}", log="info")
             await self.app.sleep(seconds=30)
+        if self.app.llm is not None:
+            self.app.llm.close()

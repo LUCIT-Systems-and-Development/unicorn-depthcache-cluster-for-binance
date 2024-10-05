@@ -76,7 +76,13 @@ class RestEndpointsBase:
     async def ubdcc_mgmt_backup(self, request: Request):
         request_body = await request.body()
         if not request_body.decode('utf-8').strip('"'):
-            # Get request: provide the backup data for restore
+            # Get request:
+            # provide timestamp of the stored backup
+            backup_timestamp = request.query_params.get("get_backup_timestamp")
+            if backup_timestamp is not None:
+                backup_json = json.loads(self.app.ubdcc_mgmt_backup)
+                return self.get_ok_response(event="UBDCC_MGMT_BACKUP", params={"timestamp": backup_json['timestamp']})
+            # provide the backup data for restore
             return self.get_ok_response(event="UBDCC_MGMT_BACKUP", params={"db": self.app.ubdcc_mgmt_backup})
         else:
             # Post request: save the backup data
@@ -85,7 +91,7 @@ class RestEndpointsBase:
                 try:
                     self.app.data['db'].replace_data(data=self.app.data['db-rest'])
                 except KeyError as error_msg:
-                    self.app.stdout_msg(f"Database not available: {error_msg}", log="debug")
+                    self.app.stdout_msg(f"Database not available: {error_msg}", log="debug", stdout=False)
             self.app.ubdcc_mgmt_backup = json.loads(request_body.decode('utf-8'))
             return self.get_ok_response(event="UBDCC_MGMT_BACKUP", params={"message": "The backup has been saved!"})
 

@@ -66,6 +66,10 @@ class RestEndpoints(RestEndpointsBase):
             return {"event": "STOP_DEPTHCACHE",
                     "result": "NOT_IMPLEMENTED"}
 
+        @self.fastapi.get("/submit_license")
+        async def submit_license(request: Request):
+            return await self.submit_license(request=request)
+
     async def get_cluster_info(self, request: Request):
         endpoint = "/get_cluster_info"
         host = self.app.get_cluster_mgmt_address()
@@ -74,3 +78,13 @@ class RestEndpoints(RestEndpointsBase):
 
     async def get_depthcache_list(self, request: Request):
         return self.app.data['db-rest']['depthcaches']
+
+    async def submit_license(self, request: Request):
+        api_secret = request.query_params.get("api_secret")
+        license_token = request.query_params.get("license_token")
+        endpoint = "/submit_license"
+        host = self.app.get_cluster_mgmt_address()
+        query = (f"?api_secret={api_secret}&"
+                 f"license_token={license_token}")
+        url = host + endpoint + query
+        return self.app.request(url=url, method="get")

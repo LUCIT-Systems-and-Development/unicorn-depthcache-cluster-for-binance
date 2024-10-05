@@ -34,4 +34,3 @@ class RestApi(ServiceBase):
         while self.app.is_shutdown() is False:
             await self.app.sleep()
             self.app.ubdcc_node_sync()
-            print(self.db.get_all())
