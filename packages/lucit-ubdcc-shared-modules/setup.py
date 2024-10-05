@@ -57,6 +57,8 @@ setup(
     ext_modules=cythonize(['lucit_ubdcc_shared_modules/__init__.py',
                            'lucit_ubdcc_shared_modules/App.py',
                            'lucit_ubdcc_shared_modules/Database.py',
+                           'lucit_ubdcc_shared_modules/LicensingExceptions.py',
+                           'lucit_ubdcc_shared_modules/LicensingManager.py',
                            'lucit_ubdcc_shared_modules/RestEndpointsBase.py',
                            'lucit_ubdcc_shared_modules/RestServer.py',
                            'lucit_ubdcc_shared_modules/ServiceBase.py'],

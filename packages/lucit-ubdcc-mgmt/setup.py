@@ -55,7 +55,6 @@ setup(
         'LUCIT Online Shop': 'https://shop.lucit.services/software/unicorn-depthcache-cluster-for-binance',
     },
     ext_modules=cythonize(['lucit_ubdcc_mgmt/__init__.py',
-                           'lucit_ubdcc_mgmt/Database.py',
                            'lucit_ubdcc_mgmt/Mgmt.py',
                            'lucit_ubdcc_mgmt/RestEndpoints.py'],
                           compiler_directives={'language_level': "3"}),

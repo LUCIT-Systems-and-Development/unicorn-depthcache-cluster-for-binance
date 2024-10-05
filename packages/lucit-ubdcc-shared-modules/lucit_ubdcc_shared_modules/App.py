@@ -33,6 +33,7 @@ import kubernetes
 import time
 import traceback
 from fastapi import FastAPI
+from .LicensingManager import LucitLicensingManager, NoValidatedLucitLicense
 
 
 K8S_SERVICE_PORT_MGMT: int = 4280
@@ -69,6 +70,20 @@ class App:
         self.ubdcc_mgmt_backup: str = ""
         self.data: dict = {}
         self.id: dict = {}
+        self.llm: LucitLicensingManager | None = None
+
+    def start_licensing(self):
+        self.llm = LucitLicensingManager(api_secret=self.lucit_api_secret,
+                                         license_ini=self.lucit_license_ini,
+                                         license_profile=self.lucit_license_profile,
+                                         license_token=self.lucit_license_token,
+                                         parent_shutdown_function=self.stop_manager,
+                                         program_used=self.name,
+                                         needed_license_type="UNICORN-BINANCE-SUITE",
+                                         start=True)
+        licensing_exception = self.llm.get_license_exception()
+        if licensing_exception is not None:
+            raise NoValidatedLucitLicense(licensing_exception)
 
     def get_backup_from_node(self, host, port) -> dict:
         data = self.request(f"http://{host}:{port}/ubdcc_mgmt_backup", method="get")
