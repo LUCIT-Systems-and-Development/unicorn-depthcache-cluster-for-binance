@@ -63,10 +63,16 @@ class RestEndpoints(RestEndpointsBase):
             return await self.ubdcc_node_sync(request=request)
 
     async def get_cluster_info(self, request: Request):
+        ready_check = self.throw_error_if_mgmt_not_ready(request=request, event="GET_CLUSTER_INFO")
+        if ready_check is not None:
+            return ready_check
         response = self.create_cluster_info_response()
         return self.get_ok_response(event="GET_CLUSTER_INFO", params=response)
 
     async def submit_license(self, request: Request):
+        ready_check = self.throw_error_if_mgmt_not_ready(request=request, event="SUBMIT_LICENSE")
+        if ready_check is not None:
+            return ready_check
         api_secret = request.query_params.get("api_secret")
         license_token = request.query_params.get("license_token")
         if not api_secret or not license_token:
@@ -82,6 +88,9 @@ class RestEndpoints(RestEndpointsBase):
         return self.get_error_response(event="SUBMIT_LICENSE", error_id="#1011", message="The license is invalid!")
 
     async def ubdcc_node_cancellation(self, request: Request):
+        ready_check = self.throw_error_if_mgmt_not_ready(request=request, event="UBDCC_NODE_CANCELLATION")
+        if ready_check is not None:
+            return ready_check
         uid = request.query_params.get("uid")
         if not uid:
             return self.get_error_response(event="UBDCC_NODE_CANCELLATION", error_id="#1004",
@@ -98,10 +107,8 @@ class RestEndpoints(RestEndpointsBase):
                                            message="An unknown error has occurred!")
 
     async def ubdcc_node_registration(self, request: Request):
-        ready_check = self.throw_error_if_mgmt_not_ready()
+        ready_check = self.throw_error_if_mgmt_not_ready(request=request, event="UBDCC_NODE_REGISTRATION")
         if ready_check is not None:
-            self.app.stdout_msg(f"Mgmt Service is not ready yet! Telling '{request.query_params.get('uid')}' to come "
-                                f"back in {self.app.mgmt_is_ready_time} seconds!", log="warn")
             return ready_check
         name = request.query_params.get("name")
         uid = request.query_params.get("uid")
@@ -163,10 +170,15 @@ class RestEndpoints(RestEndpointsBase):
                     backup = self.app.get_backup_from_node(host=source_ip, port=source_port)
                 if backup is not None:
                     self.db.replace_data(data=backup)
+                    if self.db.get_license_status() == "VALID":
+                        if self.app.start_licensing_manager() is False:
+                            self.db.set_license_status(status="INVALID")
+                    self.app.data['is_ready'] = True
                     self.app.stdout_msg(f"Loaded database from pod '{source_uid}'!", log="info")
         if not self.db.exists_pod(uid=uid):
             return self.get_error_response(event="UBDCC_NODE_SYNC", error_id="#1001",
                                            message=f"Registration for pod '{uid}' not found!")
+
         result = self.db.update_pod(uid=uid,
                                     node=node,
                                     ip=request.client.host,

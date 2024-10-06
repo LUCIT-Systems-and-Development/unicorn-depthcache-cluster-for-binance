@@ -77,7 +77,7 @@ class RestEndpoints(RestEndpointsBase):
         host = self.app.get_cluster_mgmt_address()
         url = host + endpoint
         result = self.app.request(url=url, method="get")
-        if result.get('error') is None:
+        if result.get('error') is None and result.get('error_id') is None:
             return result
         else:
             response = self.create_cluster_info_response()

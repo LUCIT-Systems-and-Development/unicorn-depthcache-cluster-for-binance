@@ -101,9 +101,11 @@ class RestEndpointsBase:
             response['pod'] = pod
         return self.get_ok_response(event="TEST", params=response)
 
-    def throw_error_if_mgmt_not_ready(self):
+    def throw_error_if_mgmt_not_ready(self, request: Request, event: str = None):
         if self.is_ready() is False:
-            return self.get_error_response(event="UBDCC_NODE_REGISTRATION", error_id="#1014",
+            self.app.stdout_msg(f"Mgmt Service is not ready yet! Telling '{request.query_params.get('uid')}' to come "
+                                f"back in {self.app.mgmt_is_ready_time} seconds!", log="warn")
+            return self.get_error_response(event=event, error_id="#1014",
                                            message=f"Mgmt Service is not ready yet! Come back in "
                                                    f"{self.app.mgmt_is_ready_time} seconds!")
         else:
