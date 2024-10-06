@@ -20,7 +20,7 @@
 
 import json
 import threading
-from typing import Union
+from typing import Optional
 
 
 class Database:
@@ -40,6 +40,7 @@ class Database:
                                        "status": "INVALID"})
         self.set(key="nodes", value={})
         self.set(key="pods", value={})
+        self.set(key="timestamp", value=float())
         self.update_nodes()
         return True
 
@@ -59,6 +60,7 @@ class Database:
                       "UPDATE_INTERVAL": update_interval}
         with self.data_lock:
             self.data['depthcaches'][symbol] = depthcache
+            self.set_update_timestamp()
         return True
 
     def add_depthcache_distribution(self, symbol: str = None, pod_uid: str = None,
@@ -72,6 +74,7 @@ class Database:
                         "STATUS": status}
         with self.data_lock:
             self.data['depthcache_distribution'][f"{symbol}_{pod_uid}"] = distribution
+            self.set_update_timestamp()
         return True
 
     def add_pod(self, name: str = None, uid: str = None, node: str = None, role: str = None, ip: str = None,
@@ -89,12 +92,14 @@ class Database:
                "VERSION": version}
         with self.data_lock:
             self.data['pods'][uid] = pod
+            self.set_update_timestamp()
         return True
 
     def delete(self, key: str = None) -> bool:
         with self.data_lock:
             if key in self.data:
                 del self.data[key]
+                self.set_update_timestamp()
                 self.app.stdout_msg(f"DB entry deleted: {key}", log="debug", stdout=False)
                 return True
         self.app.stdout_msg(f"DB entry {key} not found.", log="debug", stdout=False)
@@ -105,6 +110,7 @@ class Database:
             raise ValueError("Missing mandatory parameter: symbol")
         with self.data_lock:
             del self.data["depthcaches"][symbol]
+            self.set_update_timestamp()
         self.app.stdout_msg(f"DB depthcaches deleted: {symbol}", log="debug", stdout=False)
         return True
 
@@ -113,6 +119,7 @@ class Database:
             raise ValueError("Missing mandatory parameter: symbol, pod_uid")
         with self.data_lock:
             del self.data['depthcache_distribution'][f"{symbol}_{pod_uid}"]
+            self.set_update_timestamp()
         self.app.stdout_msg(f"DB depthcaches deleted: {symbol}", log="debug", stdout=False)
         return True
 
@@ -121,6 +128,7 @@ class Database:
             raise ValueError("Missing mandatory parameter: uid")
         with self.data_lock:
             del self.data["pods"][uid]
+            self.set_update_timestamp()
         self.app.stdout_msg(f"DB pod deleted: {uid}", log="debug", stdout=False)
         return True
 
@@ -141,6 +149,10 @@ class Database:
     def get_all(self) -> dict:
         with self.data_lock:
             return self.data
+
+    def get_backup_string(self) -> str:
+        with self.data_lock:
+            return self.app.sort_dict(input_dict=self.app.data['db'].data)
 
     def get_license_api_secret(self) -> str:
         with self.data_lock:
@@ -163,21 +175,29 @@ class Database:
             except KeyError:
                 return None
 
-    def get_backup_string(self):
-        data = {"timestamp": self.app.get_unix_timestamp()}
-        with self.data_lock:
-            data.update(self.app.data['db'].data)
-        return self.app.sort_dict(input_dict=data)
-
     def replace_data(self, data: dict = None):
         with self.data_lock:
             self.data = data
         return True
 
-    def set(self, key: str = None, value: Union[dict, str, list, set, tuple] = None) -> bool:
+    def set(self, key: str = None, value: dict | str | float | list | set | tuple = None) -> bool:
         with self.data_lock:
             self.data[key] = value
+            self.set_update_timestamp()
         self.app.stdout_msg(f"DB entry added/updated: {key} = {value}", log="debug", stdout=False)
+        return True
+
+    def set_license_status(self, status: str = None) -> bool:
+        if status is None:
+            raise ValueError("Missing mandatory parameter: status")
+        with self.data_lock:
+            self.data['license']['status'] = status
+            self.set_update_timestamp()
+        self.app.stdout_msg(f"DB license status change to: {status}", log="debug", stdout=False)
+        return True
+
+    def set_update_timestamp(self) -> bool:
+        self.data['timestamp'] = self.app.get_unix_timestamp()
         return True
 
     def update_nodes(self) -> bool:
@@ -197,8 +217,10 @@ class Database:
         with self.data_lock:
             if desired_quantity is not None:
                 self.data['depthcaches'][symbol]['DESIRED_QUANTITY'] = desired_quantity
+                self.set_update_timestamp()
             if update_interval is not None:
                 self.data['depthcaches'][symbol]['UPDATE_INTERVAL'] = update_interval
+                self.set_update_timestamp()
         self.app.stdout_msg(f"DB depthcaches updated: {symbol}", log="debug", stdout=False)
         return True
 
@@ -209,8 +231,10 @@ class Database:
         with self.data_lock:
             if last_restart_time is not None:
                 self.data['depthcache_distribution'][f"{symbol}_{pod_uid}"]['LAST_RESTART_TIME'] = last_restart_time
+                self.set_update_timestamp()
             if status is not None:
                 self.data['depthcache_distribution'][f"{symbol}_{pod_uid}"]['STATUS'] = status
+                self.set_update_timestamp()
         self.app.stdout_msg(f"DB depthcaches updated: {symbol}_{pod_uid}", log="debug", stdout=False)
         return True
 
@@ -222,22 +246,17 @@ class Database:
             self.data['pods'][uid]['LAST_SEEN'] = self.app.get_unix_timestamp()
             if api_port_rest is not None:
                 self.data['pods'][uid]['API_PORT_REST'] = api_port_rest
+                self.set_update_timestamp()
             if ip is not None:
                 self.data['pods'][uid]['IP'] = ip
+                self.set_update_timestamp()
             if node is not None:
                 self.data['pods'][uid]['NODE'] = node
+                self.set_update_timestamp()
             if status is not None:
                 self.data['pods'][uid]['STATUS'] = status
+                self.set_update_timestamp()
         self.app.stdout_msg(f"DB pod updated: {uid}", log="debug", stdout=False)
-        return True
-
-
-    def set_license_status(self, status: str = None) -> bool:
-        if status is None:
-            raise ValueError("Missing mandatory parameter: status")
-        with self.data_lock:
-            self.data['license']['status'] = status
-        self.app.stdout_msg(f"DB license status change to: {status}", log="debug", stdout=False)
         return True
 
     def submit_license(self, api_secret: str = None, license_token: str = None) -> bool:
@@ -246,5 +265,6 @@ class Database:
         with self.data_lock:
             self.data['license']['api_secret'] = api_secret
             self.data['license']['license_token'] = license_token
+            self.set_update_timestamp()
         self.app.stdout_msg(f"DB license submitted: {api_secret}, {license_token}", log="debug", stdout=False)
         return True

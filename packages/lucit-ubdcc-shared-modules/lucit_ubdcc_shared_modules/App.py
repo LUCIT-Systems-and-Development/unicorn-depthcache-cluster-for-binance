@@ -36,16 +36,17 @@ from fastapi import FastAPI
 from .LicensingManager import LucitLicensingManager, NoValidatedLucitLicense
 
 
+MGMT_IS_READY_TIME: int = 10
 K8S_SERVICE_PORT_MGMT: int = 4280
 REST_SERVER_PORT: int = 8080
 REST_SERVER_PORT_DEV_DCN: int = 42082
 REST_SERVER_PORT_DEV_MGMT: int = 42080
 REST_SERVER_PORT_DEV_RESTAPI: int = 42081
-VERSION: str = "0.0.59"
+VERSION: str = "0.0.60"
 
 
 class App:
-    def __init__(self, app_name=None, cwd=None, logger=None, service_call=None, stop_call=None):
+    def __init__(self, app_name=None, cwd=None, logger=None, service=None, service_call=None, stop_call=None):
         self.app_name = app_name
         self.app_version = VERSION
         self.api_port_rest: int = 0
@@ -58,29 +59,37 @@ class App:
         self.k8s_metrics_client = None
         self.logger = logger
         self.pod_info = None
+        self.mgmt_is_ready_time = MGMT_IS_READY_TIME
         self.k8s_service_port_mgmt = K8S_SERVICE_PORT_MGMT
         self.rest_server_port = REST_SERVER_PORT
         self.rest_server_port_dev_dcn = REST_SERVER_PORT_DEV_DCN
         self.rest_server_port_dev_mgmt = REST_SERVER_PORT_DEV_MGMT
         self.rest_server_port_dev_restapi = REST_SERVER_PORT_DEV_RESTAPI
+        self.service = service
         self.service_call = service_call
         self.sigterm = False
         self.stop_call = stop_call
         self.status = "starting"
-        self.ubdcc_mgmt_backup: str = ""
+        self.ubdcc_mgmt_backup: str | None = None
         self.data: dict = {}
         self.id: dict = {}
         self.llm: LucitLicensingManager | None = None
 
     def deactivate_license(self, close_api_session: bool = True) -> bool | None:
-        self.data['db'].set_license_status(status="INVALID")
+        try:
+            self.data['db'].set_license_status(status="INVALID")
+        except KeyError:
+            return False
         if close_api_session is True:
             self.llm.close()
         return True
 
-    def get_backup_from_node(self, host, port) -> dict:
+    def get_backup_from_node(self, host, port) -> dict | None:
         data = self.request(f"http://{host}:{port}/ubdcc_mgmt_backup", method="get")
-        data = json.loads(data['db'])
+        try:
+            data = json.loads(data['db'])
+        except KeyError:
+            return None
         return data
 
     def get_backup_timestamp_from_node(self, host, port) -> float | None:
@@ -155,11 +164,7 @@ class App:
             self.k8s_client = kubernetes.client.CoreV1Api()
             self.k8s_metrics_client = kubernetes.client.CustomObjectsApi()
             self.pod_info = self.k8s_client.read_namespaced_pod(name=pod_name, namespace=namespace)
-            self.stdout_msg(f"Pod Name: {self.pod_info.metadata.name}", log="info")
-            self.stdout_msg(f"Pod UID: {self.pod_info.metadata.uid}", log="info")
-            self.stdout_msg(f"Pod Namespace: {self.pod_info.metadata.namespace}", log="info")
-            self.stdout_msg(f"Node Name: {self.pod_info.spec.node_name}", log="info")
-            self.stdout_msg(f"Pod Labels: {self.pod_info.metadata.labels}", log="info")
+
         except kubernetes.client.exceptions.ApiException as error_msg:
             self.stdout_msg(f"WARNING: K8s - {error_msg}", log="warn")
             self.k8s_client = None
@@ -170,11 +175,29 @@ class App:
             self.k8s_client = None
             self.pod_info = None
             self.dev_mode = True
+        self.id['name'] = self.generate_string(random.randint(10, 15)) if self.dev_mode else \
+            self.pod_info.metadata.name
+        self.id['uid'] = self.generate_string(random.randint(20, 20)) if self.dev_mode else \
+            self.pod_info.metadata.uid
+        self.id['namespace'] = self.generate_string(random.randint(10, 15)) if self.dev_mode else \
+            self.pod_info.metadata.namespace
+        self.id['node'] = self.generate_string(random.randint(15, 15)) if self.dev_mode else \
+            self.pod_info.spec.node_name
+        self.id['labels'] = self.generate_string(random.randint(10, 15)) if self.dev_mode else \
+            self.pod_info.metadata.labels
+        self.stdout_msg(f"Pod Name: {self.id['name']}", log="info")
+        self.stdout_msg(f"Pod UID: {self.id['uid']}", log="info")
+        self.stdout_msg(f"Pod Namespace: {self.id['namespace']}", log="info")
+        self.stdout_msg(f"Node Name: {self.id['node']}", log="info")
+        self.stdout_msg(f"Pod Labels: {self.id['labels']}", log="info")
 
-        self.id['name'] = self.generate_string(random.randint(10, 15)) if self.dev_mode else self.pod_info.metadata.name
-        self.id['uid'] = self.generate_string(random.randint(20, 20)) if self.dev_mode else self.pod_info.metadata.uid
-        self.id['node'] = self.generate_string(random.randint(15, 15)) if self.dev_mode else (
-                                                                                        self.pod_info.spec.node_name)
+    def get_backup_timestamp(self) -> float | None:
+        if self.ubdcc_mgmt_backup is None:
+            timestamp = None
+        else:
+            backup_json = json.loads(self.ubdcc_mgmt_backup)
+            timestamp = float(backup_json['timestamp'])
+        return timestamp
 
     def get_cluster_mgmt_address(self):
         if self.dev_mode:
@@ -262,7 +285,7 @@ class App:
         self.stdout_msg(f"Processing SIGTERM - signal: {signal} - frame: {frame}", log="debug", stdout=False)
         self.stdout_msg(f"Received SIGTERM, performing graceful shutdown ...", log="warn")
 
-    async def sleep(self, seconds: int = 10) -> bool:
+    async def sleep(self, seconds: int = MGMT_IS_READY_TIME) -> bool:
         internal_sleep_time = 3
         time_start = self.get_unix_timestamp()
         time_limit = time_start + seconds
@@ -401,7 +424,11 @@ class App:
             elif result.get('error_id') == "#1003":
                 self.stdout_msg(f"The node is already recognized by {url}.", log="warn")
                 return True
-            time.sleep(1)
+            elif result.get('error_id') == "#1014":
+                self.stdout_msg(f"Mgmt Service is not ready yet! Waiting {self.mgmt_is_ready_time} seconds till "
+                                f"retry!", log="warn")
+                time.sleep(self.mgmt_is_ready_time)
+            time.sleep(3)
         self.stdout_msg(f"Error during node registration: {result.get('error_id')} - {result.get('error')}",
                         log="error")
         return False
@@ -410,10 +437,12 @@ class App:
         self.stdout_msg(f"Starting node sync ...", log="info")
         endpoint = "/ubdcc_node_sync"
         host = self.get_cluster_mgmt_address()
+        backup_timestamp = ""
         query = (f"?uid={self.id['uid']}&"
                  f"node={self.id['node']}&"
                  f"api_port_rest={self.api_port_rest}&"
-                 f"status={self.status}")
+                 f"status={self.status}&"
+                 f"backup_timestamp={backup_timestamp}")
         url = host + endpoint + query
         result = self.request(url=url, method="get")
         if result.get('error_id') is None and result.get('error') is None:
@@ -424,7 +453,6 @@ class App:
             return False
         elif result.get('error_id') == "#1001":
             self.stdout_msg(f"The node is no longer recognized by {url}.", log="warn")
-            # Todo: Sync local settings with mgmt!
             return self.ubdcc_node_registration()
         else:
             self.stdout_msg(f"Error during node sync: {result.get('error_id')} - {result.get('message')}",

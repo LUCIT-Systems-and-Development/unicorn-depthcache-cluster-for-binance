@@ -1,0 +1,4 @@
+Todo:
+- Timestamp of last Database change
+    -> Sync says when the last update was, a backup is only created if a newer database is available
+- Sync local node settings with mgmt!

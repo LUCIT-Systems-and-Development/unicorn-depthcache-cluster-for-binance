@@ -63,12 +63,7 @@ class RestEndpoints(RestEndpointsBase):
             return await self.ubdcc_node_sync(request=request)
 
     async def get_cluster_info(self, request: Request):
-        response = {"db": {"depthcaches": self.db.get('depthcaches'),
-                           "depthcache_distribution": self.db.get('depthcache_distribution'),
-                           "license": self.db.get('license'),
-                           "nodes": self.db.get('nodes'),
-                           "pods": self.db.get('pods')},
-                    "version": self.app.get_version()}
+        response = self.create_cluster_info_response()
         return self.get_ok_response(event="GET_CLUSTER_INFO", params=response)
 
     async def submit_license(self, request: Request):
@@ -103,6 +98,11 @@ class RestEndpoints(RestEndpointsBase):
                                            message="An unknown error has occurred!")
 
     async def ubdcc_node_registration(self, request: Request):
+        ready_check = self.throw_error_if_mgmt_not_ready()
+        if ready_check is not None:
+            self.app.stdout_msg(f"Mgmt Service is not ready yet! Telling '{request.query_params.get("uid")}' to come "
+                                f"back in {self.app.mgmt_is_ready_time} seconds!", log="warn")
+            return ready_check
         name = request.query_params.get("name")
         uid = request.query_params.get("uid")
         node = request.query_params.get("node")
@@ -140,14 +140,16 @@ class RestEndpoints(RestEndpointsBase):
         if not uid or not api_port_rest:
             return self.get_error_response(event="UBDCC_NODE_SYNC", error_id="#1000",
                                            message="Missing required parameter: uid, api_port_rest")
-        if not self.db.exists_pod(uid=uid):
-            if self.db.is_empty() is True:
-                backup = self.app.get_backup_from_node(host=request.client.host, port=api_port_rest)
+        if not self.db.exists_pod(uid=uid) and self.db.is_empty() is True:
+            backup = self.app.get_backup_from_node(host=request.client.host, port=api_port_rest)
+            if backup is not None:
                 source_ip = request.client.host
                 source_port = api_port_rest
                 source_uid = uid
                 timestamp_limit = float(backup['timestamp'])
+                pods = []
                 for pod in backup['pods']:
+                    pods.append(backup['pods'][pod]['UID'])
                     timestamp = self.app.get_backup_timestamp_from_node(host=backup['pods'][pod]['IP'],
                                                                         port=backup['pods'][pod]['API_PORT_REST'])
                     if timestamp is not None:
@@ -156,10 +158,13 @@ class RestEndpoints(RestEndpointsBase):
                             source_port = pod['API_PORT_REST']
                             source_uid = pod['UID']
                             timestamp_limit = timestamp
+                self.app.stdout_msg(f"Found pods: {pods}", log="info")
                 if source_uid != uid:
                     backup = self.app.get_backup_from_node(host=source_ip, port=source_port)
-                self.db.replace_data(data=backup)
-                self.app.stdout_msg(f"Loaded database from pod '{source_uid}'!", log="info")
+                if backup is not None:
+                    self.db.replace_data(data=backup)
+                    self.app.stdout_msg(f"Loaded database from pod '{source_uid}'!", log="info")
+        if not self.db.exists_pod(uid=uid):
             return self.get_error_response(event="UBDCC_NODE_SYNC", error_id="#1001",
                                            message=f"Registration for pod '{uid}' not found!")
         result = self.db.update_pod(uid=uid,

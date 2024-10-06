@@ -18,6 +18,8 @@
 # Copyright (c) 2024-2024, LUCIT Systems and Development (https://www.lucit.tech)
 # All rights reserved.
 
+import json
+from lucit_ubdcc_shared_modules.Database import Database
 from lucit_ubdcc_shared_modules.RestEndpointsBase import RestEndpointsBase, Request
 
 
@@ -74,7 +76,21 @@ class RestEndpoints(RestEndpointsBase):
         endpoint = "/get_cluster_info"
         host = self.app.get_cluster_mgmt_address()
         url = host + endpoint
-        return self.app.request(url=url, method="get")
+        result = self.app.request(url=url, method="get")
+        if result.get('error') is None:
+            return result
+        else:
+            response = self.create_cluster_info_response()
+            response['error'] = str(result)
+            if self.app.data.get('db') is None:
+                return self.get_error_response(event="GET_CLUSTER_INFO", error_id="#1012",
+                                               message=f"Mgmt service not available!",
+                                               params=response)
+            else:
+                return self.get_error_response(event="GET_CLUSTER_INFO", error_id="#1013",
+                                               message=f"Mgmt service not available! This is cached data from pod "
+                                                       f"'{self.app.id['uid']}'!",
+                                               params=response)
 
     async def get_depthcache_list(self, request: Request):
         return self.app.data['db-rest']['depthcaches']

@@ -31,6 +31,7 @@ class ServiceBase:
         self.rest_server = None
         self.app = App(app_name=app_name,
                        cwd=cwd,
+                       service=self,
                        service_call=self.run,
                        stop_call=self.stop)
         self.app.start()
