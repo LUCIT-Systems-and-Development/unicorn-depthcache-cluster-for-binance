@@ -100,7 +100,7 @@ class RestEndpoints(RestEndpointsBase):
     async def ubdcc_node_registration(self, request: Request):
         ready_check = self.throw_error_if_mgmt_not_ready()
         if ready_check is not None:
-            self.app.stdout_msg(f"Mgmt Service is not ready yet! Telling '{request.query_params.get("uid")}' to come "
+            self.app.stdout_msg(f"Mgmt Service is not ready yet! Telling '{request.query_params.get('uid')}' to come "
                                 f"back in {self.app.mgmt_is_ready_time} seconds!", log="warn")
             return ready_check
         name = request.query_params.get("name")
