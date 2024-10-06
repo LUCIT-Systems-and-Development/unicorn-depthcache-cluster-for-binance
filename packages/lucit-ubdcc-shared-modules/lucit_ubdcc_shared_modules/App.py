@@ -42,7 +42,7 @@ REST_SERVER_PORT: int = 8080
 REST_SERVER_PORT_DEV_DCN: int = 42082
 REST_SERVER_PORT_DEV_MGMT: int = 42080
 REST_SERVER_PORT_DEV_RESTAPI: int = 42081
-VERSION: str = "0.0.61"
+VERSION: str = "0.0.62"
 
 
 class App:
@@ -278,7 +278,7 @@ class App:
 
     def send_backup_to_node(self, host, port) -> dict:
         return self.request(f"http://{host}:{port}/ubdcc_mgmt_backup", method="post",
-                            params=self.data['db'].get_backup_string())
+                            params=self.data['db'].get_backup_dict())
 
     def set_api_rest_port(self):
         if self.dev_mode:

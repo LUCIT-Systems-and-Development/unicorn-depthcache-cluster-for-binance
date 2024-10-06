@@ -150,7 +150,7 @@ class Database:
         with self.data_lock:
             return self.data
 
-    def get_backup_string(self) -> str:
+    def get_backup_dict(self) -> dict:
         with self.data_lock:
             return self.app.sort_dict(input_dict=self.app.data['db'].data)
 

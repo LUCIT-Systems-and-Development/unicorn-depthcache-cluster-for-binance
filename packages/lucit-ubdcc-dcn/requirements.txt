@@ -1,1 +1,1 @@
-lucit-ubdcc-shared-modules==0.0.61
+lucit-ubdcc-shared-modules==0.0.62
