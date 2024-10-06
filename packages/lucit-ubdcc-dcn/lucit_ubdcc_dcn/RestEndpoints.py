@@ -28,12 +28,6 @@ class RestEndpoints(RestEndpointsBase):
     def register(self):
         super().register()
 
-        @self.fastapi.get("/create_depthcache")
-        async def create_depthcache(request: Request):
-            # Todo: Manage DB to create the DepthCache on a DepthCacheNode
-            return {"event": "CREATE_DEPTHCACHE",
-                    "result": "NOT_IMPLEMENTED"}
-
         @self.fastapi.get("/get_asks")
         async def get_asks(request: Request):
             # Todo: Return information about the UBDCC
@@ -45,28 +39,3 @@ class RestEndpoints(RestEndpointsBase):
             # Todo: Return information about the UBDCC
             return {"event": "GET_BIDS",
                     "result": "NOT_IMPLEMENTED"}
-
-        @self.fastapi.get("/get_cluster_info")
-        async def get_cluster_info(request: Request):
-            # Todo: Return information about the UBDCC
-            return {"event": "GET_CLUSTER_INFO",
-                    "result": "NOT_IMPLEMENTED"}
-
-        @self.fastapi.get("/get_depthcache_list")
-        async def get_depthcache_list(request: Request):
-            # Todo: Return a list of all DepthCaches
-            return {"event": "GET_DEPTHCACHE_LIST",
-                    "result": "NOT_IMPLEMENTED"}
-
-        @self.fastapi.get("/get_depthcache_status")
-        async def get_depthcache_status(request: Request):
-            # Todo: Return the status of the DepthCache
-            return {"event": "GET_DEPTHCACHE_STATUS",
-                    "result": "NOT_IMPLEMENTED"}
-
-        @self.fastapi.get("/stop_depthcache")
-        async def stop_depthcache(request: Request):
-            # Todo: Manage DB to stop the DepthCache
-            return {"event": "STOP_DEPTHCACHE",
-                    "result": "NOT_IMPLEMENTED"}
-

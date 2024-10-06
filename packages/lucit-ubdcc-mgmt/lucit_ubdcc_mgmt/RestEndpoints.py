@@ -98,7 +98,6 @@ class RestEndpoints(RestEndpointsBase):
         if not self.db.exists_pod(uid=uid):
             return self.get_error_response(event="UBDCC_NODE_CANCELLATION", error_id="#1005",
                                            message=f"A pod with the uid '{uid}' does not exist!")
-        # Todo: Tasks to remove the pod (restructuring DC distribution)
         result = self.db.delete_pod(uid=uid)
         if result is True:
             return self.get_ok_response(event="UBDCC_NODE_CANCELLATION")
