@@ -42,7 +42,7 @@ REST_SERVER_PORT: int = 8080
 REST_SERVER_PORT_DEV_DCN: int = 42082
 REST_SERVER_PORT_DEV_MGMT: int = 42080
 REST_SERVER_PORT_DEV_RESTAPI: int = 42081
-VERSION: str = "0.0.60"
+VERSION: str = "0.0.61"
 
 
 class App:
@@ -132,25 +132,49 @@ class App:
                 except kubernetes.client.exceptions.ApiException as error_msg:
                     self.stdout_msg(f"Error when querying the K8s nodes: {error_msg}", log="error")
                     return {}
+
                 cpu_usage = metrics['usage']['cpu']
                 memory_usage = metrics['usage']['memory']
                 cpu_capacity = node.status.capacity['cpu']
                 memory_capacity = node.status.capacity['memory']
+
+                # Convert CPU usage to milli-units
                 if cpu_usage.endswith('m'):
                     cpu_usage_milli = int(cpu_usage[:-1])
-                elif cpu_usage.endswith('n'):
+                elif cpu_usage.endswith('u'):  # Handle micro-units 'u'
+                    cpu_usage_milli = int(cpu_usage[:-1]) / 1000
+                elif cpu_usage.endswith('n'):  # Handle nano-units 'n'
                     cpu_usage_milli = int(cpu_usage[:-1]) / 1_000_000
                 else:
-                    cpu_usage_milli = int(cpu_usage) * 1000
-                cpu_capacity_milli = int(cpu_capacity) * 1000
+                    cpu_usage_milli = int(cpu_usage) * 1000  # Assume no unit means cores, convert to milli
+
+                # Convert CPU capacity to milli-units
+                if cpu_capacity.endswith('m'):
+                    cpu_capacity_milli = int(cpu_capacity[:-1])
+                elif cpu_capacity.endswith('u'):  # Handle micro-units 'u'
+                    cpu_capacity_milli = int(cpu_capacity[:-1]) / 1000
+                elif cpu_capacity.endswith('n'):  # Handle nano-units 'n'
+                    cpu_capacity_milli = int(cpu_capacity[:-1]) / 1_000_000
+                else:
+                    cpu_capacity_milli = int(cpu_capacity) * 1000  # Assume no unit means cores, convert to milli
+
+                # Calculate CPU usage percentage
                 cpu_percentage = (cpu_usage_milli / cpu_capacity_milli) * 100
-                memory_usage_bytes = int(memory_usage[:-2]) * 1024
-                memory_capacity_bytes = int(memory_capacity[:-2]) * 1024
+
+                # Convert memory usage and capacity to bytes
+                memory_usage_bytes = int(memory_usage[:-2]) * 1024  # Assuming 'Ki' suffix
+                memory_capacity_bytes = int(memory_capacity[:-2]) * 1024  # Assuming 'Ki' suffix
+
+                # Calculate memory usage percentage
                 memory_percentage = (memory_usage_bytes / memory_capacity_bytes) * 100
-                result_nodes[node_uid] = {"NAME": node_name,
-                                          "UID": node_uid,
-                                          "USAGE_CPU_PERCENT": f"{cpu_percentage:.2f}",
-                                          "USAGE_MEMORY_PERCENT": f"{memory_percentage:.2f}"}
+
+                # Store the node information
+                result_nodes[node_uid] = {
+                    "NAME": node_name,
+                    "UID": node_uid,
+                    "USAGE_CPU_PERCENT": f"{cpu_percentage:.2f}",
+                    "USAGE_MEMORY_PERCENT": f"{memory_percentage:.2f}"
+                }
             return result_nodes
         return {}
 
