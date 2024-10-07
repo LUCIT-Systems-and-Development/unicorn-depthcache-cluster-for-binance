@@ -370,6 +370,11 @@ class App:
             print("Exception occurred:")
             traceback.print_exc()
         finally:
+            if self.info['name'] == "lucit-ubdcc-mgmt":
+                if self.llm is not None:
+                    self.llm.close()
+            else:
+                self.ubdcc_node_cancellation()
             if exception_shutdown is True:
                 if exception_shutdown_error:
                     self.stdout_msg(f"ERROR: {exception_shutdown_error}", log="critical")
@@ -377,11 +382,11 @@ class App:
                 self.stdout_msg(f"The system was gracefully shut down after a critical error was encountered.",
                                 log="info")
                 sys.exit(1)
-
-        # Shutdown
-        self.stop_call()
-        self.stdout_msg(f"Gracefully shutdown finished! Thank you and good bye ...", log="info")
-        sys.exit(0)
+            else:
+                # Shutdown
+                self.stop_call()
+                self.stdout_msg(f"Gracefully shutdown finished! Thank you and good bye ...", log="info")
+                sys.exit(0)
 
     def start_licensing_manager(self) -> bool:
         try:
@@ -423,7 +428,25 @@ class App:
         return True
 
     def ubdcc_node_cancellation(self):
-        pass
+        self.stdout_msg(f"Cancel node registration ...", log="info")
+        endpoint = "/ubdcc_node_cancellation"
+        host = self.get_cluster_mgmt_address()
+        query = f"?uid={self.id['uid']}"
+        url = host + endpoint + query
+        result = self.request(url=url, method="get")
+        if result.get('error_id') is None and result.get('error') is None:
+            self.stdout_msg(f"Node cancellation successful!", log="info")
+            return True
+        elif result.get('error') is not None:
+            self.stdout_msg(f"Error during node cancellation: {result.get('error')}", log="warn")
+            return False
+        elif result.get('error_id') == "#1005":
+            self.stdout_msg(f"The node is no longer recognized by {url}.", log="warn")
+            return self.ubdcc_node_registration()
+        else:
+            self.stdout_msg(f"Error during node sync: {result.get('error_id')} - {result.get('message')}",
+                            log="error")
+            return False
 
     def ubdcc_node_registration(self, retries=30) -> bool:
         self.stdout_msg(f"Starting node registration ...", log="info")
@@ -449,8 +472,7 @@ class App:
                 self.stdout_msg(f"The node is already recognized by {url}.", log="warn")
                 return True
             elif result.get('error_id') == "#1014":
-                self.stdout_msg(f"Mgmt Service is not ready yet! Waiting {self.mgmt_is_ready_time} seconds till "
-                                f"retry!", log="warn")
+                self.stdout_msg(f"Mgmt Service is not ready yet! Waiting a few seconds till retry!", log="warn")
                 time.sleep(self.mgmt_is_ready_time)
             time.sleep(3)
         self.stdout_msg(f"Error during node registration: {result.get('error_id')} - {result.get('error')}",

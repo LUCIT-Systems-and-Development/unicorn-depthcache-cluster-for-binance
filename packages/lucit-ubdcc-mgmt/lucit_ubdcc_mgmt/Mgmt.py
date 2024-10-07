@@ -29,9 +29,10 @@ class Mgmt(ServiceBase):
     async def main(self):
         self.db_init()
         self.start_rest_server(endpoints=RestEndpoints)
+        await self.app.sleep(seconds=15)
         while self.app.is_shutdown() is False:
+            self.app.stdout_msg(f"Revise the Database ...", log="info")
             self.db.update_nodes()
-            self.app.stdout_msg(f"Timed update of the DB key 'nodes': {self.db.get('nodes')}", log="info")
+            self.db.delete_old_pods()
             await self.app.sleep(seconds=30)
-        if self.app.llm is not None:
-            self.app.llm.close()
+

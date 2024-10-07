@@ -18,18 +18,22 @@
 # Copyright (c) 2024-2024, LUCIT Systems and Development (https://www.lucit.tech)
 # All rights reserved.
 
+import asyncio
 from .RestEndpoints import RestEndpoints
 from lucit_ubdcc_shared_modules.ServiceBase import ServiceBase
+from unicorn_binance_local_depth_cache import BinanceLocalDepthCacheManager, DepthCacheOutOfSync
 
 
 class DepthCacheNode(ServiceBase):
     def __init__(self, cwd=None):
         super().__init__(app_name="lucit-ubdcc-dcn", cwd=cwd)
+        self.depthcaches = {}
 
     async def main(self):
         self.start_rest_server(endpoints=RestEndpoints)
         self.app.set_status_running()
         self.app.register_or_restart()
+        self.db_init()
         while self.app.is_shutdown() is False:
             await self.app.sleep()
             self.app.ubdcc_node_sync()

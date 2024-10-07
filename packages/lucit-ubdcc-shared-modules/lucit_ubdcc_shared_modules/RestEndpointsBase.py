@@ -30,16 +30,18 @@ class RestEndpointsBase:
 
     def create_cluster_info_response(self) -> dict:
         if self.app.data.get('db') is None:
-            db = {}
+            response = {}
         else:
-            db = {"depthcaches": self.app.data['db'].get('depthcaches'),
-                  "depthcache_distribution": self.app.data['db'].get('depthcache_distribution'),
-                  "license": self.app.data['db'].get('license'),
-                  "nodes": self.app.data['db'].get('nodes'),
-                  "pods": self.app.data['db'].get('pods'),
-                  "timestamp": self.app.data['db'].get('timestamp')}
-        return {"db": db,
-                "version": self.app.get_version()}
+            response = {"db": {"depthcaches": self.app.data['db'].get('depthcaches'),
+                               "depthcache_distribution": self.app.data['db'].get('depthcache_distribution'),
+                               "license": self.app.data['db'].get('license'),
+                               "nodes": self.app.data['db'].get('nodes'),
+                               "pods": self.app.data['db'].get('pods'),
+                               "timestamp": self.app.data['db'].get('timestamp')},
+                        "version": None}
+        if self.app.info['name'] == "lucit-ubdcc-mgmt":
+            response['version'] = self.app.get_version()
+        return response
 
     def get_fastapi_instance(self):
         return self.fastapi
@@ -88,6 +90,7 @@ class RestEndpointsBase:
             return await self.ubdcc_mgmt_backup(request=request)
 
     async def test(self, request: Request):
+        event = "TEST"
         response = {"message": f"Hello World!",
                     "headers": f"{request.headers}",
                     "app": self.app.info,
@@ -99,38 +102,37 @@ class RestEndpointsBase:
                    "labels": self.app.pod_info.metadata.labels,
                    "node": self.app.pod_info.spec.node_name}
             response['pod'] = pod
-        return self.get_ok_response(event="TEST", params=response)
+        return self.get_ok_response(event=event, params=response)
 
     def throw_error_if_mgmt_not_ready(self, request: Request, event: str = None):
         if self.is_ready() is False:
             self.app.stdout_msg(f"Mgmt Service is not ready yet! Telling '{request.query_params.get('uid')}' to come "
-                                f"back in {self.app.mgmt_is_ready_time} seconds!", log="warn")
+                                f"back later!", log="warn")
             return self.get_error_response(event=event, error_id="#1014",
-                                           message=f"Mgmt Service is not ready yet! Come back in "
-                                                   f"{self.app.mgmt_is_ready_time} seconds!")
+                                           message=f"Mgmt Service is not ready yet! Come back in later!")
         else:
             return None
 
     async def ubdcc_mgmt_backup(self, request: Request):
+        event = "UBDCC_MGMT_BACKUP"
         request_body = await request.body()
         if not request_body.decode('utf-8').strip('"'):
             # Get request:
             # provide timestamp of the stored backup
             backup_timestamp = request.query_params.get("get_backup_timestamp")
             if backup_timestamp is not None:
-                return self.get_ok_response(event="UBDCC_MGMT_BACKUP",
-                                            params={"timestamp": self.app.get_backup_timestamp()})
+                return self.get_ok_response(event=event, params={"timestamp": self.app.get_backup_timestamp()})
             # provide the backup data for restore
             self.app.stdout_msg(f"Provided backup database!", log="info")
-            return self.get_ok_response(event="UBDCC_MGMT_BACKUP", params={"db": self.app.ubdcc_mgmt_backup})
+            return self.get_ok_response(event=event, params={"db": self.app.ubdcc_mgmt_backup})
         else:
             # Post request: save the backup data
-            if self.app.info['name'] == "lucit-ubdcc-restapi":
-                self.app.data['db-rest'] = json.loads(json.loads(request_body))
+            if self.app.info['name'] != "lucit-ubdcc-mgmt":
+                self.app.data['db-cache'] = json.loads(json.loads(request_body))
                 try:
-                    self.app.data['db'].replace_data(data=self.app.data['db-rest'])
+                    self.app.data['db'].replace_data(data=self.app.data['db-cache'])
                 except KeyError as error_msg:
                     self.app.stdout_msg(f"Database not available: {error_msg}", log="debug", stdout=False)
             self.app.ubdcc_mgmt_backup = json.loads(request_body.decode('utf-8'))
-            return self.get_ok_response(event="UBDCC_MGMT_BACKUP", params={"message": "The backup has been saved!"})
+            return self.get_ok_response(event=event, params={"message": "The backup has been saved!"})
 
