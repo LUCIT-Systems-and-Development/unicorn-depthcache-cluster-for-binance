@@ -67,6 +67,10 @@ class RestEndpoints(RestEndpointsBase):
         symbol = request.query_params.get("symbol")
         update_interval = request.query_params.get("update_interval")
         desired_quantity = request.query_params.get("desired_quantity")
+        if desired_quantity is None or desired_quantity == "None":
+            desired_quantity = 1
+        else:
+            desired_quantity = int(desired_quantity)
         if not exchange or not symbol:
             return self.get_error_response(event=event, error_id="#1016",
                                            message="Missing required parameter: exchange, symbol")
@@ -80,10 +84,6 @@ class RestEndpoints(RestEndpointsBase):
         except ValueError as error_msg:
             return self.get_error_response(event=event, error_id="#1017", message=str(error_msg))
         if result is True:
-            if desired_quantity is None or desired_quantity == "None":
-                desired_quantity = 1
-            else:
-                desired_quantity = int(desired_quantity)
             used_dcn = []
             for _ in range(0, desired_quantity):
                 best_dcn: str = self.db.get_best_dcn(excluded_pods=used_dcn)

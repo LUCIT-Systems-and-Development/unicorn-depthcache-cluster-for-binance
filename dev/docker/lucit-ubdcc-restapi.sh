@@ -2,7 +2,7 @@
 
 set -e
 
-VERSION="0.0.65"
+VERSION="0.0.66"
 
 echo Deploying UBDCC RESTAPI $VERSION to https://i018oau9.c1.de1.container-registry.ovh.net/harbor/projects/3/repositories
 
