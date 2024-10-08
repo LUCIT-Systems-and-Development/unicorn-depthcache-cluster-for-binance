@@ -72,7 +72,7 @@ class Database:
             refresh_interval = int(refresh_interval)
         depthcache = {"CREATED_TIME": self.app.get_unix_timestamp(),
                       "DESIRED_QUANTITY": int(desired_quantity),
-                      "DISTRIBUTION": [],
+                      "DISTRIBUTION": {},
                       "EXCHANGE": exchange,
                       "REFRESH_INTERVAL": refresh_interval,
                       "SYMBOL": symbol,
@@ -87,17 +87,15 @@ class Database:
     def add_depthcache_distribution(self,
                                     exchange: str = None,
                                     symbol: str = None,
-                                    pod_uid: str = None,
-                                    last_restart_time: float = None,
-                                    status: str = None) -> bool:
+                                    pod_uid: str = None) -> bool:
         if exchange is None or symbol is None or pod_uid is None:
             raise ValueError("Missing mandatory parameter: exchange, pod_uid, symbol")
         distribution = {"CREATED_TIME": self.app.get_unix_timestamp(),
-                        "LAST_RESTART_TIME": last_restart_time,
+                        "LAST_RESTART_TIME": 0,
                         "POD_UID": pod_uid,
-                        "STATUS": status}
+                        "STATUS": "starting"}
         with self.data_lock:
-            self.data['depthcaches'][exchange][symbol]['DISTRIBUTION'] = distribution
+            self.data['depthcaches'][exchange][symbol]['DISTRIBUTION'][pod_uid] = distribution
             self._set_update_timestamp()
         return True
 
@@ -182,8 +180,7 @@ class Database:
     def exists_pod(self, uid: str = None) -> bool:
         if uid is None:
             raise ValueError("Missing mandatory parameter: uid")
-        with self.data_lock:
-            return uid in self.data['pods']
+        return uid in self.data['pods']
 
     def get(self, key: str = None):
         with self.data_lock:
@@ -193,24 +190,37 @@ class Database:
         with self.data_lock:
             return self.data
 
+    def get_available_dcn_pods(self) -> dict:
+        available_dcn_pods = {}
+        for uid in self.data['pods']:
+            if self.data['pods'][uid]['ROLE'] == "lucit-ubdcc-dcn":
+                try:
+                    available_dcn_pods[uid] = self.data['nodes'][self.data['pods'][uid]['NODE']]['USAGE_CPU_PERCENT']
+                except KeyError:
+                    available_dcn_pods[uid] = 0
+        return available_dcn_pods
+
     def get_backup_dict(self) -> dict:
         with self.data_lock:
             return self.app.sort_dict(input_dict=self.app.data['db'].data)
 
-    def get_best_dcn(self, excluded_pods):
-        available_pods = {}
-        for uid in self.data['pods']:
-            if self.data['pods'][uid]['ROLE'] == "lucit-ubdcc-dcn":
-                try:
-                    available_pods[uid] = self.data['nodes'][self.data['pods'][uid]['NODE']]['USAGE_CPU_PERCENT']
-                except KeyError:
-                    available_pods[uid] = 0
-        print(f"Available Pods: {available_pods}")
+    def get_best_dcn(self, available_pods: dict = None, excluded_pods: list = None):
+        if available_pods is None:
+            available_pods = self.get_available_dcn_pods()
         delta_pods = {uid: cpu for uid, cpu in available_pods.items() if uid not in excluded_pods}
         if not delta_pods:
             return None
         best_pod = min(delta_pods, key=lambda uid: delta_pods[uid])
         return best_pod
+
+    def get_worst_dcn(self, available_pods: dict = None, excluded_pods: list = None):
+        if available_pods is None:
+            available_pods = self.get_available_dcn_pods()
+        delta_pods = {uid: cpu for uid, cpu in available_pods.items() if uid not in excluded_pods}
+        if not delta_pods:
+            return None
+        worst_pod = max(delta_pods, key=lambda uid: delta_pods[uid])
+        return worst_pod
 
     def get_license_api_secret(self) -> str:
         with self.data_lock:
@@ -236,6 +246,75 @@ class Database:
     def replace_data(self, data: dict = None):
         with self.data_lock:
             self.data = data
+        return True
+
+    def remove_orphaned_distribution_entries(self) -> bool:
+        with self.data_lock:
+            remove_distributions = []
+            for exchange in self.data['depthcaches']:
+                for symbol in self.data['depthcaches'][exchange]:
+                    for pod_uid in self.data['depthcaches'][exchange][symbol]['DISTRIBUTION']:
+                        if self.exists_pod(uid=pod_uid) is False:
+                            remove_distributions.append({"exchange": exchange,
+                                                         "symbol": symbol,
+                                                         "pod_uid": pod_uid})
+        with self.data_lock:
+            for item in remove_distributions:
+                del self.data['depthcaches'][item['exchange']][item['symbol']]['DISTRIBUTION'][item['pod_uid']]
+        return True
+
+    def revise(self) -> bool:
+        self.app.stdout_msg(f"Revise the Database ...", log="info")
+        self.update_nodes()
+        self.delete_old_pods()
+        self.remove_orphaned_distribution_entries()
+        self.manage_distribution()
+        self.app.stdout_msg(f"Revise the Database ... Done!", log="info")
+        return True
+
+    def manage_distribution(self) -> bool:
+        add_distributions = []
+        remove_distributions = []
+        with self.data_lock:
+            for exchange in self.data['depthcaches']:
+                for symbol in self.data['depthcaches'][exchange]:
+                    existing_distribution = {}
+                    for pod_uid in self.data['depthcaches'][exchange][symbol]['DISTRIBUTION']:
+                        try:
+                            existing_distribution[pod_uid] = self.data['nodes'][self.data['pods'][pod_uid]['NODE']]['USAGE_CPU_PERCENT']
+                        except KeyError:
+                            existing_distribution[pod_uid] = 0
+                    existing_quantity = len(self.data['depthcaches'][exchange][symbol]['DISTRIBUTION'])
+                    desired_quantity = self.data['depthcaches'][exchange][symbol]['DESIRED_QUANTITY']
+                    if existing_quantity < desired_quantity:
+                        add_quantity = desired_quantity - existing_quantity
+                        exclude_dcn = list(existing_distribution.keys())
+                        for _ in range(0, add_quantity):
+                            best_dcn = self.get_best_dcn(excluded_pods=exclude_dcn)
+                            if best_dcn is not None:
+                                exclude_dcn.append(best_dcn)
+                                add_distributions.append({"exchange": exchange,
+                                                          "symbol": symbol,
+                                                          "pod_uid": best_dcn})
+                    elif existing_quantity > desired_quantity:
+                        remove_quantity = existing_quantity - desired_quantity
+                        exclude_dcn = []
+                        for _ in range(0, remove_quantity):
+                            worst_dcn = self.get_worst_dcn(available_pods=existing_distribution,
+                                                           excluded_pods=exclude_dcn)
+                            if worst_dcn is not None:
+                                exclude_dcn.append(worst_dcn)
+                                remove_distributions.append({"exchange": exchange,
+                                                             "symbol": symbol,
+                                                             "pod_uid": worst_dcn})
+        for item in add_distributions:
+            self.add_depthcache_distribution(exchange=item['exchange'],
+                                             symbol=item['symbol'],
+                                             pod_uid=item['pod_uid'])
+        for item in remove_distributions:
+            self.delete_depthcache_distribution(exchange=item['exchange'],
+                                                symbol=item['symbol'],
+                                                pod_uid=item['pod_uid'])
         return True
 
     def set(self, key: str = None, value: dict | str | float | list | set | tuple = None) -> bool:

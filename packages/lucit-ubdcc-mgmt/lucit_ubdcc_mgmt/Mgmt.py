@@ -31,8 +31,6 @@ class Mgmt(ServiceBase):
         self.start_rest_server(endpoints=RestEndpoints)
         await self.app.sleep(seconds=15)
         while self.app.is_shutdown() is False:
-            self.app.stdout_msg(f"Revise the Database ...", log="info")
-            self.db.update_nodes()
-            self.db.delete_old_pods()
+            self.db.revise()
             await self.app.sleep(seconds=10)
 

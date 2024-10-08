@@ -90,9 +90,10 @@ class RestEndpoints(RestEndpointsBase):
         if result is True:
             used_dcn = []
             for _ in range(0, desired_quantity):
-                best_dcn: str = self.db.get_best_dcn(excluded_pods=used_dcn)
-                self.db.add_depthcache_distribution(exchange=exchange, symbol=symbol, pod_uid=best_dcn)
-                used_dcn.append(best_dcn)
+                best_dcn = self.db.get_best_dcn(excluded_pods=used_dcn)
+                if best_dcn is not None:
+                    self.db.add_depthcache_distribution(exchange=exchange, symbol=symbol, pod_uid=best_dcn)
+                    used_dcn.append(best_dcn)
             return self.get_ok_response(event=event)
         else:
             return self.get_error_response(event=event, error_id="#1018", message="An unknown error has occurred!")
