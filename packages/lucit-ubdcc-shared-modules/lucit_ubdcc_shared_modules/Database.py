@@ -65,15 +65,17 @@ class Database:
         if desired_quantity is None or desired_quantity == "None":
             desired_quantity = 1
         if update_interval is None or update_interval == "None":
-            update_interval = "1000ms"
+            update_interval = 1000
         if refresh_interval is None or refresh_interval == "None":
             refresh_interval = None
+        else:
+            refresh_interval = int(refresh_interval)
         depthcache = {"DESIRED_QUANTITY": int(desired_quantity),
                       "DISTRIBUTION": [],
                       "EXCHANGE": exchange,
                       "REFRESH_INTERVAL": refresh_interval,
                       "SYMBOL": symbol,
-                      "UPDATE_INTERVAL": update_interval}
+                      "UPDATE_INTERVAL": int(update_interval)}
         with self.data_lock:
             if self.data['depthcaches'].get('exchange') is None:
                 self.data['depthcaches'][exchange] = {}
