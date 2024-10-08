@@ -19,6 +19,7 @@
 # All rights reserved.
 
 import asyncio
+import socket
 import time
 from .App import App
 from .RestServer import RestServer
@@ -44,6 +45,15 @@ class ServiceBase:
             return True
         return False
 
+    @staticmethod
+    def is_port_free(port, host='127.0.0.1'):
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            try:
+                s.bind((host, port))
+                return True
+            except OSError:
+                return False
+
     async def main(self) -> None:
         # Override with specific Service main() function
         pass
@@ -53,6 +63,8 @@ class ServiceBase:
         asyncio.run(self.main())
 
     def start_rest_server(self, endpoints=None) -> bool:
+        while self.is_port_free(port=self.app.api_port_rest) is False:
+            self.app.api_port_rest = self.app.api_port_rest + 1
         self.rest_server = RestServer(app=self.app, endpoints=endpoints, port=self.app.api_port_rest)
         self.rest_server.start()
         time.sleep(1)

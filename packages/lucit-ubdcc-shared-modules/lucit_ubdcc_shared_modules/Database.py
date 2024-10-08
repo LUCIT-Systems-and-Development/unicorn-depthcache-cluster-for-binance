@@ -33,7 +33,6 @@ class Database:
     def _init(self) -> bool:
         self.app.stdout_msg(f"Initiating Database ...", log="info")
         self.set(key="depthcaches", value={})
-        self.set(key="depthcache_distribution", value={})
         self.set(key="license", value={"api_secret": "",
                                        "license_token": "",
                                        "status": "INVALID"})
@@ -58,16 +57,27 @@ class Database:
     def add_depthcache(self,
                        exchange: str = None,
                        symbol: str = None,
+                       desired_quantity: int = None,
                        update_interval: int = None,
-                       desired_quantity: int = None) -> bool:
+                       refresh_interval: int = None) -> bool:
         if exchange is None or symbol is None:
             raise ValueError("Missing mandatory parameter: exchange, symbol")
-        depthcache = {"EXCHANGE": exchange,
-                      "DESIRED_QUANTITY": desired_quantity,
+        if desired_quantity is None or desired_quantity == "None":
+            desired_quantity = 1
+        if update_interval is None or update_interval == "None":
+            update_interval = "1000ms"
+        if refresh_interval is None or refresh_interval == "None":
+            refresh_interval = None
+        depthcache = {"DESIRED_QUANTITY": int(desired_quantity),
+                      "DISTRIBUTION": [],
+                      "EXCHANGE": exchange,
+                      "REFRESH_INTERVAL": refresh_interval,
                       "SYMBOL": symbol,
                       "UPDATE_INTERVAL": update_interval}
         with self.data_lock:
-            self.data['depthcaches'][f"{exchange}_{symbol}"] = depthcache
+            if self.data['depthcaches'].get('exchange') is None:
+                self.data['depthcaches'][exchange] = {}
+            self.data['depthcaches'][exchange][symbol] = depthcache
             self._set_update_timestamp()
         return True
 
@@ -79,14 +89,12 @@ class Database:
                                     status: str = None) -> bool:
         if exchange is None or symbol is None or pod_uid is None:
             raise ValueError("Missing mandatory parameter: exchange, pod_uid, symbol")
-        distribution = {"EXCHANGE": exchange,
-                        "SYMBOL": symbol,
-                        "POD_UID": pod_uid,
+        distribution = {"POD_UID": pod_uid,
                         "CREATED_TIME": self.app.get_timestamp(),
                         "LAST_RESTART_TIME": last_restart_time,
                         "STATUS": status}
         with self.data_lock:
-            self.data['depthcache_distribution'][f"{exchange}_{symbol}_{pod_uid}"] = distribution
+            self.data['depthcaches'][exchange][symbol]['DISTRIBUTION'] = distribution
             self._set_update_timestamp()
         return True
 
@@ -123,20 +131,20 @@ class Database:
             raise ValueError("Missing mandatory parameter: exchange, symbol")
         with self.data_lock:
             try:
-                del self.data["depthcaches"][f"{exchange}_{symbol}"]
+                del self.data["depthcaches"][exchange][symbol]
             except KeyError:
                 return True
             self._set_update_timestamp()
-        self.app.stdout_msg(f"DB depthcaches deleted: {exchange}_{symbol}", log="debug", stdout=False)
+        self.app.stdout_msg(f"DB depthcaches deleted: {exchange}, {symbol}", log="debug")
         return True
 
     def delete_depthcache_distribution(self, exchange: str = None, symbol: str = None, pod_uid: str = None) -> bool:
         if exchange is None or symbol is None or pod_uid is None:
             raise ValueError("Missing mandatory parameter: exchange, pod_uid, symbol")
         with self.data_lock:
-            del self.data['depthcache_distribution'][f"{exchange}_{symbol}_{pod_uid}"]
+            del self.data["depthcaches"][exchange][symbol]['DISTRIBUTION'][pod_uid]
             self._set_update_timestamp()
-        self.app.stdout_msg(f"DB depthcaches deleted: {exchange}_{symbol}_{pod_uid}", log="debug", stdout=False)
+        self.app.stdout_msg(f"DB depthcache distribution deleted: {exchange}, {symbol}, {pod_uid}", log="debug")
         return True
 
     def delete_pod(self, uid: str = None) -> bool:
@@ -176,6 +184,17 @@ class Database:
     def get_backup_dict(self) -> dict:
         with self.data_lock:
             return self.app.sort_dict(input_dict=self.app.data['db'].data)
+
+    def get_best_dcn(self, excluded_pods):
+        available_pods = {}
+        for pod in self.data['pods']:
+            if pod['ROLE'] == "lucit-ubdcc-dcn":
+                available_pods[pod['UID']] = self.data['nodes'][pod['NODE']]
+        delta_pods = {uid: cpu for uid, cpu in available_pods.items() if uid not in excluded_pods}
+        if not delta_pods:
+            return None
+        best_pod = min(delta_pods, key=lambda uid: delta_pods[uid])
+        return best_pod
 
     def get_license_api_secret(self) -> str:
         with self.data_lock:
@@ -241,20 +260,25 @@ class Database:
             return False
 
     def update_depthcache(self,
-                          exchange: str = None,
-                          symbol: str = None,
                           desired_quantity: int = None,
+                          exchange: str = None,
+                          refresh_interval: int = None,
+                          symbol: str = None,
                           update_interval: int = None) -> bool:
         if exchange is None or symbol is None:
             raise ValueError("Missing mandatory parameter: exchange, symbol")
         with self.data_lock:
             if desired_quantity is not None:
-                self.data['depthcaches'][f"{exchange}_{symbol}"]['DESIRED_QUANTITY'] = desired_quantity
+                self.data['depthcaches'][exchange][symbol]['DESIRED_QUANTITY'] = desired_quantity
                 self._set_update_timestamp()
             if update_interval is not None:
-                self.data['depthcaches'][f"{exchange}_{symbol}"]['UPDATE_INTERVAL'] = update_interval
+                self.data['depthcaches'][exchange][symbol]['UPDATE_INTERVAL'] = update_interval
                 self._set_update_timestamp()
-        self.app.stdout_msg(f"DB depthcaches updated: {exchange}_{symbol}", log="debug", stdout=False)
+            if refresh_interval is not None:
+                self.data['depthcaches'][exchange][symbol]['REFRESH_INTERVAL'] = refresh_interval
+                self._set_update_timestamp()
+        self.app.stdout_msg(f"DB depthcaches updated: {exchange}, {symbol}, {desired_quantity}, {update_interval}",
+                            log="debug")
         return True
 
     def update_depthcache_distribution(self,
@@ -267,14 +291,14 @@ class Database:
             raise ValueError("Missing mandatory parameter: exchange, pod_uid, symbol")
         with self.data_lock:
             if last_restart_time is not None:
-                self.data['depthcache_distribution'][f"{exchange}_{symbol}_{pod_uid}"]['LAST_RESTART_TIME'] = \
+                self.data['depthcaches'][exchange][symbol][pod_uid]['DISTRIBUTION']['LAST_RESTART_TIME'] = \
                     last_restart_time
                 self._set_update_timestamp()
             if status is not None:
-                self.data['depthcache_distribution'][f"{exchange}_{symbol}_{pod_uid}"]['STATUS'] = status
+                self.data['depthcaches'][exchange][symbol][pod_uid]['DISTRIBUTION']['STATUS'] = status
                 self._set_update_timestamp()
-        self.app.stdout_msg(f"DB depthcaches_distribution updated: {exchange}_{symbol}_{pod_uid}",
-                            log="debug", stdout=False)
+        self.app.stdout_msg(f"DB depthcache distribution updated: {exchange}, {symbol}, {pod_uid}, {last_restart_time},"
+                            f"{status}", log="debug")
         return True
 
     def update_pod(self, uid: str = None, node: str = None, ip: str = None, api_port_rest: int = None,

@@ -42,7 +42,7 @@ REST_SERVER_PORT: int = 8080
 REST_SERVER_PORT_DEV_DCN: int = 42082
 REST_SERVER_PORT_DEV_MGMT: int = 42080
 REST_SERVER_PORT_DEV_RESTAPI: int = 42081
-VERSION: str = "0.0.63"
+VERSION: str = "0.0.64"
 
 
 class App:
@@ -59,6 +59,7 @@ class App:
         self.k8s_metrics_client = None
         self.logger = logger
         self.pod_info = None
+        self.node_info = None
         self.mgmt_is_ready_time = MGMT_IS_READY_TIME
         self.k8s_service_port_mgmt = K8S_SERVICE_PORT_MGMT
         self.rest_server_port = REST_SERVER_PORT
@@ -83,6 +84,11 @@ class App:
         if close_api_session is True:
             self.llm.close()
         return True
+
+    @staticmethod
+    def generate_string(length):
+        letters = string.ascii_letters + string.digits
+        return ''.join(random.choice(letters) for _ in range(length))
 
     def get_backup_from_node(self, host, port) -> dict | None:
         data = self.request(f"http://{host}:{port}/ubdcc_mgmt_backup", method="get")
@@ -188,16 +194,18 @@ class App:
             self.k8s_client = kubernetes.client.CoreV1Api()
             self.k8s_metrics_client = kubernetes.client.CustomObjectsApi()
             self.pod_info = self.k8s_client.read_namespaced_pod(name=pod_name, namespace=namespace)
-
+            self.node_info = self.k8s_client.read_node(self.pod_info.spec.node_name)
         except kubernetes.client.exceptions.ApiException as error_msg:
             self.stdout_msg(f"WARNING: K8s - {error_msg}", log="warn")
             self.k8s_client = None
             self.pod_info = None
+            self.node_info = None
             self.dev_mode = True
         except kubernetes.config.config_exception.ConfigException as error_msg:
             self.stdout_msg(f"WARNING: K8s - {error_msg}", log="warn")
             self.k8s_client = None
             self.pod_info = None
+            self.node_info = None
             self.dev_mode = True
         self.id['name'] = self.generate_string(random.randint(10, 15)) if self.dev_mode else \
             self.pod_info.metadata.name
@@ -205,14 +213,14 @@ class App:
             self.pod_info.metadata.uid
         self.id['namespace'] = self.generate_string(random.randint(10, 15)) if self.dev_mode else \
             self.pod_info.metadata.namespace
-        self.id['node'] = self.generate_string(random.randint(15, 15)) if self.dev_mode else \
-            self.pod_info.spec.node_name
+        self.id['node'] = self.generate_string(random.randint(15, 20)) if self.dev_mode else \
+            self.node_info.metadata.uid
         self.id['labels'] = self.generate_string(random.randint(10, 15)) if self.dev_mode else \
             self.pod_info.metadata.labels
         self.stdout_msg(f"Pod Name: {self.id['name']}", log="info")
         self.stdout_msg(f"Pod UID: {self.id['uid']}", log="info")
         self.stdout_msg(f"Pod Namespace: {self.id['namespace']}", log="info")
-        self.stdout_msg(f"Node Name: {self.id['node']}", log="info")
+        self.stdout_msg(f"Node UID: {self.id['node']}", log="info")
         self.stdout_msg(f"Pod Labels: {self.id['labels']}", log="info")
 
     def get_backup_timestamp(self) -> float | None:
@@ -231,11 +239,6 @@ class App:
             # PRODUCTIVE MODE!!!
             url = f"http://lucit-ubdcc-mgmt.lucit-ubdcc.svc.cluster.local:{self.k8s_service_port_mgmt}"
         return url
-
-    @staticmethod
-    def generate_string(length):
-        letters = string.ascii_letters + string.digits
-        return ''.join(random.choice(letters) for i in range(length))
 
     @staticmethod
     def get_unix_timestamp():

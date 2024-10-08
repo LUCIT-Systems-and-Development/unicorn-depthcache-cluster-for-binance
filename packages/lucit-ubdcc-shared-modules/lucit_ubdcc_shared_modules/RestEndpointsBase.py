@@ -33,7 +33,6 @@ class RestEndpointsBase:
             response = {}
         else:
             response = {"db": {"depthcaches": self.app.data['db'].get('depthcaches'),
-                               "depthcache_distribution": self.app.data['db'].get('depthcache_distribution'),
                                "license": self.app.data['db'].get('license'),
                                "nodes": self.app.data['db'].get('nodes'),
                                "pods": self.app.data['db'].get('pods'),
@@ -109,7 +108,7 @@ class RestEndpointsBase:
             self.app.stdout_msg(f"Mgmt Service is not ready yet! Telling '{request.query_params.get('uid')}' to come "
                                 f"back later!", log="warn")
             return self.get_error_response(event=event, error_id="#1014",
-                                           message=f"Mgmt Service is not ready yet! Come back in later!")
+                                           message=f"Mgmt Service is not ready yet! Please come back in a few seconds!")
         else:
             return None
 
