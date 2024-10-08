@@ -80,11 +80,12 @@ class RestEndpoints(RestEndpointsBase):
                  f"desired_quantity={desired_quantity}")
         url = host + endpoint + query
         result = self.app.request(url=url, method="get")
-        if result.get('error') is None and result.get('error_id') is None:
-            return result
-        else:
+        print(f"RES: {result}")
+        if result.get('error') is None or result.get('error_id') is None:
             return self.get_error_response(event=event, error_id="#1022", message=f"Mgmt service not available!",
                                            params={"error": str(result)})
+        else:
+            return result
 
     async def get_cluster_info(self, request: Request):
         event = "GET_CLUSTER_INFO"

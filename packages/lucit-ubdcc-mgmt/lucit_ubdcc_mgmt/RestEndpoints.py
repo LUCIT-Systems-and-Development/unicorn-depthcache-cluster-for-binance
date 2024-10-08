@@ -70,12 +70,25 @@ class RestEndpoints(RestEndpointsBase):
         if not exchange or not symbol:
             return self.get_error_response(event=event, error_id="#1016",
                                            message="Missing required parameter: exchange, symbol")
+        if self.db.exists_depthcache(exchange=exchange, symbol=symbol):
+            return self.get_error_response(event=event, error_id="#1024",
+                                           message=f"A DepthCache for exchange '{exchange}' and symbol '{symbol}' "
+                                                   f"already exists!")
         try:
             result = self.db.add_depthcache(exchange=exchange, symbol=symbol, update_interval=update_interval,
                                             desired_quantity=desired_quantity)
         except ValueError as error_msg:
             return self.get_error_response(event=event, error_id="#1017", message=str(error_msg))
         if result is True:
+            if desired_quantity is None or desired_quantity == "None":
+                desired_quantity = 1
+            else:
+                desired_quantity = int(desired_quantity)
+            used_dcn = []
+            for _ in range(0, desired_quantity):
+                best_dcn: str = self.db.get_best_dcn(excluded_pods=used_dcn)
+                self.db.add_depthcache_distribution(exchange=exchange, symbol=symbol, pod_uid=best_dcn)
+                used_dcn.append(best_dcn)
             return self.get_ok_response(event=event)
         else:
             return self.get_error_response(event=event, error_id="#1018", message="An unknown error has occurred!")

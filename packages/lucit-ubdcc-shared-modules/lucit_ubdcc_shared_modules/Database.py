@@ -70,7 +70,8 @@ class Database:
             refresh_interval = None
         else:
             refresh_interval = int(refresh_interval)
-        depthcache = {"DESIRED_QUANTITY": int(desired_quantity),
+        depthcache = {"CREATED_TIME": self.app.get_unix_timestamp(),
+                      "DESIRED_QUANTITY": int(desired_quantity),
                       "DISTRIBUTION": [],
                       "EXCHANGE": exchange,
                       "REFRESH_INTERVAL": refresh_interval,
@@ -91,9 +92,9 @@ class Database:
                                     status: str = None) -> bool:
         if exchange is None or symbol is None or pod_uid is None:
             raise ValueError("Missing mandatory parameter: exchange, pod_uid, symbol")
-        distribution = {"POD_UID": pod_uid,
-                        "CREATED_TIME": self.app.get_timestamp(),
+        distribution = {"CREATED_TIME": self.app.get_unix_timestamp(),
                         "LAST_RESTART_TIME": last_restart_time,
+                        "POD_UID": pod_uid,
                         "STATUS": status}
         with self.data_lock:
             self.data['depthcaches'][exchange][symbol]['DISTRIBUTION'] = distribution
@@ -169,7 +170,16 @@ class Database:
             self.delete_pod(uid=uid)
         return True
 
-    def exists_pod(self, uid: str) -> bool:
+    def exists_depthcache(self, exchange: str = None, symbol: str = None) -> bool:
+        if exchange is None or symbol is None:
+            raise ValueError("Missing mandatory parameter: exchange, symbol")
+        with self.data_lock:
+            try:
+                return symbol in self.data['depthcaches'][exchange]
+            except KeyError:
+                return False
+
+    def exists_pod(self, uid: str = None) -> bool:
         if uid is None:
             raise ValueError("Missing mandatory parameter: uid")
         with self.data_lock:
@@ -189,9 +199,13 @@ class Database:
 
     def get_best_dcn(self, excluded_pods):
         available_pods = {}
-        for pod in self.data['pods']:
-            if pod['ROLE'] == "lucit-ubdcc-dcn":
-                available_pods[pod['UID']] = self.data['nodes'][pod['NODE']]
+        for uid in self.data['pods']:
+            if self.data['pods'][uid]['ROLE'] == "lucit-ubdcc-dcn":
+                try:
+                    available_pods[uid] = self.data['nodes'][self.data['pods'][uid]['NODE']]['USAGE_CPU_PERCENT']
+                except KeyError:
+                    available_pods[uid] = 0
+        print(f"Available Pods: {available_pods}")
         delta_pods = {uid: cpu for uid, cpu in available_pods.items() if uid not in excluded_pods}
         if not delta_pods:
             return None

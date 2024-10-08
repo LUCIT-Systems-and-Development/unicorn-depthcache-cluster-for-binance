@@ -34,5 +34,5 @@ class Mgmt(ServiceBase):
             self.app.stdout_msg(f"Revise the Database ...", log="info")
             self.db.update_nodes()
             self.db.delete_old_pods()
-            await self.app.sleep(seconds=30)
+            await self.app.sleep(seconds=10)
 
