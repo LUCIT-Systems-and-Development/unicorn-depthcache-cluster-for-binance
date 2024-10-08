@@ -65,12 +65,16 @@ class RestEndpoints(RestEndpointsBase):
             return ready_check
         exchange = request.query_params.get("exchange")
         symbol = request.query_params.get("symbol")
-        update_interval = request.query_params.get("update_interval")
         desired_quantity = request.query_params.get("desired_quantity")
+        update_interval = request.query_params.get("update_interval")
         if desired_quantity is None or desired_quantity == "None":
             desired_quantity = 1
         else:
             desired_quantity = int(desired_quantity)
+        if update_interval is None or update_interval == "None":
+            update_interval = None
+        else:
+            update_interval = int(update_interval)
         if not exchange or not symbol:
             return self.get_error_response(event=event, error_id="#1016",
                                            message="Missing required parameter: exchange, symbol")
