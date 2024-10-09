@@ -114,11 +114,11 @@ class App:
         else:
             if self.dev_mode:
                 # DEV MODE!!!
-                self.stdout_msg("Starting REST Server in DEV MODE!!!", log="info")
+                self.stdout_msg("Starting REST Server (DEV MODE) ...", log="info")
                 self.fastapi = FastAPI()
             else:
                 # PRODUCTIVE MODE!!!
-                self.stdout_msg("Starting REST Server in PRODUCTIVE MODE!!!", log="info")
+                self.stdout_msg("Starting REST Server ...", log="info")
                 self.fastapi = FastAPI(docs_url=None, redoc_url=None)
             return self.fastapi
 
@@ -465,7 +465,7 @@ class App:
         url = host + endpoint + query
         loops = 0
         result = None
-        while loops < retries:
+        while loops < retries and self.is_shutdown() is False:
             loops += 1
             result = self.request(url=url, method="get")
             if result.get('error_id') is None and result.get('error') is None:

@@ -38,6 +38,14 @@ class RestEndpoints(RestEndpointsBase):
         async def get_cluster_info(request: Request):
             return await self.get_cluster_info(request=request)
 
+        @self.fastapi.get("/get_depthcache_list")
+        async def get_depthcache_list(request: Request):
+            return await self.get_depthcache_list(request=request)
+
+        @self.fastapi.get("/get_depthcache_info")
+        async def get_depthcache_info(request: Request):
+            return await self.get_depthcache_info(request=request)
+
         @self.fastapi.get("/stop_depthcache")
         async def stop_depthcache(request: Request):
             return await self.stop_depthcache(request=request)
@@ -64,9 +72,10 @@ class RestEndpoints(RestEndpointsBase):
         if ready_check is not None:
             return ready_check
         exchange = request.query_params.get("exchange")
-        symbol = request.query_params.get("symbol")
+        market = request.query_params.get("market")
         desired_quantity = request.query_params.get("desired_quantity")
         update_interval = request.query_params.get("update_interval")
+        refresh_interval = request.query_params.get("refresh_interval")
         if desired_quantity is None or desired_quantity == "None":
             desired_quantity = 1
         else:
@@ -75,16 +84,16 @@ class RestEndpoints(RestEndpointsBase):
             update_interval = None
         else:
             update_interval = int(update_interval)
-        if not exchange or not symbol:
+        if not exchange or not market:
             return self.get_error_response(event=event, error_id="#1016",
-                                           message="Missing required parameter: exchange, symbol")
-        if self.db.exists_depthcache(exchange=exchange, symbol=symbol):
+                                           message="Missing required parameter: exchange, market")
+        if self.db.exists_depthcache(exchange=exchange, market=market):
             return self.get_error_response(event=event, error_id="#1024",
-                                           message=f"A DepthCache for exchange '{exchange}' and symbol '{symbol}' "
+                                           message=f"A DepthCache for exchange '{exchange}' and market '{market}' "
                                                    f"already exists!")
         try:
-            result = self.db.add_depthcache(exchange=exchange, symbol=symbol, update_interval=update_interval,
-                                            desired_quantity=desired_quantity)
+            result = self.db.add_depthcache(exchange=exchange, market=market, update_interval=update_interval,
+                                            refresh_interval=refresh_interval, desired_quantity=desired_quantity)
         except ValueError as error_msg:
             return self.get_error_response(event=event, error_id="#1017", message=str(error_msg))
         if result is True:
@@ -92,7 +101,7 @@ class RestEndpoints(RestEndpointsBase):
             for _ in range(0, desired_quantity):
                 best_dcn = self.db.get_best_dcn(excluded_pods=used_dcn)
                 if best_dcn is not None:
-                    self.db.add_depthcache_distribution(exchange=exchange, symbol=symbol, pod_uid=best_dcn)
+                    self.db.add_depthcache_distribution(exchange=exchange, market=market, pod_uid=best_dcn)
                     used_dcn.append(best_dcn)
             return self.get_ok_response(event=event)
         else:
@@ -106,18 +115,37 @@ class RestEndpoints(RestEndpointsBase):
         response = self.create_cluster_info_response()
         return self.get_ok_response(event=event, params=response)
 
+    async def get_depthcache_list(self, request: Request):
+        event = "GET_DEPTHCACHE_LIST"
+        ready_check = self.throw_error_if_mgmt_not_ready(request=request, event=event)
+        if ready_check is not None:
+            return ready_check
+        response = self.create_depthcache_list_response()
+        return self.get_ok_response(event=event, params=response)
+
+    async def get_depthcache_info(self, request: Request):
+        event = "GET_DEPTHCACHE_INFO"
+        ready_check = self.throw_error_if_mgmt_not_ready(request=request, event=event)
+        if ready_check is not None:
+            return ready_check
+        response = self.create_depthcache_info_response()
+        return self.get_ok_response(event=event, params=response)
+
     async def stop_depthcache(self, request: Request):
         event = "STOP_DEPTHCACHE"
         ready_check = self.throw_error_if_mgmt_not_ready(request=request, event=event)
         if ready_check is not None:
             return ready_check
         exchange = request.query_params.get("exchange")
-        symbol = request.query_params.get("symbol")
-        if not exchange or not symbol:
+        market = request.query_params.get("market")
+        if not exchange or not market:
             return self.get_error_response(event=event, error_id="#1019",
-                                           message="Missing required parameter: exchange, symbol")
+                                           message="Missing required parameter: exchange, market")
+        if not self.db.exists_depthcache(exchange=exchange, market=market):
+            return self.get_error_response(event=event, error_id="#7000", message=f"DepthCache '{market}' for "
+                                                                                  f"'{exchange}' not found!")
         try:
-            result = self.db.delete_depthcache(exchange=exchange, symbol=symbol)
+            result = self.db.delete_depthcache(exchange=exchange, market=market)
         except ValueError as error_msg:
             return self.get_error_response(event=event, error_id="#1020", message=str(error_msg))
         if result is True:

@@ -42,6 +42,20 @@ class RestEndpointsBase:
             response['version'] = self.app.get_version()
         return response
 
+    def create_depthcache_list_response(self) -> dict:
+        if self.app.data.get('db') is None:
+            response = {}
+        else:
+            response = {"depthcache_list": self.app.data['db'].get_depthcache_list()}
+        return response
+
+    def create_depthcache_info_response(self) -> dict:
+        if self.app.data.get('db') is None:
+            response = {}
+        else:
+            response = {"depthcache_info": self.app.data['db'].get_depthcache_info()}
+        return response
+
     def get_fastapi_instance(self):
         return self.fastapi
 
