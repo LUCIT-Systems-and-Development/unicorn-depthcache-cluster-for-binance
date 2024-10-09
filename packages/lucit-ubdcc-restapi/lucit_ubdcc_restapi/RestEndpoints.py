@@ -34,15 +34,11 @@ class RestEndpoints(RestEndpointsBase):
 
         @self.fastapi.get("/get_asks")
         async def get_asks(request: Request):
-            # Todo: Return information about the UBDCC
-            return {"event": "GET_ASKS",
-                    "result": "NOT_IMPLEMENTED"}
+            return await self.get_asks(request=request)
 
         @self.fastapi.get("/get_bids")
         async def get_bids(request: Request):
-            # Todo: Return information about the UBDCC
-            return {"event": "GET_BIDS",
-                    "result": "NOT_IMPLEMENTED"}
+            return await self.get_bids(request=request)
 
         @self.fastapi.get("/get_cluster_info")
         async def get_cluster_info(request: Request):
@@ -83,8 +79,41 @@ class RestEndpoints(RestEndpointsBase):
         if result.get('error') is not None and result.get('error_id') is not None:
             return self.get_error_response(event=event, error_id="#9000", message=f"Mgmt service not available!",
                                            params={"error": str(result)})
+        elif result.get('error_id') is not None:
+            return self.get_error_response(event=event, error_id=result.get('error_id'), message=result.get('message'))
         else:
             return result
+
+    async def get_asks(self, request: Request):
+        event = "GET_ASKS"
+        endpoint = "/get_asks"
+        exchange = request.query_params.get("exchange")
+        market = request.query_params.get("market")
+        addresses = await self.app.ubdcc_get_responsible_dcn_addresses(exchange=exchange, market=market)
+        print(f"addis: {addresses}")
+
+        # Todo:!
+        limit_count = request.query_params.get("limit_count")
+        threshold_volume = request.query_params.get("threshold_volume")
+        query = (f"?exchange={exchange}&"
+                 f"market={market}")
+        url = addresses + endpoint + query
+        result = self.app.request(url=url, method="get")
+        if result.get('error') is None and result.get('error_id') is None:
+            return result
+        elif result.get('error_id') is not None:
+            return self.get_error_response(event=event, error_id=result.get('error_id'), message=result.get('message'))
+        else:
+            response = self.create_cluster_info_response()
+            response['error'] = str(result)
+            if self.app.data.get('db') is None:
+                return self.get_error_response(event=event, error_id="#9000", message=f"Mgmt service not available!",
+                                               params=response)
+            else:
+                return self.get_error_response(event=event, error_id="#8000",
+                                               message=f"Mgmt service not available! This is cached data from pod "
+                                                       f"'{self.app.id['uid']}'!",
+                                               params=response)
 
     async def get_cluster_info(self, request: Request):
         event = "GET_CLUSTER_INFO"
@@ -94,6 +123,8 @@ class RestEndpoints(RestEndpointsBase):
         result = self.app.request(url=url, method="get")
         if result.get('error') is None and result.get('error_id') is None:
             return result
+        elif result.get('error_id') is not None:
+            return self.get_error_response(event=event, error_id=result.get('error_id'), message=result.get('message'))
         else:
             response = self.create_cluster_info_response()
             response['error'] = str(result)
@@ -114,6 +145,8 @@ class RestEndpoints(RestEndpointsBase):
         result = self.app.request(url=url, method="get")
         if result.get('error') is None and result.get('error_id') is None:
             return result
+        elif result.get('error_id') is not None:
+            return self.get_error_response(event=event, error_id=result.get('error_id'), message=result.get('message'))
         else:
             response = self.create_depthcache_list_response()
             response['error'] = str(result)
@@ -130,12 +163,19 @@ class RestEndpoints(RestEndpointsBase):
         event = "GET_DEPTHCACHE_INFO"
         endpoint = "/get_depthcache_info"
         host = self.app.get_cluster_mgmt_address()
-        url = host + endpoint
+        exchange = request.query_params.get("exchange")
+        market = request.query_params.get("market")
+        query = (f"?exchange={exchange}&"
+                 f"market={market}")
+        url = host + endpoint + query
         result = self.app.request(url=url, method="get")
         if result.get('error') is None and result.get('error_id') is None:
             return result
+        elif result.get('error_id') is not None:
+            return self.get_error_response(event=event, error_id=result.get('error_id'),
+                                           message=result.get('message'))
         else:
-            response = self.create_depthcache_info_response()
+            response = self.create_depthcache_info_response(exchange=exchange, market=market)
             response['error'] = str(result)
             if self.app.data.get('db') is None:
                 return self.get_error_response(event=event, error_id="#9000", message=f"Mgmt service not available!",
@@ -158,7 +198,7 @@ class RestEndpoints(RestEndpointsBase):
         result = self.app.request(url=url, method="get")
         if result.get('error') is None and result.get('error_id') is None:
             return result
-        elif result.get('error_id') == "#1027":
+        elif result.get('error_id') is not None:
             return self.get_error_response(event=event, error_id=result.get('error_id'), message=result.get('message'))
         else:
             return self.get_error_response(event=event, error_id="#9000", message=f"Mgmt service not available!",

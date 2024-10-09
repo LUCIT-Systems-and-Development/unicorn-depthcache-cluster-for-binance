@@ -49,11 +49,11 @@ class RestEndpointsBase:
             response = {"depthcache_list": self.app.data['db'].get_depthcache_list()}
         return response
 
-    def create_depthcache_info_response(self) -> dict:
+    def create_depthcache_info_response(self, exchange: str = None, market: str = None) -> dict:
         if self.app.data.get('db') is None:
             response = {}
         else:
-            response = {"depthcache_info": self.app.data['db'].get_depthcache_info()}
+            response = {"depthcache_info": self.app.data['db'].get_depthcache_info(exchange=exchange, market=market)}
         return response
 
     def get_fastapi_instance(self):

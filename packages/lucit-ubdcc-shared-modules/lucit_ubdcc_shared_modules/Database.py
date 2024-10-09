@@ -233,7 +233,7 @@ class Database:
     def get_depthcache_list(self) -> dict:
         with self.data_lock:
             try:
-                return self.app.data['db']['depthcaches']
+                return self.data['depthcaches']
             except KeyError:
                 return {}
 
@@ -242,7 +242,7 @@ class Database:
             raise ValueError("Missing mandatory parameter: exchange, market")
         with self.data_lock:
             try:
-                return self.app.data['db']['depthcaches'][exchange][market]
+                return self.data['depthcaches'][exchange][market]
             except KeyError:
                 return {}
 
@@ -275,6 +275,18 @@ class Database:
                 return self.data['pods'][uid]
             except KeyError:
                 return None
+
+    def get_responsible_dcn_addresses(self, exchange: str = None, market: str = None) -> list:
+        with self.data_lock:
+            responsible_dcn = []
+            try:
+                for pod_uid in self.data['depthcaches'][exchange][market]['DISTRIBUTION']:
+                    if self.data['depthcaches'][exchange][market]['DISTRIBUTION'][pod_uid]['STATUS'] == "running":
+                        responsible_dcn.append([self.data['pods'][pod_uid]['IP'],
+                                                self.data['pods'][pod_uid]['API_PORT_REST']])
+            except KeyError:
+                pass
+        return responsible_dcn
 
     def replace_data(self, data: dict = None):
         with self.data_lock:
@@ -419,11 +431,14 @@ class Database:
             raise ValueError("Missing mandatory parameter: exchange, pod_uid, market")
         with self.data_lock:
             if last_restart_time is not None:
-                self.data['depthcaches'][exchange][market][pod_uid]['DISTRIBUTION']['LAST_RESTART_TIME'] = \
+                self.data['depthcaches'][exchange][market]['DISTRIBUTION'][pod_uid]['LAST_RESTART_TIME'] = \
                     last_restart_time
                 self._set_update_timestamp()
             if status is not None:
-                self.data['depthcaches'][exchange][market][pod_uid]['DISTRIBUTION']['STATUS'] = status
+                try:
+                    self.data['depthcaches'][exchange][market]['DISTRIBUTION'][pod_uid]['STATUS'] = status
+                except KeyError:
+                    return False
                 self._set_update_timestamp()
         self.app.stdout_msg(f"DB depthcache distribution updated: {exchange}, {market}, {pod_uid}, {last_restart_time},"
                             f"{status}", log="debug")

@@ -255,8 +255,8 @@ class App:
     def is_shutdown(self) -> bool:
         return self.sigterm
 
-    def register_or_restart(self):
-        if self.ubdcc_node_registration() is False:
+    async def register_or_restart(self):
+        if await self.ubdcc_node_registration() is False:
             self.shutdown(message="Node registration failed!")
 
     def register_graceful_shutdown(self) -> None:
@@ -430,6 +430,26 @@ class App:
             print(msg, flush=True)
         return True
 
+    async def ubdcc_get_responsible_dcn_addresses(self,
+                                                  exchange: str = None,
+                                                  market: str = None):
+        self.stdout_msg(f"Get responsible DCN addresses for {market} on {exchange} ...", log="info")
+        endpoint = "/ubdcc_get_responsible_dcn_addresses"
+        host = self.get_cluster_mgmt_address()
+        query = (f"?exchange={exchange}&"
+                 f"market={market}")
+        url = host + endpoint + query
+        while self.is_shutdown() is False:
+            result = self.request(url=url, method="get")
+            if result.get('error_id') is None and result.get('error') is None:
+                self.stdout_msg(f"Successfully caught responsible DCN addresses for {market} on {exchange}!",
+                                log="info")
+                return result
+            else:
+                self.stdout_msg(f"Can not catch responsible DCN addresses: {result}", log="error")
+            await asyncio.sleep(3)
+        return None
+
     def ubdcc_node_cancellation(self):
         self.stdout_msg(f"Cancel node registration ...", log="info")
         endpoint = "/ubdcc_node_cancellation"
@@ -451,7 +471,7 @@ class App:
                             log="error")
             return False
 
-    def ubdcc_node_registration(self, retries=30) -> bool:
+    async def ubdcc_node_registration(self, retries=30) -> bool:
         self.stdout_msg(f"Starting node registration ...", log="info")
         endpoint = "/ubdcc_node_registration"
         host = self.get_cluster_mgmt_address()
@@ -476,13 +496,13 @@ class App:
                 return True
             elif result.get('error_id') == "#1014":
                 self.stdout_msg(f"Mgmt Service is not ready yet! Waiting a few seconds till retry!", log="warn")
-                time.sleep(self.mgmt_is_ready_time)
-            time.sleep(3)
+                await asyncio.sleep(self.mgmt_is_ready_time)
+            await asyncio.sleep(3)
         self.stdout_msg(f"Error during node registration: {result.get('error_id')} - {result.get('error')}",
                         log="error")
         return False
 
-    def ubdcc_node_sync(self) -> bool:
+    async def ubdcc_node_sync(self) -> bool:
         self.stdout_msg(f"Starting node sync ...", log="info")
         endpoint = "/ubdcc_node_sync"
         host = self.get_cluster_mgmt_address()
@@ -502,11 +522,36 @@ class App:
             return False
         elif result.get('error_id') == "#1001":
             self.stdout_msg(f"The node is no longer recognized by {url}.", log="warn")
-            return self.ubdcc_node_registration()
+            return await self.ubdcc_node_registration()
         else:
             self.stdout_msg(f"Error during node sync: {result.get('error_id')} - {result.get('message')}",
                             log="error")
             return False
+
+    async def ubdcc_update_depthcache_distribution(self,
+                                                   exchange: str = None,
+                                                   market: str = None,
+                                                   last_restart_time: int = None,
+                                                   status: str = None) -> bool:
+        self.stdout_msg(f"Updateing depthcache distribution ...", log="info")
+        endpoint = "/ubdcc_update_depthcache_distribution"
+        host = self.get_cluster_mgmt_address()
+        query = (f"?exchange={exchange}&"
+                 f"market={market}&"
+                 f"pod_uid={self.id['uid']}&"
+                 f"last_restart_time={last_restart_time}&"
+                 f"status={status}")
+        url = host + endpoint + query
+        while self.is_shutdown() is False:
+            result = self.request(url=url, method="get")
+            if result.get('error_id') is None and result.get('error') is None:
+                self.stdout_msg(f"DepthCache distribution update succeeded!", log="info")
+                return True
+            else:
+                self.stdout_msg(f"Error during DepthCache distribution update: {result}",
+                                log="error")
+            await asyncio.sleep(3)
+        return False
 
     def verify_license(self) -> bool:
         llm = LucitLicensingManager(api_secret=self.data['db'].get_license_api_secret(),

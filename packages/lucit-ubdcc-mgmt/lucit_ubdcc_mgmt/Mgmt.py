@@ -28,7 +28,7 @@ class Mgmt(ServiceBase):
 
     async def main(self):
         self.db_init()
-        self.start_rest_server(endpoints=RestEndpoints)
+        await self.start_rest_server(endpoints=RestEndpoints)
         await self.app.sleep(seconds=15)
         while self.app.is_shutdown() is False:
             self.db.revise()

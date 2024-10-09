@@ -62,12 +62,12 @@ class ServiceBase:
         self.app.stdout_msg(f"Starting the main execution flow ...", log="debug", stdout=False)
         asyncio.run(self.main())
 
-    def start_rest_server(self, endpoints=None) -> bool:
+    async def start_rest_server(self, endpoints=None) -> bool:
         while self.is_port_free(port=self.app.api_port_rest) is False:
             self.app.api_port_rest = self.app.api_port_rest + 1
         self.rest_server = RestServer(app=self.app, endpoints=endpoints, port=self.app.api_port_rest)
         self.rest_server.start()
-        time.sleep(1)
+        await asyncio.sleep(1)
         return True
 
     def stop(self) -> bool:

@@ -17,6 +17,7 @@
 #
 # Copyright (c) 2024-2024, LUCIT Systems and Development (https://www.lucit.tech)
 # All rights reserved.
+import json
 
 from lucit_ubdcc_shared_modules.Database import Database
 from lucit_ubdcc_shared_modules.RestEndpointsBase import RestEndpointsBase, Request
@@ -54,6 +55,10 @@ class RestEndpoints(RestEndpointsBase):
         async def submit_license(request: Request):
             return await self.submit_license(request=request)
 
+        @self.fastapi.get("/ubdcc_get_responsible_dcn_addresses")
+        async def ubdcc_get_responsible_dcn_addresses(request: Request):
+            return await self.ubdcc_get_responsible_dcn_addresses(request=request)
+
         @self.fastapi.get("/ubdcc_node_cancellation")
         async def ubdcc_node_cancellation(request: Request):
             return await self.ubdcc_node_cancellation(request=request)
@@ -65,6 +70,10 @@ class RestEndpoints(RestEndpointsBase):
         @self.fastapi.get("/ubdcc_node_sync")
         async def ubdcc_node_sync(request: Request):
             return await self.ubdcc_node_sync(request=request)
+
+        @self.fastapi.get("/ubdcc_update_depthcache_distribution")
+        async def ubdcc_update_depthcache_distribution(request: Request):
+            return await self.ubdcc_update_depthcache_distribution(request=request)
 
     async def create_depthcache(self, request: Request):
         event = "CREATE_DEPTHCACHE"
@@ -89,8 +98,7 @@ class RestEndpoints(RestEndpointsBase):
                                            message="Missing required parameter: exchange, market")
         if self.db.exists_depthcache(exchange=exchange, market=market):
             return self.get_error_response(event=event, error_id="#1024",
-                                           message=f"A DepthCache for exchange '{exchange}' and market '{market}' "
-                                                   f"already exists!")
+                                           message=f"DepthCache '{market}' for '{exchange}' already exists!")
         try:
             result = self.db.add_depthcache(exchange=exchange, market=market, update_interval=update_interval,
                                             refresh_interval=refresh_interval, desired_quantity=desired_quantity)
@@ -128,7 +136,15 @@ class RestEndpoints(RestEndpointsBase):
         ready_check = self.throw_error_if_mgmt_not_ready(request=request, event=event)
         if ready_check is not None:
             return ready_check
-        response = self.create_depthcache_info_response()
+        exchange = request.query_params.get("exchange")
+        market = request.query_params.get("market")
+        if not exchange or not market:
+            return self.get_error_response(event=event, error_id="#1006",
+                                           message="Missing required parameter: exchange, market")
+        response = self.create_depthcache_info_response(exchange=exchange, market=market)
+        if not response['depthcache_info']:
+            return self.get_error_response(event=event, error_id="#7000", message=f"DepthCache '{market}' for "
+                                                                                  f"'{exchange}' not found!")
         return self.get_ok_response(event=event, params=response)
 
     async def stop_depthcache(self, request: Request):
@@ -171,6 +187,24 @@ class RestEndpoints(RestEndpointsBase):
                                         params={"message": "The license has been successfully validated and UBDCC "
                                                            "is now ready for operation! Have fun! ;)"})
         return self.get_error_response(event=event, error_id="#1011", message="The license is invalid!")
+
+    async def ubdcc_get_responsible_dcn_addresses(self, request: Request):
+        event = "UBDCC_GET_RESPONSIBLE_DCN_ADDRESSES"
+        ready_check = self.throw_error_if_mgmt_not_ready(request=request, event=event)
+        if ready_check is not None:
+            return ready_check
+        exchange = request.query_params.get("exchange")
+        market = request.query_params.get("market")
+        if not exchange or not market:
+            return self.get_error_response(event=event, error_id="#1012",
+                                           message="Missing required parameter: exchange, market")
+        result = self.db.get_responsible_dcn_addresses(exchange=exchange, market=market)
+        print(f"RESULT: {result}")
+        if not result:
+            return self.get_error_response(event=event, error_id="#1013",
+                                           message=f"No addresses of responsible DCN for '{market}' from '{exchange}' "
+                                                   f"found!")
+        return self.get_ok_response(event=event, params={"addresses": result})
 
     async def ubdcc_node_cancellation(self, request: Request):
         event = "UBDCC_NODE_CANCELLATION"
@@ -274,3 +308,37 @@ class RestEndpoints(RestEndpointsBase):
         else:
             return self.get_error_response(event=event, error_id="#1010",
                                            message="An unknown error has occurred!")
+
+    async def ubdcc_update_depthcache_distribution(self, request: Request):
+        event = "UBDCC_UPDATE_DEPTHCACHE_DISTRIBUTION"
+        ready_check = self.throw_error_if_mgmt_not_ready(request=request, event=event)
+        if ready_check is not None:
+            return ready_check
+        exchange = request.query_params.get("exchange")
+        market = request.query_params.get("market")
+        pod_uid = request.query_params.get("pod_uid")
+        last_restart_time = request.query_params.get("last_restart_time")
+        status = request.query_params.get("status")
+        if exchange == "None":
+            exchange = None
+        if market == "None":
+            market = None
+        if pod_uid == "None":
+            pod_uid = None
+        if last_restart_time == "None":
+            last_restart_time = None
+        if status == "None":
+            status = None
+        if not exchange or not market or not pod_uid:
+            return self.get_error_response(event=event, error_id="#1015",
+                                           message="Missing required parameter: exchange, market, pod_uid")
+        if not last_restart_time and not status:
+            return self.get_error_response(event=event, error_id="#1022",
+                                           message="Nothing to update! Missing parameter: last_restart_time, status")
+        result = self.db.update_depthcache_distribution(exchange=exchange, market=market,
+                                                        pod_uid=pod_uid, status=status)
+        if not result:
+            return self.get_error_response(event=event, error_id="#1023", message=f"An unknown error has occurred!")
+        return self.get_ok_response(event=event)
+
+

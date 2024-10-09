@@ -1,4 +1,12 @@
 Todo:
-- Timestamp of last Database change
-    -> Sync says when the last update was, a backup is only created if a newer database is available
-- Sync local node settings with mgmt!
+0. await request!!
+
+1. Is VALID prüfen:
+    - auf dcn vor ubldc instanz erstellung
+
+2. Manchmal wird lizenz als invalid angezeigt
+
+
+self._set_update_timestamp() kontrolle in DB bei write sachen
+
+-> dnc last restart time
