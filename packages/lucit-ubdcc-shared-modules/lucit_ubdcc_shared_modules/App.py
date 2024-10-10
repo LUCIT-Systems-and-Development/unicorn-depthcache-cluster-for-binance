@@ -42,7 +42,7 @@ REST_SERVER_PORT: int = 8080
 REST_SERVER_PORT_DEV_DCN: int = 42082
 REST_SERVER_PORT_DEV_MGMT: int = 42080
 REST_SERVER_PORT_DEV_RESTAPI: int = 42081
-VERSION: str = "0.0.68"
+VERSION: str = "0.0.70"
 
 
 class App:
@@ -439,16 +439,14 @@ class App:
         query = (f"?exchange={exchange}&"
                  f"market={market}")
         url = host + endpoint + query
-        while self.is_shutdown() is False:
-            result = self.request(url=url, method="get")
-            if result.get('error_id') is None and result.get('error') is None:
-                self.stdout_msg(f"Successfully caught responsible DCN addresses for {market} on {exchange}!",
-                                log="info")
-                return result
-            else:
-                self.stdout_msg(f"Can not catch responsible DCN addresses: {result}", log="error")
-            await asyncio.sleep(3)
-        return None
+        result = self.request(url=url, method="get")
+        if result.get('error_id') is None and result.get('error') is None:
+            self.stdout_msg(f"Successfully caught responsible DCN addresses for {market} on {exchange}!",
+                            log="info")
+            return result
+        else:
+            self.stdout_msg(f"Can not catch responsible DCN addresses: {result}", log="error")
+            return None
 
     def ubdcc_node_cancellation(self):
         self.stdout_msg(f"Cancel node registration ...", log="info")

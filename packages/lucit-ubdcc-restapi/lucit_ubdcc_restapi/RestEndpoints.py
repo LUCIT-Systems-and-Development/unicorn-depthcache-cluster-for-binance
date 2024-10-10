@@ -17,6 +17,7 @@
 #
 # Copyright (c) 2024-2024, LUCIT Systems and Development (https://www.lucit.tech)
 # All rights reserved.
+import json
 
 from lucit_ubdcc_shared_modules.RestEndpointsBase import RestEndpointsBase, Request
 
@@ -87,33 +88,12 @@ class RestEndpoints(RestEndpointsBase):
     async def get_asks(self, request: Request):
         event = "GET_ASKS"
         endpoint = "/get_asks"
-        exchange = request.query_params.get("exchange")
-        market = request.query_params.get("market")
-        addresses = await self.app.ubdcc_get_responsible_dcn_addresses(exchange=exchange, market=market)
-        print(f"addis: {addresses}")
+        return await self.get_depthcache_data(request=request, event=event, endpoint=endpoint)
 
-        # Todo:!
-        limit_count = request.query_params.get("limit_count")
-        threshold_volume = request.query_params.get("threshold_volume")
-        query = (f"?exchange={exchange}&"
-                 f"market={market}")
-        url = addresses + endpoint + query
-        result = self.app.request(url=url, method="get")
-        if result.get('error') is None and result.get('error_id') is None:
-            return result
-        elif result.get('error_id') is not None:
-            return self.get_error_response(event=event, error_id=result.get('error_id'), message=result.get('message'))
-        else:
-            response = self.create_cluster_info_response()
-            response['error'] = str(result)
-            if self.app.data.get('db') is None:
-                return self.get_error_response(event=event, error_id="#9000", message=f"Mgmt service not available!",
-                                               params=response)
-            else:
-                return self.get_error_response(event=event, error_id="#8000",
-                                               message=f"Mgmt service not available! This is cached data from pod "
-                                                       f"'{self.app.id['uid']}'!",
-                                               params=response)
+    async def get_bids(self, request: Request):
+        event = "GET_BIDS"
+        endpoint = "/get_bids"
+        return await self.get_depthcache_data(request=request, event=event, endpoint=endpoint)
 
     async def get_cluster_info(self, request: Request):
         event = "GET_CLUSTER_INFO"
@@ -136,6 +116,38 @@ class RestEndpoints(RestEndpointsBase):
                                                message=f"Mgmt service not available! This is cached data from pod "
                                                        f"'{self.app.id['uid']}'!",
                                                params=response)
+
+    async def get_depthcache_data(self, request: Request, event=None, endpoint=None):
+        exchange = request.query_params.get("exchange")
+        market = request.query_params.get("market")
+        responsible_dcn = await self.app.ubdcc_get_responsible_dcn_addresses(exchange=exchange, market=market)
+        limit_count = request.query_params.get("limit_count")
+        threshold_volume = request.query_params.get("threshold_volume")
+        if responsible_dcn is None:
+            if not exchange or not market:
+                return self.get_error_response(event=event, error_id="#1025",
+                                               message="Missing required parameter: exchange, market")
+            addresses = self.app.data['db'].get_responsible_dcn_addresses(exchange=exchange, market=market)
+        else:
+            addresses = responsible_dcn['addresses']
+        if len(addresses) == 0:
+            return self.get_error_response(event=event, error_id="#4000",
+                                           message=f"No DCN found for '{market}' on '{exchange}'!")
+        query = (f"?exchange={exchange}&"
+                 f"market={market}&"
+                 f"limit_count={limit_count}&"
+                 f"threshold_volume={threshold_volume}")
+        result_errors = []
+        for address, port in addresses:
+            self.app.stdout_msg(f"Connecting http://{address}:{port}/{endpoint}{query} ...")
+            url = f"http://{address}:{port}" + endpoint + query
+            result = self.app.request(url=url, method="get")
+            if result.get('error') is None and result.get('error_id') is None:
+                return result
+            result_errors.append([address, port, str(result)])
+        self.app.stdout_msg(f"No DCN has responded to the requests: {result_errors}")
+        return self.get_error_response(event=event, error_id="#5000", message=f"No DCN has responded to the requests!",
+                                       params={"requests": result_errors})
 
     async def get_depthcache_list(self, request: Request):
         event = "GET_DEPTHCACHE_LIST"

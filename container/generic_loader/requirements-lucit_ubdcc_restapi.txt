@@ -1,1 +1,1 @@
-lucit-ubdcc-restapi==0.0.68
+lucit-ubdcc-restapi==0.0.70

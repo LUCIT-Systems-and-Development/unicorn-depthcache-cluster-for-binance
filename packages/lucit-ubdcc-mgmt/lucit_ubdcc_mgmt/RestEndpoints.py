@@ -199,7 +199,6 @@ class RestEndpoints(RestEndpointsBase):
             return self.get_error_response(event=event, error_id="#1012",
                                            message="Missing required parameter: exchange, market")
         result = self.db.get_responsible_dcn_addresses(exchange=exchange, market=market)
-        print(f"RESULT: {result}")
         if not result:
             return self.get_error_response(event=event, error_id="#1013",
                                            message=f"No addresses of responsible DCN for '{market}' from '{exchange}' "

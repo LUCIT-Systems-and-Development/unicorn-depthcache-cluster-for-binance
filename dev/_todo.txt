@@ -6,6 +6,7 @@ Todo:
 
 2. Manchmal wird lizenz als invalid angezeigt
 
+3. JSON ersatz?
 
 self._set_update_timestamp() kontrolle in DB bei write sachen
 
