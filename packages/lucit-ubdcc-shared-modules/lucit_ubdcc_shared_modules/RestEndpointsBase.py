@@ -141,11 +141,10 @@ class RestEndpointsBase:
         else:
             # Post request: save the backup data
             if self.app.info['name'] != "lucit-ubdcc-mgmt":
-                self.app.data['db-cache'] = json.loads(json.loads(request_body))
+                self.app.data['db-cache'] = json.loads(request_body)
                 try:
                     self.app.data['db'].replace_data(data=self.app.data['db-cache'])
                 except KeyError as error_msg:
                     self.app.stdout_msg(f"Database not available: {error_msg}", log="debug", stdout=False)
             self.app.ubdcc_mgmt_backup = json.loads(request_body.decode('utf-8'))
             return self.get_ok_response(event=event, params={"message": "The backup has been saved!"})
-

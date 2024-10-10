@@ -17,7 +17,6 @@
 #
 # Copyright (c) 2024-2024, LUCIT Systems and Development (https://www.lucit.tech)
 # All rights reserved.
-import json
 
 from lucit_ubdcc_shared_modules.RestEndpointsBase import RestEndpointsBase, Request
 
@@ -76,7 +75,7 @@ class RestEndpoints(RestEndpointsBase):
                  f"refresh_interval={refresh_interval}&"
                  f"desired_quantity={desired_quantity}")
         url = host + endpoint + query
-        result = self.app.request(url=url, method="get")
+        result = await self.app.request(url=url, method="get")
         if result.get('error') is not None and result.get('error_id') is not None:
             return self.get_error_response(event=event, error_id="#9000", message=f"Mgmt service not available!",
                                            params={"error": str(result)})
@@ -100,7 +99,7 @@ class RestEndpoints(RestEndpointsBase):
         endpoint = "/get_cluster_info"
         host = self.app.get_cluster_mgmt_address()
         url = host + endpoint
-        result = self.app.request(url=url, method="get")
+        result = await self.app.request(url=url, method="get")
         if result.get('error') is None and result.get('error_id') is None:
             return result
         elif result.get('error_id') is not None:
@@ -141,7 +140,7 @@ class RestEndpoints(RestEndpointsBase):
         for address, port in addresses:
             self.app.stdout_msg(f"Connecting http://{address}:{port}/{endpoint}{query} ...")
             url = f"http://{address}:{port}" + endpoint + query
-            result = self.app.request(url=url, method="get")
+            result = await self.app.request(url=url, method="get")
             if result.get('error') is None and result.get('error_id') is None:
                 return result
             result_errors.append([address, port, str(result)])
@@ -154,7 +153,7 @@ class RestEndpoints(RestEndpointsBase):
         endpoint = "/get_depthcache_list"
         host = self.app.get_cluster_mgmt_address()
         url = host + endpoint
-        result = self.app.request(url=url, method="get")
+        result = await self.app.request(url=url, method="get")
         if result.get('error') is None and result.get('error_id') is None:
             return result
         elif result.get('error_id') is not None:
@@ -180,7 +179,7 @@ class RestEndpoints(RestEndpointsBase):
         query = (f"?exchange={exchange}&"
                  f"market={market}")
         url = host + endpoint + query
-        result = self.app.request(url=url, method="get")
+        result = await self.app.request(url=url, method="get")
         if result.get('error') is None and result.get('error_id') is None:
             return result
         elif result.get('error_id') is not None:
@@ -207,7 +206,7 @@ class RestEndpoints(RestEndpointsBase):
         query = (f"?exchange={exchange}&"
                  f"market={market}")
         url = host + endpoint + query
-        result = self.app.request(url=url, method="get")
+        result = await self.app.request(url=url, method="get")
         if result.get('error') is None and result.get('error_id') is None:
             return result
         elif result.get('error_id') is not None:
@@ -225,7 +224,7 @@ class RestEndpoints(RestEndpointsBase):
         query = (f"?api_secret={api_secret}&"
                  f"license_token={license_token}")
         url = host + endpoint + query
-        result = self.app.request(url=url, method="get")
+        result = await self.app.request(url=url, method="get")
         if result.get('error') is None:
             return result
         else:

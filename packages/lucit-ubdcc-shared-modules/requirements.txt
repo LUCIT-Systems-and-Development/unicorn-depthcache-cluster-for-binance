@@ -1,3 +1,4 @@
+aiohttp
 cython
 fastapi
 kubernetes

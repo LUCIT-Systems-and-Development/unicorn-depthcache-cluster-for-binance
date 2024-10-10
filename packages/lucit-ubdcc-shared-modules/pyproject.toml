@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "lucit-ubdcc-shared-modules"
-version = "0.0.70"
+version = "0.0.71"
 description = "LUCIT UBDCC Shared Modules"
 authors = ["LUCIT Systems and Development <info@lucit.tech>"]
 license = "LSOSL - LUCIT Synergetic Open Source License"
@@ -24,6 +24,7 @@ repository = "https://github.com/LUCIT-Systems-and-Development/unicorn-binance-d
 
 [tool.poetry.dependencies]
 python = ">=3.12.0"
+aiohttp = "*"
 Cython = "*"
 fastapi = "*"
 kubernetes = "*"

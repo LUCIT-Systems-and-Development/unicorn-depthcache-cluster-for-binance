@@ -33,4 +33,3 @@ class Mgmt(ServiceBase):
         while self.app.is_shutdown() is False:
             self.db.revise()
             await self.app.sleep(seconds=10)
-

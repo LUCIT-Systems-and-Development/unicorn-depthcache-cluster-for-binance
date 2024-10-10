@@ -18,6 +18,7 @@
 # Copyright (c) 2024-2024, LUCIT Systems and Development (https://www.lucit.tech)
 # All rights reserved.
 
+import aiohttp
 import asyncio
 import cython
 import logging
@@ -42,7 +43,7 @@ REST_SERVER_PORT: int = 8080
 REST_SERVER_PORT_DEV_DCN: int = 42082
 REST_SERVER_PORT_DEV_MGMT: int = 42080
 REST_SERVER_PORT_DEV_RESTAPI: int = 42081
-VERSION: str = "0.0.70"
+VERSION: str = "0.0.71"
 
 
 class App:
@@ -71,7 +72,7 @@ class App:
         self.sigterm = False
         self.stop_call = stop_call
         self.status = "starting"
-        self.ubdcc_mgmt_backup: str | None = None
+        self.ubdcc_mgmt_backup: dict | None = None
         self.data: dict = {}
         self.id: dict = {}
         self.llm: LucitLicensingManager | None = None
@@ -90,16 +91,16 @@ class App:
         letters = string.ascii_letters + string.digits
         return ''.join(random.choice(letters) for _ in range(length))
 
-    def get_backup_from_node(self, host, port) -> dict | None:
-        data = self.request(f"http://{host}:{port}/ubdcc_mgmt_backup", method="get")
+    async def get_backup_from_node(self, host, port) -> dict | None:
+        data = await self.request(f"http://{host}:{port}/ubdcc_mgmt_backup", method="get")
         try:
-            data = json.loads(data['db'])
+            data = data['db']
         except KeyError:
             return None
         return data
 
-    def get_backup_timestamp_from_node(self, host, port) -> float | None:
-        data = self.request(f"http://{host}:{port}/ubdcc_mgmt_backup?get_backup_timestamp", method="get")
+    async def get_backup_timestamp_from_node(self, host, port) -> float | None:
+        data = await self.request(f"http://{host}:{port}/ubdcc_mgmt_backup?get_backup_timestamp", method="get")
         try:
             data = json.loads(data['db'])
         except KeyError:
@@ -227,8 +228,7 @@ class App:
         if self.ubdcc_mgmt_backup is None:
             timestamp = None
         else:
-            backup_json = json.loads(self.ubdcc_mgmt_backup)
-            timestamp = float(backup_json['timestamp'])
+            timestamp = float(self.ubdcc_mgmt_backup['timestamp'])
         return timestamp
 
     def get_cluster_mgmt_address(self):
@@ -264,7 +264,26 @@ class App:
         sys_signal.signal(sys_signal.SIGTERM, self.sigterm_handler)
 
     @staticmethod
-    def request(url, method, params=None, headers=None, timeout=10) -> dict:
+    async def request(url, method, params=None, headers=None, timeout=10) -> dict:
+        try:
+            async with aiohttp.ClientSession() as session:
+                if method == "get":
+                    async with session.get(url, params=params, headers=headers, timeout=timeout) as response:
+                        response.raise_for_status()
+                        return await response.json()
+                elif method == "post":
+                    async with session.post(url, json=params, headers={"Content-Type": "application/json"},
+                                            timeout=timeout) as response:
+                        response.raise_for_status()
+                        return await response.json()
+                else:
+                    raise ValueError("Allowed 'method' values: get, post")
+        except aiohttp.ClientError as error_msg:
+            print(f"An error occurred: {error_msg}")
+            return {"error": str(error_msg)}
+
+    @staticmethod
+    def request_synchronous(url, method, params=None, headers=None, timeout=10) -> dict:
         try:
             if method == "get":
                 response = requests.get(url, params=params, headers=headers, timeout=timeout)
@@ -279,9 +298,9 @@ class App:
             print(f"An error occurred: {error_msg}")
             return {"error": error_msg}
 
-    def send_backup_to_node(self, host, port) -> dict:
-        return self.request(f"http://{host}:{port}/ubdcc_mgmt_backup", method="post",
-                            params=self.data['db'].get_backup_dict())
+    async def send_backup_to_node(self, host, port) -> dict:
+        return await self.request(f"http://{host}:{port}/ubdcc_mgmt_backup", method="post",
+                                  params=self.data['db'].get_backup_dict())
 
     def set_api_rest_port(self):
         if self.dev_mode:
@@ -439,7 +458,7 @@ class App:
         query = (f"?exchange={exchange}&"
                  f"market={market}")
         url = host + endpoint + query
-        result = self.request(url=url, method="get")
+        result = await self.request(url=url, method="get")
         if result.get('error_id') is None and result.get('error') is None:
             self.stdout_msg(f"Successfully caught responsible DCN addresses for {market} on {exchange}!",
                             log="info")
@@ -454,7 +473,7 @@ class App:
         host = self.get_cluster_mgmt_address()
         query = f"?uid={self.id['uid']}"
         url = host + endpoint + query
-        result = self.request(url=url, method="get")
+        result = self.request_synchronous(url=url, method="get")
         if result.get('error_id') is None and result.get('error') is None:
             self.stdout_msg(f"Node cancellation successful!", log="info")
             return True
@@ -485,7 +504,7 @@ class App:
         result = None
         while loops < retries and self.is_shutdown() is False:
             loops += 1
-            result = self.request(url=url, method="get")
+            result = await self.request(url=url, method="get")
             if result.get('error_id') is None and result.get('error') is None:
                 self.stdout_msg(f"Node registration succeeded!", log="info")
                 return True
@@ -511,7 +530,7 @@ class App:
                  f"status={self.status}&"
                  f"backup_timestamp={backup_timestamp}")
         url = host + endpoint + query
-        result = self.request(url=url, method="get")
+        result = await self.request(url=url, method="get")
         if result.get('error_id') is None and result.get('error') is None:
             self.stdout_msg(f"Node sync succeeded!", log="info")
             return True
@@ -531,7 +550,7 @@ class App:
                                                    market: str = None,
                                                    last_restart_time: int = None,
                                                    status: str = None) -> bool:
-        self.stdout_msg(f"Updateing depthcache distribution ...", log="info")
+        self.stdout_msg(f"Updating depthcache distribution ...", log="info")
         endpoint = "/ubdcc_update_depthcache_distribution"
         host = self.get_cluster_mgmt_address()
         query = (f"?exchange={exchange}&"
@@ -541,7 +560,7 @@ class App:
                  f"status={status}")
         url = host + endpoint + query
         while self.is_shutdown() is False:
-            result = self.request(url=url, method="get")
+            result = await self.request(url=url, method="get")
             if result.get('error_id') is None and result.get('error') is None:
                 self.stdout_msg(f"DepthCache distribution update succeeded!", log="info")
                 return True

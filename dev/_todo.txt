@@ -1,13 +1,6 @@
 Todo:
-0. await request!!
 
-1. Is VALID prüfen:
-    - auf dcn vor ubldc instanz erstellung
-
-2. Manchmal wird lizenz als invalid angezeigt
-
-3. JSON ersatz?
-
-self._set_update_timestamp() kontrolle in DB bei write sachen
-
--> dnc last restart time
+1. Check if license is valid bevor starting a UBLDC instance
+2. Replace JSON lib?
+3. Controll if it is in all DB write operations self._set_update_timestamp()
+4. Sync DNC last restart time

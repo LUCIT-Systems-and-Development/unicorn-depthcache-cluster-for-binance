@@ -20,7 +20,6 @@
 
 import asyncio
 import socket
-import time
 from .App import App
 from .RestServer import RestServer
 from .Database import Database

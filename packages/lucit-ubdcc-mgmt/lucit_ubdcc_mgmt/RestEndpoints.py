@@ -17,7 +17,6 @@
 #
 # Copyright (c) 2024-2024, LUCIT Systems and Development (https://www.lucit.tech)
 # All rights reserved.
-import json
 
 from lucit_ubdcc_shared_modules.Database import Database
 from lucit_ubdcc_shared_modules.RestEndpointsBase import RestEndpointsBase, Request
@@ -93,7 +92,7 @@ class RestEndpoints(RestEndpointsBase):
             update_interval = None
         else:
             update_interval = int(update_interval)
-        if not exchange or not market:
+        if exchange is None or market is None:
             return self.get_error_response(event=event, error_id="#1016",
                                            message="Missing required parameter: exchange, market")
         if self.db.exists_depthcache(exchange=exchange, market=market):
@@ -138,7 +137,7 @@ class RestEndpoints(RestEndpointsBase):
             return ready_check
         exchange = request.query_params.get("exchange")
         market = request.query_params.get("market")
-        if not exchange or not market:
+        if exchange is None or market is None:
             return self.get_error_response(event=event, error_id="#1006",
                                            message="Missing required parameter: exchange, market")
         response = self.create_depthcache_info_response(exchange=exchange, market=market)
@@ -154,7 +153,7 @@ class RestEndpoints(RestEndpointsBase):
             return ready_check
         exchange = request.query_params.get("exchange")
         market = request.query_params.get("market")
-        if not exchange or not market:
+        if exchange is None or market is None:
             return self.get_error_response(event=event, error_id="#1019",
                                            message="Missing required parameter: exchange, market")
         if not self.db.exists_depthcache(exchange=exchange, market=market):
@@ -176,7 +175,7 @@ class RestEndpoints(RestEndpointsBase):
             return ready_check
         api_secret = request.query_params.get("api_secret")
         license_token = request.query_params.get("license_token")
-        if not api_secret or not license_token:
+        if api_secret is None or license_token is None:
             return self.get_error_response(event=event, error_id="#1007",
                                            message="Missing required parameter: api_secret, license_token")
         self.db.submit_license(api_secret=api_secret, license_token=license_token)
@@ -195,15 +194,16 @@ class RestEndpoints(RestEndpointsBase):
             return ready_check
         exchange = request.query_params.get("exchange")
         market = request.query_params.get("market")
-        if not exchange or not market:
+        if exchange is None or market is None:
             return self.get_error_response(event=event, error_id="#1012",
                                            message="Missing required parameter: exchange, market")
         result = self.db.get_responsible_dcn_addresses(exchange=exchange, market=market)
-        if not result:
+        if result is True:
+            return self.get_ok_response(event=event, params={"addresses": result})
+        else:
             return self.get_error_response(event=event, error_id="#1013",
                                            message=f"No addresses of responsible DCN for '{market}' from '{exchange}' "
                                                    f"found!")
-        return self.get_ok_response(event=event, params={"addresses": result})
 
     async def ubdcc_node_cancellation(self, request: Request):
         event = "UBDCC_NODE_CANCELLATION"
@@ -211,7 +211,7 @@ class RestEndpoints(RestEndpointsBase):
         if ready_check is not None:
             return ready_check
         uid = request.query_params.get("uid")
-        if not uid:
+        if uid is None:
             return self.get_error_response(event=event, error_id="#1004", message="Missing required parameter: uid")
         if not self.db.exists_pod(uid=uid):
             return self.get_error_response(event=event, error_id="#1005",
@@ -234,7 +234,7 @@ class RestEndpoints(RestEndpointsBase):
         api_port_rest = request.query_params.get("api_port_rest")
         status = request.query_params.get("status")
         version = request.query_params.get("version")
-        if not name or not uid or not node or not role or not api_port_rest or not status:
+        if name is None or uid is None or node is None or role is None or api_port_rest is None or status is None:
             return self.get_error_response(event=event, error_id="#1002",
                                            message="Missing required parameter: name, uid, node, role, api_port_rest, "
                                                    "status")
@@ -250,7 +250,7 @@ class RestEndpoints(RestEndpointsBase):
                                  status=status,
                                  version=version)
         if result is True:
-            self.app.send_backup_to_node(host=request.client.host, port=api_port_rest)
+            await self.app.send_backup_to_node(host=request.client.host, port=api_port_rest)
             return self.get_ok_response(event=event)
         else:
             return self.get_error_response(event=event, error_id="#1009", message="An unknown error has occurred!")
@@ -261,11 +261,11 @@ class RestEndpoints(RestEndpointsBase):
         node = request.query_params.get("node")
         api_port_rest = request.query_params.get("api_port_rest")
         status = request.query_params.get("status")
-        if not uid or not api_port_rest:
+        if uid is None or api_port_rest is None:
             return self.get_error_response(event=event, error_id="#1000",
                                            message="Missing required parameter: uid, api_port_rest")
         if not self.db.exists_pod(uid=uid) and self.db.is_empty() is True:
-            backup = self.app.get_backup_from_node(host=request.client.host, port=api_port_rest)
+            backup = await self.app.get_backup_from_node(host=request.client.host, port=api_port_rest)
             if backup is not None:
                 source_ip = request.client.host
                 source_port = api_port_rest
@@ -274,8 +274,8 @@ class RestEndpoints(RestEndpointsBase):
                 pods = []
                 for pod in backup['pods']:
                     pods.append(backup['pods'][pod]['UID'])
-                    timestamp = self.app.get_backup_timestamp_from_node(host=backup['pods'][pod]['IP'],
-                                                                        port=backup['pods'][pod]['API_PORT_REST'])
+                    timestamp = await self.app.get_backup_timestamp_from_node(host=backup['pods'][pod]['IP'],
+                                                                              port=backup['pods'][pod]['API_PORT_REST'])
                     if timestamp is not None:
                         if timestamp_limit < timestamp:
                             source_ip = pod['IP']
@@ -284,7 +284,7 @@ class RestEndpoints(RestEndpointsBase):
                             timestamp_limit = timestamp
                 self.app.stdout_msg(f"Found pods: {pods}", log="info")
                 if source_uid != uid:
-                    backup = self.app.get_backup_from_node(host=source_ip, port=source_port)
+                    backup = await self.app.get_backup_from_node(host=source_ip, port=source_port)
                 if backup is not None:
                     self.db.replace_data(data=backup)
                     if self.db.get_license_status() == "VALID":
@@ -302,7 +302,7 @@ class RestEndpoints(RestEndpointsBase):
                                     status=status)
         pod = self.db.get_pod_by_uid(uid=uid)
         if result is True:
-            self.app.send_backup_to_node(host=request.client.host, port=pod['API_PORT_REST'])
+            await self.app.send_backup_to_node(host=request.client.host, port=pod['API_PORT_REST'])
             return self.get_ok_response(event=event)
         else:
             return self.get_error_response(event=event, error_id="#1010",
@@ -328,16 +328,15 @@ class RestEndpoints(RestEndpointsBase):
             last_restart_time = None
         if status == "None":
             status = None
-        if not exchange or not market or not pod_uid:
+        if exchange is None or market is None or pod_uid is None:
             return self.get_error_response(event=event, error_id="#1015",
                                            message="Missing required parameter: exchange, market, pod_uid")
-        if not last_restart_time and not status:
+        if last_restart_time is None and status is None:
             return self.get_error_response(event=event, error_id="#1022",
                                            message="Nothing to update! Missing parameter: last_restart_time, status")
         result = self.db.update_depthcache_distribution(exchange=exchange, market=market,
                                                         pod_uid=pod_uid, status=status)
-        if not result:
+        if result is True:
+            return self.get_ok_response(event=event)
+        else:
             return self.get_error_response(event=event, error_id="#1023", message=f"An unknown error has occurred!")
-        return self.get_ok_response(event=event)
-
-
