@@ -60,63 +60,7 @@ class RestEndpoints(RestEndpointsBase):
         async def submit_license(request: Request):
             return await self.submit_license(request=request)
 
-    async def create_depthcache(self, request: Request):
-        event = "CREATE_DEPTHCACHE"
-        endpoint = "/create_depthcache"
-        host = self.app.get_cluster_mgmt_address()
-        exchange = request.query_params.get("exchange")
-        market = request.query_params.get("market")
-        desired_quantity = request.query_params.get("desired_quantity")
-        update_interval = request.query_params.get("update_interval")
-        refresh_interval = request.query_params.get("refresh_interval")
-        query = (f"?exchange={exchange}&"
-                 f"market={market}&"
-                 f"update_interval={update_interval}&"
-                 f"refresh_interval={refresh_interval}&"
-                 f"desired_quantity={desired_quantity}")
-        url = host + endpoint + query
-        result = await self.app.request(url=url, method="get")
-        if result.get('error') is not None and result.get('error_id') is not None:
-            return self.get_error_response(event=event, error_id="#9000", message=f"Mgmt service not available!",
-                                           params={"error": str(result)})
-        elif result.get('error_id') is not None:
-            return self.get_error_response(event=event, error_id=result.get('error_id'), message=result.get('message'))
-        else:
-            return result
-
-    async def get_asks(self, request: Request):
-        event = "GET_ASKS"
-        endpoint = "/get_asks"
-        return await self.get_depthcache_data(request=request, event=event, endpoint=endpoint)
-
-    async def get_bids(self, request: Request):
-        event = "GET_BIDS"
-        endpoint = "/get_bids"
-        return await self.get_depthcache_data(request=request, event=event, endpoint=endpoint)
-
-    async def get_cluster_info(self, request: Request):
-        event = "GET_CLUSTER_INFO"
-        endpoint = "/get_cluster_info"
-        host = self.app.get_cluster_mgmt_address()
-        url = host + endpoint
-        result = await self.app.request(url=url, method="get")
-        if result.get('error') is None and result.get('error_id') is None:
-            return result
-        elif result.get('error_id') is not None:
-            return self.get_error_response(event=event, error_id=result.get('error_id'), message=result.get('message'))
-        else:
-            response = self.create_cluster_info_response()
-            response['error'] = str(result)
-            if self.app.data.get('db') is None:
-                return self.get_error_response(event=event, error_id="#9000", message=f"Mgmt service not available!",
-                                               params=response)
-            else:
-                return self.get_error_response(event=event, error_id="#8000",
-                                               message=f"Mgmt service not available! This is cached data from pod "
-                                                       f"'{self.app.id['uid']}'!",
-                                               params=response)
-
-    async def get_depthcache_data(self, request: Request, event=None, endpoint=None):
+    async def _get_depthcache_data(self, request: Request, event=None, endpoint=None):
         exchange = request.query_params.get("exchange")
         market = request.query_params.get("market")
         responsible_dcn = await self.app.ubdcc_get_responsible_dcn_addresses(exchange=exchange, market=market)
@@ -147,6 +91,62 @@ class RestEndpoints(RestEndpointsBase):
         self.app.stdout_msg(f"No DCN has responded to the requests: {result_errors}")
         return self.get_error_response(event=event, error_id="#5000", message=f"No DCN has responded to the requests!",
                                        params={"requests": result_errors})
+
+    async def create_depthcache(self, request: Request):
+        event = "CREATE_DEPTHCACHE"
+        endpoint = "/create_depthcache"
+        host = self.app.get_cluster_mgmt_address()
+        exchange = request.query_params.get("exchange")
+        market = request.query_params.get("market")
+        desired_quantity = request.query_params.get("desired_quantity")
+        update_interval = request.query_params.get("update_interval")
+        refresh_interval = request.query_params.get("refresh_interval")
+        query = (f"?exchange={exchange}&"
+                 f"market={market}&"
+                 f"update_interval={update_interval}&"
+                 f"refresh_interval={refresh_interval}&"
+                 f"desired_quantity={desired_quantity}")
+        url = host + endpoint + query
+        result = await self.app.request(url=url, method="get")
+        if result.get('error') is not None and result.get('error_id') is not None:
+            return self.get_error_response(event=event, error_id="#9000", message=f"Mgmt service not available!",
+                                           params={"error": str(result)})
+        elif result.get('error_id') is not None:
+            return self.get_error_response(event=event, error_id=result.get('error_id'), message=result.get('message'))
+        else:
+            return result
+
+    async def get_asks(self, request: Request):
+        event = "GET_ASKS"
+        endpoint = "/get_asks"
+        return await self._get_depthcache_data(request=request, event=event, endpoint=endpoint)
+
+    async def get_bids(self, request: Request):
+        event = "GET_BIDS"
+        endpoint = "/get_bids"
+        return await self._get_depthcache_data(request=request, event=event, endpoint=endpoint)
+
+    async def get_cluster_info(self, request: Request):
+        event = "GET_CLUSTER_INFO"
+        endpoint = "/get_cluster_info"
+        host = self.app.get_cluster_mgmt_address()
+        url = host + endpoint
+        result = await self.app.request(url=url, method="get")
+        if result.get('error') is None and result.get('error_id') is None:
+            return result
+        elif result.get('error_id') is not None:
+            return self.get_error_response(event=event, error_id=result.get('error_id'), message=result.get('message'))
+        else:
+            response = self.create_cluster_info_response()
+            response['error'] = str(result)
+            if self.app.data.get('db') is None:
+                return self.get_error_response(event=event, error_id="#9000", message=f"Mgmt service not available!",
+                                               params=response)
+            else:
+                return self.get_error_response(event=event, error_id="#8000",
+                                               message=f"Mgmt service not available! This is cached data from pod "
+                                                       f"'{self.app.id['uid']}'!",
+                                               params=response)
 
     async def get_depthcache_list(self, request: Request):
         event = "GET_DEPTHCACHE_LIST"
