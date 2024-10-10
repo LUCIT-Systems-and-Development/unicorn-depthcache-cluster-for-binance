@@ -43,7 +43,7 @@ REST_SERVER_PORT: int = 8080
 REST_SERVER_PORT_DEV_DCN: int = 42082
 REST_SERVER_PORT_DEV_MGMT: int = 42080
 REST_SERVER_PORT_DEV_RESTAPI: int = 42081
-VERSION: str = "0.0.72"
+VERSION: str = "0.0.73"
 
 
 class App:
@@ -282,22 +282,6 @@ class App:
             print(f"An error occurred: {error_msg}")
             return {"error": str(error_msg)}
 
-    @staticmethod
-    def request_synchronous(url, method, params=None, headers=None, timeout=10) -> dict:
-        try:
-            if method == "get":
-                response = requests.get(url, params=params, headers=headers, timeout=timeout)
-            elif method == "post":
-                response = requests.post(url, json=json.dumps(params),
-                                         headers={"Content-Type": "application/json"})
-            else:
-                raise ValueError("Allowed 'method' values: get, post")
-            response.raise_for_status()
-            return response.json()
-        except requests.exceptions.RequestException as error_msg:
-            print(f"An error occurred: {error_msg}")
-            return {"error": error_msg}
-
     async def send_backup_to_node(self, host, port) -> dict:
         return await self.request(f"http://{host}:{port}/ubdcc_mgmt_backup", method="post",
                                   params=self.data['db'].get_backup_dict())
@@ -396,7 +380,7 @@ class App:
                 if self.llm is not None:
                     self.llm.close()
             else:
-                self.ubdcc_node_cancellation()
+                asyncio.run(self.ubdcc_node_cancellation())
             if exception_shutdown is True:
                 if exception_shutdown_error:
                     self.stdout_msg(f"ERROR: {exception_shutdown_error}", log="critical")
@@ -467,13 +451,13 @@ class App:
             self.stdout_msg(f"Can not catch responsible DCN addresses: {result}", log="error")
             return None
 
-    def ubdcc_node_cancellation(self):
+    async def ubdcc_node_cancellation(self):
         self.stdout_msg(f"Cancel node registration ...", log="info")
         endpoint = "/ubdcc_node_cancellation"
         host = self.get_cluster_mgmt_address()
         query = f"?uid={self.id['uid']}"
         url = host + endpoint + query
-        result = self.request_synchronous(url=url, method="get")
+        result = await self.request(url=url, method="get")
         if result.get('error_id') is None and result.get('error') is None:
             self.stdout_msg(f"Node cancellation successful!", log="info")
             return True
