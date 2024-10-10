@@ -79,11 +79,15 @@ class RestEndpoints(RestEndpointsBase):
         ready_check = self.throw_error_if_mgmt_not_ready(request=request, event=event)
         if ready_check is not None:
             return ready_check
-        exchange = request.query_params.get("exchange")
-        market = request.query_params.get("market")
-        desired_quantity = request.query_params.get("desired_quantity")
-        update_interval = request.query_params.get("update_interval")
-        refresh_interval = request.query_params.get("refresh_interval")
+        exchange = request.query_params.get("exchange", None)
+        market = request.query_params.get("market", None)
+        desired_quantity = request.query_params.get("desired_quantity", None)
+        update_interval = request.query_params.get("update_interval", None)
+        refresh_interval = request.query_params.get("refresh_interval", None)
+        if market == "None":
+            exchange = None
+        if market == "None":
+            exchange = None
         if desired_quantity is None or desired_quantity == "None":
             desired_quantity = 1
         else:
@@ -135,8 +139,12 @@ class RestEndpoints(RestEndpointsBase):
         ready_check = self.throw_error_if_mgmt_not_ready(request=request, event=event)
         if ready_check is not None:
             return ready_check
-        exchange = request.query_params.get("exchange")
-        market = request.query_params.get("market")
+        exchange = request.query_params.get("exchange", None)
+        market = request.query_params.get("market", None)
+        if market == "None":
+            exchange = None
+        if market == "None":
+            exchange = None
         if exchange is None or market is None:
             return self.get_error_response(event=event, error_id="#1006",
                                            message="Missing required parameter: exchange, market")
@@ -151,8 +159,12 @@ class RestEndpoints(RestEndpointsBase):
         ready_check = self.throw_error_if_mgmt_not_ready(request=request, event=event)
         if ready_check is not None:
             return ready_check
-        exchange = request.query_params.get("exchange")
-        market = request.query_params.get("market")
+        exchange = request.query_params.get("exchange", None)
+        market = request.query_params.get("market", None)
+        if market == "None":
+            exchange = None
+        if market == "None":
+            exchange = None
         if exchange is None or market is None:
             return self.get_error_response(event=event, error_id="#1019",
                                            message="Missing required parameter: exchange, market")
@@ -173,8 +185,12 @@ class RestEndpoints(RestEndpointsBase):
         ready_check = self.throw_error_if_mgmt_not_ready(request=request, event=event)
         if ready_check is not None:
             return ready_check
-        api_secret = request.query_params.get("api_secret")
-        license_token = request.query_params.get("license_token")
+        api_secret = request.query_params.get("api_secret", None)
+        license_token = request.query_params.get("license_token", None)
+        if api_secret == "None":
+            api_secret = None
+        if license_token == "None":
+            license_token = None
         if api_secret is None or license_token is None:
             return self.get_error_response(event=event, error_id="#1007",
                                            message="Missing required parameter: api_secret, license_token")
@@ -192,8 +208,12 @@ class RestEndpoints(RestEndpointsBase):
         ready_check = self.throw_error_if_mgmt_not_ready(request=request, event=event)
         if ready_check is not None:
             return ready_check
-        exchange = request.query_params.get("exchange")
-        market = request.query_params.get("market")
+        exchange = request.query_params.get("exchange", None)
+        market = request.query_params.get("market", None)
+        if market == "None":
+            exchange = None
+        if market == "None":
+            exchange = None
         if exchange is None or market is None:
             return self.get_error_response(event=event, error_id="#1012",
                                            message="Missing required parameter: exchange, market")
@@ -211,6 +231,8 @@ class RestEndpoints(RestEndpointsBase):
         if ready_check is not None:
             return ready_check
         uid = request.query_params.get("uid")
+        if uid == "None":
+            uid = None
         if uid is None:
             return self.get_error_response(event=event, error_id="#1004", message="Missing required parameter: uid")
         if not self.db.exists_pod(uid=uid):
@@ -227,13 +249,27 @@ class RestEndpoints(RestEndpointsBase):
         ready_check = self.throw_error_if_mgmt_not_ready(request=request, event=event)
         if ready_check is not None:
             return ready_check
-        name = request.query_params.get("name")
-        uid = request.query_params.get("uid")
-        node = request.query_params.get("node")
-        role = request.query_params.get("role")
-        api_port_rest = request.query_params.get("api_port_rest")
-        status = request.query_params.get("status")
-        version = request.query_params.get("version")
+        name = request.query_params.get("name", None)
+        uid = request.query_params.get("uid", None)
+        node = request.query_params.get("node", None)
+        role = request.query_params.get("role", None)
+        api_port_rest = request.query_params.get("api_port_rest", None)
+        status = request.query_params.get("status", None)
+        version = request.query_params.get("version", None)
+        if name == "None":
+            name = None
+        if uid == "None":
+            uid = None
+        if node == "None":
+            node = None
+        if role == "None":
+            role = None
+        if api_port_rest == "None":
+            api_port_rest = None
+        if status == "None":
+            status = None
+        if version == "None":
+            version = None
         if name is None or uid is None or node is None or role is None or api_port_rest is None or status is None:
             return self.get_error_response(event=event, error_id="#1002",
                                            message="Missing required parameter: name, uid, node, role, api_port_rest, "
@@ -257,10 +293,18 @@ class RestEndpoints(RestEndpointsBase):
 
     async def ubdcc_node_sync(self, request: Request):
         event = "UBDCC_NODE_SYNC"
-        uid = request.query_params.get("uid")
-        node = request.query_params.get("node")
-        api_port_rest = request.query_params.get("api_port_rest")
-        status = request.query_params.get("status")
+        uid = request.query_params.get("uid", None)
+        node = request.query_params.get("node", None)
+        api_port_rest = request.query_params.get("api_port_rest", None)
+        status = request.query_params.get("status", None)
+        if uid == "None":
+            uid = None
+        if node == "None":
+            node = None
+        if api_port_rest == "None":
+            api_port_rest = None
+        if status == "None":
+            status = None
         if uid is None or api_port_rest is None:
             return self.get_error_response(event=event, error_id="#1000",
                                            message="Missing required parameter: uid, api_port_rest")
@@ -313,11 +357,11 @@ class RestEndpoints(RestEndpointsBase):
         ready_check = self.throw_error_if_mgmt_not_ready(request=request, event=event)
         if ready_check is not None:
             return ready_check
-        exchange = request.query_params.get("exchange")
-        market = request.query_params.get("market")
-        pod_uid = request.query_params.get("pod_uid")
-        last_restart_time = request.query_params.get("last_restart_time")
-        status = request.query_params.get("status")
+        exchange = request.query_params.get("exchange", None)
+        market = request.query_params.get("market", None)
+        pod_uid = request.query_params.get("pod_uid", None)
+        last_restart_time = request.query_params.get("last_restart_time", None)
+        status = request.query_params.get("status", None)
         if exchange == "None":
             exchange = None
         if market == "None":

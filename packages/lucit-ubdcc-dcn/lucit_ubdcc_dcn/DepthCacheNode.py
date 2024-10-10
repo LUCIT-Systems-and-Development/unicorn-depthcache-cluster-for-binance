@@ -19,6 +19,7 @@
 # All rights reserved.
 
 from .RestEndpoints import RestEndpoints
+from lucit_licensing_python.exceptions import NoValidatedLucitLicense
 from lucit_ubdcc_shared_modules.ServiceBase import ServiceBase
 from unicorn_binance_local_depth_cache import BinanceLocalDepthCacheManager, DepthCacheNotFound
 
@@ -47,26 +48,48 @@ class DepthCacheNode(ServiceBase):
                     self.app.stdout_msg(f"Adding local DC: {dc}", log="info")
                     if self.app.data['depthcache_instances'].get(dc['exchange']) is None:
                         self.app.data['depthcache_instances'][dc['exchange']] = {}
-                    if self.app.data['depthcache_instances'][dc['exchange']].get('update_interval') is None:
-                        if dc['update_interval'] == 1000:
-                            self.app.data['depthcache_instances'][dc['exchange']][dc['update_interval']] = \
-                                BinanceLocalDepthCacheManager(exchange=dc['exchange'],
-                                                              lucit_api_secret=self.db.get_license_api_secret(),
-                                                              lucit_license_token=self.db.get_license_license_token())
+                    if self.app.data['depthcache_instances'][dc['exchange']].get(dc['update_interval']) is None:
+                        if self.app.data['db'].get_license_status() == "VALID":
+                            if dc['update_interval'] == 1000:
+                                try:
+                                    self.app.data['depthcache_instances'][dc['exchange']][dc['update_interval']] = \
+                                        BinanceLocalDepthCacheManager(exchange=dc['exchange'],
+                                                                      lucit_api_secret=self.db.get_license_api_secret(),
+                                                                      lucit_license_token=self.db.get_license_license_token())
+                                except NoValidatedLucitLicense as error_msg:
+                                    self.app.data['depthcache_instances'][dc['exchange']][dc['update_interval']] = None
+                                    self.app.stdout_msg(error_msg, log="critical")
+                                    await self.app.ubdcc_update_depthcache_distribution(exchange=dc['exchange'],
+                                                                                        market=dc['market'],
+                                                                                        status="stopped")
+                            else:
+                                try:
+                                    self.app.data['depthcache_instances'][dc['exchange']][dc['update_interval']] = \
+                                        BinanceLocalDepthCacheManager(exchange=dc['exchange'],
+                                                                      depth_cache_update_interval=dc['update_interval'],
+                                                                      lucit_api_secret=self.db.get_license_api_secret(),
+                                                                      lucit_license_token=self.db.get_license_license_token())
+                                except NoValidatedLucitLicense as error_msg:
+                                    self.app.data['depthcache_instances'][dc['exchange']][dc['update_interval']] = None
+                                    self.app.stdout_msg(error_msg, log="critical")
+                                    await self.app.ubdcc_update_depthcache_distribution(exchange=dc['exchange'],
+                                                                                        market=dc['market'],
+                                                                                        status="stopped")
                         else:
-                            self.app.data['depthcache_instances'][dc['exchange']][dc['update_interval']] = \
-                                BinanceLocalDepthCacheManager(exchange=dc['exchange'],
-                                                              depth_cache_update_interval=dc['update_interval'],
-                                                              lucit_api_secret=self.db.get_license_api_secret(),
-                                                              lucit_license_token=self.db.get_license_license_token())
-                    self.app.data['depthcache_instances'][dc['exchange']][dc['update_interval']].create_depth_cache(
-                        markets=dc['market'],
-                        refresh_interval=dc['refresh_interval']
-                    )
-                    await self.app.ubdcc_update_depthcache_distribution(exchange=dc['exchange'],
-                                                                        market=dc['market'],
-                                                                        status="running")
-                    self.app.data['local_depthcaches'].append(dc)
+                            await self.app.ubdcc_update_depthcache_distribution(exchange=dc['exchange'],
+                                                                                market=dc['market'],
+                                                                                status="stopped")
+                            self.app.stdout_msg(f"UBLDC intance cannot be started because no valid license is "
+                                                f"available!", log="critical")
+                    if self.app.data['depthcache_instances'][dc['exchange']].get(dc['update_interval']) is not None:
+                        self.app.data['depthcache_instances'][dc['exchange']][dc['update_interval']].create_depth_cache(
+                            markets=dc['market'],
+                            refresh_interval=dc['refresh_interval']
+                        )
+                        await self.app.ubdcc_update_depthcache_distribution(exchange=dc['exchange'],
+                                                                            market=dc['market'],
+                                                                            status="running")
+                        self.app.data['local_depthcaches'].append(dc)
             for dc in self.app.data['local_depthcaches']:
                 if dc not in self.app.data['responsibilities']:
                     # Stop DC
@@ -85,4 +108,3 @@ class DepthCacheNode(ServiceBase):
         for dc in self.app.data['local_depthcaches']:
             for update_interval in self.app.data['depthcache_instances'][dc['exchange']]:
                 self.app.data['depthcache_instances'][dc['exchange']][update_interval].stop_manager()
-
