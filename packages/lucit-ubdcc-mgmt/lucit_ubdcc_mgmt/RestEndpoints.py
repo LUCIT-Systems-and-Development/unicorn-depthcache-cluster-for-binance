@@ -96,6 +96,10 @@ class RestEndpoints(RestEndpointsBase):
             update_interval = None
         else:
             update_interval = int(update_interval)
+        if refresh_interval is None or update_interval == "None":
+            refresh_interval = None
+        else:
+            refresh_interval = int(refresh_interval)
         if exchange is None or market is None:
             return self.get_error_response(event=event, error_id="#1016",
                                            message="Missing required parameter: exchange, market")

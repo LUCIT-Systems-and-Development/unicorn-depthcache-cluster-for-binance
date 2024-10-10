@@ -1,6 +1,8 @@
 Todo:
 
-1. Check if license is valid bevor starting a UBLDC instance
-2. Replace JSON lib?
-3. Controll if it is in all DB write operations self._set_update_timestamp()
-4. Sync DNC last restart time
+1. Replace JSON lib?
+2. Controll if it is in all DB write operations self._set_update_timestamp()
+3. Sync DNC last restart time
+
+Ideas:
+- use websocket between client und restapi instead of rest
