@@ -1,2 +1,2 @@
-lucit-ubdcc-dcn==0.0.74
+lucit-ubdcc-dcn==0.0.75
 unicorn_binance_local_depth_cache>=2.1.1

@@ -96,7 +96,7 @@ class RestEndpoints(RestEndpointsBase):
             update_interval = None
         else:
             update_interval = int(update_interval)
-        if refresh_interval is None or update_interval == "None":
+        if refresh_interval is None or refresh_interval == "None":
             refresh_interval = None
         else:
             refresh_interval = int(refresh_interval)
