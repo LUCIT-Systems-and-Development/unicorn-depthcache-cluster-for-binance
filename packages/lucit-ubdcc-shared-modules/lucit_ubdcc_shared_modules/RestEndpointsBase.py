@@ -19,6 +19,8 @@
 # All rights reserved.
 
 import json
+import time
+
 from fastapi import Request
 from fastapi.responses import JSONResponse
 
@@ -42,6 +44,12 @@ class RestEndpointsBase:
             response['version'] = self.app.get_version()
         return response
 
+    @staticmethod
+    def create_debug_ok_response(process_start_time: float = None, used_pods: list = None) -> dict:
+        return {"request_time": 0,
+                "server_execution_time": time.time() - process_start_time,
+                "used_pods": used_pods}
+
     def create_depthcache_list_response(self) -> dict:
         if self.app.data.get('db') is None:
             response = {}
@@ -59,19 +67,29 @@ class RestEndpointsBase:
     def get_fastapi_instance(self):
         return self.fastapi
 
-    def get_error_response(self, event: str = None, error_id: str = None, message: str = None, params: dict = None):
+    def get_error_response(self, event: str = None, error_id: str = None, message: str = None, params: dict = None,
+                           process_start_time: float = None, used_pods: list = None):
         response = {"event": event, "message": message, "result": "ERROR"}
         if error_id is not None:
             response['error_id'] = error_id
         if params:
             response.update(params)
+        if process_start_time is not None:
+            response['debug'] = {"request_time": 0,
+                                 "server_execution_time": time.time() - process_start_time,
+                                 "used_pods": used_pods}
         response_sorted = self.app.sort_dict(input_dict=response)
         return JSONResponse(status_code=200, content=response_sorted)
 
-    def get_ok_response(self, event: str = None, params: dict = None):
+    def get_ok_response(self, event: str = None, params: dict = None, process_start_time: float = None,
+                        used_pods: list = None):
         response = {"event": event, "result": "OK"}
         if params:
             response.update(params)
+        if process_start_time is not None:
+            response['debug'] = {"request_time": 0,
+                                 "server_execution_time": time.time() - process_start_time,
+                                 "used_pods": used_pods}
         response_sorted = self.app.sort_dict(input_dict=response)
         return JSONResponse(status_code=200, content=response_sorted)
 

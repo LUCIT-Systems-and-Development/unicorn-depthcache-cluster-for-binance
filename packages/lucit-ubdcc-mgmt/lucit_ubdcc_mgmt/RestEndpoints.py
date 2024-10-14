@@ -387,4 +387,5 @@ class RestEndpoints(RestEndpointsBase):
         if result is True:
             return self.get_ok_response(event=event)
         else:
-            return self.get_error_response(event=event, error_id="#1023", message=f"An unknown error has occurred!")
+            return self.get_error_response(event=event, error_id="#1023", message=f"DepthCache '{exchange} {market} "
+                                                                                  f"{pod_uid}' not found!")

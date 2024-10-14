@@ -19,6 +19,8 @@
 # All rights reserved.
 
 from lucit_ubdcc_shared_modules.RestEndpointsBase import RestEndpointsBase, Request
+import asyncio
+import time
 
 
 class RestEndpoints(RestEndpointsBase):
@@ -61,21 +63,30 @@ class RestEndpoints(RestEndpointsBase):
             return await self.submit_license(request=request)
 
     async def _get_depthcache_data(self, request: Request, event=None, endpoint=None):
+        process_start_time: float = time.time() if str(request.query_params.get("debug")).lower() == "true" else None
         exchange = request.query_params.get("exchange")
         market = request.query_params.get("market")
         responsible_dcn = await self.app.ubdcc_get_responsible_dcn_addresses(exchange=exchange, market=market)
         limit_count = request.query_params.get("limit_count")
         threshold_volume = request.query_params.get("threshold_volume")
+        used_pods: list = [[self.app.id['name'], self.app.id['uid']]]
         if responsible_dcn is None:
             if not exchange or not market:
-                return self.get_error_response(event=event, error_id="#1025",
-                                               message="Missing required parameter: exchange, market")
+                return self.get_error_response(event=event, error_id="#1025", process_start_time=process_start_time,
+                                               message="Missing required parameter: exchange, market",
+                                               used_pods=used_pods)
             addresses = self.app.data['db'].get_responsible_dcn_addresses(exchange=exchange, market=market)
         else:
             addresses = responsible_dcn['addresses']
         if len(addresses) == 0:
-            return self.get_error_response(event=event, error_id="#4000",
-                                           message=f"No DCN found for '{market}' on '{exchange}'!")
+            if self.app.data['db'].exists_depthcache(exchange=exchange, market=market):
+                return self.get_error_response(event=event, error_id="#4000", process_start_time=process_start_time,
+                                               message=f"No DCN found for '{market}' on '{exchange}'!",
+                                               used_pods=used_pods)
+            else:
+                return self.get_error_response(event=event, error_id="#7000", process_start_time=process_start_time,
+                                               message=f"DepthCache '{market}' for '{exchange}' not found!",
+                                               used_pods=used_pods)
         query = (f"?exchange={exchange}&"
                  f"market={market}&"
                  f"limit_count={limit_count}&"
@@ -86,11 +97,16 @@ class RestEndpoints(RestEndpointsBase):
             url = f"http://{address}:{port}" + endpoint + query
             result = await self.app.request(url=url, method="get")
             if result.get('error') is None and result.get('error_id') is None:
+                if request.query_params.get("debug").lower() == "true":
+                    pod = self.app.data['db'].get_pod_by_address(address=address)
+                    used_pods.append([pod.get('NAME'), pod.get('UID')])
+                    result['debug'] = self.create_debug_ok_response(process_start_time=process_start_time,
+                                                                    used_pods=used_pods)
                 return result
             result_errors.append([address, port, str(result)])
         self.app.stdout_msg(f"No DCN has responded to the requests: {result_errors}")
         return self.get_error_response(event=event, error_id="#5000", message=f"No DCN has responded to the requests!",
-                                       params={"requests": result_errors})
+                                       params={"requests": result_errors}, process_start_time=process_start_time)
 
     async def create_depthcache(self, request: Request):
         event = "CREATE_DEPTHCACHE"

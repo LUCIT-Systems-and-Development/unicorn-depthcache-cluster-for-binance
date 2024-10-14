@@ -27,7 +27,6 @@ import os
 import signal as sys_signal
 import socket
 import random
-import requests
 import string
 import sys
 import kubernetes
@@ -278,9 +277,15 @@ class App:
                         return await response.json()
                 else:
                     raise ValueError("Allowed 'method' values: get, post")
+        except asyncio.CancelledError as error_msg:
+            print(f"An error occurred: asyncio.CancelledError - {url} - {error_msg}")
+            return {"error": f"asyncio.CancelledError - {url} - {str(error_msg)}"}
+        except asyncio.TimeoutError:
+            print(f"An error occurred: asyncio.TimeoutError - {url}")
+            return {"error": f"asyncio.TimeoutError - {url}"}
         except aiohttp.ClientError as error_msg:
-            print(f"An error occurred: {error_msg}")
-            return {"error": str(error_msg)}
+            print(f"An error occurred: aiohttp.ClientError- {url} - {error_msg}")
+            return {"error": f"aiohttp.ClientError - {url} - {str(error_msg)}"}
 
     async def send_backup_to_node(self, host, port) -> dict:
         return await self.request(f"http://{host}:{port}/ubdcc_mgmt_backup", method="post",
@@ -475,7 +480,6 @@ class App:
     async def ubdcc_node_registration(self, retries=30) -> bool:
         self.stdout_msg(f"Starting node registration ...", log="info")
         endpoint = "/ubdcc_node_registration"
-        host = self.get_cluster_mgmt_address()
         query = (f"?name={self.id['name']}&"
                  f"uid={self.id['uid']}&"
                  f"node={self.id['node']}&"
@@ -483,11 +487,12 @@ class App:
                  f"api_port_rest={self.api_port_rest}&"
                  f"status={self.status}&"
                  f"version={self.get_version()}")
-        url = host + endpoint + query
         loops = 0
         result = None
         while loops < retries and self.is_shutdown() is False:
             loops += 1
+            host = self.get_cluster_mgmt_address()
+            url = host + endpoint + query
             result = await self.request(url=url, method="get")
             if result.get('error_id') is None and result.get('error') is None:
                 self.stdout_msg(f"Node registration succeeded!", log="info")
@@ -536,14 +541,14 @@ class App:
                                                    status: str = None) -> bool:
         self.stdout_msg(f"Updating depthcache distribution ...", log="info")
         endpoint = "/ubdcc_update_depthcache_distribution"
-        host = self.get_cluster_mgmt_address()
         query = (f"?exchange={exchange}&"
                  f"market={market}&"
                  f"pod_uid={self.id['uid']}&"
                  f"last_restart_time={last_restart_time}&"
                  f"status={status}")
-        url = host + endpoint + query
         while self.is_shutdown() is False:
+            host = self.get_cluster_mgmt_address()
+            url = host + endpoint + query
             result = await self.request(url=url, method="get")
             if result.get('error_id') is None and result.get('error') is None:
                 self.stdout_msg(f"DepthCache distribution update succeeded!", log="info")

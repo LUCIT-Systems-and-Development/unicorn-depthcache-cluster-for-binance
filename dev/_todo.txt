@@ -1,9 +1,10 @@
 Todo:
+- Sync DNC last restart time
 
-1. get_asks/get_bids on restapi: if a dc does not exist it says no DCN can be found! Thats wrong!
-2. Controll if it is in all DB write operations self._set_update_timestamp()
 
 Ideas:
+- Debug mode in client and restapi:
+    - add request time of client and process time in the cluster
+    - add used restapi and dcn
 - use websocket between client und restapi instead of rest
 - Replace JSON lib?
-- Sync DNC last restart time

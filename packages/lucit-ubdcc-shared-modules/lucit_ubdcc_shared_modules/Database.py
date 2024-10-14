@@ -196,12 +196,13 @@ class Database:
 
     def get_available_dcn_pods(self) -> dict:
         available_dcn_pods = {}
-        for uid in self.data['pods']:
-            if self.data['pods'][uid]['ROLE'] == "lucit-ubdcc-dcn":
-                try:
-                    available_dcn_pods[uid] = self.data['nodes'][self.data['pods'][uid]['NODE']]['USAGE_CPU_PERCENT']
-                except KeyError:
-                    available_dcn_pods[uid] = 0
+        with self.data_lock:
+            for uid in self.data['pods']:
+                if self.data['pods'][uid]['ROLE'] == "lucit-ubdcc-dcn":
+                    try:
+                        available_dcn_pods[uid] = self.data['nodes'][self.data['pods'][uid]['NODE']]['USAGE_CPU_PERCENT']
+                    except KeyError:
+                        available_dcn_pods[uid] = 0
         return available_dcn_pods
 
     def get_backup_dict(self) -> dict:
@@ -246,15 +247,6 @@ class Database:
             except KeyError:
                 return {}
 
-    def get_worst_dcn(self, available_pods: dict = None, excluded_pods: list = None):
-        if available_pods is None:
-            available_pods = self.get_available_dcn_pods()
-        delta_pods = {uid: cpu for uid, cpu in available_pods.items() if uid not in excluded_pods}
-        if not delta_pods:
-            return None
-        worst_pod = max(delta_pods, key=lambda uid: delta_pods[uid])
-        return worst_pod
-
     def get_license_api_secret(self) -> str:
         with self.data_lock:
             return self.data['license']['api_secret']
@@ -266,6 +258,17 @@ class Database:
     def get_license_status(self) -> str:
         with self.data_lock:
             return self.data['license']['status']
+
+    def get_pod_by_address(self, address: str = None) -> dict | None:
+        if address is None:
+            raise ValueError("Missing mandatory parameter: address")
+        with self.data_lock:
+            try:
+                for uid in self.data['pods']:
+                    if self.data['pods'][uid]['IP'] == address:
+                        return self.data['pods']
+            except KeyError:
+                return None
 
     def get_pod_by_uid(self, uid=None) -> dict | None:
         if uid is None:
@@ -288,6 +291,15 @@ class Database:
                 pass
         return responsible_dcn
 
+    def get_worst_dcn(self, available_pods: dict = None, excluded_pods: list = None):
+        if available_pods is None:
+            available_pods = self.get_available_dcn_pods()
+        delta_pods = {uid: cpu for uid, cpu in available_pods.items() if uid not in excluded_pods}
+        if not delta_pods:
+            return None
+        worst_pod = max(delta_pods, key=lambda uid: delta_pods[uid])
+        return worst_pod
+
     def replace_data(self, data: dict = None):
         with self.data_lock:
             self.data = data
@@ -306,6 +318,7 @@ class Database:
         with self.data_lock:
             for item in remove_distributions:
                 del self.data['depthcaches'][item['exchange']][item['market']]['DISTRIBUTION'][item['pod_uid']]
+                self._set_update_timestamp()
         return True
 
     def revise(self) -> bool:

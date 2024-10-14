@@ -23,6 +23,8 @@ from lucit_licensing_python.exceptions import NoValidatedLucitLicense
 from lucit_ubdcc_shared_modules.ServiceBase import ServiceBase
 from unicorn_binance_local_depth_cache import BinanceLocalDepthCacheManager, DepthCacheNotFound
 
+INIT_INTERVAL: float = 2.0
+
 
 class DepthCacheNode(ServiceBase):
     def __init__(self, cwd=None):
@@ -54,6 +56,7 @@ class DepthCacheNode(ServiceBase):
                                 try:
                                     self.app.data['depthcache_instances'][dc['exchange']][dc['update_interval']] = \
                                         BinanceLocalDepthCacheManager(exchange=dc['exchange'],
+                                                                      init_interval=INIT_INTERVAL,
                                                                       lucit_api_secret=self.db.get_license_api_secret(),
                                                                       lucit_license_token=self.db.get_license_license_token())
                                 except NoValidatedLucitLicense as error_msg:
@@ -67,6 +70,7 @@ class DepthCacheNode(ServiceBase):
                                     self.app.data['depthcache_instances'][dc['exchange']][dc['update_interval']] = \
                                         BinanceLocalDepthCacheManager(exchange=dc['exchange'],
                                                                       depth_cache_update_interval=dc['update_interval'],
+                                                                      init_interval=INIT_INTERVAL,
                                                                       lucit_api_secret=self.db.get_license_api_secret(),
                                                                       lucit_license_token=self.db.get_license_license_token())
                                 except NoValidatedLucitLicense as error_msg:
@@ -100,9 +104,6 @@ class DepthCacheNode(ServiceBase):
                         )
                     except DepthCacheNotFound as error_msg:
                         self.app.stdout_msg(f"DepthCache not found: {error_msg}", log="error")
-                    await self.app.ubdcc_update_depthcache_distribution(exchange=dc['exchange'],
-                                                                        market=dc['market'],
-                                                                        status="stopped")
                     self.app.data['local_depthcaches'].remove(dc)
         self.app.stdout_msg(f"Stopping all DepthCache instances ...", log="error")
         for dc in self.app.data['local_depthcaches']:
