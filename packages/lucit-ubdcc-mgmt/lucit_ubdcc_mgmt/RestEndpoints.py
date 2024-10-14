@@ -18,6 +18,8 @@
 # Copyright (c) 2024-2024, LUCIT Systems and Development (https://www.lucit.tech)
 # All rights reserved.
 
+import base64
+import json
 from lucit_ubdcc_shared_modules.Database import Database
 from lucit_ubdcc_shared_modules.RestEndpointsBase import RestEndpointsBase, Request
 
@@ -33,6 +35,10 @@ class RestEndpoints(RestEndpointsBase):
         @self.fastapi.get("/create_depthcache")
         async def create_depthcache(request: Request):
             return await self.create_depthcache(request=request)
+
+        @self.fastapi.get("/create_depthcaches")
+        async def create_depthcaches(request: Request):
+            return await self.create_depthcaches(request=request)
 
         @self.fastapi.get("/get_cluster_info")
         async def get_cluster_info(request: Request):
@@ -84,10 +90,10 @@ class RestEndpoints(RestEndpointsBase):
         desired_quantity = request.query_params.get("desired_quantity", None)
         update_interval = request.query_params.get("update_interval", None)
         refresh_interval = request.query_params.get("refresh_interval", None)
-        if market == "None":
+        if exchange == "None":
             exchange = None
         if market == "None":
-            exchange = None
+            market = None
         if desired_quantity is None or desired_quantity == "None":
             desired_quantity = 1
         else:
@@ -121,6 +127,60 @@ class RestEndpoints(RestEndpointsBase):
             return self.get_ok_response(event=event)
         else:
             return self.get_error_response(event=event, error_id="#1018", message="An unknown error has occurred!")
+
+    async def create_depthcaches(self, request: Request):
+        event = "CREATE_DEPTHCACHES"
+        ready_check = self.throw_error_if_mgmt_not_ready(request=request, event=event)
+        if ready_check is not None:
+            return ready_check
+        exchange = request.query_params.get("exchange", None)
+        markets = request.query_params.get("markets", None)
+        desired_quantity = request.query_params.get("desired_quantity", None)
+        update_interval = request.query_params.get("update_interval", None)
+        refresh_interval = request.query_params.get("refresh_interval", None)
+        if exchange == "None":
+            exchange = None
+        if markets == "None":
+            markets = None
+        if desired_quantity is None or desired_quantity == "None":
+            desired_quantity = 1
+        else:
+            desired_quantity = int(desired_quantity)
+        if update_interval is None or update_interval == "None":
+            update_interval = None
+        else:
+            update_interval = int(update_interval)
+        if refresh_interval is None or refresh_interval == "None":
+            refresh_interval = None
+        else:
+            refresh_interval = int(refresh_interval)
+        if exchange is None or markets is None:
+            return self.get_error_response(event=event, error_id="#1016",
+                                           message="Missing required parameter: exchange, markets")
+        markets = json.loads(base64.b64decode(markets).decode('utf-8'))
+        print(f"MARKETS: {markets}")
+        for market in markets:
+            if self.db.exists_depthcache(exchange=exchange, market=market) is False:
+                try:
+                    result = self.db.add_depthcache(exchange=exchange,
+                                                    market=market,
+                                                    update_interval=update_interval,
+                                                    refresh_interval=refresh_interval,
+                                                    desired_quantity=desired_quantity)
+                except ValueError as error_msg:
+                    self.app.stdout(f"ERROR: {error_msg}", log="error")
+                    continue
+                if result is True:
+                    used_dcn = []
+                    for _ in range(0, desired_quantity):
+                        best_dcn = self.db.get_best_dcn(excluded_pods=used_dcn)
+                        if best_dcn is not None:
+                            self.db.add_depthcache_distribution(exchange=exchange, market=market, pod_uid=best_dcn)
+                            used_dcn.append(best_dcn)
+                else:
+                    return self.get_error_response(event=event, error_id="#1018",
+                                                   message="An unknown error has occurred!")
+        return self.get_ok_response(event=event)
 
     async def get_cluster_info(self, request: Request):
         event = "GET_CLUSTER_INFO"

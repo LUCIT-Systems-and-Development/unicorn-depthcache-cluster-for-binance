@@ -20,7 +20,6 @@
 
 import json
 import time
-
 from fastapi import Request
 from fastapi.responses import JSONResponse
 
@@ -46,8 +45,9 @@ class RestEndpointsBase:
 
     @staticmethod
     def create_debug_ok_response(process_start_time: float = None, used_pods: list = None) -> dict:
-        return {"request_time": 0,
-                "server_execution_time": time.time() - process_start_time,
+        return {"cluster_execution_time": time.time() - process_start_time,
+                "request_time": 0,
+                "transmission_time": 0,
                 "used_pods": used_pods}
 
     def create_depthcache_list_response(self) -> dict:

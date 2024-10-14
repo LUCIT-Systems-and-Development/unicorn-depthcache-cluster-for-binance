@@ -196,13 +196,12 @@ class Database:
 
     def get_available_dcn_pods(self) -> dict:
         available_dcn_pods = {}
-        with self.data_lock:
-            for uid in self.data['pods']:
-                if self.data['pods'][uid]['ROLE'] == "lucit-ubdcc-dcn":
-                    try:
-                        available_dcn_pods[uid] = self.data['nodes'][self.data['pods'][uid]['NODE']]['USAGE_CPU_PERCENT']
-                    except KeyError:
-                        available_dcn_pods[uid] = 0
+        for uid in self.data['pods']:
+            if self.data['pods'][uid]['ROLE'] == "lucit-ubdcc-dcn":
+                try:
+                    available_dcn_pods[uid] = self.data['nodes'][self.data['pods'][uid]['NODE']]['USAGE_CPU_PERCENT']
+                except KeyError:
+                    available_dcn_pods[uid] = 0
         return available_dcn_pods
 
     def get_backup_dict(self) -> dict:
@@ -266,7 +265,7 @@ class Database:
             try:
                 for uid in self.data['pods']:
                     if self.data['pods'][uid]['IP'] == address:
-                        return self.data['pods']
+                        return self.data['pods'][uid]
             except KeyError:
                 return None
 

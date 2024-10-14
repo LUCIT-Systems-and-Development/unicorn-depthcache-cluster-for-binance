@@ -42,7 +42,7 @@ REST_SERVER_PORT: int = 8080
 REST_SERVER_PORT_DEV_DCN: int = 42082
 REST_SERVER_PORT_DEV_MGMT: int = 42080
 REST_SERVER_PORT_DEV_RESTAPI: int = 42081
-VERSION: str = "0.0.75"
+VERSION: str = "0.0.76"
 
 
 class App:
@@ -553,6 +553,10 @@ class App:
             if result.get('error_id') is None and result.get('error') is None:
                 self.stdout_msg(f"DepthCache distribution update succeeded!", log="info")
                 return True
+            elif result.get('error_id') == "#1023":
+                self.stdout_msg(f"Error during DepthCache distribution update: {result}",
+                                log="error")
+                return False
             else:
                 self.stdout_msg(f"Error during DepthCache distribution update: {result}",
                                 log="error")

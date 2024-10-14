@@ -45,6 +45,8 @@ class DepthCacheNode(ServiceBase):
             self.app.stdout_msg(f"Local DepthCaches: {self.app.data['local_depthcaches']}", log="info")
             self.app.stdout_msg(f"Responsibilities: {self.app.data['responsibilities']}", log="info")
             for dc in self.app.data['responsibilities']:
+                if self.app.is_shutdown() is True:
+                    break
                 if dc not in self.app.data['local_depthcaches']:
                     # Create DC
                     self.app.stdout_msg(f"Adding local DC: {dc}", log="info")
@@ -94,7 +96,10 @@ class DepthCacheNode(ServiceBase):
                                                                             market=dc['market'],
                                                                             status="running")
                         self.app.data['local_depthcaches'].append(dc)
+                    await self.app.ubdcc_node_sync()
             for dc in self.app.data['local_depthcaches']:
+                if self.app.is_shutdown() is True:
+                    break
                 if dc not in self.app.data['responsibilities']:
                     # Stop DC
                     self.app.stdout_msg(f"Removing local DC: {dc}", log="info")
@@ -105,6 +110,7 @@ class DepthCacheNode(ServiceBase):
                     except DepthCacheNotFound as error_msg:
                         self.app.stdout_msg(f"DepthCache not found: {error_msg}", log="error")
                     self.app.data['local_depthcaches'].remove(dc)
+                    await self.app.ubdcc_node_sync()
         self.app.stdout_msg(f"Stopping all DepthCache instances ...", log="error")
         for dc in self.app.data['local_depthcaches']:
             for update_interval in self.app.data['depthcache_instances'][dc['exchange']]:

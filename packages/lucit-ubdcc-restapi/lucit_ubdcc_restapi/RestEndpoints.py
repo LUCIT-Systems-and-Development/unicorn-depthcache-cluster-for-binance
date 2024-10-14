@@ -19,7 +19,6 @@
 # All rights reserved.
 
 from lucit_ubdcc_shared_modules.RestEndpointsBase import RestEndpointsBase, Request
-import asyncio
 import time
 
 
@@ -33,6 +32,10 @@ class RestEndpoints(RestEndpointsBase):
         @self.fastapi.get("/create_depthcache")
         async def create_depthcache(request: Request):
             return await self.create_depthcache(request=request)
+
+        @self.fastapi.get("/create_depthcaches")
+        async def create_depthcaches(request: Request):
+            return await self.create_depthcaches(request=request)
 
         @self.fastapi.get("/get_asks")
         async def get_asks(request: Request):
@@ -97,7 +100,7 @@ class RestEndpoints(RestEndpointsBase):
             url = f"http://{address}:{port}" + endpoint + query
             result = await self.app.request(url=url, method="get")
             if result.get('error') is None and result.get('error_id') is None:
-                if request.query_params.get("debug").lower() == "true":
+                if str(request.query_params.get("debug")).lower() == "true":
                     pod = self.app.data['db'].get_pod_by_address(address=address)
                     used_pods.append([pod.get('NAME'), pod.get('UID')])
                     result['debug'] = self.create_debug_ok_response(process_start_time=process_start_time,
@@ -109,8 +112,10 @@ class RestEndpoints(RestEndpointsBase):
                                        params={"requests": result_errors}, process_start_time=process_start_time)
 
     async def create_depthcache(self, request: Request):
+        process_start_time: float = time.time() if str(request.query_params.get("debug")).lower() == "true" else None
         event = "CREATE_DEPTHCACHE"
         endpoint = "/create_depthcache"
+        used_pods: list = [[self.app.id['name'], self.app.id['uid']]]
         host = self.app.get_cluster_mgmt_address()
         exchange = request.query_params.get("exchange")
         market = request.query_params.get("market")
@@ -126,10 +131,46 @@ class RestEndpoints(RestEndpointsBase):
         result = await self.app.request(url=url, method="get")
         if result.get('error') is not None and result.get('error_id') is not None:
             return self.get_error_response(event=event, error_id="#9000", message=f"Mgmt service not available!",
-                                           params={"error": str(result)})
+                                           params={"error": str(result)}, process_start_time=process_start_time,
+                                           used_pods=used_pods)
         elif result.get('error_id') is not None:
-            return self.get_error_response(event=event, error_id=result.get('error_id'), message=result.get('message'))
+            return self.get_error_response(event=event, error_id=result.get('error_id'), message=result.get('message'),
+                                           process_start_time=process_start_time, used_pods=used_pods)
         else:
+            if str(request.query_params.get("debug")).lower() == "true":
+                result['debug'] = self.create_debug_ok_response(process_start_time=process_start_time,
+                                                                used_pods=used_pods)
+            return result
+
+    async def create_depthcaches(self, request: Request):
+        process_start_time: float = time.time() if str(request.query_params.get("debug")).lower() == "true" else None
+        event = "CREATE_DEPTHCACHES"
+        endpoint = "/create_depthcaches"
+        used_pods: list = [[self.app.id['name'], self.app.id['uid']]]
+        host = self.app.get_cluster_mgmt_address()
+        exchange = request.query_params.get("exchange")
+        markets = request.query_params.get("markets")
+        desired_quantity = request.query_params.get("desired_quantity")
+        update_interval = request.query_params.get("update_interval")
+        refresh_interval = request.query_params.get("refresh_interval")
+        query = (f"?exchange={exchange}&"
+                 f"markets={markets}&"
+                 f"update_interval={update_interval}&"
+                 f"refresh_interval={refresh_interval}&"
+                 f"desired_quantity={desired_quantity}")
+        url = host + endpoint + query
+        result = await self.app.request(url=url, method="get")
+        if result.get('error') is not None and result.get('error_id') is not None:
+            return self.get_error_response(event=event, error_id="#9000", message=f"Mgmt service not available!",
+                                           params={"error": str(result)}, process_start_time=process_start_time,
+                                           used_pods=used_pods)
+        elif result.get('error_id') is not None:
+            return self.get_error_response(event=event, error_id=result.get('error_id'), message=result.get('message'),
+                                           process_start_time=process_start_time, used_pods=used_pods)
+        else:
+            if str(request.query_params.get("debug")).lower() == "true":
+                result['debug'] = self.create_debug_ok_response(process_start_time=process_start_time,
+                                                                used_pods=used_pods)
             return result
 
     async def get_asks(self, request: Request):
@@ -143,52 +184,70 @@ class RestEndpoints(RestEndpointsBase):
         return await self._get_depthcache_data(request=request, event=event, endpoint=endpoint)
 
     async def get_cluster_info(self, request: Request):
+        process_start_time: float = time.time() if str(request.query_params.get("debug")).lower() == "true" else None
         event = "GET_CLUSTER_INFO"
         endpoint = "/get_cluster_info"
+        used_pods: list = [[self.app.id['name'], self.app.id['uid']]]
         host = self.app.get_cluster_mgmt_address()
         url = host + endpoint
         result = await self.app.request(url=url, method="get")
         if result.get('error') is None and result.get('error_id') is None:
+            if str(request.query_params.get("debug")).lower() == "true":
+                result['debug'] = self.create_debug_ok_response(process_start_time=process_start_time,
+                                                                used_pods=used_pods)
             return result
         elif result.get('error_id') is not None:
-            return self.get_error_response(event=event, error_id=result.get('error_id'), message=result.get('message'))
+            return self.get_error_response(event=event, error_id=result.get('error_id'), message=result.get('message'),
+                                           process_start_time=process_start_time, used_pods=used_pods)
         else:
             response = self.create_cluster_info_response()
             response['error'] = str(result)
             if self.app.data.get('db') is None:
                 return self.get_error_response(event=event, error_id="#9000", message=f"Mgmt service not available!",
-                                               params=response)
+                                               params=response, process_start_time=process_start_time,
+                                               used_pods=used_pods)
             else:
                 return self.get_error_response(event=event, error_id="#8000",
                                                message=f"Mgmt service not available! This is cached data from pod "
                                                        f"'{self.app.id['uid']}'!",
-                                               params=response)
+                                               params=response, process_start_time=process_start_time,
+                                               used_pods=used_pods)
 
     async def get_depthcache_list(self, request: Request):
+        process_start_time: float = time.time() if str(request.query_params.get("debug")).lower() == "true" else None
         event = "GET_DEPTHCACHE_LIST"
         endpoint = "/get_depthcache_list"
         host = self.app.get_cluster_mgmt_address()
+        used_pods: list = [[self.app.id['name'], self.app.id['uid']]]
         url = host + endpoint
         result = await self.app.request(url=url, method="get")
         if result.get('error') is None and result.get('error_id') is None:
+            if str(request.query_params.get("debug")).lower() == "true":
+                result['debug'] = self.create_debug_ok_response(process_start_time=process_start_time,
+                                                                used_pods=used_pods)
             return result
         elif result.get('error_id') is not None:
-            return self.get_error_response(event=event, error_id=result.get('error_id'), message=result.get('message'))
+            return self.get_error_response(event=event, error_id=result.get('error_id'), message=result.get('message'),
+                                           process_start_time=process_start_time, used_pods=used_pods)
         else:
             response = self.create_depthcache_list_response()
             response['error'] = str(result)
             if self.app.data.get('db') is None:
                 return self.get_error_response(event=event, error_id="#9000", message=f"Mgmt service not available!",
-                                               params=response)
+                                               params=response, process_start_time=process_start_time,
+                                               used_pods=used_pods)
             else:
                 return self.get_error_response(event=event, error_id="#8000",
                                                message=f"Mgmt service not available! This is cached data from pod "
                                                        f"'{self.app.id['uid']}'!",
-                                               params=response)
+                                               params=response, process_start_time=process_start_time,
+                                               used_pods=used_pods)
 
     async def get_depthcache_info(self, request: Request):
+        process_start_time: float = time.time() if str(request.query_params.get("debug")).lower() == "true" else None
         event = "GET_DEPTHCACHE_INFO"
         endpoint = "/get_depthcache_info"
+        used_pods: list = [[self.app.id['name'], self.app.id['uid']]]
         host = self.app.get_cluster_mgmt_address()
         exchange = request.query_params.get("exchange")
         market = request.query_params.get("market")
@@ -197,26 +256,34 @@ class RestEndpoints(RestEndpointsBase):
         url = host + endpoint + query
         result = await self.app.request(url=url, method="get")
         if result.get('error') is None and result.get('error_id') is None:
+            if str(request.query_params.get("debug")).lower() == "true":
+                result['debug'] = self.create_debug_ok_response(process_start_time=process_start_time,
+                                                                used_pods=used_pods)
             return result
         elif result.get('error_id') is not None:
             return self.get_error_response(event=event, error_id=result.get('error_id'),
-                                           message=result.get('message'))
+                                           message=result.get('message'), process_start_time=process_start_time,
+                                           used_pods=used_pods)
         else:
             response = self.create_depthcache_info_response(exchange=exchange, market=market)
             response['error'] = str(result)
             if self.app.data.get('db') is None:
                 return self.get_error_response(event=event, error_id="#9000", message=f"Mgmt service not available!",
-                                               params=response)
+                                               params=response, process_start_time=process_start_time,
+                                               used_pods=used_pods)
             else:
                 return self.get_error_response(event=event, error_id="#8000",
                                                message=f"Mgmt service not available! This is cached data from pod "
                                                        f"'{self.app.id['uid']}'!",
-                                               params=response)
+                                               params=response, process_start_time=process_start_time,
+                                               used_pods=used_pods)
 
     async def stop_depthcache(self, request: Request):
+        process_start_time: float = time.time() if str(request.query_params.get("debug")).lower() == "true" else None
         event = "STOP_DEPTHCACHE"
         endpoint = "/stop_depthcache"
         host = self.app.get_cluster_mgmt_address()
+        used_pods: list = [[self.app.id['name'], self.app.id['uid']]]
         exchange = request.query_params.get("exchange")
         market = request.query_params.get("market")
         query = (f"?exchange={exchange}&"
@@ -224,15 +291,22 @@ class RestEndpoints(RestEndpointsBase):
         url = host + endpoint + query
         result = await self.app.request(url=url, method="get")
         if result.get('error') is None and result.get('error_id') is None:
+            if str(request.query_params.get("debug")).lower() == "true":
+                result['debug'] = self.create_debug_ok_response(process_start_time=process_start_time,
+                                                                used_pods=used_pods)
             return result
         elif result.get('error_id') is not None:
-            return self.get_error_response(event=event, error_id=result.get('error_id'), message=result.get('message'))
+            return self.get_error_response(event=event, error_id=result.get('error_id'), message=result.get('message'),
+                                           process_start_time=process_start_time, used_pods=used_pods)
         else:
             return self.get_error_response(event=event, error_id="#9000", message=f"Mgmt service not available!",
-                                           params={"error": str(result)})
+                                           params={"error": str(result)}, process_start_time=process_start_time,
+                                           used_pods=used_pods)
 
     async def submit_license(self, request: Request):
+        process_start_time: float = time.time() if str(request.query_params.get("debug")).lower() == "true" else None
         event = "SUBMIT_LICENSE"
+        used_pods: list = [[self.app.id['name'], self.app.id['uid']]]
         api_secret = request.query_params.get("api_secret")
         license_token = request.query_params.get("license_token")
         endpoint = "/submit_license"
@@ -242,7 +316,11 @@ class RestEndpoints(RestEndpointsBase):
         url = host + endpoint + query
         result = await self.app.request(url=url, method="get")
         if result.get('error') is None:
+            if str(request.query_params.get("debug")).lower() == "true":
+                result['debug'] = self.create_debug_ok_response(process_start_time=process_start_time,
+                                                                used_pods=used_pods)
             return result
         else:
             return self.get_error_response(event=event, error_id="#9000", message=f"Mgmt service not available!",
-                                           params={"error": str(result)})
+                                           params={"error": str(result)}, process_start_time=process_start_time,
+                                           used_pods=used_pods)

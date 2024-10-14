@@ -2,7 +2,7 @@
 
 set -e
 
-VERSION="0.0.75-latest"
+VERSION="0.0.76-latest"
 
 echo Deploying UBDCC Mgmt $VERSION to https://i018oau9.c1.de1.container-registry.ovh.net/harbor/projects/3/repositories
 
