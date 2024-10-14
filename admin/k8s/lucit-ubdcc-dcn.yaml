@@ -14,4 +14,4 @@ spec:
     spec:
       containers:
         - name: example-container
-          image: i018oau9.c1.de1.container-registry.ovh.net/library/lucit-ubdcc-dcn@sha256:f1fd6d46f884a823620f4ddab4d4481dcd8b9e37b65d220112028196ee01c3f6
+          image: i018oau9.c1.de1.container-registry.ovh.net/library/lucit-ubdcc-dcn@sha256:f7e2e1a961c9250431ee9fcb23ff4a28eaa640f1edc7ebd2f7a871e39699c2b9

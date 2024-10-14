@@ -66,7 +66,7 @@ class RestEndpoints(RestEndpointsBase):
             return await self.submit_license(request=request)
 
     async def _get_depthcache_data(self, request: Request, event=None, endpoint=None):
-        process_start_time: float = time.time() if str(request.query_params.get("debug")).lower() == "true" else None
+        process_start_time: float | None = time.time() if str(request.query_params.get("debug")).lower() == "true" else None
         exchange = request.query_params.get("exchange")
         market = request.query_params.get("market")
         responsible_dcn = await self.app.ubdcc_get_responsible_dcn_addresses(exchange=exchange, market=market)
@@ -112,7 +112,7 @@ class RestEndpoints(RestEndpointsBase):
                                        params={"requests": result_errors}, process_start_time=process_start_time)
 
     async def create_depthcache(self, request: Request):
-        process_start_time: float = time.time() if str(request.query_params.get("debug")).lower() == "true" else None
+        process_start_time: float | None = time.time() if str(request.query_params.get("debug")).lower() == "true" else None
         event = "CREATE_DEPTHCACHE"
         endpoint = "/create_depthcache"
         used_pods: list = [[self.app.id['name'], self.app.id['uid']]]
@@ -143,7 +143,7 @@ class RestEndpoints(RestEndpointsBase):
             return result
 
     async def create_depthcaches(self, request: Request):
-        process_start_time: float = time.time() if str(request.query_params.get("debug")).lower() == "true" else None
+        process_start_time: float | None = time.time() if str(request.query_params.get("debug")).lower() == "true" else None
         event = "CREATE_DEPTHCACHES"
         endpoint = "/create_depthcaches"
         used_pods: list = [[self.app.id['name'], self.app.id['uid']]]
@@ -184,7 +184,7 @@ class RestEndpoints(RestEndpointsBase):
         return await self._get_depthcache_data(request=request, event=event, endpoint=endpoint)
 
     async def get_cluster_info(self, request: Request):
-        process_start_time: float = time.time() if str(request.query_params.get("debug")).lower() == "true" else None
+        process_start_time: float | None = time.time() if str(request.query_params.get("debug")).lower() == "true" else None
         event = "GET_CLUSTER_INFO"
         endpoint = "/get_cluster_info"
         used_pods: list = [[self.app.id['name'], self.app.id['uid']]]
@@ -214,7 +214,7 @@ class RestEndpoints(RestEndpointsBase):
                                                used_pods=used_pods)
 
     async def get_depthcache_list(self, request: Request):
-        process_start_time: float = time.time() if str(request.query_params.get("debug")).lower() == "true" else None
+        process_start_time: float | None = time.time() if str(request.query_params.get("debug")).lower() == "true" else None
         event = "GET_DEPTHCACHE_LIST"
         endpoint = "/get_depthcache_list"
         host = self.app.get_cluster_mgmt_address()
@@ -244,7 +244,7 @@ class RestEndpoints(RestEndpointsBase):
                                                used_pods=used_pods)
 
     async def get_depthcache_info(self, request: Request):
-        process_start_time: float = time.time() if str(request.query_params.get("debug")).lower() == "true" else None
+        process_start_time: float | None = time.time() if str(request.query_params.get("debug")).lower() == "true" else None
         event = "GET_DEPTHCACHE_INFO"
         endpoint = "/get_depthcache_info"
         used_pods: list = [[self.app.id['name'], self.app.id['uid']]]
@@ -279,7 +279,7 @@ class RestEndpoints(RestEndpointsBase):
                                                used_pods=used_pods)
 
     async def stop_depthcache(self, request: Request):
-        process_start_time: float = time.time() if str(request.query_params.get("debug")).lower() == "true" else None
+        process_start_time: float | None = time.time() if str(request.query_params.get("debug")).lower() == "true" else None
         event = "STOP_DEPTHCACHE"
         endpoint = "/stop_depthcache"
         host = self.app.get_cluster_mgmt_address()
@@ -304,7 +304,7 @@ class RestEndpoints(RestEndpointsBase):
                                            used_pods=used_pods)
 
     async def submit_license(self, request: Request):
-        process_start_time: float = time.time() if str(request.query_params.get("debug")).lower() == "true" else None
+        process_start_time: float | None = time.time() if str(request.query_params.get("debug")).lower() == "true" else None
         event = "SUBMIT_LICENSE"
         used_pods: list = [[self.app.id['name'], self.app.id['uid']]]
         api_secret = request.query_params.get("api_secret")
