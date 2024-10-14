@@ -3,8 +3,5 @@ Todo:
 
 
 Ideas:
-- Debug mode in client and restapi:
-    - add request time of client and process time in the cluster
-    - add used restapi and dcn
 - use websocket between client und restapi instead of rest
 - Replace JSON lib?
