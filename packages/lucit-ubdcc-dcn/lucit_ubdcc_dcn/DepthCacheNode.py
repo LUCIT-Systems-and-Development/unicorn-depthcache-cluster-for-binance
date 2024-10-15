@@ -42,8 +42,8 @@ class DepthCacheNode(ServiceBase):
             await self.app.sleep()
             await self.app.ubdcc_node_sync()
             self.app.data['responsibilities'] = self.db.get_dcn_responsibilities()
-            self.app.stdout_msg(f"Local DepthCaches: {self.app.data['local_depthcaches']}", log="info")
-            self.app.stdout_msg(f"Responsibilities: {self.app.data['responsibilities']}", log="info")
+            #self.app.stdout_msg(f"Local DepthCaches: {self.app.data['local_depthcaches']}", log="info")
+            #self.app.stdout_msg(f"Responsibilities: {self.app.data['responsibilities']}", log="info")
             for dc in self.app.data['responsibilities']:
                 if self.app.is_shutdown() is True:
                     break
@@ -58,7 +58,6 @@ class DepthCacheNode(ServiceBase):
                                 try:
                                     self.app.data['depthcache_instances'][dc['exchange']][dc['update_interval']] = \
                                         BinanceLocalDepthCacheManager(exchange=dc['exchange'],
-                                                                      init_interval=INIT_INTERVAL,
                                                                       lucit_api_secret=self.db.get_license_api_secret(),
                                                                       lucit_license_token=self.db.get_license_license_token())
                                 except NoValidatedLucitLicense as error_msg:
@@ -72,7 +71,6 @@ class DepthCacheNode(ServiceBase):
                                     self.app.data['depthcache_instances'][dc['exchange']][dc['update_interval']] = \
                                         BinanceLocalDepthCacheManager(exchange=dc['exchange'],
                                                                       depth_cache_update_interval=dc['update_interval'],
-                                                                      init_interval=INIT_INTERVAL,
                                                                       lucit_api_secret=self.db.get_license_api_secret(),
                                                                       lucit_license_token=self.db.get_license_license_token())
                                 except NoValidatedLucitLicense as error_msg:

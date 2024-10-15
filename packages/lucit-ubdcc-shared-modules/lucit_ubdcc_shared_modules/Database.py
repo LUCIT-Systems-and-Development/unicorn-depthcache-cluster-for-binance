@@ -39,7 +39,8 @@ class Database:
         self.set(key="nodes", value={})
         self.set(key="pods", value={})
         self.set(key="timestamp", value=float())
-        self.update_nodes()
+        if self.app.info['name'] == "lucit-ubdcc-mgmt":
+            self.update_nodes()
         return True
 
     def _set_update_timestamp(self) -> bool:
@@ -321,12 +322,14 @@ class Database:
         return True
 
     def revise(self) -> bool:
+        start_time = time.time()
         self.app.stdout_msg(f"Revise the Database ...", log="info")
         self.update_nodes()
         self.delete_old_pods()
         self.remove_orphaned_distribution_entries()
         self.manage_distribution()
-        self.app.stdout_msg(f"Revise the Database ... Done!", log="info")
+        run_time = time.time() - start_time
+        self.app.stdout_msg(f"Database revised in {run_time} seconds!", log="info")
         return True
 
     def manage_distribution(self) -> bool:
