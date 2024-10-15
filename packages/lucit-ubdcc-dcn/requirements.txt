@@ -1,2 +1,2 @@
 lucit-ubdcc-shared-modules==0.0.78
-unicorn_binance_local_depth_cache>=2.2.0
+unicorn_binance_local_depth_cache>=2.3.0
