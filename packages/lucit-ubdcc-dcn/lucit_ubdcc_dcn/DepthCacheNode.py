@@ -57,6 +57,7 @@ class DepthCacheNode(ServiceBase):
                                     self.app.data['depthcache_instances'][dc['exchange']][dc['update_interval']] = \
                                         BinanceLocalDepthCacheManager(
                                             exchange=dc['exchange'],
+                                            init_interval=3,
                                             lucit_api_secret=self.db.get_license_api_secret(),
                                             lucit_license_token=self.db.get_license_license_token()
                                         )
@@ -71,6 +72,7 @@ class DepthCacheNode(ServiceBase):
                                     self.app.data['depthcache_instances'][dc['exchange']][dc['update_interval']] = \
                                         BinanceLocalDepthCacheManager(
                                             exchange=dc['exchange'],
+                                            init_interval=3,
                                             depth_cache_update_interval=dc['update_interval'],
                                             lucit_api_secret=self.db.get_license_api_secret(),
                                             lucit_license_token=self.db.get_license_license_token()
@@ -85,8 +87,9 @@ class DepthCacheNode(ServiceBase):
                             await self.app.ubdcc_update_depthcache_distribution(exchange=dc['exchange'],
                                                                                 market=dc['market'],
                                                                                 status="stopped")
-                            self.app.stdout_msg(f"UBLDC intance cannot be started because no valid license is "
+                            self.app.stdout_msg(f"UBLDC instance cannot be started because no valid license is "
                                                 f"available!", log="critical")
+                            break
                     if self.app.data['depthcache_instances'][dc['exchange']].get(dc['update_interval']) is not None:
                         self.app.data['depthcache_instances'][dc['exchange']][dc['update_interval']].create_depth_cache(
                             markets=dc['market'],
