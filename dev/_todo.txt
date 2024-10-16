@@ -2,6 +2,7 @@ Todo:
 - Round Robin for DCN addresses
 - Intelligent distribution of the DepthCache start sequence to the DCNs for faster availability and better selection of a suitable DCN.
 - Sync DNC last restart time
+- restapi: Add error if result is OK but one or mor DCNs did not response
 
 
 Ideas:
