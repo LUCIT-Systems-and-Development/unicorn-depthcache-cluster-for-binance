@@ -1,5 +1,6 @@
 Todo:
-- i
+- Round Robin for DCN addresses
+- Intelligent distribution of the DepthCache start sequence to the DCNs for faster availability and better selection of a suitable DCN.
 - Sync DNC last restart time
 
 

@@ -42,7 +42,7 @@ REST_SERVER_PORT: int = 8080
 REST_SERVER_PORT_DEV_DCN: int = 42082
 REST_SERVER_PORT_DEV_MGMT: int = 42080
 REST_SERVER_PORT_DEV_RESTAPI: int = 42081
-VERSION: str = "0.0.79"
+VERSION: str = "0.0.80"
 
 
 class App:
@@ -254,8 +254,8 @@ class App:
     def is_shutdown(self) -> bool:
         return self.sigterm
 
-    async def register_or_restart(self):
-        if await self.ubdcc_node_registration() is False:
+    async def register_or_restart(self, ubldc_version: str = None):
+        if await self.ubdcc_node_registration(ubldc_version=ubldc_version) is False:
             self.shutdown(message="Node registration failed!")
 
     def register_graceful_shutdown(self) -> None:
@@ -477,7 +477,7 @@ class App:
                             log="error")
             return False
 
-    async def ubdcc_node_registration(self, retries=30) -> bool:
+    async def ubdcc_node_registration(self, ubldc_version: str = None, retries: int = 30) -> bool:
         self.stdout_msg(f"Starting node registration ...", log="info")
         endpoint = "/ubdcc_node_registration"
         query = (f"?name={self.id['name']}&"
@@ -487,6 +487,8 @@ class App:
                  f"api_port_rest={self.api_port_rest}&"
                  f"status={self.status}&"
                  f"version={self.get_version()}")
+        if ubldc_version is not None:
+            query = query + f"&ubldc_version={ubldc_version}"
         loops = 0
         result = None
         while loops < retries and self.is_shutdown() is False:

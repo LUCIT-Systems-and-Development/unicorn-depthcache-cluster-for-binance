@@ -158,7 +158,6 @@ class RestEndpoints(RestEndpointsBase):
             return self.get_error_response(event=event, error_id="#1016",
                                            message="Missing required parameter: exchange, markets")
         markets = json.loads(base64.b64decode(markets).decode('utf-8'))
-        print(f"MARKETS: {markets}")
         for market in markets:
             if self.db.exists_depthcache(exchange=exchange, market=market) is False:
                 try:
@@ -319,6 +318,7 @@ class RestEndpoints(RestEndpointsBase):
         role = request.query_params.get("role", None)
         api_port_rest = request.query_params.get("api_port_rest", None)
         status = request.query_params.get("status", None)
+        ubldc_version = request.query_params.get("ubldc_version", None)
         version = request.query_params.get("version", None)
         if name == "None":
             name = None
@@ -332,6 +332,8 @@ class RestEndpoints(RestEndpointsBase):
             api_port_rest = None
         if status == "None":
             status = None
+        if ubldc_version == "None":
+            ubldc_version = None
         if version == "None":
             version = None
         if name is None or uid is None or node is None or role is None or api_port_rest is None or status is None:
@@ -347,6 +349,7 @@ class RestEndpoints(RestEndpointsBase):
                                  role=role,
                                  ip=request.client.host,
                                  api_port_rest=int(api_port_rest),
+                                 ubldc_version=ubldc_version,
                                  status=status,
                                  version=version)
         if result is True:

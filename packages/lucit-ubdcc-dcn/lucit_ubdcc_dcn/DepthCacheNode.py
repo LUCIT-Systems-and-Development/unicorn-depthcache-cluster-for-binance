@@ -22,6 +22,7 @@ from .RestEndpoints import RestEndpoints
 from lucit_licensing_python.exceptions import NoValidatedLucitLicense
 from lucit_ubdcc_shared_modules.ServiceBase import ServiceBase
 from unicorn_binance_local_depth_cache import BinanceLocalDepthCacheManager, DepthCacheNotFound
+from unicorn_binance_local_depth_cache.manager import __version__ as ubldc_version
 
 
 class DepthCacheNode(ServiceBase):
@@ -34,7 +35,7 @@ class DepthCacheNode(ServiceBase):
         self.app.data['responsibilities'] = []
         await self.start_rest_server(endpoints=RestEndpoints)
         self.app.set_status_running()
-        await self.app.register_or_restart()
+        await self.app.register_or_restart(ubldc_version=ubldc_version)
         self.db_init()
         while self.app.is_shutdown() is False:
             await self.app.sleep()

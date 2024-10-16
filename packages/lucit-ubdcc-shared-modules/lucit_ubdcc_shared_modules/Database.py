@@ -105,7 +105,7 @@ class Database:
         return True
 
     def add_pod(self, name: str = None, uid: str = None, node: str = None, role: str = None, ip: str = None,
-                api_port_rest: int = None, status: str = None, version: str = None) -> bool:
+                api_port_rest: int = None, status: str = None, ubldc_version: str = None, version: str = None) -> bool:
         if uid is None:
             raise ValueError("Missing mandatory parameter: uid")
         pod = {"NAME": name,
@@ -116,7 +116,10 @@ class Database:
                "API_PORT_REST": api_port_rest,
                "LAST_SEEN": self.app.get_unix_timestamp(),
                "STATUS": status,
+               "UBLDC_VERSION": ubldc_version,
                "VERSION": version}
+        if ubldc_version is None:
+            del pod['UBLDC_VERSION']
         with self.data_lock:
             self.data['pods'][uid] = pod
             self._set_update_timestamp()
