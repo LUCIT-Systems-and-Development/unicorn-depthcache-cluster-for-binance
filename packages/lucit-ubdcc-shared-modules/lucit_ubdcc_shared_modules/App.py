@@ -42,7 +42,7 @@ REST_SERVER_PORT: int = 8080
 REST_SERVER_PORT_DEV_DCN: int = 42082
 REST_SERVER_PORT_DEV_MGMT: int = 42080
 REST_SERVER_PORT_DEV_RESTAPI: int = 42081
-VERSION: str = "0.0.81"
+VERSION: str = "0.0.82"
 
 
 class App:
@@ -74,6 +74,7 @@ class App:
         self.ubdcc_mgmt_backup: dict | None = None
         self.data: dict = {}
         self.id: dict = {}
+        self.dcn_usage: dict = {}
         self.llm: LucitLicensingManager | None = None
 
     def deactivate_license(self, close_api_session: bool = True) -> bool | None:
@@ -107,6 +108,23 @@ class App:
         if data.get('timestamp'):
             return float(data.get('timestamp'))
         return None
+
+    def get_dcn_uid_unused_longest_time(self, selection: list = None) -> str | None:
+        available_dcn: dict = self.data['db'].get_available_dcn_pods()
+        dcn_unused_longest_time: str | None = None
+        for uid in available_dcn:
+            if self.dcn_usage.get(uid) is None:
+                self.dcn_usage[uid]: float = 0.0
+        for uid in self.dcn_usage:
+            for item in selection:
+                if item[2] == uid:
+                    if dcn_unused_longest_time is None:
+                        dcn_unused_longest_time = uid
+                    else:
+                        if self.dcn_usage[dcn_unused_longest_time] > self.dcn_usage[uid]:
+                            dcn_unused_longest_time = uid
+        self.dcn_usage[dcn_unused_longest_time] = time.time()
+        return dcn_unused_longest_time
 
     def get_fastapi_instance(self) -> FastAPI:
         if self.fastapi:

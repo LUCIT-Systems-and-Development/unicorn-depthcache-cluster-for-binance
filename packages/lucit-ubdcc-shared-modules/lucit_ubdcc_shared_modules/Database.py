@@ -293,7 +293,8 @@ class Database:
                 for pod_uid in self.data['depthcaches'][exchange][market]['DISTRIBUTION']:
                     if self.data['depthcaches'][exchange][market]['DISTRIBUTION'][pod_uid]['STATUS'] == "running":
                         responsible_dcn.append([self.data['pods'][pod_uid]['IP'],
-                                                self.data['pods'][pod_uid]['API_PORT_REST']])
+                                                self.data['pods'][pod_uid]['API_PORT_REST'],
+                                                pod_uid])
             except KeyError:
                 pass
         return responsible_dcn
