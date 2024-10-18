@@ -218,7 +218,11 @@ class Database:
         delta_pods = {uid: cpu for uid, cpu in available_pods.items() if uid not in excluded_pods}
         if not delta_pods:
             return None
-        best_pod = min(delta_pods, key=lambda uid: delta_pods[uid])
+        try:
+            best_pod = min(delta_pods, key=lambda uid: delta_pods[uid])
+        except TypeError:
+            self.app.stdout_msg(f"ERROR: Can not get 'best_pod' from delta_pods: {delta_pods}")
+            return None
         return best_pod
 
     def get_dcn_responsibilities(self) -> list:
@@ -300,7 +304,11 @@ class Database:
         delta_pods = {uid: cpu for uid, cpu in available_pods.items() if uid not in excluded_pods}
         if not delta_pods:
             return None
-        worst_pod = max(delta_pods, key=lambda uid: delta_pods[uid])
+        try:
+            worst_pod = max(delta_pods, key=lambda uid: delta_pods[uid])
+        except TypeError:
+            self.app.stdout_msg(f"ERROR: Can not get 'worst_pod' from delta_pods: {delta_pods}")
+            return None
         return worst_pod
 
     def replace_data(self, data: dict = None):
