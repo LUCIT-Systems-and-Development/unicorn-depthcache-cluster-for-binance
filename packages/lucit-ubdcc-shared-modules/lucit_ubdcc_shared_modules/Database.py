@@ -212,18 +212,16 @@ class Database:
         with self.data_lock:
             return self.app.sort_dict(input_dict=self.app.data['db'].data)
 
-    def get_best_dcn(self, available_pods: dict = None, excluded_pods: list = None):
+    def get_best_dcn(self, available_pods: dict = None, excluded_pods: list = None) -> str | None:
         if available_pods is None:
             available_pods = self.get_available_dcn_pods()
-        delta_pods = {uid: cpu for uid, cpu in available_pods.items() if uid not in excluded_pods}
-        if not delta_pods:
-            return None
-        try:
-            best_pod = min(delta_pods, key=lambda uid: delta_pods[uid])
-        except TypeError:
-            self.app.stdout_msg(f"ERROR: Can not get 'best_pod' from delta_pods: {delta_pods}")
-            return None
-        return best_pod
+        for uid in excluded_pods:
+            try:
+                del available_pods[uid]
+            except KeyError:
+                pass
+        available_pods_uid: list = [uid for uid in available_pods.keys()]
+        return self.app.get_dcn_uid_unused_longest_time(selection=available_pods_uid)
 
     def get_dcn_responsibilities(self) -> list:
         with self.data_lock:
@@ -299,17 +297,14 @@ class Database:
                 pass
         return responsible_dcn
 
-    def get_worst_dcn(self, available_pods: dict = None, excluded_pods: list = None):
+    def get_worst_dcn(self, available_pods: dict | None = None, excluded_pods: list = None) -> str | None:
         if available_pods is None:
             available_pods = self.get_available_dcn_pods()
-        delta_pods = {uid: cpu for uid, cpu in available_pods.items() if uid not in excluded_pods}
-        if not delta_pods:
-            return None
-        try:
-            worst_pod = max(delta_pods, key=lambda uid: delta_pods[uid])
-        except TypeError:
-            self.app.stdout_msg(f"ERROR: Can not get 'worst_pod' from delta_pods: {delta_pods}")
-            return None
+        # Todo:  Find worst pod (cpu or subscriptions or ...)
+        worst_pod = None
+        for uid in available_pods:
+            if uid not in excluded_pods:
+                worst_pod = uid
         return worst_pod
 
     def replace_data(self, data: dict = None):
@@ -345,24 +340,21 @@ class Database:
         return True
 
     def manage_distribution(self) -> bool:
+        # Todo: Start with different orders (timestamp?)
         add_distributions = []
         remove_distributions = []
         with self.data_lock:
             for exchange in self.data['depthcaches']:
                 for market in self.data['depthcaches'][exchange]:
-                    existing_distribution = {}
+                    existing_distribution = []
                     for pod_uid in self.data['depthcaches'][exchange][market]['DISTRIBUTION']:
-                        try:
-                            existing_distribution[pod_uid] = self.data['nodes'][self.data['pods'][pod_uid]['NODE']]['USAGE_CPU_PERCENT']
-                        except KeyError:
-                            existing_distribution[pod_uid] = 0
+                        existing_distribution.append(pod_uid)
                     existing_quantity = len(self.data['depthcaches'][exchange][market]['DISTRIBUTION'])
                     desired_quantity = self.data['depthcaches'][exchange][market]['DESIRED_QUANTITY']
                     if existing_quantity < desired_quantity:
                         add_quantity = desired_quantity - existing_quantity
-                        exclude_dcn = list(existing_distribution.keys())
                         for _ in range(0, add_quantity):
-                            best_dcn = self.get_best_dcn(excluded_pods=exclude_dcn)
+                            best_dcn = self.get_best_dcn(excluded_pods=existing_distribution)
                             if best_dcn is not None:
                                 exclude_dcn.append(best_dcn)
                                 add_distributions.append({"exchange": exchange,
@@ -371,8 +363,11 @@ class Database:
                     elif existing_quantity > desired_quantity:
                         remove_quantity = existing_quantity - desired_quantity
                         exclude_dcn = []
+                        available_pods = {}
+                        for uid in existing_distribution:
+                            available_pods[uid] = uid
                         for _ in range(0, remove_quantity):
-                            worst_dcn = self.get_worst_dcn(available_pods=existing_distribution,
+                            worst_dcn = self.get_worst_dcn(available_pods=available_pods,
                                                            excluded_pods=exclude_dcn)
                             if worst_dcn is not None:
                                 exclude_dcn.append(worst_dcn)

@@ -83,7 +83,6 @@ class RestEndpoints(RestEndpointsBase):
             addresses = self.app.data['db'].get_responsible_dcn_addresses(exchange=exchange, market=market)
         else:
             addresses = responsible_dcn['addresses']
-        print(f"ADD: {addresses}")
         if len(addresses) == 0:
             if self.app.data['db'].exists_depthcache(exchange=exchange, market=market):
                 return self.get_error_response(event=event, error_id="#4000", process_start_time=process_start_time,
@@ -98,7 +97,7 @@ class RestEndpoints(RestEndpointsBase):
                  f"limit_count={limit_count}&"
                  f"threshold_volume={threshold_volume}")
         result_errors = []
-        first_choice_dcn = self.app.get_dcn_uid_unused_longest_time(selection=addresses)
+        first_choice_dcn = self.app.get_dcn_uid_unused_longest_time(selection=[address[2] for address in addresses])
         for i, address in enumerate(addresses):
             if address[2] == first_choice_dcn:
                 addresses.insert(0, addresses.pop(i))

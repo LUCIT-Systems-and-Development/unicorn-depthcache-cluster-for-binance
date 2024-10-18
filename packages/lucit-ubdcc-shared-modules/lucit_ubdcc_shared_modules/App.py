@@ -42,7 +42,7 @@ REST_SERVER_PORT: int = 8080
 REST_SERVER_PORT_DEV_DCN: int = 42082
 REST_SERVER_PORT_DEV_MGMT: int = 42080
 REST_SERVER_PORT_DEV_RESTAPI: int = 42081
-VERSION: str = "0.0.82"
+VERSION: str = "0.0.83"
 
 
 class App:
@@ -116,8 +116,8 @@ class App:
             if self.dcn_usage.get(uid) is None:
                 self.dcn_usage[uid]: float = 0.0
         for uid in self.dcn_usage:
-            for item in selection:
-                if item[2] == uid:
+            for selection_uid in selection:
+                if selection_uid == uid:
                     if dcn_unused_longest_time is None:
                         dcn_unused_longest_time = uid
                     else:
