@@ -96,6 +96,8 @@ class Database:
                                     start_time: float = None) -> bool:
         if exchange is None or market is None or pod_uid is None:
             raise ValueError("Missing mandatory parameter: exchange, pod_uid, market")
+        if start_time is None:
+            start_time = self.app.get_unix_timestamp()
         distribution = {"CREATED_TIME": self.app.get_unix_timestamp(),
                         "LAST_RESTART_TIME": 0,
                         "POD_UID": pod_uid,
@@ -233,7 +235,7 @@ class Database:
                     for pod_uid in self.data['depthcaches'][exchange][market]['DISTRIBUTION']:
                         try:
                             if pod_uid == self.app.id['uid'] and \
-                                self.data['depthcaches'][exchange][market]['DISTRIBUTION'][pod_uid]['START_TIME'] < \
+                                self.data['depthcaches'][exchange][market]['DISTRIBUTION'][pod_uid]['SCHEDULED_START_TIME'] < \
                                     self.app.get_unix_timestamp():
                                 responsibilities.append({"exchange": exchange,
                                                          "market": market,
