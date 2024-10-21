@@ -2,15 +2,15 @@ apiVersion: v1
 entries:
   lucit-ubdcc:
   - apiVersion: v2
-    appVersion: 0.1.0
-    created: "2024-10-21T16:46:34.836537423+02:00"
+    appVersion: 0.1.1
+    created: "2024-10-21T17:40:40.982118657+02:00"
     description: 'A Kubernetes application from LUCIT to manage multiple and redundant
       UNICORN Binance Local Depth Cache  Instances on a Kubernetes Cluster for high-frequency
       access to Binance''s DepthCache data (order books). '
-    digest: 2b82b319615c7378b14af5281a70824606b39cd1216ea2b9d1e360113a9ddadc
+    digest: 09202e7ffdbb48c94d810c935881111a31091a36029a6021b91abab4d2ecb2ae
     name: lucit-ubdcc
     type: application
     urls:
     - https://unicorn-binance-depth-cache-cluster.docs.lucit.tech/helm/lucit-ubdcc-0.0.1.tgz
     version: 0.0.1
-generated: "2024-10-21T16:46:34.835920847+02:00"
+generated: "2024-10-21T17:40:40.981494958+02:00"
