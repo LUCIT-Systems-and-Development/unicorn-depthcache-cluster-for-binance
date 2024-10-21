@@ -47,7 +47,9 @@ provided by
 
 ## Current State
 
-The first MVP is stable and offers the most critical features for efficient DepthCache management. Future improvements might include switching to websockets instead of REST queries, or implementing simultaneous queries for both Asks and Bids.
+The first MVP is stable and offers the most critical features for efficient DepthCache management. Future improvements 
+might include switching to websockets instead of REST queries, or implementing simultaneous queries for both Asks and 
+Bids. [Vote here for new features!](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depth-cache-cluster/issues?q=is%3Aissue+is%3Aopen+label%3Aenhancement)
 
 For more information, check out the [GitHub Repository](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depth-cache-cluster).
 
