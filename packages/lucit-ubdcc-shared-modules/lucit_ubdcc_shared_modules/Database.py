@@ -94,10 +94,8 @@ class Database:
                                     market: str = None,
                                     pod_uid: str = None,
                                     scheduled_start_time: float = None) -> bool:
-        if exchange is None or market is None or pod_uid is None:
-            raise ValueError("Missing mandatory parameter: exchange, pod_uid, market")
-        if scheduled_start_time is None:
-            start_time = self.app.get_unix_timestamp()
+        if exchange is None or market is None or pod_uid is None or scheduled_start_time is None:
+            raise ValueError("Missing mandatory parameter: exchange, pod_uid, market, scheduled_start_time")
         distribution = {"CREATED_TIME": self.app.get_unix_timestamp(),
                         "LAST_RESTART_TIME": 0,
                         "POD_UID": pod_uid,
@@ -336,21 +334,27 @@ class Database:
 
     def revise(self) -> bool:
         start_time = time.time()
-        self.app.stdout_msg(f"Revise the Database ...", log="info")
-        self.update_nodes()
-        self.delete_old_pods()
-        self.remove_orphaned_distribution_entries()
-        self.manage_distribution()
-        run_time = time.time() - start_time
-        self.app.stdout_msg(f"Database revised in {run_time} seconds!", log="info")
-        return True
+        if self.app.data['db'].get_license_status() == "VALID":
+            self.app.stdout_msg(f"Revise the Database ...", log="info")
+            self.update_nodes()
+            self.delete_old_pods()
+            self.remove_orphaned_distribution_entries()
+            self.manage_distribution()
+            run_time = time.time() - start_time
+            self.app.stdout_msg(f"Database revised in {run_time} seconds!", log="info")
+            return True
+        else:
+            self.app.stdout_msg(f"Please submit a valid license!", log="critical")
+            return False
 
     def manage_distribution(self) -> bool:
         add_distributions = []
         remove_distributions = []
         with self.data_lock:
             for exchange in self.data['depthcaches']:
+                print(f"exchange={exchange}")
                 for market in self.data['depthcaches'][exchange]:
+                    print(f"market={market}")
                     existing_distribution = []
                     for pod_uid in self.data['depthcaches'][exchange][market]['DISTRIBUTION']:
                         existing_distribution.append(pod_uid)
@@ -358,16 +362,23 @@ class Database:
                     desired_quantity = self.data['depthcaches'][exchange][market]['DESIRED_QUANTITY']
                     if existing_quantity < desired_quantity:
                         add_quantity = desired_quantity - existing_quantity
-                        delayed_start_time = 300
+                        delayed_start_time: float = 300.0
                         for i in range(0, add_quantity):
                             best_dcn = self.get_best_dcn(excluded_pods=existing_distribution)
+                            print(f"best_dcn={best_dcn}")
                             if best_dcn is not None:
-                                scheduled_start_time = self.app.get_unix_timestamp() + i * delayed_start_time
+                                if existing_quantity > 0:
+                                    multiplikator = i + existing_quantity
+                                else:
+                                    multiplikator = i
+                                scheduled_start_time = self.app.get_unix_timestamp() + float(multiplikator) * delayed_start_time
                                 add_distributions.append({"exchange": exchange,
                                                           "market": market,
                                                           "pod_uid": best_dcn,
                                                           "scheduled_start_time": scheduled_start_time})
                                 existing_distribution.append(best_dcn)
+                                print(f"ADDED: {add_distributions}")
+                                break
                     elif existing_quantity > desired_quantity:
                         remove_quantity = existing_quantity - desired_quantity
                         exclude_dcn = []
@@ -472,7 +483,7 @@ class Database:
                     return False
                 self._set_update_timestamp()
         self.app.stdout_msg(f"DB depthcache distribution updated: {exchange}, {market}, {pod_uid}, {last_restart_time},"
-                            f"{status}", log="debug")
+                            f" {status}", log="debug")
         return True
 
     def update_pod(self, uid: str = None, node: str = None, ip: str = None, api_port_rest: int = None,

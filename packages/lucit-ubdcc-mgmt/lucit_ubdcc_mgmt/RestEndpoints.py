@@ -118,12 +118,9 @@ class RestEndpoints(RestEndpointsBase):
         except ValueError as error_msg:
             return self.get_error_response(event=event, error_id="#1017", message=str(error_msg))
         if result is True:
-            used_dcn = []
-            for _ in range(0, desired_quantity):
-                best_dcn = self.db.get_best_dcn(excluded_pods=used_dcn)
-                if best_dcn is not None:
-                    self.db.add_depthcache_distribution(exchange=exchange, market=market, pod_uid=best_dcn)
-                    used_dcn.append(best_dcn)
+            # Todo:
+            # Add Option to run:
+            #  self.db.manage_distribution()
             return self.get_ok_response(event=event)
         else:
             return self.get_error_response(event=event, error_id="#1018", message="An unknown error has occurred!")
@@ -170,12 +167,10 @@ class RestEndpoints(RestEndpointsBase):
                     self.app.stdout(f"ERROR: {error_msg}", log="error")
                     continue
                 if result is True:
-                    used_dcn = []
-                    for _ in range(0, desired_quantity):
-                        best_dcn = self.db.get_best_dcn(excluded_pods=used_dcn)
-                        if best_dcn is not None:
-                            self.db.add_depthcache_distribution(exchange=exchange, market=market, pod_uid=best_dcn)
-                            used_dcn.append(best_dcn)
+                    pass
+                    # Todo:
+                    # Add Option to run:
+                    #  self.db.manage_distribution()
                 else:
                     return self.get_error_response(event=event, error_id="#1018",
                                                    message="An unknown error has occurred!")
