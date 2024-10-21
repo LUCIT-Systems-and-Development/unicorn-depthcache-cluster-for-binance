@@ -42,7 +42,7 @@ REST_SERVER_PORT: int = 8080
 REST_SERVER_PORT_DEV_DCN: int = 42082
 REST_SERVER_PORT_DEV_MGMT: int = 42080
 REST_SERVER_PORT_DEV_RESTAPI: int = 42081
-VERSION: str = "0.1.0"
+VERSION: str = "0.1.1"
 
 
 class App:
@@ -254,7 +254,7 @@ class App:
             url = f"http://localhost:{self.rest_server_port_dev_mgmt}"
         else:
             # PRODUCTIVE MODE!!!
-            url = f"http://lucit-ubdcc-mgmt.lucit-ubdcc.svc.cluster.local:{self.k8s_service_port_mgmt}"
+            url = f"http://lucit-ubdcc-mgmt.{self.id['namespace']}.svc.cluster.local:{self.k8s_service_port_mgmt}"
         return url
 
     @staticmethod
