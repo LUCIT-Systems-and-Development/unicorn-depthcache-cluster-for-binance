@@ -4,8 +4,8 @@
 #
 # File: packages/lucit-ubdcc-dcn/lucit_ubdcc_dcn/DepthCacheNode.py
 #
-# Project website: https://www.lucit.tech/unicorn-binance-depthcache-cluster.html
-# Github: https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster
+# Project website: https://www.lucit.tech/unicorn-binance-depth-cache-cluster.html
+# Github: https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depth-cache-cluster
 # Documentation: https://unicorn-binance-depthcache-cluster.docs.lucit.tech
 # PyPI: https://pypi.org/project/lucit-ubdcc-mgmt
 # LUCIT Online Shop: https://shop.lucit.services/software/unicorn-depthcache-cluster-for-binance

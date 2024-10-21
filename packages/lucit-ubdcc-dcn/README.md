@@ -19,7 +19,7 @@ Part of '[UNICORN Binance DepthCache Cluster](https://www.lucit.tech/unicorn-bin
 
 ## Get a UNICORN Binance DepthCache Cluster License
 
-To run modules of the *UNICORN Binance DepthCache Cluster* you need a [valid license](https://shop.lucit.services/software/unicorn-depthcache-cluster-for-binance)!
+To run the *UNICORN DepthCache Cluster for Binance* you need a [valid license](https://shop.lucit.services/software/unicorn-depthcache-cluster-for-binance)!
 
 ## How to report Bugs or suggest Improvements?
 [List of planned features](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/issues?q=is%3Aissue+is%3Aopen+label%3Aenhancement) - click ![thumbs-up](https://raw.githubusercontent.com/lucit-systems-and-development/unicorn-binance-suite/master/images/misc/thumbup.png) if you need one of them or suggest a new feature!
@@ -33,8 +33,8 @@ If you don't find an issue related to your topic, please open a new [issue](http
 
 ## Contributing
 [UNICORN Binance DepthCache Cluster](https://www.lucit.tech/unicorn-binance-depthcache-cluster.html) is an open 
-source project which welcomes contributions which can be anything from simple documentation fixes and reporting dead links to new features. To 
-contribute follow 
+source project which welcomes contributions which can be anything from simple documentation fixes and reporting dead 
+links to new features. To contribute follow 
 [this guide](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/blob/master/CONTRIBUTING.md).
  
 ### Contributors

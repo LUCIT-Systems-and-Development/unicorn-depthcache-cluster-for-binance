@@ -27,7 +27,7 @@ To run modules of the *UNICORN Binance DepthCache Cluster* you need a [valid lic
 ### Helm Chart
 
 - Get a Kubernetes Cluster of your choice and connect `kubectl`. 
-- Install Helm: https://helm.sh/docs/intro/install/
+- [Install Helm](https://helm.sh/docs/intro/install) 
 - Install dependencies:
     ``` 
     kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
@@ -45,16 +45,24 @@ To run modules of the *UNICORN Binance DepthCache Cluster* you need a [valid lic
     ``` 
 
 #### Choose an explizit version
-    ``` 
-    helm install lucit-ubdcc lucit-ubdcc/lucit-ubdcc --version 0.1.2
-    ``` 
+``` 
+helm install lucit-ubdcc lucit-ubdcc/lucit-ubdcc --version 0.1.2
+``` 
+
+#### Choose a namespace
+``` 
+helm install lucit-ubdcc lucit-ubdcc/lucit-ubdcc --namespace lucit-ubdcc
+``` 
 
 #### Choose a different port
-    ``` 
-    helm install lucit-ubdcc lucit-ubdcc/lucit-ubdcc --set publicPort.restapi=8080
-    ``` 
+``` 
+helm install lucit-ubdcc lucit-ubdcc/lucit-ubdcc --set publicPort.restapi=8080
+``` 
   
-## Uninstall:
+## Uninstallation
+
+### Helm Chart
+
 ```
 helm uninstall lucit-ubdcc
 kubectl delete -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
