@@ -1,8 +1,8 @@
 apiVersion: v2
 name: lucit-ubdcc
 description: >
-  A Kubernetes application from LUCIT to manage multiple and redundant UNICORN Binance Local Depth Cache 
-  Instances on a Kubernetes Cluster for high-frequency access to Binance's DepthCache data (order books).
+  Manage multiple and redundant UNICORN Binance Local Depth Cache Instances for high-frequency access to Binance's 
+  DepthCache data (order books).
 
 # A chart can be either an 'application' or a 'library' chart.
 #
