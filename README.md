@@ -1,4 +1,4 @@
-[![Get a UNICORN DepthCache Cluster for Binance License](https://raw.githubusercontent.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/master/images/logo/LUCIT-UBDCC-License-Offer.png)](https://shop.lucit.services/software/unicorn-binance-depthcache-cluster)
+[![Get a UNICORN DepthCache Cluster for Binance License](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depth-cache-cluster/blob/master/images/logo/LUCIT-UBDCC-License-Offer.png)](https://shop.lucit.services/software/unicorn-binance-depthcache-cluster)
 
 [![GitHub Release](https://img.shields.io/github/release/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster.svg?label=github)](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/releases)
 [![GitHub Downloads](https://img.shields.io/github/downloads/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/total?color=blue)](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/releases)
@@ -9,7 +9,7 @@
 [![Gitter](https://img.shields.io/badge/community-gitter-41ab8c)](https://gitter.im/unicorn-trading-suite/unicorn-binance-depthcache-cluster?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Get Free Professional Support](https://img.shields.io/badge/chat-lucit%20support-004166)](https://www.lucit.tech/get-support.html)
 
-[![LUCIT-UBDCC-Banner](https://raw.githubusercontent.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/master/images/logo/LUCIT-UBDCC-Banner-Readme.png)](https://www.lucit.tech/unicorn-binance-depthcache-cluster.html)
+[![LUCIT-UBDCC-Banner](https://raw.githubusercontent.com/LUCIT-Systems-and-Development/unicorn-binance-depth-cache-cluster/master/images/logo/LUCIT-UBDCC-Banner-Readme.png)](https://www.lucit.tech/unicorn-binance-depth-cache-cluster.html)
 
 # UNICORN Binance DepthCache Cluster
 
