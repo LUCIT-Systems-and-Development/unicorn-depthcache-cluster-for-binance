@@ -40,8 +40,10 @@ failover, ensuring high availability and quick response times.
   - Local requests for Asks/Bids: ~0.02 seconds
   - Requests via the Internet: ~0.06 seconds
 - **Flexible Data Retrieval**: You can trim the amount of transferred data at the cluster level, either by limiting to 
-- the top 3 Asks/Bids or by setting a threshold.
-- **HTTP Access**: DepthCache values can be retrieved through HTTP using both synchronous and asynchronous methods provided by UBLDC.
+the top 3 Asks/Bids or by setting a threshold.
+- **HTTP Access**: DepthCache values can be retrieved through HTTP using both synchronous and asynchronous methods 
+provided by 
+[UBLDC](https://unicorn-binance-local-depth-cache.docs.lucit.tech/unicorn_binance_local_depth_cache.html#module-unicorn_binance_local_depth_cache.cluster).
 
 ## Current State
 

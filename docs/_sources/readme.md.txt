@@ -11,16 +11,46 @@
 [![Gitter](https://img.shields.io/badge/community-gitter-41ab8c)](https://gitter.im/unicorn-trading-suite/unicorn-binance-depthcache-cluster?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Get Free Professional Support](https://img.shields.io/badge/chat-lucit%20support-004166)](https://www.lucit.tech/get-support.html)
 
-# UNICORN DepthCache Cluster for Binance
+# UNICORN Binance Depth Cache Cluster (UBDCC)
 
 A Kubernetes application from LUCIT to manage multiple and redundant UNICORN Binance Local Depth Cache Instances on a 
 Kubernetes Cluster for high-frequency access to Binance's DepthCache data (order books). 
 
 [Get help](https://www.lucit.tech/get-support.html)!
 
-## Get a UNICORN Binance DepthCache Cluster License
+## Get a UNICORN DepthCache Cluster for Binance License
 
-To run modules of the *UNICORN Binance DepthCache Cluster* you need a [valid license](https://shop.lucit.services/software/unicorn-depthcache-cluster-for-binance)!
+To run the *UNICORN DepthCache Cluster for Binance* you need a [valid license](https://shop.lucit.services/software/unicorn-depthcache-cluster-for-binance)!
+
+## What is UBDCC?
+
+The main idea is to deploy the UBDCC on a Kubernetes cluster with, for example, 4 rented servers. After transferring a 
+valid license, you can create and manage DepthCaches within the cluster environment instead of on local servers.
+
+For example, when you configure the system to create 200 DepthCaches with a desired_quantity of 2, UBDCC will deploy 2 
+DepthCaches for each symbol/market. These DepthCaches are evenly distributed across the cluster's pods. On the first 
+run, each server starts 50 DepthCaches, synchronizing the full set of 200 as quickly as possible. Afterward, replicas 
+are initiated, with each node handling 100 DepthCaches.
+
+## Key Features
+
+- **Asynchronous Operation**: The entire cluster code is built to run asynchronously.
+- **Load Balancing & Failover**: All requests for data (Asks/Bids) are handled via a load balancer with built-in 
+failover, ensuring high availability and quick response times.
+  - Local requests for Asks/Bids: ~0.02 seconds
+  - Requests via the Internet: ~0.06 seconds
+- **Flexible Data Retrieval**: You can trim the amount of transferred data at the cluster level, either by limiting to 
+the top 3 Asks/Bids or by setting a threshold.
+- **HTTP Access**: DepthCache values can be retrieved through HTTP using both synchronous and asynchronous methods 
+provided by 
+[UBLDC](https://unicorn-binance-local-depth-cache.docs.lucit.tech/unicorn_binance_local_depth_cache.html#module-unicorn_binance_local_depth_cache.cluster).
+
+## Current State
+
+The first MVP is stable and offers the most critical features for efficient DepthCache management. Future improvements might include switching to websockets instead of REST queries, or implementing simultaneous queries for both Asks and Bids.
+
+For more information, check out the [GitHub Repository](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depth-cache-cluster).
+
 
 ## Installation
 
