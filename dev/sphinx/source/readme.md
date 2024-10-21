@@ -39,9 +39,19 @@ To run modules of the *UNICORN Binance DepthCache Cluster* you need a [valid lic
     helm search repo lucit-ubdcc
     helm install lucit-ubdcc lucit-ubdcc/lucit-ubdcc
     ```
-- Get the "LoadBalancer Ingress" IP:
+- Get the "LoadBalancer Ingress" IP, the default Port is TCP 80:
     ```
     kubectl describe services lucit-ubdcc-restapi
+    ``` 
+
+#### Choose an explizit version
+    ``` 
+    helm install lucit-ubdcc lucit-ubdcc/lucit-ubdcc --version 0.1.2
+    ``` 
+
+#### Choose a different port
+    ``` 
+    helm install lucit-ubdcc lucit-ubdcc/lucit-ubdcc --set publicPort.restapi=8080
     ``` 
   
 ## Uninstall:

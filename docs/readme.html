@@ -67,7 +67,11 @@
 <li><a class="reference internal" href="#">UNICORN DepthCache Cluster for Binance</a><ul>
 <li><a class="reference internal" href="#get-a-unicorn-binance-depthcache-cluster-license">Get a UNICORN Binance DepthCache Cluster License</a></li>
 <li><a class="reference internal" href="#installation">Installation</a><ul>
-<li><a class="reference internal" href="#helm-chart">Helm Chart</a></li>
+<li><a class="reference internal" href="#helm-chart">Helm Chart</a><ul>
+<li><a class="reference internal" href="#choose-an-explizit-version">Choose an explizit version</a></li>
+<li><a class="reference internal" href="#choose-a-different-port">Choose a different port</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a class="reference internal" href="#uninstall">Uninstall:</a></li>
@@ -231,12 +235,28 @@ Kubernetes Cluster for high-frequency access to Binance’s DepthCache data (ord
 </pre></div>
 </div>
 </li>
-<li><p>Get the “LoadBalancer Ingress” IP:</p>
+<li><p>Get the “LoadBalancer Ingress” IP, the default Port is TCP 80:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">kubectl</span> <span class="n">describe</span> <span class="n">services</span> <span class="n">lucit</span><span class="o">-</span><span class="n">ubdcc</span><span class="o">-</span><span class="n">restapi</span>
 </pre></div>
 </div>
 </li>
 </ul>
+<section id="choose-an-explizit-version">
+<h4>Choose an explizit version<a class="headerlink" href="#choose-an-explizit-version" title="Link to this heading">¶</a></h4>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>``` 
+helm install lucit-ubdcc lucit-ubdcc/lucit-ubdcc --version 0.1.2
+``` 
+</pre></div>
+</div>
+</section>
+<section id="choose-a-different-port">
+<h4>Choose a different port<a class="headerlink" href="#choose-a-different-port" title="Link to this heading">¶</a></h4>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>``` 
+helm install lucit-ubdcc lucit-ubdcc/lucit-ubdcc --set publicPort.restapi=8080
+``` 
+</pre></div>
+</div>
+</section>
 </section>
 </section>
 <section id="uninstall">
@@ -318,7 +338,11 @@ of any kind, including but not limited to direct or indirect damages for loss of
 <li><a class="reference internal" href="#">UNICORN DepthCache Cluster for Binance</a><ul>
 <li><a class="reference internal" href="#get-a-unicorn-binance-depthcache-cluster-license">Get a UNICORN Binance DepthCache Cluster License</a></li>
 <li><a class="reference internal" href="#installation">Installation</a><ul>
-<li><a class="reference internal" href="#helm-chart">Helm Chart</a></li>
+<li><a class="reference internal" href="#helm-chart">Helm Chart</a><ul>
+<li><a class="reference internal" href="#choose-an-explizit-version">Choose an explizit version</a></li>
+<li><a class="reference internal" href="#choose-a-different-port">Choose a different port</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a class="reference internal" href="#uninstall">Uninstall:</a></li>
@@ -440,7 +464,7 @@ of any kind, including but not limited to direct or indirect damages for loss of
     <a href="https://docs.lucit.tech">Index of all LUCIT Software Documentation</a><br />
     &copy; <a href="/license.html">Copyright</a> 2022-2023, LUCIT Systems and Development. All Rights Reserved..
     See <a href="/license.html">License</a> for more information.<br />
-    Last updated on Oct 21 2024 at 18:36 (CET).
+    Last updated on Oct 21 2024 at 18:45 (CET).
     <a href="https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depth-cache-cluster/issues/new/choose">Found a bug</a>?
     <br />
     Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.4.7.
