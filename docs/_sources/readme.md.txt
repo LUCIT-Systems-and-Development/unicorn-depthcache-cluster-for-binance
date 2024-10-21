@@ -43,6 +43,7 @@ To run modules of the *UNICORN Binance DepthCache Cluster* you need a [valid lic
 ## Uninstall:
 ```
 helm uninstall lucit-ubdcc
+kubectl delete -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
 ```
 
 ## How to report Bugs or suggest Improvements?
