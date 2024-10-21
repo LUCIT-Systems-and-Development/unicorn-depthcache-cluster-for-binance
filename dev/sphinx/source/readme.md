@@ -47,48 +47,70 @@ provided by
 
 ## Current State
 
-The first MVP is stable and offers the most critical features for efficient DepthCache management. Future improvements might include switching to websockets instead of REST queries, or implementing simultaneous queries for both Asks and Bids.
+The first MVP is stable and offers the most critical features for efficient DepthCache management. Future improvements 
+might include switching to websockets instead of REST queries, or implementing simultaneous queries for both Asks and 
+Bids. [Vote here for new features!](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depth-cache-cluster/issues?q=is%3Aissue+is%3Aopen+label%3Aenhancement)
 
 For more information, check out the [GitHub Repository](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depth-cache-cluster).
 
-
 ## Installation
 
-### Helm Chart
-
 - Get a Kubernetes Cluster of your choice and connect `kubectl`. 
-- [Install Helm](https://helm.sh/docs/intro/install) 
 - Install dependencies:
     ``` 
     kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
     ```
-- Install the UNICORN DepthCache Cluster for Binance  
+
+### Helm Chart
+- [Install Helm](https://helm.sh/docs/intro/install) 
+- Prepare `helm`
     ``` 
     helm repo add lucit-ubdcc https://unicorn-binance-depth-cache-cluster.docs.lucit.tech/helm
     helm repo update
-    helm search repo lucit-ubdcc
+    ```
+- Install the UNICORN DepthCache Cluster for Binance  
+    ``` 
     helm install lucit-ubdcc lucit-ubdcc/lucit-ubdcc
     ```
 - Get the "LoadBalancer Ingress" IP, the default Port is TCP 80:
     ```
     kubectl describe services lucit-ubdcc-restapi
-    ``` 
+    ```
 
 #### Choose an explizit version
-``` 
-helm install lucit-ubdcc lucit-ubdcc/lucit-ubdcc --version 0.1.2
-``` 
+- Find a version to choose
+  ``` 
+  helm search repo lucit-ubdcc
+  ``` 
+- Then
+  ``` 
+  helm install lucit-ubdcc lucit-ubdcc/lucit-ubdcc --version 0.1.2
+  ``` 
 
 #### Choose a namespace
 ``` 
 helm install lucit-ubdcc lucit-ubdcc/lucit-ubdcc --namespace lucit-ubdcc
 ``` 
 
-#### Choose a different port
+#### Choose an alternate public port
 ``` 
 helm install lucit-ubdcc lucit-ubdcc/lucit-ubdcc --set publicPort.restapi=8080
 ``` 
   
+### Kubernetes Deployment
+- [Download the deployment files](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depth-cache-cluster/tree/master/admin/k8s)
+- Apply the deployment files with `kubectl`
+    ``` 
+    kubectl apply -f ./setup/01_namespace_lucit-ubdcc.yaml
+    kubectl apply -f ./setup/02_role_lucit-ubdcc.yaml
+    kubectl apply -f ./setup/03_rolebinding_lucit-ubdcc.yaml
+    kubectl apply -f ./lucit-ubdcc-dcn.yaml  
+    kubectl apply -f ./lucit-ubdcc-mgmt.yaml
+    kubectl apply -f ./lucit-ubdcc-mgmt_service.yaml
+    kubectl apply -f ./lucit-ubdcc-restapi.yaml
+    kubectl apply -f ./lucit-ubdcc-restapi_service.yaml
+    ```
+
 ## Uninstallation
 
 ### Helm Chart
@@ -97,6 +119,19 @@ helm install lucit-ubdcc lucit-ubdcc/lucit-ubdcc --set publicPort.restapi=8080
 helm uninstall lucit-ubdcc
 kubectl delete -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
 ```
+
+### Kubernetes Deployment
+- Delete the deployment with `kubectl`
+    ``` 
+    kubectl delete -f ./setup/01_namespace_lucit-ubdcc.yaml
+    kubectl delete -f ./setup/02_role_lucit-ubdcc.yaml
+    kubectl delete -f ./setup/03_rolebinding_lucit-ubdcc.yaml
+    kubectl delete -f ./lucit-ubdcc-dcn.yaml  
+    kubectl delete -f ./lucit-ubdcc-mgmt.yaml
+    kubectl delete -f ./lucit-ubdcc-mgmt_service.yaml
+    kubectl delete -f ./lucit-ubdcc-restapi.yaml
+    kubectl delete -f ./lucit-ubdcc-restapi_service.yaml
+    ```
 
 ## Accessing the DepthCaches
 

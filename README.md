@@ -78,22 +78,21 @@ For more information, check out the [GitHub Repository](https://github.com/LUCIT
     ```
 
 #### Choose an explizit version
-Find a version to choose:
-``` 
-helm search repo lucit-ubdcc
-``` 
-
-Then:
-``` 
-helm install lucit-ubdcc lucit-ubdcc/lucit-ubdcc --version 0.1.2
-``` 
+- Find a version to choose
+  ``` 
+  helm search repo lucit-ubdcc
+  ``` 
+- Then
+  ``` 
+  helm install lucit-ubdcc lucit-ubdcc/lucit-ubdcc --version 0.1.2
+  ``` 
 
 #### Choose a namespace
 ``` 
 helm install lucit-ubdcc lucit-ubdcc/lucit-ubdcc --namespace lucit-ubdcc
 ``` 
 
-#### Choose a different port
+#### Choose an alternate public port
 ``` 
 helm install lucit-ubdcc lucit-ubdcc/lucit-ubdcc --set publicPort.restapi=8080
 ``` 
