@@ -49,6 +49,7 @@ the top 3 Asks/Bids or by setting a threshold.
 - **HTTP Access**: DepthCache values can be retrieved through HTTP using both synchronous and asynchronous methods 
 provided by 
 [UBLDC](https://unicorn-binance-local-depth-cache.docs.lucit.tech/unicorn_binance_local_depth_cache.html#module-unicorn_binance_local_depth_cache.cluster).
+- **Top Performance**The entire code base is deployed in the Kubernetes cluster as a compiled C-Extention!
 
 ## Current State
 
