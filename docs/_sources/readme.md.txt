@@ -62,9 +62,9 @@ kubectl delete -f https://github.com/kubernetes-sigs/metrics-server/releases/lat
 
 ## Accessing the DepthCaches
 
-The UNICORN DepthCache Cluster for Binance is accessed with the Python module UNICORN Binance Local Depth Cache.
+The UNICORN DepthCache Cluster for Binance is accessed with the Python module [UNICORN Binance Local Depth Cache](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-local-depth-cache?tab=readme-ov-file#connect-to-a-unicorn-depthcache-cluster-for-binance).
 
-https://github.com/LUCIT-Systems-and-Development/unicorn-binance-local-depth-cache?tab=readme-ov-file#connect-to-a-unicorn-depthcache-cluster-for-binance
+Just try this [examples](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-local-depth-cache/tree/master/examples/unicorn_depthcache_cluster_for_binance)!
 
 ## How to report Bugs or suggest Improvements?
 [List of planned features](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/issues?q=is%3Aissue+is%3Aopen+label%3Aenhancement) - click ![thumbs-up](https://raw.githubusercontent.com/lucit-systems-and-development/unicorn-binance-suite/master/images/misc/thumbup.png) if you need one of them or suggest a new feature!
