@@ -11,7 +11,7 @@
 [![Gitter](https://img.shields.io/badge/community-gitter-41ab8c)](https://gitter.im/unicorn-trading-suite/unicorn-binance-depthcache-cluster?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Get Free Professional Support](https://img.shields.io/badge/chat-lucit%20support-004166)](https://www.lucit.tech/get-support.html)
 
-# UNICORN Binance DepthCache Cluster
+# UNICORN DepthCache Cluster for Binance
 
 A Kubernetes application from LUCIT to manage multiple and redundant UNICORN Binance Local Depth Cache Instances on a 
 Kubernetes Cluster for high-frequency access to Binance's DepthCache data (order books). 
@@ -21,6 +21,20 @@ Kubernetes Cluster for high-frequency access to Binance's DepthCache data (order
 ## Get a UNICORN Binance DepthCache Cluster License
 
 To run modules of the *UNICORN Binance DepthCache Cluster* you need a [valid license](https://shop.lucit.services/software/unicorn-depthcache-cluster-for-binance)!
+
+## Installation
+
+### Helm Chart
+
+- Get a Kubernetes Cluster of your choice and connect `kubectl`. 
+- Install dependencies:
+    ``` 
+    kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+    ```
+- Install the UNICORN DepthCache Cluster for Binance  
+    ``` 
+    helm install lucit-ubdcc https://unicorn-binance-depth-cache-cluster.docs.lucit.tech/helm
+    ```
 
 ## How to report Bugs or suggest Improvements?
 [List of planned features](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/issues?q=is%3Aissue+is%3Aopen+label%3Aenhancement) - click ![thumbs-up](https://raw.githubusercontent.com/lucit-systems-and-development/unicorn-binance-suite/master/images/misc/thumbup.png) if you need one of them or suggest a new feature!
