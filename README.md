@@ -89,7 +89,7 @@ For more information, check out the [GitHub Repository](https://github.com/LUCIT
   ``` 
 - Then
   ``` 
-  helm install lucit-ubdcc lucit-ubdcc/lucit-ubdcc --version 0.1.2
+  helm install lucit-ubdcc lucit-ubdcc/lucit-ubdcc --version 0.1.3
   ``` 
 
 #### Choose a namespace

@@ -2,7 +2,7 @@
 
 set -e
 
-VERSION="0.1.2"
+VERSION="0.1.3"
 
 echo Deploying UBDCC DepthCacheCluster $VERSION to https://i018oau9.c1.de1.container-registry.ovh.net/harbor/projects/3/repositories
 
