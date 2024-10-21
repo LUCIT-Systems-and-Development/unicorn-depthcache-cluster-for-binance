@@ -20,8 +20,8 @@ Kubernetes Cluster for high-frequency access to Binance's DepthCache data (order
 
 ## Get a UNICORN DepthCache Cluster for Binance License
 
-***Licenses will only be publicly available in the store in a few days. If you are interested, please [contact us via
-the chat](https://www.lucit.tech/get-support.html)!***
+***Licenses will only be publicly available in the store in a few days. If you are interested, please 
+[contact us via the chat](https://www.lucit.tech/get-support.html)!***
 
 To run the *UNICORN DepthCache Cluster for Binance* you need a [valid license](https://shop.lucit.services/software/unicorn-depthcache-cluster-for-binance)!
 
