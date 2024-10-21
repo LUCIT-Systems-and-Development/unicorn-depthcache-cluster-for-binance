@@ -89,7 +89,7 @@ class DepthCacheNode(ServiceBase):
                             self.app.stdout_msg(f"UBLDC instance cannot be started because no valid license is "
                                                 f"available!", log="critical")
                             break
-                    if self.app.data['depthcache_instances'][dc['exchange']].get(dc['update_interval']) is not None:
+                    else:
                         self.app.data['depthcache_instances'][dc['exchange']][dc['update_interval']].create_depth_cache(
                             markets=dc['market'],
                             refresh_interval=dc['refresh_interval']
