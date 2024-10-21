@@ -40,7 +40,7 @@ To run modules of the *UNICORN Binance DepthCache Cluster* you need a [valid lic
     helm install lucit-ubdcc lucit-ubdcc/lucit-ubdcc
     ```
   
-# Uninstall:
+## Uninstall:
 ```
 helm uninstall lucit-ubdcc
 ```
