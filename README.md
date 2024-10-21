@@ -32,7 +32,7 @@ DepthCaches for each symbol/market. These DepthCaches are evenly distributed acr
 run, each server starts 50 DepthCaches, synchronizing the full set of 200 as quickly as possible. Afterward, replicas 
 are initiated, with each node handling 100 DepthCaches.
 
-[!bild](https://lucid.app/publicSegments/view/7ba7d734-4bb2-467f-b7b9-74ea0d1deec2/image.png)
+[![Visual overview](https://lucid.app/publicSegments/view/7ba7d734-4bb2-467f-b7b9-74ea0d1deec2/image.png)](https://lucid.app/publicSegments/view/6b0c10dd-2642-4063-853c-750067bb341e)
 
 ## Key Features
 
