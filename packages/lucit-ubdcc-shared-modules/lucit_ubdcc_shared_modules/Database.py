@@ -93,15 +93,15 @@ class Database:
                                     exchange: str = None,
                                     market: str = None,
                                     pod_uid: str = None,
-                                    start_time: float = None) -> bool:
+                                    scheduled_start_time: float = None) -> bool:
         if exchange is None or market is None or pod_uid is None:
             raise ValueError("Missing mandatory parameter: exchange, pod_uid, market")
-        if start_time is None:
+        if scheduled_start_time is None:
             start_time = self.app.get_unix_timestamp()
         distribution = {"CREATED_TIME": self.app.get_unix_timestamp(),
                         "LAST_RESTART_TIME": 0,
                         "POD_UID": pod_uid,
-                        "SCHEDULED_START_TIME": start_time,
+                        "SCHEDULED_START_TIME": scheduled_start_time,
                         "STATUS": "starting"}
         with self.data_lock:
             self.data['depthcaches'][exchange][market]['DISTRIBUTION'][pod_uid] = distribution
@@ -233,16 +233,13 @@ class Database:
             for exchange in self.data['depthcaches']:
                 for market in self.data['depthcaches'][exchange]:
                     for pod_uid in self.data['depthcaches'][exchange][market]['DISTRIBUTION']:
-                        try:
-                            if pod_uid == self.app.id['uid'] and \
-                                self.data['depthcaches'][exchange][market]['DISTRIBUTION'][pod_uid]['SCHEDULED_START_TIME'] < \
-                                    self.app.get_unix_timestamp():
-                                responsibilities.append({"exchange": exchange,
-                                                         "market": market,
-                                                         "refresh_interval": self.data['depthcaches'][exchange][market]['REFRESH_INTERVAL'],
-                                                         "update_interval": self.data['depthcaches'][exchange][market]['UPDATE_INTERVAL']})
-                        except KeyError:
-                            pass
+                        if pod_uid == self.app.id['uid'] and \
+                            self.data['depthcaches'][exchange][market]['DISTRIBUTION'][pod_uid]['SCHEDULED_START_TIME'] < \
+                                self.app.get_unix_timestamp():
+                            responsibilities.append({"exchange": exchange,
+                                                     "market": market,
+                                                     "refresh_interval": self.data['depthcaches'][exchange][market]['REFRESH_INTERVAL'],
+                                                     "update_interval": self.data['depthcaches'][exchange][market]['UPDATE_INTERVAL']})
         return responsibilities
 
     def get_depthcache_list(self) -> dict:
@@ -349,7 +346,6 @@ class Database:
         return True
 
     def manage_distribution(self) -> bool:
-        # Todo: Start with different orders (timestamp?)
         add_distributions = []
         remove_distributions = []
         with self.data_lock:
@@ -366,11 +362,11 @@ class Database:
                         for i in range(0, add_quantity):
                             best_dcn = self.get_best_dcn(excluded_pods=existing_distribution)
                             if best_dcn is not None:
-                                start_time = self.app.get_unix_timestamp() + i * delayed_start_time
+                                scheduled_start_time = self.app.get_unix_timestamp() + i * delayed_start_time
                                 add_distributions.append({"exchange": exchange,
                                                           "market": market,
                                                           "pod_uid": best_dcn,
-                                                          "start_time": start_time})
+                                                          "scheduled_start_time": scheduled_start_time})
                                 existing_distribution.append(best_dcn)
                     elif existing_quantity > desired_quantity:
                         remove_quantity = existing_quantity - desired_quantity
@@ -390,7 +386,7 @@ class Database:
             self.add_depthcache_distribution(exchange=item['exchange'],
                                              market=item['market'],
                                              pod_uid=item['pod_uid'],
-                                             start_time=item['start_time'])
+                                             scheduled_start_time=item['scheduled_start_time'])
         for item in remove_distributions:
             self.delete_depthcache_distribution(exchange=item['exchange'],
                                                 market=item['market'],
