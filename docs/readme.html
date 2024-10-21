@@ -334,15 +334,22 @@ Bids. <a class="reference external" href="https://github.com/LUCIT-Systems-and-D
 </pre></div>
 </div>
 </li>
+<li><p>Get the “LoadBalancer Ingress” IP, the default Port is TCP 80:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">kubectl</span> <span class="n">describe</span> <span class="n">services</span> <span class="n">lucit</span><span class="o">-</span><span class="n">ubdcc</span><span class="o">-</span><span class="n">restapi</span>
+</pre></div>
+</div>
+</li>
 </ul>
 </section>
 </section>
 <section id="uninstallation">
 <h2>Uninstallation<a class="headerlink" href="#uninstallation" title="Link to this heading">¶</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">kubectl</span> <span class="n">delete</span> <span class="o">-</span><span class="n">f</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">kubernetes</span><span class="o">-</span><span class="n">sigs</span><span class="o">/</span><span class="n">metrics</span><span class="o">-</span><span class="n">server</span><span class="o">/</span><span class="n">releases</span><span class="o">/</span><span class="n">latest</span><span class="o">/</span><span class="n">download</span><span class="o">/</span><span class="n">components</span><span class="o">.</span><span class="n">yaml</span>
+</pre></div>
+</div>
 <section id="id1">
 <h3>Helm Chart<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">helm</span> <span class="n">uninstall</span> <span class="n">lucit</span><span class="o">-</span><span class="n">ubdcc</span>
-<span class="n">kubectl</span> <span class="n">delete</span> <span class="o">-</span><span class="n">f</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">kubernetes</span><span class="o">-</span><span class="n">sigs</span><span class="o">/</span><span class="n">metrics</span><span class="o">-</span><span class="n">server</span><span class="o">/</span><span class="n">releases</span><span class="o">/</span><span class="n">latest</span><span class="o">/</span><span class="n">download</span><span class="o">/</span><span class="n">components</span><span class="o">.</span><span class="n">yaml</span>
 </pre></div>
 </div>
 </section>
@@ -571,7 +578,7 @@ of any kind, including but not limited to direct or indirect damages for loss of
     <a href="https://docs.lucit.tech">Index of all LUCIT Software Documentation</a><br />
     &copy; <a href="/license.html">Copyright</a> 2022-2023, LUCIT Systems and Development. All Rights Reserved..
     See <a href="/license.html">License</a> for more information.<br />
-    Last updated on Oct 21 2024 at 21:12 (CET).
+    Last updated on Oct 21 2024 at 21:15 (CET).
     <a href="https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depth-cache-cluster/issues/new/choose">Found a bug</a>?
     <br />
     Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.4.7.

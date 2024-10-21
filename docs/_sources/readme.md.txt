@@ -112,14 +112,20 @@ helm install lucit-ubdcc lucit-ubdcc/lucit-ubdcc --set publicPort.restapi=8080
     kubectl apply -f ./lucit-ubdcc-restapi.yaml
     kubectl apply -f ./lucit-ubdcc-restapi_service.yaml
     ```
-
+- Get the "LoadBalancer Ingress" IP, the default Port is TCP 80:
+    ```
+    kubectl describe services lucit-ubdcc-restapi
+    ```
+  
 ## Uninstallation
+```
+kubectl delete -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+```
 
 ### Helm Chart
 
 ```
 helm uninstall lucit-ubdcc
-kubectl delete -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
 ```
 
 ### Kubernetes Deployment
