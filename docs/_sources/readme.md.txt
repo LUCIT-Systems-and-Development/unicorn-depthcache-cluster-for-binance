@@ -1,7 +1,11 @@
 [![Get a UNICORN DepthCache Cluster for Binance License](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depth-cache-cluster/blob/master/images/logo/LUCIT-UBDCC-License-Offer.png)](https://shop.lucit.services/software/unicorn-depthcache-cluster-for-binance)
 
 [![License](https://img.shields.io/badge/license-LSOSL-blue)](https://unicorn-binance-depthcache-cluster.docs.lucit.tech/license.html)
-[![Read the Docs](https://img.shields.io/badge/read-%20docs-yellow)](https://unicorn-binance-depthcache-cluster.docs.lucit.tech)
+[![Build and Publish PyPi (lucit-ubdcc-dcn)](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depth-cache-cluster/actions/workflows/build_wheels_lucit_ubdcc_dcn.yml/badge.svg)](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depth-cache-cluster/actions/workflows/build_wheels_lucit_ubdcc_dcn.yml)
+[![Build and Publish PyPi (lucit-ubdcc-mgmt)](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depth-cache-cluster/actions/workflows/build_wheels_lucit_ubdcc_mgmt.yml/badge.svg)](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depth-cache-cluster/actions/workflows/build_wheels_lucit_ubdcc_mgmt.yml)
+[![Build and Publish PyPi (lucit-ubdcc-restapi)](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depth-cache-cluster/actions/workflows/build_wheels_lucit_ubdcc_restapi.yml/badge.svg)](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depth-cache-cluster/actions/workflows/build_wheels_lucit_ubdcc_restapi.yml)
+[![Build and Publish PyPi (lucit-ubdcc-shared-modules)](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depth-cache-cluster/actions/workflows/build_wheels_lucit_ubdcc_shared_modules.yml/badge.svg)](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depth-cache-cluster/actions/workflows/build_wheels_lucit_ubdcc_shared_modules.yml)
+[![Read the Docs](https://img.shields.io/badge/read-%20docs-yellow)](https://unicorn-binance-depth-cache-cluster.docs.lucit.tech/)
 [![Github](https://img.shields.io/badge/source-github-cbc2c8)](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster)
 [![Telegram](https://img.shields.io/badge/community-telegram-41ab8c)](https://t.me/unicorndevs)
 [![Gitter](https://img.shields.io/badge/community-gitter-41ab8c)](https://gitter.im/unicorn-trading-suite/unicorn-binance-depthcache-cluster?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
@@ -17,7 +21,6 @@ Cluster for high-frequency access to Binance's DepthCache data (order books).
 ## Get a UNICORN Binance DepthCache Cluster License
 
 To run modules of the *UNICORN Binance DepthCache Cluster* you need a [valid license](https://shop.lucit.services/software/unicorn-depthcache-cluster-for-binance)!
-
 
 ## How to report Bugs or suggest Improvements?
 [List of planned features](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/issues?q=is%3Aissue+is%3Aopen+label%3Aenhancement) - click ![thumbs-up](https://raw.githubusercontent.com/lucit-systems-and-development/unicorn-binance-suite/master/images/misc/thumbup.png) if you need one of them or suggest a new feature!
