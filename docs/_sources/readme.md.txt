@@ -1,7 +1,5 @@
-[![Get a UNICORN DepthCache Cluster for Binance License](https://raw.githubusercontent.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/master/images/logo/LUCIT-UBDCC-License-Offer.png)](https://shop.lucit.services/software/unicorn-binance-depthcache-cluster)
+[![Get a UNICORN DepthCache Cluster for Binance License](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depth-cache-cluster/blob/master/images/logo/LUCIT-UBDCC-License-Offer.png)](https://shop.lucit.services/software/unicorn-binance-depthcache-cluster)
 
-[![GitHub Release](https://img.shields.io/github/release/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster.svg?label=github)](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/releases)
-[![GitHub Downloads](https://img.shields.io/github/downloads/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/total?color=blue)](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/releases)
 [![License](https://img.shields.io/badge/license-LSOSL-blue)](https://unicorn-binance-depthcache-cluster.docs.lucit.tech/license.html)
 [![Read the Docs](https://img.shields.io/badge/read-%20docs-yellow)](https://unicorn-binance-depthcache-cluster.docs.lucit.tech)
 [![Github](https://img.shields.io/badge/source-github-cbc2c8)](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster)
@@ -9,17 +7,16 @@
 [![Gitter](https://img.shields.io/badge/community-gitter-41ab8c)](https://gitter.im/unicorn-trading-suite/unicorn-binance-depthcache-cluster?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Get Free Professional Support](https://img.shields.io/badge/chat-lucit%20support-004166)](https://www.lucit.tech/get-support.html)
 
-[![LUCIT-UBDCC-Banner](https://raw.githubusercontent.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/master/images/logo/LUCIT-UBDCC-Banner-Readme.png)](https://www.lucit.tech/unicorn-binance-depthcache-cluster.html)
-
 # UNICORN Binance DepthCache Cluster
 
-A Kubernetes cluster with Binance DepthCaches
+A Kubernetes application from LUCIT to manage multiple and redundant UNICORN Binance Local Depth Caches on a Kubernetes 
+Cluster for high-frequency access to Binance's DepthCache data (order books). 
 
 [Get help](https://www.lucit.tech/get-support.html)!
 
 ## Get a UNICORN Binance DepthCache Cluster License
 
-To run modules of the *UNICORN Binance DepthCache Cluster* you need a [valid license](https://medium.lucit.tech/how-to-obtain-and-use-a-unicorn-trading-suite-license-key-and-run-the-uts-module-according-to-best-87b0088124a8#4ca4)!
+To run modules of the *UNICORN Binance DepthCache Cluster* you need a [valid license](https://shop.lucit.services/software/unicorn-depthcache-cluster-for-binance)!
 
 
 ## How to report Bugs or suggest Improvements?
