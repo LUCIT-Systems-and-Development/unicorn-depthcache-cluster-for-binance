@@ -9,7 +9,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 [How to upgrade to the latest version!](https://unicorn-binance-depthcache-cluster.docs.lucit.tech/readme.html#installation-and-upgrade)
 
-## 0.1.1.dev (development stage/unreleased/unstable)
+## 0.1.2.dev (development stage/unreleased/unstable)
 
-## 0.1.1
+## 0.1.2
 First release of the MVP!

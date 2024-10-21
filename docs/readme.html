@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>UNICORN DepthCache Cluster for Binance &#8212; unicorn-binance-depth-cache-cluster 0.1.1 documentation</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UNICORN DepthCache Cluster for Binance &#8212; unicorn-binance-depth-cache-cluster 0.1.2 documentation</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=92fd9be5" />
     <link rel="stylesheet" type="text/css" href="_static/pydoctheme.css?v=fdf8e9ae" />
@@ -71,6 +71,7 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#uninstall">Uninstall:</a></li>
+<li><a class="reference internal" href="#accessing-the-depthcaches">Accessing the DepthCaches</a></li>
 <li><a class="reference internal" href="#how-to-report-bugs-or-suggest-improvements">How to report Bugs or suggest Improvements?</a></li>
 <li><a class="reference internal" href="#contributing">Contributing</a><ul>
 <li><a class="reference internal" href="#contributors">Contributors</a></li>
@@ -230,6 +231,11 @@ Kubernetes Cluster for high-frequency access to Binance’s DepthCache data (ord
 </pre></div>
 </div>
 </li>
+<li><p>Get the “LoadBalancer Ingress” IP:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">kubectl</span> <span class="n">describe</span> <span class="n">services</span> <span class="n">lucit</span><span class="o">-</span><span class="n">ubdcc</span><span class="o">-</span><span class="n">restapi</span>
+</pre></div>
+</div>
+</li>
 </ul>
 </section>
 </section>
@@ -239,6 +245,11 @@ Kubernetes Cluster for high-frequency access to Binance’s DepthCache data (ord
 <span class="n">kubectl</span> <span class="n">delete</span> <span class="o">-</span><span class="n">f</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">kubernetes</span><span class="o">-</span><span class="n">sigs</span><span class="o">/</span><span class="n">metrics</span><span class="o">-</span><span class="n">server</span><span class="o">/</span><span class="n">releases</span><span class="o">/</span><span class="n">latest</span><span class="o">/</span><span class="n">download</span><span class="o">/</span><span class="n">components</span><span class="o">.</span><span class="n">yaml</span>
 </pre></div>
 </div>
+</section>
+<section id="accessing-the-depthcaches">
+<h2>Accessing the DepthCaches<a class="headerlink" href="#accessing-the-depthcaches" title="Link to this heading">¶</a></h2>
+<p>The UNICORN DepthCache Cluster for Binance is accessed with the Python module UNICORN Binance Local Depth Cache.</p>
+<p>https://github.com/LUCIT-Systems-and-Development/unicorn-binance-local-depth-cache?tab=readme-ov-file#connect-to-a-unicorn-depthcache-cluster-for-binance</p>
 </section>
 <section id="how-to-report-bugs-or-suggest-improvements">
 <h2>How to report Bugs or suggest Improvements?<a class="headerlink" href="#how-to-report-bugs-or-suggest-improvements" title="Link to this heading">¶</a></h2>
@@ -311,6 +322,7 @@ of any kind, including but not limited to direct or indirect damages for loss of
 </ul>
 </li>
 <li><a class="reference internal" href="#uninstall">Uninstall:</a></li>
+<li><a class="reference internal" href="#accessing-the-depthcaches">Accessing the DepthCaches</a></li>
 <li><a class="reference internal" href="#how-to-report-bugs-or-suggest-improvements">How to report Bugs or suggest Improvements?</a></li>
 <li><a class="reference internal" href="#contributing">Contributing</a><ul>
 <li><a class="reference internal" href="#contributors">Contributors</a></li>
@@ -428,7 +440,7 @@ of any kind, including but not limited to direct or indirect damages for loss of
     <a href="https://docs.lucit.tech">Index of all LUCIT Software Documentation</a><br />
     &copy; <a href="/license.html">Copyright</a> 2022-2023, LUCIT Systems and Development. All Rights Reserved..
     See <a href="/license.html">License</a> for more information.<br />
-    Last updated on Oct 21 2024 at 17:37 (CET).
+    Last updated on Oct 21 2024 at 18:36 (CET).
     <a href="https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depth-cache-cluster/issues/new/choose">Found a bug</a>?
     <br />
     Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.4.7.
