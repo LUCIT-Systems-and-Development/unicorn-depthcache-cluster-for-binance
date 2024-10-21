@@ -34,10 +34,10 @@ To run modules of the *UNICORN Binance DepthCache Cluster* you need a [valid lic
     ```
 - Install the UNICORN DepthCache Cluster for Binance  
     ``` 
-    helm repo add unicorn-binance-depth-cache-cluster https://unicorn-binance-depth-cache-cluster.docs.lucit.tech/helm
+    helm repo add lucit-ubdcc https://unicorn-binance-depth-cache-cluster.docs.lucit.tech/helm
     helm repo update
-    helm search repo unicorn-binance-depth-cache-cluster
-    helm install lucit-ubdcc unicorn-binance-depth-cache-cluster/lucit-ubdcc
+    helm search repo lucit-ubdcc
+    helm install lucit-ubdcc lucit-ubdcc/lucit-ubdcc
     ```
   
 # Uninstall:
