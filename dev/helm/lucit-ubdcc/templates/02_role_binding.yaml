@@ -1,12 +1,12 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: mgmt-binding
+  name: {{ .Values.name.mgmt }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: lucit-ubdcc-mgmt
+  name: {{ .Values.name.mgmt }}
 subjects:
 - kind: ServiceAccount
   name: default
-  namespace: lucit-ubdcc
+  namespace: {{ .Release.Namespace }}

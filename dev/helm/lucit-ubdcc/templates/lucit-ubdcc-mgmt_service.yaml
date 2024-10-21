@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: lucit-ubdcc-mgmt
-  namespace: lucit-ubdcc
+  name: {{ .Values.name.mgmt }}
+  namespace: {{ .Release.Namespace }}
 spec:
   selector:
-    app: lucit-ubdcc-mgmt
+    app: {{ .Values.name.mgmt }}
   ports:
     - name: http
       port: 4280

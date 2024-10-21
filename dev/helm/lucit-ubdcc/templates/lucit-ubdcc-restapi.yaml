@@ -2,20 +2,20 @@ apiVersion: apps/v1
 kind: StatefulSet
 
 metadata:
-  name: lucit-ubdcc-restapi
-  namespace: lucit-ubdcc
+  name: {{ .Values.name.restapi }}
+  namespace: {{ .Release.Namespace }}
   annotations:
     author: LUCIT <it@lucit.tech>
 spec:
-  serviceName: lucit-ubdcc-restapi
-  replicas: 3
+  serviceName: {{ .Values.name.restapi }}
+  replicas: {{ .Values.replicaCount.restapi }}
   selector:
     matchLabels:
-      app: lucit-ubdcc-restapi
+      app: {{ .Values.name.restapi }}
   template:
     metadata:
       labels:
-        app: lucit-ubdcc-restapi
+        app: {{ .Values.name.restapi }}
       annotations:
         author: LUCIT <it@lucit.tech>
     spec:
@@ -24,11 +24,11 @@ spec:
           requiredDuringSchedulingIgnoredDuringExecution:
             - labelSelector:
                 matchLabels:
-                  app: lucit-ubdcc-restapi
+                  app: {{ .Values.name.restapi }}
               topologyKey: "kubernetes.io/hostname"
       containers:
-        - name: lucit-ubdcc-restapi
-          image: i018oau9.c1.de1.container-registry.ovh.net/library/lucit-ubdcc-restapi@sha256:16f2b8172ceb916bfea223cb863344500b5bc44495ab074ac18645dd7fa53729
+        - name: {{ .Values.name.restapi }}
+          image: "i018oau9.c1.de1.container-registry.ovh.net/library/lucit-ubdcc-restapi:{{ .Chart.AppVersion }}"
           ports:
             - name: rest-private
               containerPort: 8080

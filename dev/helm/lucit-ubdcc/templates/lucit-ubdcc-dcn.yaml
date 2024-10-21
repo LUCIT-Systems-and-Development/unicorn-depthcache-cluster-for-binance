@@ -1,17 +1,17 @@
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
-  name: lucit-ubdcc-dcn
-  namespace: lucit-ubdcc
+  name: {{ .Values.name.dcn }}
+  namespace: {{ .Release.Namespace }}
 spec:
   selector:
     matchLabels:
-      app: lucit-ubdcc-dcn
+      app: {{ .Values.name.dcn }}
   template:
     metadata:
       labels:
-        app: lucit-ubdcc-dcn
+        app: {{ .Values.name.dcn }}
     spec:
       containers:
-        - name: example-container
-          image: i018oau9.c1.de1.container-registry.ovh.net/library/lucit-ubdcc-dcn@sha256:f7e2e1a961c9250431ee9fcb23ff4a28eaa640f1edc7ebd2f7a871e39699c2b9
+        - name: {{ .Values.name.dcn }}
+          image: "i018oau9.c1.de1.container-registry.ovh.net/library/lucit-ubdcc-dcn:{{ .Chart.AppVersion }}"
