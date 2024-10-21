@@ -11,6 +11,8 @@ files:
 - dev/docker/lucit-ubdcc-mgmt-latest.sh
 - dev/docker/lucit-ubdcc-restapi.sh
 - dev/docker/lucit-ubdcc-restapi-latest.sh
+- dev/helm/lucit-ubdcc/Chart.yaml
+- dev/sphinx/source/conf.py
 - packages/lucit-ubdcc-dcn/pyproject.toml
 - packages/lucit-ubdcc-dcn/requirements.txt
 - packages/lucit-ubdcc-dcn/setup.py
@@ -23,4 +25,4 @@ files:
 - packages/lucit-ubdcc-shared-modules/lucit_ubdcc_shared_modules/App.py
 - packages/lucit-ubdcc-shared-modules/pyproject.toml
 - packages/lucit-ubdcc-shared-modules/setup.py
-version: 0.0.87
+version: 0.1.0

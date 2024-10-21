@@ -13,8 +13,8 @@
 
 # UNICORN Binance DepthCache Cluster
 
-A Kubernetes application from LUCIT to manage multiple and redundant UNICORN Binance Local Depth Caches on a Kubernetes 
-Cluster for high-frequency access to Binance's DepthCache data (order books). 
+A Kubernetes application from LUCIT to manage multiple and redundant UNICORN Binance Local Depth Cache Instances on a 
+Kubernetes Cluster for high-frequency access to Binance's DepthCache data (order books). 
 
 [Get help](https://www.lucit.tech/get-support.html)!
 

@@ -18,17 +18,22 @@ Version 1.0, November 2023
 
 1. INTRODUCTION
 
-The "LUCIT Synergetic Open Source License" oversees the utilization and distribution of the UNICORN Binance DepthCache
-Cluster and all its modules (lucit-ubdcc-dcn, lucit-ubdcc-mgmt, lucit-ubdcc-restapi, lucit-ubdcc-shared-modules) and
-Docker images (lucit-ubdcc-generic_loader) by LUCIT IT-Management GmbH.
+The "LUCIT Synergetic Open Source License" oversees the utilization and distribution of the UNICORN Binance
+DepthCache Cluster and all its modules (lucit-ubdcc-dcn, lucit-ubdcc-mgmt, lucit-ubdcc-restapi,
+lucit-ubdcc-shared-modules) and Docker images (lucit-ubdcc-generic_loader) by LUCIT IT-Management GmbH.
 
 
 2. PROJECT INFORMATION
 
 - Project name: UNICORN Binance DepthCache Cluster
-- Project page: https://www.lucit.tech/unicorn-binance-depthcache-cluster.html
-- GitHub repository: https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster
-- PyPI repository: https://pypi.org/project/unicorn-binance-depthcache-cluster
+- Project page: https://www.lucit.tech/unicorn-binance-depth-cache-cluster.html
+- GitHub repository: https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depth-cache-cluster
+- PyPI repository:
+    - https://pypi.org/project/lucit-ubdcc-dcn
+    - https://pypi.org/project/lucit-ubdcc-mgmt
+    - https://pypi.org/project/lucit-ubdcc-restapi
+    - https://pypi.org/project/lucit-ubdcc-shared-modules
+
 - Get a license: https://shop.lucit.services/software/unicorn-depthcache-cluster-for-binance
 
 
