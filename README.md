@@ -51,7 +51,7 @@ a specific amount of top Asks/Bids or by setting a threshold.
 - **HTTP Access**: DepthCache values can be retrieved through HTTP using both synchronous and asynchronous methods 
 provided by 
 [UBLDC](https://unicorn-binance-local-depth-cache.docs.lucit.tech/unicorn_binance_local_depth_cache.html#module-unicorn_binance_local_depth_cache.cluster).
-- **Top Performance**: The entire code base is deployed in the Kubernetes cluster as a compiled C-Extention!
+- **Top Performance**: The entire code base is deployed in the Kubernetes cluster as a compiled C-Extension!
 
 ## Current State
 
@@ -94,10 +94,13 @@ kubectl describe services lucit-ubdcc-restapi
 
 #### Choose an explizit version
 - Find a version to choose
+
 ``` 
 helm search repo lucit-ubdcc
 ``` 
+
 - Then
+
 ``` 
 helm install lucit-ubdcc lucit-ubdcc/lucit-ubdcc --version 0.1.3
 ``` 
@@ -115,20 +118,23 @@ helm install lucit-ubdcc lucit-ubdcc/lucit-ubdcc --set publicPort.restapi=8080
 ### Kubernetes Deployment
 - [Download the deployment files](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depth-cache-cluster/tree/master/admin/k8s)
 - Apply the deployment files with `kubectl`
-    ``` 
-    kubectl apply -f ./setup/01_namespace_lucit-ubdcc.yaml
-    kubectl apply -f ./setup/02_role_lucit-ubdcc.yaml
-    kubectl apply -f ./setup/03_rolebinding_lucit-ubdcc.yaml
-    kubectl apply -f ./lucit-ubdcc-dcn.yaml  
-    kubectl apply -f ./lucit-ubdcc-mgmt.yaml
-    kubectl apply -f ./lucit-ubdcc-mgmt_service.yaml
-    kubectl apply -f ./lucit-ubdcc-restapi.yaml
-    kubectl apply -f ./lucit-ubdcc-restapi_service.yaml
-    ```
+
+``` 
+kubectl apply -f ./setup/01_namespace_lucit-ubdcc.yaml
+kubectl apply -f ./setup/02_role_lucit-ubdcc.yaml
+kubectl apply -f ./setup/03_rolebinding_lucit-ubdcc.yaml
+kubectl apply -f ./lucit-ubdcc-dcn.yaml  
+kubectl apply -f ./lucit-ubdcc-mgmt.yaml
+kubectl apply -f ./lucit-ubdcc-mgmt_service.yaml
+kubectl apply -f ./lucit-ubdcc-restapi.yaml
+kubectl apply -f ./lucit-ubdcc-restapi_service.yaml
+```
+
 - Get the "LoadBalancer Ingress" IP, the default Port is TCP 80:
-    ```
-    kubectl describe services lucit-ubdcc-restapi
-    ```
+
+```
+kubectl describe services lucit-ubdcc-restapi
+```
   
 ## Uninstallation
 ```
@@ -136,23 +142,23 @@ kubectl delete -f https://github.com/kubernetes-sigs/metrics-server/releases/lat
 ```
 
 ### Helm Chart
-
 ```
 helm uninstall lucit-ubdcc
 ```
 
 ### Kubernetes Deployment
 - Delete the deployment with `kubectl`
-    ``` 
-    kubectl delete -f ./setup/01_namespace_lucit-ubdcc.yaml
-    kubectl delete -f ./setup/02_role_lucit-ubdcc.yaml
-    kubectl delete -f ./setup/03_rolebinding_lucit-ubdcc.yaml
-    kubectl delete -f ./lucit-ubdcc-dcn.yaml  
-    kubectl delete -f ./lucit-ubdcc-mgmt.yaml
-    kubectl delete -f ./lucit-ubdcc-mgmt_service.yaml
-    kubectl delete -f ./lucit-ubdcc-restapi.yaml
-    kubectl delete -f ./lucit-ubdcc-restapi_service.yaml
-    ```
+
+``` 
+kubectl delete -f ./setup/01_namespace_lucit-ubdcc.yaml
+kubectl delete -f ./setup/02_role_lucit-ubdcc.yaml
+kubectl delete -f ./setup/03_rolebinding_lucit-ubdcc.yaml
+kubectl delete -f ./lucit-ubdcc-dcn.yaml  
+kubectl delete -f ./lucit-ubdcc-mgmt.yaml
+kubectl delete -f ./lucit-ubdcc-mgmt_service.yaml
+kubectl delete -f ./lucit-ubdcc-restapi.yaml
+kubectl delete -f ./lucit-ubdcc-restapi_service.yaml
+```
 
 ## Accessing the DepthCaches
 
