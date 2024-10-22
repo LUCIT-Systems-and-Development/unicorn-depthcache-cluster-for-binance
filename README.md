@@ -65,7 +65,7 @@ For more information, check out the
 
 ## Installation
 
-- Get a Kubernetes Cluster of your choice and connect `kubectl`
+- Get a Kubernetes cluster with powerful CPUs from a provider of your choice and connect `kubectl`
 - Install dependencies
 
 ```
@@ -136,6 +136,12 @@ kubectl apply -f ./lucit-ubdcc-restapi_service.yaml
 ```
 kubectl describe services lucit-ubdcc-restapi
 ```
+
+## Security
+In any case, you should set the firewall in the web interface of the Kubernetes provider so that only your systems 
+have access to UBDCC.
+
+If you want to do this, you can add HTTPS to the LoadBalancer with most providers.
   
 ## Uninstallation
 ```
