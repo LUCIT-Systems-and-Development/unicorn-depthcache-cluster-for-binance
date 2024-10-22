@@ -217,8 +217,8 @@
 <a class="reference external" href="https://www.lucit.tech/get-support.html"><img alt="Get Free Professional Support" src="https://img.shields.io/badge/chat-lucit%20support-004166" /></a></p>
 <section id="unicorn-binance-depth-cache-cluster-ubdcc">
 <h1>UNICORN Binance Depth Cache Cluster (UBDCC)<a class="headerlink" href="#unicorn-binance-depth-cache-cluster-ubdcc" title="Link to this heading">¶</a></h1>
-<p>A Kubernetes application from LUCIT to manage multiple and redundant UNICORN Binance Local Depth Cache Instances on a
-Kubernetes Cluster for high-frequency access to Binance’s DepthCache data (order books).</p>
+<p>A highly scalable Kubernetes application from LUCIT to manage multiple and redundant UNICORN Binance Local Depth Cache
+Instances on a Kubernetes Cluster for high-frequency access to Binance’s DepthCache data (order books).</p>
 <p><a class="reference external" href="https://www.lucit.tech/get-support.html">Get help</a>!</p>
 <section id="get-a-unicorn-depthcache-cluster-for-binance-license">
 <h2>Get a UNICORN DepthCache Cluster for Binance License<a class="headerlink" href="#get-a-unicorn-depthcache-cluster-for-binance-license" title="Link to this heading">¶</a></h2>
@@ -229,11 +229,13 @@ Kubernetes Cluster for high-frequency access to Binance’s DepthCache data (ord
 <section id="what-is-ubdcc">
 <h2>What is UBDCC?<a class="headerlink" href="#what-is-ubdcc" title="Link to this heading">¶</a></h2>
 <p>The main idea is to deploy the UBDCC on a Kubernetes cluster with, for example, 4 rented servers. After transferring a
-valid license, you can create and manage DepthCaches within the cluster environment instead of on local servers.</p>
-<p>For example, when you configure the system to create 200 DepthCaches with a desired_quantity of 2, UBDCC will deploy 2
-DepthCaches for each symbol/market. These DepthCaches are evenly distributed across the cluster’s pods. On the first
-run, each server starts 50 DepthCaches, synchronizing the full set of 200 as quickly as possible. Afterward, replicas
-are initiated, with each node handling 100 DepthCaches.</p>
+valid license, you can create and manage DepthCaches within the cluster environment instead of on local servers and
+access them from multiple clients.</p>
+<p>For example, when you configure the system to create 200 DepthCaches with a <code class="docutils literal notranslate"><span class="pre">desired_quantity</span></code> of 2, UBDCC will deploy 2
+DepthCaches for each symbol/market. These DepthCaches are evenly distributed across the nodes of the cluster and can
+download order book snapshots from the Binance Rest API using their own public IP addresses. On the first run, each
+server starts 50 DepthCaches, synchronizing the full set of 200 as quickly as possible. Afterward, replicas are
+initiated, with each node handling 100 DepthCaches.</p>
 <p><a class="reference external" href="https://lucid.app/publicSegments/view/7ba7d734-4bb2-467f-b7b9-74ea0d1deec2/image.png"><img alt="Visual overview" src="https://lucid.app/publicSegments/view/7ba7d734-4bb2-467f-b7b9-74ea0d1deec2/image.png" /></a></p>
 </section>
 <section id="key-features">
@@ -248,10 +250,11 @@ failover, ensuring high availability and quick response times.</p>
 </ul>
 </li>
 <li><p><strong>Flexible Data Retrieval</strong>: You can trim the amount of transferred data at the cluster level, either by limiting to
-the top 3 Asks/Bids or by setting a threshold.</p></li>
+a specific amount of top Asks/Bids or by setting a threshold.</p></li>
 <li><p><strong>HTTP Access</strong>: DepthCache values can be retrieved through HTTP using both synchronous and asynchronous methods
 provided by
 <a class="reference external" href="https://unicorn-binance-local-depth-cache.docs.lucit.tech/unicorn_binance_local_depth_cache.html#module-unicorn_binance_local_depth_cache.cluster">UBLDC</a>.</p></li>
+<li><p><strong>Top Performance</strong>: The entire code base is deployed in the Kubernetes cluster as a compiled C-Extension!</p></li>
 </ul>
 </section>
 <section id="current-state">
@@ -259,53 +262,55 @@ provided by
 <p>The first MVP is stable and offers the most critical features for efficient DepthCache management. Future improvements
 might include switching to websockets instead of REST queries, or implementing simultaneous queries for both Asks and
 Bids. <a class="reference external" href="https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depth-cache-cluster/issues?q=is%3Aissue+is%3Aopen+label%3Aenhancement">Vote here for new features!</a></p>
-<p>For more information, check out the <a class="reference external" href="https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depth-cache-cluster">GitHub Repository</a>.</p>
+<p>For more information, check out the
+<a class="reference external" href="https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depth-cache-cluster">GitHub Repository</a> and the
+<a class="reference external" href="https://unicorn-binance-depth-cache-cluster.docs.lucit.tech">Docs</a>.</p>
 </section>
 <section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">¶</a></h2>
-<ul>
-<li><p>Get a Kubernetes Cluster of your choice and connect <code class="docutils literal notranslate"><span class="pre">kubectl</span></code>.</p></li>
-<li><p>Install dependencies:</p>
+<ul class="simple">
+<li><p>Get a Kubernetes Cluster of your choice and connect <code class="docutils literal notranslate"><span class="pre">kubectl</span></code></p></li>
+<li><p>Install dependencies</p></li>
+</ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">kubectl</span> <span class="n">apply</span> <span class="o">-</span><span class="n">f</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">kubernetes</span><span class="o">-</span><span class="n">sigs</span><span class="o">/</span><span class="n">metrics</span><span class="o">-</span><span class="n">server</span><span class="o">/</span><span class="n">releases</span><span class="o">/</span><span class="n">latest</span><span class="o">/</span><span class="n">download</span><span class="o">/</span><span class="n">components</span><span class="o">.</span><span class="n">yaml</span>
 </pre></div>
 </div>
-</li>
-</ul>
 <section id="helm-chart">
 <h3>Helm Chart<a class="headerlink" href="#helm-chart" title="Link to this heading">¶</a></h3>
-<ul>
+<ul class="simple">
 <li><p><a class="reference external" href="https://helm.sh/docs/intro/install">Install Helm</a></p></li>
-<li><p>Prepare <code class="docutils literal notranslate"><span class="pre">helm</span></code></p>
+<li><p>Prepare <code class="docutils literal notranslate"><span class="pre">helm</span></code></p></li>
+</ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">helm</span> <span class="n">repo</span> <span class="n">add</span> <span class="n">lucit</span><span class="o">-</span><span class="n">ubdcc</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">unicorn</span><span class="o">-</span><span class="n">binance</span><span class="o">-</span><span class="n">depth</span><span class="o">-</span><span class="n">cache</span><span class="o">-</span><span class="n">cluster</span><span class="o">.</span><span class="n">docs</span><span class="o">.</span><span class="n">lucit</span><span class="o">.</span><span class="n">tech</span><span class="o">/</span><span class="n">helm</span>
 <span class="n">helm</span> <span class="n">repo</span> <span class="n">update</span>
 </pre></div>
 </div>
-</li>
-<li><p>Install the UNICORN DepthCache Cluster for Binance</p>
+<ul class="simple">
+<li><p>Install the UNICORN DepthCache Cluster for Binance</p></li>
+</ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">helm</span> <span class="n">install</span> <span class="n">lucit</span><span class="o">-</span><span class="n">ubdcc</span> <span class="n">lucit</span><span class="o">-</span><span class="n">ubdcc</span><span class="o">/</span><span class="n">lucit</span><span class="o">-</span><span class="n">ubdcc</span>
 </pre></div>
 </div>
-</li>
-<li><p>Get the “LoadBalancer Ingress” IP, the default Port is TCP 80:</p>
+<ul class="simple">
+<li><p>Get the “LoadBalancer Ingress” IP, the default Port is TCP 80!</p></li>
+</ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">kubectl</span> <span class="n">describe</span> <span class="n">services</span> <span class="n">lucit</span><span class="o">-</span><span class="n">ubdcc</span><span class="o">-</span><span class="n">restapi</span>
 </pre></div>
 </div>
-</li>
-</ul>
 <section id="choose-an-explizit-version">
 <h4>Choose an explizit version<a class="headerlink" href="#choose-an-explizit-version" title="Link to this heading">¶</a></h4>
-<ul>
-<li><p>Find a version to choose</p>
+<ul class="simple">
+<li><p>Find a version to choose</p></li>
+</ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">helm</span> <span class="n">search</span> <span class="n">repo</span> <span class="n">lucit</span><span class="o">-</span><span class="n">ubdcc</span>
 </pre></div>
 </div>
-</li>
-<li><p>Then</p>
+<ul class="simple">
+<li><p>Then</p></li>
+</ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">helm</span> <span class="n">install</span> <span class="n">lucit</span><span class="o">-</span><span class="n">ubdcc</span> <span class="n">lucit</span><span class="o">-</span><span class="n">ubdcc</span><span class="o">/</span><span class="n">lucit</span><span class="o">-</span><span class="n">ubdcc</span> <span class="o">--</span><span class="n">version</span> <span class="mf">0.1.3</span>
 </pre></div>
 </div>
-</li>
-</ul>
 </section>
 <section id="choose-a-namespace">
 <h4>Choose a namespace<a class="headerlink" href="#choose-a-namespace" title="Link to this heading">¶</a></h4>
@@ -322,9 +327,10 @@ Bids. <a class="reference external" href="https://github.com/LUCIT-Systems-and-D
 </section>
 <section id="kubernetes-deployment">
 <h3>Kubernetes Deployment<a class="headerlink" href="#kubernetes-deployment" title="Link to this heading">¶</a></h3>
-<ul>
+<ul class="simple">
 <li><p><a class="reference external" href="https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depth-cache-cluster/tree/master/admin/k8s">Download the deployment files</a></p></li>
-<li><p>Apply the deployment files with <code class="docutils literal notranslate"><span class="pre">kubectl</span></code></p>
+<li><p>Apply the deployment files with <code class="docutils literal notranslate"><span class="pre">kubectl</span></code></p></li>
+</ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">kubectl</span> <span class="n">apply</span> <span class="o">-</span><span class="n">f</span> <span class="o">./</span><span class="n">setup</span><span class="o">/</span><span class="mi">01</span><span class="n">_namespace_lucit</span><span class="o">-</span><span class="n">ubdcc</span><span class="o">.</span><span class="n">yaml</span>
 <span class="n">kubectl</span> <span class="n">apply</span> <span class="o">-</span><span class="n">f</span> <span class="o">./</span><span class="n">setup</span><span class="o">/</span><span class="mi">02</span><span class="n">_role_lucit</span><span class="o">-</span><span class="n">ubdcc</span><span class="o">.</span><span class="n">yaml</span>
 <span class="n">kubectl</span> <span class="n">apply</span> <span class="o">-</span><span class="n">f</span> <span class="o">./</span><span class="n">setup</span><span class="o">/</span><span class="mi">03</span><span class="n">_rolebinding_lucit</span><span class="o">-</span><span class="n">ubdcc</span><span class="o">.</span><span class="n">yaml</span>
@@ -335,13 +341,12 @@ Bids. <a class="reference external" href="https://github.com/LUCIT-Systems-and-D
 <span class="n">kubectl</span> <span class="n">apply</span> <span class="o">-</span><span class="n">f</span> <span class="o">./</span><span class="n">lucit</span><span class="o">-</span><span class="n">ubdcc</span><span class="o">-</span><span class="n">restapi_service</span><span class="o">.</span><span class="n">yaml</span>
 </pre></div>
 </div>
-</li>
-<li><p>Get the “LoadBalancer Ingress” IP, the default Port is TCP 80:</p>
+<ul class="simple">
+<li><p>Get the “LoadBalancer Ingress” IP, the default Port is TCP 80:</p></li>
+</ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">kubectl</span> <span class="n">describe</span> <span class="n">services</span> <span class="n">lucit</span><span class="o">-</span><span class="n">ubdcc</span><span class="o">-</span><span class="n">restapi</span>
 </pre></div>
 </div>
-</li>
-</ul>
 </section>
 </section>
 <section id="uninstallation">
@@ -357,8 +362,9 @@ Bids. <a class="reference external" href="https://github.com/LUCIT-Systems-and-D
 </section>
 <section id="id2">
 <h3>Kubernetes Deployment<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
-<ul>
-<li><p>Delete the deployment with <code class="docutils literal notranslate"><span class="pre">kubectl</span></code></p>
+<ul class="simple">
+<li><p>Delete the deployment with <code class="docutils literal notranslate"><span class="pre">kubectl</span></code></p></li>
+</ul>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">kubectl</span> <span class="n">delete</span> <span class="o">-</span><span class="n">f</span> <span class="o">./</span><span class="n">setup</span><span class="o">/</span><span class="mi">01</span><span class="n">_namespace_lucit</span><span class="o">-</span><span class="n">ubdcc</span><span class="o">.</span><span class="n">yaml</span>
 <span class="n">kubectl</span> <span class="n">delete</span> <span class="o">-</span><span class="n">f</span> <span class="o">./</span><span class="n">setup</span><span class="o">/</span><span class="mi">02</span><span class="n">_role_lucit</span><span class="o">-</span><span class="n">ubdcc</span><span class="o">.</span><span class="n">yaml</span>
 <span class="n">kubectl</span> <span class="n">delete</span> <span class="o">-</span><span class="n">f</span> <span class="o">./</span><span class="n">setup</span><span class="o">/</span><span class="mi">03</span><span class="n">_rolebinding_lucit</span><span class="o">-</span><span class="n">ubdcc</span><span class="o">.</span><span class="n">yaml</span>
@@ -369,8 +375,6 @@ Bids. <a class="reference external" href="https://github.com/LUCIT-Systems-and-D
 <span class="n">kubectl</span> <span class="n">delete</span> <span class="o">-</span><span class="n">f</span> <span class="o">./</span><span class="n">lucit</span><span class="o">-</span><span class="n">ubdcc</span><span class="o">-</span><span class="n">restapi_service</span><span class="o">.</span><span class="n">yaml</span>
 </pre></div>
 </div>
-</li>
-</ul>
 </section>
 </section>
 <section id="accessing-the-depthcaches">
@@ -580,7 +584,7 @@ of any kind, including but not limited to direct or indirect damages for loss of
     <a href="https://docs.lucit.tech">Index of all LUCIT Software Documentation</a><br />
     &copy; <a href="/license.html">Copyright</a> 2022-2023, LUCIT Systems and Development. All Rights Reserved..
     See <a href="/license.html">License</a> for more information.<br />
-    Last updated on Oct 21 2024 at 21:34 (CET).
+    Last updated on Oct 22 2024 at 11:55 (CET).
     <a href="https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depth-cache-cluster/issues/new/choose">Found a bug</a>?
     <br />
     Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.4.7.

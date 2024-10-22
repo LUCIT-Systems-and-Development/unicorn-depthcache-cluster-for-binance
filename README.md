@@ -65,28 +65,28 @@ For more information, check out the
 
 ## Installation
 
-- Get a Kubernetes Cluster of your choice and connect `kubectl`. 
-- Install dependencies:
+- Get a Kubernetes Cluster of your choice and connect `kubectl`
+- Install dependencies
 ```
 kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
 ```
 
 ### Helm Chart
 - [Install Helm](https://helm.sh/docs/intro/install) 
-- Prepare `helm`:
+- Prepare `helm`
 
 ``` 
 helm repo add lucit-ubdcc https://unicorn-binance-depth-cache-cluster.docs.lucit.tech/helm
 helm repo update
 ```
 
-- Install the UNICORN DepthCache Cluster for Binance:
+- Install the UNICORN DepthCache Cluster for Binance
 
 ``` 
 helm install lucit-ubdcc lucit-ubdcc/lucit-ubdcc
 ```
 
-- Get the "LoadBalancer Ingress" IP, the default Port is TCP 80:
+- Get the "LoadBalancer Ingress" IP, the default Port is TCP 80!
 
 ```
 kubectl describe services lucit-ubdcc-restapi
