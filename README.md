@@ -13,8 +13,8 @@
 
 # UNICORN Binance Depth Cache Cluster (UBDCC)
 
-A Kubernetes application from LUCIT to manage multiple and redundant UNICORN Binance Local Depth Cache Instances on a 
-Kubernetes Cluster for high-frequency access to Binance's DepthCache data (order books). 
+A highly scalable Kubernetes application from LUCIT to manage multiple and redundant UNICORN Binance Local Depth Cache 
+Instances on a Kubernetes Cluster for high-frequency access to Binance's DepthCache data (order books). 
 
 [Get help](https://www.lucit.tech/get-support.html)!
 
@@ -28,12 +28,14 @@ To run the *UNICORN DepthCache Cluster for Binance* you need a [valid license](h
 ## What is UBDCC?
 
 The main idea is to deploy the UBDCC on a Kubernetes cluster with, for example, 4 rented servers. After transferring a 
-valid license, you can create and manage DepthCaches within the cluster environment instead of on local servers.
+valid license, you can create and manage DepthCaches within the cluster environment instead of on local servers and 
+access them from multiple clients.
 
-For example, when you configure the system to create 200 DepthCaches with a desired_quantity of 2, UBDCC will deploy 2 
-DepthCaches for each symbol/market. These DepthCaches are evenly distributed across the cluster's pods. On the first 
-run, each server starts 50 DepthCaches, synchronizing the full set of 200 as quickly as possible. Afterward, replicas 
-are initiated, with each node handling 100 DepthCaches.
+For example, when you configure the system to create 200 DepthCaches with a `desired_quantity` of 2, UBDCC will deploy 2 
+DepthCaches for each symbol/market. These DepthCaches are evenly distributed across the nodes of the cluster and can 
+download order book snapshots from the Binance Rest API using their own public IP addresses. On the first run, each 
+server starts 50 DepthCaches, synchronizing the full set of 200 as quickly as possible. Afterward, replicas are 
+initiated, with each node handling 100 DepthCaches.
 
 [![Visual overview](https://lucid.app/publicSegments/view/7ba7d734-4bb2-467f-b7b9-74ea0d1deec2/image.png)](https://lucid.app/publicSegments/view/7ba7d734-4bb2-467f-b7b9-74ea0d1deec2/image.png)
 
@@ -44,8 +46,8 @@ are initiated, with each node handling 100 DepthCaches.
 failover, ensuring high availability and quick response times.
   - Local requests for Asks/Bids: ~0.02 seconds
   - Requests via the Internet: ~0.06 seconds
-- **Flexible Data Retrieval**: You can trim the amount of transferred data at the cluster level, either by limiting to 
-the top 3 Asks/Bids or by setting a threshold.
+- **Flexible Data Retrieval**: You can trim the amount of transferred data at the cluster level, either by limiting to
+a specific amount of top Asks/Bids or by setting a threshold.
 - **HTTP Access**: DepthCache values can be retrieved through HTTP using both synchronous and asynchronous methods 
 provided by 
 [UBLDC](https://unicorn-binance-local-depth-cache.docs.lucit.tech/unicorn_binance_local_depth_cache.html#module-unicorn_binance_local_depth_cache.cluster).
@@ -56,41 +58,43 @@ The first MVP is stable and offers the most critical features for efficient Dept
 might include switching to websockets instead of REST queries, or implementing simultaneous queries for both Asks and 
 Bids. [Vote here for new features!](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depth-cache-cluster/issues?q=is%3Aissue+is%3Aopen+label%3Aenhancement)
 
-For more information, check out the [GitHub Repository](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depth-cache-cluster).
+For more information, check out the 
+[GitHub Repository](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depth-cache-cluster) and the
+[Docs](https://unicorn-binance-depth-cache-cluster.docs.lucit.tech).
 
 ## Installation
 
 - Get a Kubernetes Cluster of your choice and connect `kubectl`. 
 - Install dependencies:
-    ``` 
-    kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
-    ```
+```
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+```
 
 ### Helm Chart
 - [Install Helm](https://helm.sh/docs/intro/install) 
-- Prepare `helm`
-    ``` 
-    helm repo add lucit-ubdcc https://unicorn-binance-depth-cache-cluster.docs.lucit.tech/helm
-    helm repo update
-    ```
-- Install the UNICORN DepthCache Cluster for Binance  
-    ``` 
-    helm install lucit-ubdcc lucit-ubdcc/lucit-ubdcc
-    ```
+- Prepare `helm`:
+``` 
+helm repo add lucit-ubdcc https://unicorn-binance-depth-cache-cluster.docs.lucit.tech/helm
+helm repo update
+```
+- Install the UNICORN DepthCache Cluster for Binance:
+``` 
+helm install lucit-ubdcc lucit-ubdcc/lucit-ubdcc
+```
 - Get the "LoadBalancer Ingress" IP, the default Port is TCP 80:
-    ```
-    kubectl describe services lucit-ubdcc-restapi
-    ```
+```
+kubectl describe services lucit-ubdcc-restapi
+```
 
 #### Choose an explizit version
 - Find a version to choose
-  ``` 
-  helm search repo lucit-ubdcc
-  ``` 
+``` 
+helm search repo lucit-ubdcc
+``` 
 - Then
-  ``` 
-  helm install lucit-ubdcc lucit-ubdcc/lucit-ubdcc --version 0.1.3
-  ``` 
+``` 
+helm install lucit-ubdcc lucit-ubdcc/lucit-ubdcc --version 0.1.3
+``` 
 
 #### Choose a namespace
 ``` 
