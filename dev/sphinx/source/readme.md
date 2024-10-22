@@ -98,23 +98,23 @@ kubectl describe services lucit-ubdcc-restapi
 
 ``` 
 helm search repo lucit-ubdcc
-``` 
+```
 
 - Then
 
 ``` 
 helm install lucit-ubdcc lucit-ubdcc/lucit-ubdcc --version 0.1.3
-``` 
+```
 
 #### Choose a namespace
 ``` 
 helm install lucit-ubdcc lucit-ubdcc/lucit-ubdcc --namespace lucit-ubdcc
-``` 
+```
 
 #### Choose an alternate public port
 ``` 
 helm install lucit-ubdcc lucit-ubdcc/lucit-ubdcc --set publicPort.restapi=8080
-``` 
+```
   
 ### Kubernetes Deployment
 - [Download the deployment files](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depth-cache-cluster/tree/master/admin/k8s)
