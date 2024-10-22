@@ -67,6 +67,7 @@ For more information, check out the
 
 - Get a Kubernetes Cluster of your choice and connect `kubectl`
 - Install dependencies
+
 ```
 kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
 ```
