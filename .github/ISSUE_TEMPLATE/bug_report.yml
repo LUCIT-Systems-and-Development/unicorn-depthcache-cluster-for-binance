@@ -31,19 +31,6 @@ body:
       required: true
 
   - type: dropdown
-    id: Hardware
-    attributes:
-      label: Hardware?
-      description: |
-        In which hardware environment is the code executed?
-      options:
-        - Local server/workstation
-        - Raspberry Pi
-        - VPS or other cloud hosting
-    validations:
-      required: true
-
-  - type: dropdown
     id: Python
     attributes:
       label: Python version?
