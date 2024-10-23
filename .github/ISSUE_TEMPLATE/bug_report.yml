@@ -24,9 +24,9 @@ body:
   - type: textarea
     id: Version
     attributes:
-      label: Version of this lucit_ubdcc_shared_modules.
+      label: Used version
       description: |
-        Please control what version you are using with [this script](https://github.com/LUCIT-Systems-and-Development/unicorn-trading-suite/blob/master/tools/get_versions_of_unicorn_packages.py) and post the output:
+        Please control what version you are using!
     validations:
       required: true
 
@@ -44,79 +44,13 @@ body:
       required: true
 
   - type: dropdown
-    id: OS
-    attributes:
-      label: Operating System?
-      description: |
-        In which operating system is the code executed?
-      options:
-        - Linux
-        - macOS
-        - Windows
-        - Other (please explain)
-    validations:
-      required: true
-
-  - type: dropdown
     id: Python
     attributes:
       label: Python version?
       description: |
         In which Python version is the code executed?
       options:
-        - Python3.7
-        - Python3.8
-        - Python3.9
-        - Python3.10
-        - Python3.11
         - Python3.12
-    validations:
-      required: true
-
-  - type: textarea
-    id: WheelInfo
-    attributes:
-      label: Installed wheel files
-      description: |
-        Please share your installed wheel files of this library. Run `pip show unicorn-depthcache-cluster-for-binance --files | 
-        grep '  '` or `conda list -f unicorn-depthcache-cluster-for-binance | grep '  '` and post the result:
-      render: shell
-    validations:
-      required: false
-
-  - type: textarea
-    id: Packages
-    attributes:
-      label: Installed packages
-      description: |
-        Please share your installed packages by running `pip list` or `conda list` and entering the output below:
-      render: shell
-    validations:
-      required: false
-
-  - type: textarea
-    id: Log
-    attributes:
-      label: Logging output
-      description: |
-        Please share the logging output here (REMOVE API_KEY, API_SECRET, LISTEN_KEY!!):
-        _Note:_ This will be automatically formatted as code.
-      placeholder: "logfile"
-      render: shell
-    validations:
-      required: false
-
-  - type: dropdown
-    id: Processing
-    attributes:
-      label: Processing method?
-      description: |
-        Are you using the `stream_buffer` or the `process_stream_data`-callback function?
-      options:
-        - process_asyncio_queue
-        - process_stream_data
-        - process_stream_data_async
-        - stream_buffer
     validations:
       required: true
 
