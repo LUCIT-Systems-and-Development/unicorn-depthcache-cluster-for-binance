@@ -39,4 +39,4 @@ rm build/html
 ln -s ../../../docs build/html
 make html -d
 echo "Creating CNAME file for GitHub."
-echo "unicorn-binance-depth-cache-cluster.docs.lucit.tech" >> build/html/CNAME
+echo "unicorn-depthcache-cluster-for-binance.docs.lucit.tech" >> build/html/CNAME
