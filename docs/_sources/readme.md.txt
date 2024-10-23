@@ -64,7 +64,7 @@ For more information, check out the
 [GitHub Repository](https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance) and the
 [Docs](https://unicorn-binance-depth-cache-cluster.docs.lucit.tech).
 
-Watch this demo video:
+# Watch a Demo Video
 [![Watch the demo video](https://img.youtube.com/vi/LTWeBNcpIp4/maxresdefault.jpg)](https://www.youtube.com/watch?v=LTWeBNcpIp4)
 
 ## Installation
