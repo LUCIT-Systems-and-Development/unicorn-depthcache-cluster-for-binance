@@ -31,8 +31,8 @@ The main idea is to deploy the UBDCC on a Kubernetes cluster with, for example, 
 valid license, you can create and manage DepthCaches within the cluster environment instead of on local servers and 
 access them from multiple clients.
 
-For example, when you configure the system to create 200 DepthCaches with a `desired_quantity` of 2, UBDCC will deploy 2 
-DepthCaches for each symbol/market. These DepthCaches are evenly distributed across the nodes of the cluster and can 
+For example, when you configure the system to create 200 DepthCaches with a `desired_quantity` of `2`, UBDCC will deploy
+2 DepthCaches for each symbol/market. These DepthCaches are evenly distributed across the nodes of the cluster and can 
 download order book snapshots from the Binance Rest API using their own public IP addresses. On the first run, each 
 server starts 50 DepthCaches, synchronizing the full set of 200 as quickly as possible. Afterward, replicas are 
 initiated, with each node handling 100 DepthCaches.
@@ -52,6 +52,7 @@ a specific amount of top Asks/Bids or by setting a threshold.
 provided by 
 [UBLDC](https://unicorn-binance-local-depth-cache.docs.lucit.tech/unicorn_binance_local_depth_cache.html#module-unicorn_binance_local_depth_cache.cluster).
 - **Top Performance**: The entire code base is deployed in the Kubernetes cluster as a compiled C-Extension!
+- **Manages Binance Ceight Costs**: If the weight costs become too high, the cluster throttles the initialization.
 
 ## Current State
 
@@ -62,6 +63,9 @@ Bids. [Vote here for new features!](https://github.com/LUCIT-Systems-and-Develop
 For more information, check out the 
 [GitHub Repository](https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance) and the
 [Docs](https://unicorn-binance-depth-cache-cluster.docs.lucit.tech).
+
+Watch this demo video:
+[![Watch the demo video](https://img.youtube.com/vi/LTWeBNcpIp4/maxresdefault.jpg)](https://www.youtube.com/watch?v=LTWeBNcpIp4)
 
 ## Installation
 
