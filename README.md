@@ -1,17 +1,17 @@
-[![Get a UNICORN DepthCache Cluster for Binance License](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depth-cache-cluster/blob/master/images/logo/LUCIT-UBDCC-License-Offer.png)](https://shop.lucit.services/software/unicorn-depthcache-cluster-for-binance)
+[![Get a UNICORN DepthCache Cluster for Binance License](https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance/blob/master/images/logo/LUCIT-UBDCC-License-Offer.png)](https://shop.lucit.services/software/unicorn-depthcache-cluster-for-binance)
 
-[![License](https://img.shields.io/badge/license-LSOSL-blue)](https://unicorn-binance-depthcache-cluster.docs.lucit.tech/license.html)
-[![Build and Publish PyPi (lucit-ubdcc-dcn)](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depth-cache-cluster/actions/workflows/build_wheels_lucit_ubdcc_dcn.yml/badge.svg)](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depth-cache-cluster/actions/workflows/build_wheels_lucit_ubdcc_dcn.yml)
-[![Build and Publish PyPi (lucit-ubdcc-mgmt)](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depth-cache-cluster/actions/workflows/build_wheels_lucit_ubdcc_mgmt.yml/badge.svg)](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depth-cache-cluster/actions/workflows/build_wheels_lucit_ubdcc_mgmt.yml)
-[![Build and Publish PyPi (lucit-ubdcc-restapi)](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depth-cache-cluster/actions/workflows/build_wheels_lucit_ubdcc_restapi.yml/badge.svg)](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depth-cache-cluster/actions/workflows/build_wheels_lucit_ubdcc_restapi.yml)
-[![Build and Publish PyPi (lucit-ubdcc-shared-modules)](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depth-cache-cluster/actions/workflows/build_wheels_lucit_ubdcc_shared_modules.yml/badge.svg)](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depth-cache-cluster/actions/workflows/build_wheels_lucit_ubdcc_shared_modules.yml)
+[![License](https://img.shields.io/badge/license-LSOSL-blue)](https://unicorn-depthcache-cluster-for-binance.docs.lucit.tech/license.html)
+[![Build and Publish PyPi (lucit-ubdcc-dcn)](https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance/actions/workflows/build_wheels_lucit_ubdcc_dcn.yml/badge.svg)](https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance/actions/workflows/build_wheels_lucit_ubdcc_dcn.yml)
+[![Build and Publish PyPi (lucit-ubdcc-mgmt)](https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance/actions/workflows/build_wheels_lucit_ubdcc_mgmt.yml/badge.svg)](https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance/actions/workflows/build_wheels_lucit_ubdcc_mgmt.yml)
+[![Build and Publish PyPi (lucit-ubdcc-restapi)](https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance/actions/workflows/build_wheels_lucit_ubdcc_restapi.yml/badge.svg)](https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance/actions/workflows/build_wheels_lucit_ubdcc_restapi.yml)
+[![Build and Publish PyPi (lucit-ubdcc-shared-modules)](https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance/actions/workflows/build_wheels_lucit_ubdcc_shared_modules.yml/badge.svg)](https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance/actions/workflows/build_wheels_lucit_ubdcc_shared_modules.yml)
 [![Read the Docs](https://img.shields.io/badge/read-%20docs-yellow)](https://unicorn-binance-depth-cache-cluster.docs.lucit.tech/)
-[![Github](https://img.shields.io/badge/source-github-cbc2c8)](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster)
+[![Github](https://img.shields.io/badge/source-github-cbc2c8)](https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance)
 [![Telegram](https://img.shields.io/badge/community-telegram-41ab8c)](https://t.me/unicorndevs)
-[![Gitter](https://img.shields.io/badge/community-gitter-41ab8c)](https://gitter.im/unicorn-trading-suite/unicorn-binance-depthcache-cluster?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Gitter](https://img.shields.io/badge/community-gitter-41ab8c)](https://gitter.im/unicorn-trading-suite/unicorn-depthcache-cluster-for-binance?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Get Free Professional Support](https://img.shields.io/badge/chat-lucit%20support-004166)](https://www.lucit.tech/get-support.html)
 
-# UNICORN Binance Depth Cache Cluster (UBDCC)
+# UNICORN DepthCache Cluster for Binance (UBDCC)
 
 A highly scalable Kubernetes application from LUCIT to manage multiple and redundant UNICORN Binance Local Depth Cache 
 Instances on a Kubernetes Cluster for high-frequency access to Binance's DepthCache data (order books). 
@@ -57,10 +57,10 @@ provided by
 
 The first MVP is stable and offers the most critical features for efficient DepthCache management. Future improvements 
 might include switching to websockets instead of REST queries, or implementing simultaneous queries for both Asks and 
-Bids. [Vote here for new features!](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depth-cache-cluster/issues?q=is%3Aissue+is%3Aopen+label%3Aenhancement)
+Bids. [Vote here for new features!](https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance/issues?q=is%3Aissue+is%3Aopen+label%3Aenhancement)
 
 For more information, check out the 
-[GitHub Repository](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depth-cache-cluster) and the
+[GitHub Repository](https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance) and the
 [Docs](https://unicorn-binance-depth-cache-cluster.docs.lucit.tech).
 
 ## Installation
@@ -77,7 +77,7 @@ kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/late
 - Prepare `helm`
 
 ``` 
-helm repo add lucit-ubdcc https://unicorn-binance-depth-cache-cluster.docs.lucit.tech/helm
+helm repo add lucit-ubdcc https://unicorn-depthcache-cluster-for-binance.docs.lucit.tech/helm
 helm repo update
 ```
 
@@ -117,7 +117,7 @@ helm install lucit-ubdcc lucit-ubdcc/lucit-ubdcc --set publicPort.restapi=8080
 ```
   
 ### Kubernetes Deployment
-- [Download the deployment files](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depth-cache-cluster/tree/master/admin/k8s)
+- [Download the deployment files](https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance/tree/master/admin/k8s)
 - Apply the deployment files with `kubectl`
 
 ``` 
@@ -174,23 +174,23 @@ The UNICORN DepthCache Cluster for Binance is accessed with the Python module [U
 Just try this [examples](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-local-depth-cache/tree/master/examples/unicorn_depthcache_cluster_for_binance)!
 
 ## How to report Bugs or suggest Improvements?
-[List of planned features](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/issues?q=is%3Aissue+is%3Aopen+label%3Aenhancement) - click ![thumbs-up](https://raw.githubusercontent.com/lucit-systems-and-development/unicorn-binance-suite/master/images/misc/thumbup.png) if you need one of them or suggest a new feature!
+[List of planned features](https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance/issues?q=is%3Aissue+is%3Aopen+label%3Aenhancement) - click ![thumbs-up](https://raw.githubusercontent.com/lucit-systems-and-development/unicorn-binance-suite/master/images/misc/thumbup.png) if you need one of them or suggest a new feature!
 
-Before you report a bug, [try the latest release](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster#installation-and-upgrade). If the issue still exists, provide the error trace, OS 
+Before you report a bug, [try the latest release](https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance#installation-and-upgrade). If the issue still exists, provide the error trace, OS 
 and Python version and explain how to reproduce the error. A demo script is appreciated.
 
-If you don't find an issue related to your topic, please open a new [issue](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/issues)!
+If you don't find an issue related to your topic, please open a new [issue](https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance/issues)!
 
-[Report a security bug!](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/security/policy)
+[Report a security bug!](https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance/security/policy)
 
 ## Contributing
-[UNICORN Binance DepthCache Cluster](https://www.lucit.tech/unicorn-binance-depthcache-cluster.html) is an open 
+[UNICORN DepthCache Cluster for Binance](https://www.lucit.tech/unicorn-depthcache-cluster-for-binance.html) is an open 
 source project which welcomes contributions which can be anything from simple documentation fixes and reporting dead links to new features. To 
 contribute follow 
-[this guide](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/blob/master/CONTRIBUTING.md).
+[this guide](https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance/blob/master/CONTRIBUTING.md).
  
 ### Contributors
-[![Contributors](https://contributors-img.web.app/image?repo=oliver-zehentleitner/unicorn-binance-depthcache-cluster)](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/graphs/contributors)
+[![Contributors](https://contributors-img.web.app/image?repo=oliver-zehentleitner/unicorn-depthcache-cluster-for-binance)](https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance/graphs/contributors)
 
 We ![love](https://raw.githubusercontent.com/lucit-systems-and-development/unicorn-binance-suite/master/images/misc/heart.png) open source!
 

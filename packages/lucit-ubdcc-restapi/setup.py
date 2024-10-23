@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #
-# File: packages/generic_loader/setup.py
+# File: packages/lucit-ubdcc-restapi/setup.py
 #
 # Part of ‘UNICORN Binance DepthCache Cluster’
-# Project website: https://www.lucit.tech/unicorn-binance-depthcache-cluster.html
-# Github: https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster
-# Documentation: https://unicorn-binance-depthcache-cluster.docs.lucit.tech
-# PyPI: https://pypi.org/project/unicorn-binance-depthcache-cluster
+# Project website: https://www.lucit.tech/unicorn-depthcache-cluster-for-binance.html
+# Github: https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance
+# Documentation: https://unicorn-depthcache-cluster-for-binance.docs.lucit.tech
+# PyPI: https://pypi.org/project/lucit-ubdcc-restapi
 # LUCIT Online Shop: https://shop.lucit.services/software
 #
 # License: LSOSL - LUCIT Synergetic Open Source License
-# https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/blob/master/LICENSE
+# https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance/blob/master/LICENSE
 #
 # Author: LUCIT Systems and Development
 #
@@ -34,7 +34,7 @@ setup(
     version="0.1.3",
     author="LUCIT Systems and Development",
     author_email='info@lucit.tech',
-    url="https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster",
+    url="https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance",
     description="LUCIT UBDCC REST API",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -42,14 +42,14 @@ setup(
     install_requires=['lucit-licensing-python>=1.8.2', 'lucit-ubdcc-shared-modules==0.1.3'],
     keywords='',
     project_urls={
-        'Howto': 'https://www.lucit.tech/unicorn-binance-depthcache-cluster.html#howto',
-        'Documentation': 'https://www.lucit.tech/unicorn-binance-depthcache-cluster.html',
-        'Wiki': 'https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/wiki',
+        'Howto': 'https://www.lucit.tech/unicorn-depthcache-cluster-for-binance.html#howto',
+        'Documentation': 'https://www.lucit.tech/unicorn-depthcache-cluster-for-binance.html',
+        'Wiki': 'https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance/wiki',
         'Author': 'https://www.lucit.tech',
-        'Changes': 'https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/blob/master/packages/lucit-ubdcc-restapi/CHANGELOG.md',
-        'License': 'https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/blob/master/LICENSE',
-        'Issue Tracker': 'https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/issues',
-        'Chat': 'https://gitter.im/unicorn-trading-suite/unicorn-binance-depthcache-cluster',
+        'Changes': 'https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance/blob/master/packages/lucit-ubdcc-restapi/CHANGELOG.md',
+        'License': 'https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance/blob/master/LICENSE',
+        'Issue Tracker': 'https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance/issues',
+        'Chat': 'https://gitter.im/unicorn-trading-suite/unicorn-depthcache-cluster-for-binance',
         'Telegram': 'https://t.me/unicorndevs',
         'Get Support': 'https://www.lucit.tech/get-support.html',
         'LUCIT Online Shop': 'https://shop.lucit.services/software/unicorn-depthcache-cluster-for-binance',

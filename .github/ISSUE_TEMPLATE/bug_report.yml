@@ -78,8 +78,8 @@ body:
     attributes:
       label: Installed wheel files
       description: |
-        Please share your installed wheel files of this library. Run `pip show unicorn-binance-depthcache-cluster --files | 
-        grep '  '` or `conda list -f unicorn-binance-depthcache-cluster | grep '  '` and post the result:
+        Please share your installed wheel files of this library. Run `pip show unicorn-depthcache-cluster-for-binance --files | 
+        grep '  '` or `conda list -f unicorn-depthcache-cluster-for-binance | grep '  '` and post the result:
       render: shell
     validations:
       required: false

@@ -4,14 +4,14 @@
 #
 # File: lpackages/lucit-ubdcc-mgmt/lucit_ubdcc_mgmt/LicensingManager.py
 #
-# Project website: https://www.lucit.tech/unicorn-binance-depthcache-cluster.html
-# Github: https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster
-# Documentation: https://unicorn-binance-depthcache-cluster.docs.lucit.tech
-# PyPI: https://pypi.org/project/lucit-ubdcc-mgmt
+# Project website: https://www.lucit.tech/unicorn-depthcache-cluster-for-binance.html
+# Github: https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance
+# Documentation: https://unicorn-depthcache-cluster-for-binance.docs.lucit.tech
+# PyPI: https://pypi.org/project/lucit-ubdcc-shared-modules
 # LUCIT Online Shop: https://shop.lucit.services/software/unicorn-depthcache-cluster-for-binance
 #
 # License: LSOSL - LUCIT Synergetic Open Source License
-# https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/blob/master/LICENSE
+# https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance/blob/master/LICENSE
 #
 # Author: LUCIT Systems and Development
 #
@@ -72,7 +72,7 @@ class LucitLicensingManager(threading.Thread):
         self.time_delta = 0.0
         self.url: str = "https://private.api.lucit.services/licensing/v1/"
         if self.needed_license_type == "UNICORN-BINANCE-SUITE":
-            self.shop_product_url = "https://shop.lucit.services/software/unicorn-binance-suite"
+            self.shop_product_url = "https://shop.lucit.services/software/unicorn-depthcache-cluster-for-binance"
         else:
             self.shop_product_url = "https://shop.lucit.services/software"
         license_ini_search: bool = False

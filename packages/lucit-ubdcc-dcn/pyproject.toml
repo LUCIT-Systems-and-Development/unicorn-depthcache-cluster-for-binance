@@ -5,20 +5,20 @@ description = "LUCIT UBDCC DepthCacheNode"
 authors = ["LUCIT Systems and Development <info@lucit.tech>"]
 license = "LSOSL - LUCIT Synergetic Open Source License"
 readme = "README.md"
-homepage = "https://www.lucit.tech/unicorn-binance-depthcache-cluster.html"
-documentation = "https://www.lucit.tech/unicorn-binance-depthcache-cluster.html"
-repository = "https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster"
+homepage = "https://www.lucit.tech/unicorn-depthcache-cluster-for-binance.html"
+documentation = "https://www.lucit.tech/unicorn-depthcache-cluster-for-binance.html"
+repository = "https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance"
 
 [tool.poetry.urls]
-'Howto' = 'https://www.lucit.tech/unicorn-binance-depthcache-cluster.html#howto'
-'Documentation' = 'https://unicorn-binance-depthcache-cluster.docs.lucit.tech'
-'Wiki' = 'https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/wiki'
+'Howto' = 'https://www.lucit.tech/unicorn-depthcache-cluster-for-binance.html#howto'
+'Documentation' = 'https://unicorn-depthcache-cluster-for-binance.docs.lucit.tech'
+'Wiki' = 'https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance/wiki'
 'Author' = 'https://www.lucit.tech'
-'Changes' = 'https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/blob/master/packages/lucit-ubdcc-dcn/CHANGELOG.md'
-'License' = 'https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/blob/master/LICENSE'
-'Issue Tracker' = 'https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/issues'
+'Changes' = 'https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance/blob/master/packages/lucit-ubdcc-dcn/CHANGELOG.md'
+'License' = 'https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance/blob/master/LICENSE'
+'Issue Tracker' = 'https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance/issues'
 'Telegram' = 'https://t.me/unicorndevs'
-'Chat' = 'https://app.gitter.im/#/room/#unicorn-binance-depthcache-cluster:gitter.im'
+'Chat' = 'https://app.gitter.im/#/room/#unicorn-depthcache-cluster-for-binance:gitter.im'
 'Get Support' = 'https://www.lucit.tech/get-support.html'
 'LUCIT Online Shop' = 'https://shop.lucit.services/software/unicorn-depthcache-cluster-for-binance'
 

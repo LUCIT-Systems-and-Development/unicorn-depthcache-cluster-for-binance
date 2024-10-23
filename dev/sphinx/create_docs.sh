@@ -4,14 +4,14 @@
 # File: dev/sphinx/create_docs.sh
 #
 # Part of ‘UNICORN Binance Local Depth Cache’
-# Project website: https://www.lucit.tech/unicorn-binance-depth-cache-cluster.html
-# Github: https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depth-cache-cluster
+# Project website: https://www.lucit.tech/unicorn-depthcache-cluster-for-binance.html
+# Github: https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance
 # Documentation: https://unicorn-binance-depth-cache-cluster.docs.lucit.tech
 # PyPI: https://pypi.org/project/unicorn-binance-depth-cache-cluster
 # LUCIT Online Shop: https://shop.lucit.services/software
 #
 # License: LSOSL - LUCIT Synergetic Open Source License
-# https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depth-cache-cluster/blob/master/LICENSE
+# https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance/blob/master/LICENSE
 #
 # Author: LUCIT Systems and Development
 #

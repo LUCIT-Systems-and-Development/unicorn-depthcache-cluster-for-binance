@@ -26,8 +26,8 @@ lucit-ubdcc-shared-modules) and Docker images (lucit-ubdcc-generic_loader) by LU
 2. PROJECT INFORMATION
 
 - Project name: UNICORN Binance DepthCache Cluster
-- Project page: https://www.lucit.tech/unicorn-binance-depth-cache-cluster.html
-- GitHub repository: https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depth-cache-cluster
+- Project page: https://www.lucit.tech/unicorn-depthcache-cluster-for-binance.html
+- GitHub repository: https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance
 - PyPI repository:
     - https://pypi.org/project/lucit-ubdcc-dcn
     - https://pypi.org/project/lucit-ubdcc-mgmt

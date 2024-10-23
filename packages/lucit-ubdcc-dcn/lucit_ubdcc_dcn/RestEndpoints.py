@@ -4,14 +4,14 @@
 #
 # File: packages/lucit-ubdcc-dcn/lucit_ubdcc_dcn/RestEndpoints.py
 #
-# Project website: https://www.lucit.tech/unicorn-binance-depthcache-cluster.html
-# Github: https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster
-# Documentation: https://unicorn-binance-depthcache-cluster.docs.lucit.tech
-# PyPI: https://pypi.org/project/lucit-ubdcc-mgmt
+# Project website: https://www.lucit.tech/unicorn-depthcache-cluster-for-binance.html
+# Github: https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance
+# Documentation: https://unicorn-depthcache-cluster-for-binance.docs.lucit.tech
+# PyPI: https://pypi.org/project/lucit-ubdcc-dcn
 # LUCIT Online Shop: https://shop.lucit.services/software/unicorn-depthcache-cluster-for-binance
 #
 # License: LSOSL - LUCIT Synergetic Open Source License
-# https://github.com/LUCIT-Systems-and-Development/unicorn-binance-depthcache-cluster/blob/master/LICENSE
+# https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance/blob/master/LICENSE
 #
 # Author: LUCIT Systems and Development
 #
