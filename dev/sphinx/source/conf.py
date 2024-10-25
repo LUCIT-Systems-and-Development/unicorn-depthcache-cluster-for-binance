@@ -15,12 +15,16 @@
 
 import os
 import sys
-sys.path.insert(0, os.path.abspath('../../..'))
+
+sys.path.insert(0, os.path.abspath('../../../packages/lucit-ubdcc-dcn/'))
+sys.path.insert(0, os.path.abspath('../../../packages/lucit-ubdcc-mgmt/'))
+sys.path.insert(0, os.path.abspath('../../../packages/lucit-ubdcc-restapi/'))
+sys.path.insert(0, os.path.abspath('../../../packages/lucit-ubdcc-shared-modules/'))
 
 
 # -- Project information -----------------------------------------------------
 
-project = 'unicorn-binance-depth-cache-cluster'
+project = 'unicorn-depthcache-cluster-for-binance'
 copyright = '2022-2023, LUCIT Systems and Development. All Rights Reserved.'
 author = 'LUCIT Systems and Development'
 
@@ -85,7 +89,7 @@ pygments_style = None
 
 html_theme = 'python_docs_theme_lucit'
 html_context = {'github_user_name': 'LUCIT-Systems-and-Development',
-                'github_repo_name': 'unicorn-binance-depth-cache-cluster',
+                'github_repo_name': 'unicorn-depthcache-cluster-for-binance',
                 'matomo_url': "https://webmon.lucit.services/matomo.php?idsite=12&amp;rec=1",
                 'freshchat_src': "//eu.fw-cdn.com/10659511/361973.js",
                 'project_name': project,
@@ -117,7 +121,7 @@ html_static_path = ['_static']
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'unicorn-binance-depth-cache-cluster-apidoc'
+htmlhelp_basename = 'unicorn-depthcache-cluster-for-binance-apidoc'
 
 
 # -- Options for LaTeX output ------------------------------------------------
@@ -144,8 +148,8 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'unicorn-binance-depth-cache-cluster.tex',
-     'unicorn-binance-depth-cache-cluster Documentation',
+    (master_doc, 'unicorn-depthcache-cluster-for-binance.tex',
+     'unicorn-depthcache-cluster-for-binance Documentation',
      'LUCIT Systems and Development', 'manual'),
 ]
 
@@ -155,7 +159,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'unicorn-binance-depth-cache-cluster', 'unicorn-binance-depth-cache-cluster Documentation',
+    (master_doc, 'unicorn-depthcache-cluster-for-binance', 'unicorn-depthcache-cluster-for-binance Documentation',
      [author], 1)
 ]
 
@@ -166,8 +170,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'unicorn-binance-depth-cache-cluster', 'unicorn-binance-depth-cache-cluster Documentation',
-     author, 'unicorn-binance-depth-cache-cluster', 'One line description of project.',
+    (master_doc, 'unicorn-depthcache-cluster-for-binance', 'unicorn-depthcache-cluster-for-binance Documentation',
+     author, 'unicorn-depthcache-cluster-for-binance', 'One line description of project.',
      'Miscellaneous'),
 ]
 

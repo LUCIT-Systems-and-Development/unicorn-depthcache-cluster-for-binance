@@ -1,7 +1,11 @@
-unicorn_binance_depth_cache_cluster
+Unicorn Depth Cache Cluster Modules
 ===================================
 
 .. toctree::
-   :maxdepth: 4
+   :maxdepth: 2
+   :caption: Available Modules
 
-   unicorn_binance_depth_cache_cluster
+   lucit_ubdcc_mgmt
+   lucit_ubdcc_restapi
+   lucit_ubdcc_dcn
+   lucit_ubdcc_shared_modules
