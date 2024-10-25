@@ -44,7 +44,7 @@ initiated, with each node handling 100 DepthCaches.
 - **Asynchronous Operation**: The entire cluster code is built to run asynchronously.
 - **Load Balancing & Failover**: All requests for data (Asks/Bids) are handled via a load balancer with built-in 
 failover, ensuring high availability and quick response times.
-  - Local requests for Asks/Bids: ~0.02 seconds
+  - Local requests for Asks/Bids: ~0.01 seconds
   - Requests via the Internet: ~0.06 seconds
 - **Flexible Data Retrieval**: You can trim the amount of transferred data at the cluster level, either by limiting to
 a specific amount of top Asks/Bids or by setting a threshold.
