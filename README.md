@@ -18,6 +18,10 @@ Instances on a Kubernetes Cluster for high-frequency access to Binance's DepthCa
 
 [Get help](https://www.lucit.tech/get-support.html)!
 
+If you like the project, please 
+[![star](https://raw.githubusercontent.com/lucit-systems-and-development/unicorn-binance-local-depth-cache/master/images/misc/star.png)](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-local-depth-cache/stargazers) it on 
+[GitHub](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-local-depth-cache)! 
+
 ## Get a UNICORN DepthCache Cluster for Binance License
 
 ***Licenses will only be publicly available in the store in a few days. If you are interested in a free trial license, 
@@ -53,6 +57,16 @@ provided by
 [UBLDC](https://unicorn-binance-local-depth-cache.docs.lucit.tech/unicorn_binance_local_depth_cache.html#module-unicorn_binance_local_depth_cache.cluster).
 - **Top Performance**: The entire code base is deployed in the Kubernetes cluster as a compiled C-Extension!
 - **Manages Binance Weight Costs**: If the weight costs become too high, the cluster throttles the initialization.
+- **Supported Exchanges**:
+
+| Exchange                                                           | Exchange string               | 
+|--------------------------------------------------------------------|-------------------------------| 
+| [Binance](https://www.binance.com)                                 | `binance.com`                 |
+| [Binance Testnet](https://testnet.binance.vision/)                 | `binance.com-testnet`         |
+| [Binance USD-M Futures](https://www.binance.com)                   | `binance.com-futures`         |
+| [Binance USD-M Futures Testnet](https://testnet.binancefuture.com) | `binance.com-futures-testnet` |
+| [Binance US](https://www.binance.us/)                              | `binance.us`                  |
+
 
 ## Current State
 
