@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>lucit_ubdcc_shared_modules.App &#8212; unicorn-depthcache-cluster-for-binance 0.1.3 documentation</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=92fd9be5" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pydoctheme.css?v=fdf8e9ae" />
+    
+    <script src="../../_static/documentation_options.js?v=6efca38a"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /><link rel="shortcut icon" type="image/png" href="../../_static/lucit.png" />
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    
+    <script
+        src='//eu.fw-cdn.com/10659511/361973.js'
+        chat='true'>
+    </script>
+    
+            <script type="text/javascript" src="../../_static/copybutton.js"></script>
+            <script type="text/javascript" src="../../_static/menu.js"></script> 
+  </head>
+<body>
+<div class="mobile-nav">
+    <input type="checkbox" id="menuToggler" class="toggler__input" aria-controls="navigation"
+           aria-pressed="false" aria-expanded="false" role="button" aria-label="Menu" />
+    <label for="menuToggler" class="toggler__label">
+        <span></span>
+    </label>
+    <nav class="nav-content" role="navigation">
+        <form role="search" class="search" action="../../search.html" method="get">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" class="search-icon">
+                <path fill-rule="nonzero"
+                        d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 001.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 00-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 005.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" fill="#444"></path>
+            </svg>
+            <input type="text" name="q" aria-label="Quick search"/>
+            <input type="submit" value="Go"/>
+        </form>
+    </nav>
+    <div class="menu-wrapper">
+        <nav class="menu" role="navigation" aria-label="main navigation">
+            <p class="logo">
+                <div style="text-align: center;">
+                    <a href="https://www.lucit.tech"><img src="https://www.lucit.tech/files/images/logos/LUCIT-LOGO.png"></a><br>
+                    <a href="https://shop.lucit.services/software/unicorn-binance-suite" style="font-size: 0.85em;font-weight: 900">Get a UNICORN Binance Suite License!</a><br>
+                    <br>
+                    <a href="https://github.com/LUCIT-Systems-and-Development" target="_blank" style="text-decoration:none;"><img src="../../_static/icons8-github-20.png"></a>
+                    <a href="https://fb.me/lucit.systems.and.development" target="_blank" style="text-decoration:none;"><img src="../../_static/icons8-facebook-20.png"></a>
+                    <a href="https://twitter.com/LUCIT_SysDev" target="_blank" style="text-decoration:none;"><img src="../../_static/icons8-twitter-20.png"></a>
+                    <a href="https://www.linkedin.com/company/lucit-systems-and-development" target="_blank" style="text-decoration:none;"><img src="../../_static/icons8-linkedin-20.png"></a>
+                    <a href="https://www.xing.com/pages/lucit-systems-and-development" target="_blank" style="text-decoration:none;"><img src="../../_static/icons8-xing-20.png"></a>
+                    <a href="https://medium.lucit.tech" target="_blank" style="text-decoration:none;"><img src="../../_static/icons8-medium-monogram-20.png"></a>
+                    <a href="https://www.youtube.com/channel/UCp57u8vaPqEWQTlfpYn-KnQ" target="_blank" style="text-decoration:none;"><img src="../../_static/icons8-youtube-20.png"></a>
+                </div>
+            </p>
+<div id="searchbox" style="display: block" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<div role="note" aria-label="source code">
+    <h3>GitHub</h3>
+    <ul class="this-page-menu">
+      <li><a href="https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance">Show Source</a></li>
+      
+<li>
+<a class="github-button" href="https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance"
+   data-icon="octicon-star" data-show-count="true"
+   aria-label="Star LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance on GitHub">Star</a>
+<br />
+<a class="github-button" href="https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance/subscription"
+   data-icon="octicon-eye" data-show-count="true"
+   aria-label="Watch LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance on GitHub">Watch</a>
+<br />
+<a class="github-button" href="https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance/fork"
+   data-icon="octicon-repo-forked" data-show-count="true"
+   aria-label="Fork LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance on GitHub">Fork</a>
+<br />
+<a class="github-button" href="https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance/issues"
+   data-icon="octicon-issue-opened"
+   data-show-count="true" aria-label="Issue LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance on GitHub">Issue</a>
+    
+</li>
+
+    </ul>
+</div>
+        </nav>
+    </div>
+</div>
+  
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+              
+                  
+                  
+              <li><img src="../../_static/lucit.png" alt="LUCIT Logo"
+                       style="vertical-align: middle; margin-top: -1px"/></li>
+              <li><a href="https://docs.lucit.tech">Docs Index</a> | </li>
+              <li><a href="https://www.lucit.tech/unicorn-depthcache-cluster-for-binance.html">unicorn-depthcache-cluster-for-binance</a> &#187;</li>
+                  
+              
+              
+              <a href="../../index.html">Docs</a> &#187;
+              
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">lucit_ubdcc_shared_modules.App</a></li>
+                <li class="right">
+                    
+
+    <div class="inline-search" role="search">
+        <form class="inline-search" action="../../search.html" method="get">
+          <input placeholder="Quick search" aria-label="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+                     |
+                </li>
+            
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for lucit_ubdcc_shared_modules.App</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># ¯\_(ツ)_/¯</span>
+<span class="c1">#</span>
+<span class="c1"># File: packages/lucit-ubdcc-shared-modules/lucit_ubdcc_shared_modules/App.py</span>
+<span class="c1">#</span>
+<span class="c1"># Project website: https://www.lucit.tech/unicorn-depthcache-cluster-for-binance.html</span>
+<span class="c1"># Github: https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance</span>
+<span class="c1"># Documentation: https://unicorn-depthcache-cluster-for-binance.docs.lucit.tech</span>
+<span class="c1"># PyPI: https://pypi.org/project/lucit-ubdcc-shared-modules</span>
+<span class="c1"># LUCIT Online Shop: https://shop.lucit.services/software/unicorn-depthcache-cluster-for-binance</span>
+<span class="c1">#</span>
+<span class="c1"># License: LSOSL - LUCIT Synergetic Open Source License</span>
+<span class="c1"># https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance/blob/master/LICENSE</span>
+<span class="c1">#</span>
+<span class="c1"># Author: LUCIT Systems and Development</span>
+<span class="c1">#</span>
+<span class="c1"># Copyright (c) 2024-2024, LUCIT Systems and Development (https://www.lucit.tech)</span>
+<span class="c1"># All rights reserved.</span>
+
+<span class="kn">import</span> <span class="nn">aiohttp</span>
+<span class="kn">import</span> <span class="nn">asyncio</span>
+<span class="kn">import</span> <span class="nn">cython</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">signal</span> <span class="k">as</span> <span class="nn">sys_signal</span>
+<span class="kn">import</span> <span class="nn">socket</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">string</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">kubernetes</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">traceback</span>
+<span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">FastAPI</span>
+<span class="kn">from</span> <span class="nn">.LicensingManager</span> <span class="kn">import</span> <span class="n">LucitLicensingManager</span><span class="p">,</span> <span class="n">NoValidatedLucitLicense</span>
+
+
+<span class="n">MGMT_IS_READY_TIME</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">K8S_SERVICE_PORT_MGMT</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4280</span>
+<span class="n">REST_SERVER_PORT</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">8080</span>
+<span class="n">REST_SERVER_PORT_DEV_DCN</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">42082</span>
+<span class="n">REST_SERVER_PORT_DEV_MGMT</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">42080</span>
+<span class="n">REST_SERVER_PORT_DEV_RESTAPI</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">42081</span>
+<span class="n">VERSION</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;0.1.3&quot;</span>
+
+
+<div class="viewcode-block" id="App">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.App.App">[docs]</a>
+<span class="k">class</span> <span class="nc">App</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">app_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cwd</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">logger</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">service</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">service_call</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">stop_call</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app_name</span> <span class="o">=</span> <span class="n">app_name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app_version</span> <span class="o">=</span> <span class="n">VERSION</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">api_port_rest</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cwd</span> <span class="o">=</span> <span class="n">cwd</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ubdcc_mgmt_url</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dev_mode</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fastapi</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">k8s_client</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">k8s_metrics_client</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logger</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pod_info</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">node_info</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mgmt_is_ready_time</span> <span class="o">=</span> <span class="n">MGMT_IS_READY_TIME</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">k8s_service_port_mgmt</span> <span class="o">=</span> <span class="n">K8S_SERVICE_PORT_MGMT</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rest_server_port</span> <span class="o">=</span> <span class="n">REST_SERVER_PORT</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rest_server_port_dev_dcn</span> <span class="o">=</span> <span class="n">REST_SERVER_PORT_DEV_DCN</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rest_server_port_dev_mgmt</span> <span class="o">=</span> <span class="n">REST_SERVER_PORT_DEV_MGMT</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rest_server_port_dev_restapi</span> <span class="o">=</span> <span class="n">REST_SERVER_PORT_DEV_RESTAPI</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">service</span> <span class="o">=</span> <span class="n">service</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">service_call</span> <span class="o">=</span> <span class="n">service_call</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sigterm</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stop_call</span> <span class="o">=</span> <span class="n">stop_call</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;starting&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ubdcc_mgmt_backup</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dcn_usage</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">llm</span><span class="p">:</span> <span class="n">LucitLicensingManager</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="App.deactivate_license">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.App.App.deactivate_license">[docs]</a>
+    <span class="k">def</span> <span class="nf">deactivate_license</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">close_api_session</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;db&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_license_status</span><span class="p">(</span><span class="n">status</span><span class="o">=</span><span class="s2">&quot;INVALID&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="n">close_api_session</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">llm</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="App.generate_string">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.App.App.generate_string">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">generate_string</span><span class="p">(</span><span class="n">length</span><span class="p">):</span>
+        <span class="n">letters</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">ascii_letters</span> <span class="o">+</span> <span class="n">string</span><span class="o">.</span><span class="n">digits</span>
+        <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">letters</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">length</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="App.get_backup_from_node">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.App.App.get_backup_from_node">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">get_backup_from_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;http://</span><span class="si">{</span><span class="n">host</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">port</span><span class="si">}</span><span class="s2">/ubdcc_mgmt_backup&quot;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;get&quot;</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;db&#39;</span><span class="p">]</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="n">data</span></div>
+
+
+<div class="viewcode-block" id="App.get_backup_timestamp_from_node">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.App.App.get_backup_timestamp_from_node">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">get_backup_timestamp_from_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;http://</span><span class="si">{</span><span class="n">host</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">port</span><span class="si">}</span><span class="s2">/ubdcc_mgmt_backup?get_backup_timestamp&quot;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;get&quot;</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;db&#39;</span><span class="p">])</span>
+        <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;timestamp&#39;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;timestamp&#39;</span><span class="p">))</span>
+        <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="App.get_dcn_uid_unused_longest_time">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.App.App.get_dcn_uid_unused_longest_time">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_dcn_uid_unused_longest_time</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">selection</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">available_dcn</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;db&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get_available_dcn_pods</span><span class="p">()</span>
+        <span class="n">dcn_unused_longest_time</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">uid</span> <span class="ow">in</span> <span class="n">available_dcn</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dcn_usage</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">uid</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">dcn_usage</span><span class="p">[</span><span class="n">uid</span><span class="p">]:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+        <span class="k">for</span> <span class="n">uid</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dcn_usage</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">selection_uid</span> <span class="ow">in</span> <span class="n">selection</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">selection_uid</span> <span class="o">==</span> <span class="n">uid</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">dcn_unused_longest_time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="n">dcn_unused_longest_time</span> <span class="o">=</span> <span class="n">selection_uid</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dcn_usage</span><span class="p">[</span><span class="n">dcn_unused_longest_time</span><span class="p">]</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">dcn_usage</span><span class="p">[</span><span class="n">uid</span><span class="p">]:</span>
+                            <span class="n">dcn_unused_longest_time</span> <span class="o">=</span> <span class="n">uid</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dcn_usage</span><span class="p">[</span><span class="n">dcn_unused_longest_time</span><span class="p">]</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">dcn_unused_longest_time</span></div>
+
+
+<div class="viewcode-block" id="App.get_fastapi_instance">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.App.App.get_fastapi_instance">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_fastapi_instance</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">FastAPI</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fastapi</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fastapi</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dev_mode</span><span class="p">:</span>
+                <span class="c1"># DEV MODE!!!</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">stdout_msg</span><span class="p">(</span><span class="s2">&quot;Starting REST Server (DEV MODE) ...&quot;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s2">&quot;info&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">fastapi</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># PRODUCTIVE MODE!!!</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">stdout_msg</span><span class="p">(</span><span class="s2">&quot;Starting REST Server ...&quot;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s2">&quot;info&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">fastapi</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">(</span><span class="n">docs_url</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">redoc_url</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fastapi</span></div>
+
+
+<div class="viewcode-block" id="App.get_k8s_nodes">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.App.App.get_k8s_nodes">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_k8s_nodes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">status</span> <span class="o">!=</span> <span class="s2">&quot;running&quot;</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Instance is not running!&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">k8s_client</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">k8s_nodes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">k8s_client</span><span class="o">.</span><span class="n">list_node</span><span class="p">()</span>
+            <span class="n">result_nodes</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">k8s_nodes</span><span class="o">.</span><span class="n">items</span><span class="p">:</span>
+                <span class="n">node_name</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">name</span>
+                <span class="n">node_uid</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">uid</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">metrics</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">k8s_metrics_client</span><span class="o">.</span><span class="n">get_cluster_custom_object</span><span class="p">(</span>
+                        <span class="n">group</span><span class="o">=</span><span class="s2">&quot;metrics.k8s.io&quot;</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="s2">&quot;v1beta1&quot;</span><span class="p">,</span> <span class="n">plural</span><span class="o">=</span><span class="s2">&quot;nodes&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">node_name</span>
+                    <span class="p">)</span>
+                <span class="k">except</span> <span class="n">kubernetes</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ApiException</span> <span class="k">as</span> <span class="n">error_msg</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">stdout_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error when querying the K8s nodes: </span><span class="si">{</span><span class="n">error_msg</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s2">&quot;error&quot;</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="p">{}</span>
+
+                <span class="n">cpu_usage</span> <span class="o">=</span> <span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;usage&#39;</span><span class="p">][</span><span class="s1">&#39;cpu&#39;</span><span class="p">]</span>
+                <span class="n">memory_usage</span> <span class="o">=</span> <span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;usage&#39;</span><span class="p">][</span><span class="s1">&#39;memory&#39;</span><span class="p">]</span>
+                <span class="n">cpu_capacity</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">status</span><span class="o">.</span><span class="n">capacity</span><span class="p">[</span><span class="s1">&#39;cpu&#39;</span><span class="p">]</span>
+                <span class="n">memory_capacity</span> <span class="o">=</span> <span class="n">node</span><span class="o">.</span><span class="n">status</span><span class="o">.</span><span class="n">capacity</span><span class="p">[</span><span class="s1">&#39;memory&#39;</span><span class="p">]</span>
+
+                <span class="c1"># Convert CPU usage to milli-units</span>
+                <span class="k">if</span> <span class="n">cpu_usage</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;m&#39;</span><span class="p">):</span>
+                    <span class="n">cpu_usage_milli</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">cpu_usage</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+                <span class="k">elif</span> <span class="n">cpu_usage</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;u&#39;</span><span class="p">):</span>  <span class="c1"># Handle micro-units &#39;u&#39;</span>
+                    <span class="n">cpu_usage_milli</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">cpu_usage</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="mi">1000</span>
+                <span class="k">elif</span> <span class="n">cpu_usage</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="p">):</span>  <span class="c1"># Handle nano-units &#39;n&#39;</span>
+                    <span class="n">cpu_usage_milli</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">cpu_usage</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="mi">1_000_000</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">cpu_usage_milli</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">cpu_usage</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1000</span>  <span class="c1"># Assume no unit means cores, convert to milli</span>
+
+                <span class="c1"># Convert CPU capacity to milli-units</span>
+                <span class="k">if</span> <span class="n">cpu_capacity</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;m&#39;</span><span class="p">):</span>
+                    <span class="n">cpu_capacity_milli</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">cpu_capacity</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+                <span class="k">elif</span> <span class="n">cpu_capacity</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;u&#39;</span><span class="p">):</span>  <span class="c1"># Handle micro-units &#39;u&#39;</span>
+                    <span class="n">cpu_capacity_milli</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">cpu_capacity</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="mi">1000</span>
+                <span class="k">elif</span> <span class="n">cpu_capacity</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;n&#39;</span><span class="p">):</span>  <span class="c1"># Handle nano-units &#39;n&#39;</span>
+                    <span class="n">cpu_capacity_milli</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">cpu_capacity</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="mi">1_000_000</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">cpu_capacity_milli</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">cpu_capacity</span><span class="p">)</span> <span class="o">*</span> <span class="mi">1000</span>  <span class="c1"># Assume no unit means cores, convert to milli</span>
+
+                <span class="c1"># Calculate CPU usage percentage</span>
+                <span class="n">cpu_percentage</span> <span class="o">=</span> <span class="p">(</span><span class="n">cpu_usage_milli</span> <span class="o">/</span> <span class="n">cpu_capacity_milli</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
+
+                <span class="c1"># Convert memory usage and capacity to bytes</span>
+                <span class="n">memory_usage_bytes</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">memory_usage</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span> <span class="o">*</span> <span class="mi">1024</span>  <span class="c1"># Assuming &#39;Ki&#39; suffix</span>
+                <span class="n">memory_capacity_bytes</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">memory_capacity</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span> <span class="o">*</span> <span class="mi">1024</span>  <span class="c1"># Assuming &#39;Ki&#39; suffix</span>
+
+                <span class="c1"># Calculate memory usage percentage</span>
+                <span class="n">memory_percentage</span> <span class="o">=</span> <span class="p">(</span><span class="n">memory_usage_bytes</span> <span class="o">/</span> <span class="n">memory_capacity_bytes</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
+
+                <span class="c1"># Store the node information</span>
+                <span class="n">result_nodes</span><span class="p">[</span><span class="n">node_uid</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="s2">&quot;NAME&quot;</span><span class="p">:</span> <span class="n">node_name</span><span class="p">,</span>
+                    <span class="s2">&quot;UID&quot;</span><span class="p">:</span> <span class="n">node_uid</span><span class="p">,</span>
+                    <span class="s2">&quot;USAGE_CPU_PERCENT&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">cpu_percentage</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                    <span class="s2">&quot;USAGE_MEMORY_PERCENT&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">memory_percentage</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">}</span>
+            <span class="k">return</span> <span class="n">result_nodes</span>
+        <span class="k">return</span> <span class="p">{}</span></div>
+
+
+<div class="viewcode-block" id="App.get_k8s_runtime_information">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.App.App.get_k8s_runtime_information">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_k8s_runtime_information</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">kubernetes</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">load_incluster_config</span><span class="p">()</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;/etc/hostname&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">pod_name</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;/var/run/secrets/kubernetes.io/serviceaccount/namespace&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">namespace</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">k8s_client</span> <span class="o">=</span> <span class="n">kubernetes</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">CoreV1Api</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">k8s_metrics_client</span> <span class="o">=</span> <span class="n">kubernetes</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">CustomObjectsApi</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pod_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">k8s_client</span><span class="o">.</span><span class="n">read_namespaced_pod</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">pod_name</span><span class="p">,</span> <span class="n">namespace</span><span class="o">=</span><span class="n">namespace</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">node_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">k8s_client</span><span class="o">.</span><span class="n">read_node</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pod_info</span><span class="o">.</span><span class="n">spec</span><span class="o">.</span><span class="n">node_name</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">kubernetes</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ApiException</span> <span class="k">as</span> <span class="n">error_msg</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stdout_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;WARNING: K8s - </span><span class="si">{</span><span class="n">error_msg</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s2">&quot;warn&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">k8s_client</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pod_info</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">node_info</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dev_mode</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">except</span> <span class="n">kubernetes</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">config_exception</span><span class="o">.</span><span class="n">ConfigException</span> <span class="k">as</span> <span class="n">error_msg</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stdout_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;WARNING: K8s - </span><span class="si">{</span><span class="n">error_msg</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s2">&quot;warn&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">k8s_client</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">pod_info</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">node_info</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dev_mode</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generate_string</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">))</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dev_mode</span> <span class="k">else</span> \
+            <span class="bp">self</span><span class="o">.</span><span class="n">pod_info</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">[</span><span class="s1">&#39;uid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generate_string</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">20</span><span class="p">))</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dev_mode</span> <span class="k">else</span> \
+            <span class="bp">self</span><span class="o">.</span><span class="n">pod_info</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">uid</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">[</span><span class="s1">&#39;namespace&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generate_string</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">))</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dev_mode</span> <span class="k">else</span> \
+            <span class="bp">self</span><span class="o">.</span><span class="n">pod_info</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">namespace</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">[</span><span class="s1">&#39;node&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generate_string</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">20</span><span class="p">))</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dev_mode</span> <span class="k">else</span> \
+            <span class="bp">self</span><span class="o">.</span><span class="n">node_info</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">uid</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">[</span><span class="s1">&#39;labels&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generate_string</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">))</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dev_mode</span> <span class="k">else</span> \
+            <span class="bp">self</span><span class="o">.</span><span class="n">pod_info</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">labels</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stdout_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Pod Name: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s2">&quot;info&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stdout_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Pod UID: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">[</span><span class="s1">&#39;uid&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s2">&quot;info&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stdout_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Pod Namespace: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">[</span><span class="s1">&#39;namespace&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s2">&quot;info&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stdout_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Node UID: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">[</span><span class="s1">&#39;node&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s2">&quot;info&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stdout_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Pod Labels: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">[</span><span class="s1">&#39;labels&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s2">&quot;info&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="App.get_backup_timestamp">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.App.App.get_backup_timestamp">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_backup_timestamp</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ubdcc_mgmt_backup</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">timestamp</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">timestamp</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ubdcc_mgmt_backup</span><span class="p">[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">timestamp</span></div>
+
+
+<div class="viewcode-block" id="App.get_cluster_mgmt_address">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.App.App.get_cluster_mgmt_address">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_cluster_mgmt_address</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dev_mode</span><span class="p">:</span>
+            <span class="c1"># DEV MODE!!!</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;http://localhost:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">rest_server_port_dev_mgmt</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># PRODUCTIVE MODE!!!</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;http://lucit-ubdcc-mgmt.</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">[</span><span class="s1">&#39;namespace&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">.svc.cluster.local:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">k8s_service_port_mgmt</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="n">url</span></div>
+
+
+<div class="viewcode-block" id="App.get_unix_timestamp">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.App.App.get_unix_timestamp">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">get_unix_timestamp</span><span class="p">():</span>
+        <span class="k">return</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="App.get_version">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.App.App.get_version">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">get_version</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">VERSION</span></div>
+
+
+<div class="viewcode-block" id="App.is_compiled">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.App.App.is_compiled">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">is_compiled</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">cython</span><span class="o">.</span><span class="n">compiled</span></div>
+
+
+<div class="viewcode-block" id="App.is_shutdown">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.App.App.is_shutdown">[docs]</a>
+    <span class="k">def</span> <span class="nf">is_shutdown</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sigterm</span></div>
+
+
+<div class="viewcode-block" id="App.register_or_restart">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.App.App.register_or_restart">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">register_or_restart</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ubldc_version</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">ubdcc_node_registration</span><span class="p">(</span><span class="n">ubldc_version</span><span class="o">=</span><span class="n">ubldc_version</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">shutdown</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s2">&quot;Node registration failed!&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="App.register_graceful_shutdown">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.App.App.register_graceful_shutdown">[docs]</a>
+    <span class="k">def</span> <span class="nf">register_graceful_shutdown</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">sys_signal</span><span class="o">.</span><span class="n">signal</span><span class="p">(</span><span class="n">sys_signal</span><span class="o">.</span><span class="n">SIGINT</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sigterm_handler</span><span class="p">)</span>
+        <span class="n">sys_signal</span><span class="o">.</span><span class="n">signal</span><span class="p">(</span><span class="n">sys_signal</span><span class="o">.</span><span class="n">SIGTERM</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sigterm_handler</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="App.request">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.App.App.request">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">request</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">async</span> <span class="k">with</span> <span class="n">aiohttp</span><span class="o">.</span><span class="n">ClientSession</span><span class="p">()</span> <span class="k">as</span> <span class="n">session</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;get&quot;</span><span class="p">:</span>
+                    <span class="k">async</span> <span class="k">with</span> <span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span> <span class="k">as</span> <span class="n">response</span><span class="p">:</span>
+                        <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+                        <span class="k">return</span> <span class="k">await</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+                <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;post&quot;</span><span class="p">:</span>
+                    <span class="k">async</span> <span class="k">with</span> <span class="n">session</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;Content-Type&quot;</span><span class="p">:</span> <span class="s2">&quot;application/json&quot;</span><span class="p">},</span>
+                                            <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span> <span class="k">as</span> <span class="n">response</span><span class="p">:</span>
+                        <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+                        <span class="k">return</span> <span class="k">await</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Allowed &#39;method&#39; values: get, post&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">CancelledError</span> <span class="k">as</span> <span class="n">error_msg</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;An error occurred: asyncio.CancelledError - </span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">error_msg</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;asyncio.CancelledError - </span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">error_msg</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">}</span>
+        <span class="k">except</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">TimeoutError</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;An error occurred: asyncio.TimeoutError - </span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;asyncio.TimeoutError - </span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">}</span>
+        <span class="k">except</span> <span class="n">aiohttp</span><span class="o">.</span><span class="n">ClientError</span> <span class="k">as</span> <span class="n">error_msg</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;An error occurred: aiohttp.ClientError- </span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">error_msg</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;aiohttp.ClientError - </span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">error_msg</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">}</span></div>
+
+
+<div class="viewcode-block" id="App.send_backup_to_node">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.App.App.send_backup_to_node">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">send_backup_to_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;http://</span><span class="si">{</span><span class="n">host</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">port</span><span class="si">}</span><span class="s2">/ubdcc_mgmt_backup&quot;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;post&quot;</span><span class="p">,</span>
+                                  <span class="n">params</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;db&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get_backup_dict</span><span class="p">())</span></div>
+
+
+<div class="viewcode-block" id="App.set_api_rest_port">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.App.App.set_api_rest_port">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_api_rest_port</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dev_mode</span><span class="p">:</span>
+            <span class="c1"># DEV MODE!!!</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;lucit-ubdcc-dcn&quot;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">api_port_rest</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rest_server_port_dev_dcn</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;lucit-ubdcc-mgmt&quot;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">api_port_rest</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rest_server_port_dev_mgmt</span>
+            <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;lucit-ubdcc-restapi&quot;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">api_port_rest</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rest_server_port_dev_restapi</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Not able to choose the right rest server port for app &#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># PRODUCTIVE MODE!!!</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">api_port_rest</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rest_server_port</span></div>
+
+
+<div class="viewcode-block" id="App.set_status_running">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.App.App.set_status_running">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_status_running</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;running&quot;</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="App.shutdown">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.App.App.shutdown">[docs]</a>
+    <span class="k">def</span> <span class="nf">shutdown</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sigterm</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">deactivate_license</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stdout_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Shutdown is performed: </span><span class="si">{</span><span class="n">message</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s2">&quot;warn&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="App.sigterm_handler">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.App.App.sigterm_handler">[docs]</a>
+    <span class="k">def</span> <span class="nf">sigterm_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">signal</span><span class="p">,</span> <span class="n">frame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sigterm</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stdout_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Processing SIGTERM - signal: </span><span class="si">{</span><span class="n">signal</span><span class="si">}</span><span class="s2"> - frame: </span><span class="si">{</span><span class="n">frame</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s2">&quot;debug&quot;</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stdout_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Received SIGTERM, performing graceful shutdown ...&quot;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s2">&quot;warn&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="App.sleep">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.App.App.sleep">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">sleep</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seconds</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">MGMT_IS_READY_TIME</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="n">internal_sleep_time</span> <span class="o">=</span> <span class="mi">3</span>
+        <span class="n">time_start</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_unix_timestamp</span><span class="p">()</span>
+        <span class="n">time_limit</span> <span class="o">=</span> <span class="n">time_start</span> <span class="o">+</span> <span class="n">seconds</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">seconds</span><span class="o">/</span><span class="n">internal_sleep_time</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_unix_timestamp</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">time_limit</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_shutdown</span><span class="p">()</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+                <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">internal_sleep_time</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">break</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="App.sort_dict">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.App.App.sort_dict">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">sort_dict</span><span class="p">(</span><span class="n">input_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">reverse</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="n">sorted_items</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">input_dict</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">item</span><span class="p">:</span> <span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="n">reverse</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">sorted_items</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="App.start">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.App.App.start">[docs]</a>
+    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># Working Directory</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cwd</span><span class="p">:</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cwd</span><span class="p">)</span>
+
+        <span class="c1"># Logging</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;unicorn_binance_depthcache_cluster&quot;</span><span class="p">)</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">,</span>
+                                <span class="n">filename</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">socket</span><span class="o">.</span><span class="n">gethostname</span><span class="p">()</span><span class="si">}</span><span class="s2">.log&quot;</span><span class="p">,</span>
+                                <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">{asctime}</span><span class="s2"> [</span><span class="si">{levelname:8}</span><span class="s2">] </span><span class="si">{process}</span><span class="s2"> </span><span class="si">{thread}</span><span class="s2"> </span><span class="si">{module}</span><span class="s2">: </span><span class="si">{message}</span><span class="s2">&quot;</span><span class="p">,</span>
+                                <span class="n">style</span><span class="o">=</span><span class="s2">&quot;{&quot;</span><span class="p">)</span>
+
+        <span class="c1"># App Info</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">info</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">app_name</span><span class="p">,</span>
+                     <span class="s1">&#39;version&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_version</span><span class="p">(),</span>
+                     <span class="s1">&#39;author&#39;</span><span class="p">:</span> <span class="s2">&quot;LUCIT Systems and Development&quot;</span><span class="p">,</span>
+                     <span class="s1">&#39;build_type&#39;</span><span class="p">:</span> <span class="s2">&quot;compiled&quot;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_compiled</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;source&quot;</span><span class="p">}</span>
+        <span class="n">info</span> <span class="o">=</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Starting </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;version&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;build_type&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> by &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;author&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> ...&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stdout_msg</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s2">&quot;info&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Catch Termination Signals</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">register_graceful_shutdown</span><span class="p">()</span>
+
+        <span class="c1"># Runtime Information</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_k8s_runtime_information</span><span class="p">()</span>
+
+        <span class="c1"># Define and set the rest server port</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_api_rest_port</span><span class="p">()</span>
+
+        <span class="c1"># Running the core app</span>
+        <span class="n">exception_shutdown</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">exception_shutdown_error</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;running&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">service_call</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stdout_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Keyboard interrupt was caught!&quot;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s2">&quot;warn&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">error_msg</span><span class="p">:</span>
+            <span class="n">exception_shutdown</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">exception_shutdown_error</span> <span class="o">=</span> <span class="n">error_msg</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Exception occurred:&quot;</span><span class="p">)</span>
+            <span class="n">traceback</span><span class="o">.</span><span class="n">print_exc</span><span class="p">()</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;lucit-ubdcc-mgmt&quot;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">llm</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">llm</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ubdcc_node_cancellation</span><span class="p">())</span>
+            <span class="k">if</span> <span class="n">exception_shutdown</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">exception_shutdown_error</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">stdout_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ERROR: </span><span class="si">{</span><span class="n">exception_shutdown_error</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s2">&quot;critical&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">stop_call</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">stdout_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The system was gracefully shut down after a critical error was encountered.&quot;</span><span class="p">,</span>
+                                <span class="n">log</span><span class="o">=</span><span class="s2">&quot;info&quot;</span><span class="p">)</span>
+                <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># Shutdown</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">stop_call</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">stdout_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Gracefully shutdown finished! Thank you and good bye ...&quot;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s2">&quot;info&quot;</span><span class="p">)</span>
+                <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="App.start_licensing_manager">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.App.App.start_licensing_manager">[docs]</a>
+    <span class="k">def</span> <span class="nf">start_licensing_manager</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">llm</span> <span class="o">=</span> <span class="n">LucitLicensingManager</span><span class="p">(</span><span class="n">api_secret</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;db&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get_license_api_secret</span><span class="p">(),</span>
+                                             <span class="n">license_token</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;db&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get_license_license_token</span><span class="p">(),</span>
+                                             <span class="n">parent_shutdown_function</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">deactivate_license</span><span class="p">,</span>
+                                             <span class="n">program_used</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">app_name</span><span class="p">,</span>
+                                             <span class="n">needed_license_type</span><span class="o">=</span><span class="s2">&quot;UNICORN-BINANCE-SUITE&quot;</span><span class="p">,</span>
+                                             <span class="n">start</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">NoValidatedLucitLicense</span> <span class="k">as</span> <span class="n">error_msg</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stdout_msg</span><span class="p">(</span><span class="n">error_msg</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s2">&quot;critical&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">llm</span><span class="o">.</span><span class="n">get_license_exception</span><span class="p">()</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;db&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_license_status</span><span class="p">(</span><span class="n">status</span><span class="o">=</span><span class="s2">&quot;VALID&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="App.stdout_msg">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.App.App.stdout_msg">[docs]</a>
+    <span class="k">def</span> <span class="nf">stdout_msg</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">msg</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="n">log</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">stdout</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="n">log</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">log</span> <span class="o">==</span> <span class="s2">&quot;debug&quot;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">log</span> <span class="o">==</span> <span class="s2">&quot;info&quot;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">log</span> <span class="o">==</span> <span class="s2">&quot;warn&quot;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">log</span> <span class="o">==</span> <span class="s2">&quot;error&quot;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">log</span> <span class="o">==</span> <span class="s2">&quot;critical&quot;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="n">stdout</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="App.ubdcc_get_responsible_dcn_addresses">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.App.App.ubdcc_get_responsible_dcn_addresses">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">ubdcc_get_responsible_dcn_addresses</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                                                  <span class="n">exchange</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                                                  <span class="n">market</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stdout_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Get responsible DCN addresses for </span><span class="si">{</span><span class="n">market</span><span class="si">}</span><span class="s2"> on </span><span class="si">{</span><span class="n">exchange</span><span class="si">}</span><span class="s2"> ...&quot;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s2">&quot;info&quot;</span><span class="p">)</span>
+        <span class="n">endpoint</span> <span class="o">=</span> <span class="s2">&quot;/ubdcc_get_responsible_dcn_addresses&quot;</span>
+        <span class="n">host</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_cluster_mgmt_address</span><span class="p">()</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;?exchange=</span><span class="si">{</span><span class="n">exchange</span><span class="si">}</span><span class="s2">&amp;&quot;</span>
+                 <span class="sa">f</span><span class="s2">&quot;market=</span><span class="si">{</span><span class="n">market</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">host</span> <span class="o">+</span> <span class="n">endpoint</span> <span class="o">+</span> <span class="n">query</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;get&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;error_id&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stdout_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Successfully caught responsible DCN addresses for </span><span class="si">{</span><span class="n">market</span><span class="si">}</span><span class="s2"> on </span><span class="si">{</span><span class="n">exchange</span><span class="si">}</span><span class="s2">!&quot;</span><span class="p">,</span>
+                            <span class="n">log</span><span class="o">=</span><span class="s2">&quot;info&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">result</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stdout_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Can not catch responsible DCN addresses: </span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s2">&quot;error&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="App.ubdcc_node_cancellation">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.App.App.ubdcc_node_cancellation">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">ubdcc_node_cancellation</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stdout_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cancel node registration ...&quot;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s2">&quot;info&quot;</span><span class="p">)</span>
+        <span class="n">endpoint</span> <span class="o">=</span> <span class="s2">&quot;/ubdcc_node_cancellation&quot;</span>
+        <span class="n">host</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_cluster_mgmt_address</span><span class="p">()</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;?uid=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">[</span><span class="s1">&#39;uid&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">host</span> <span class="o">+</span> <span class="n">endpoint</span> <span class="o">+</span> <span class="n">query</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;get&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;error_id&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stdout_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Node cancellation successful!&quot;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s2">&quot;info&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">elif</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stdout_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error during node cancellation: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s2">&quot;warn&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">elif</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;error_id&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;#1005&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stdout_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The node is no longer recognized by </span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s2">&quot;warn&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ubdcc_node_registration</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stdout_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error during node sync: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;error_id&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                            <span class="n">log</span><span class="o">=</span><span class="s2">&quot;error&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="App.ubdcc_node_registration">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.App.App.ubdcc_node_registration">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">ubdcc_node_registration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ubldc_version</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">retries</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">30</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stdout_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Starting node registration ...&quot;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s2">&quot;info&quot;</span><span class="p">)</span>
+        <span class="n">endpoint</span> <span class="o">=</span> <span class="s2">&quot;/ubdcc_node_registration&quot;</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;?name=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&amp;&quot;</span>
+                 <span class="sa">f</span><span class="s2">&quot;uid=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">[</span><span class="s1">&#39;uid&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&amp;&quot;</span>
+                 <span class="sa">f</span><span class="s2">&quot;node=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">[</span><span class="s1">&#39;node&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&amp;&quot;</span>
+                 <span class="sa">f</span><span class="s2">&quot;role=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&amp;&quot;</span>
+                 <span class="sa">f</span><span class="s2">&quot;api_port_rest=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">api_port_rest</span><span class="si">}</span><span class="s2">&amp;&quot;</span>
+                 <span class="sa">f</span><span class="s2">&quot;status=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">status</span><span class="si">}</span><span class="s2">&amp;&quot;</span>
+                 <span class="sa">f</span><span class="s2">&quot;version=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">get_version</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">ubldc_version</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">query</span> <span class="o">=</span> <span class="n">query</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;&amp;ubldc_version=</span><span class="si">{</span><span class="n">ubldc_version</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">loops</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">while</span> <span class="n">loops</span> <span class="o">&lt;</span> <span class="n">retries</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_shutdown</span><span class="p">()</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="n">loops</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">host</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_cluster_mgmt_address</span><span class="p">()</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="n">host</span> <span class="o">+</span> <span class="n">endpoint</span> <span class="o">+</span> <span class="n">query</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;get&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;error_id&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">stdout_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Node registration succeeded!&quot;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s2">&quot;info&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">elif</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;error_id&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;#1003&quot;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">stdout_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The node is already recognized by </span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s2">&quot;warn&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">elif</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;error_id&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;#1014&quot;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">stdout_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mgmt Service is not ready yet! Waiting a few seconds till retry!&quot;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s2">&quot;warn&quot;</span><span class="p">)</span>
+                <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mgmt_is_ready_time</span><span class="p">)</span>
+            <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stdout_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error during node registration: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;error_id&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                        <span class="n">log</span><span class="o">=</span><span class="s2">&quot;error&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="App.ubdcc_node_sync">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.App.App.ubdcc_node_sync">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">ubdcc_node_sync</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stdout_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Starting node sync ...&quot;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s2">&quot;info&quot;</span><span class="p">)</span>
+        <span class="n">endpoint</span> <span class="o">=</span> <span class="s2">&quot;/ubdcc_node_sync&quot;</span>
+        <span class="n">host</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_cluster_mgmt_address</span><span class="p">()</span>
+        <span class="n">backup_timestamp</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;?uid=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">[</span><span class="s1">&#39;uid&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&amp;&quot;</span>
+                 <span class="sa">f</span><span class="s2">&quot;node=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">[</span><span class="s1">&#39;node&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&amp;&quot;</span>
+                 <span class="sa">f</span><span class="s2">&quot;api_port_rest=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">api_port_rest</span><span class="si">}</span><span class="s2">&amp;&quot;</span>
+                 <span class="sa">f</span><span class="s2">&quot;status=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">status</span><span class="si">}</span><span class="s2">&amp;&quot;</span>
+                 <span class="sa">f</span><span class="s2">&quot;backup_timestamp=</span><span class="si">{</span><span class="n">backup_timestamp</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">host</span> <span class="o">+</span> <span class="n">endpoint</span> <span class="o">+</span> <span class="n">query</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;get&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;error_id&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stdout_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Node sync succeeded!&quot;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s2">&quot;info&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">elif</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stdout_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error during node sync: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s2">&quot;warn&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">elif</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;error_id&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;#1001&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stdout_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The node is no longer recognized by </span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s2">&quot;warn&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">ubdcc_node_registration</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stdout_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error during node sync: </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;error_id&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                            <span class="n">log</span><span class="o">=</span><span class="s2">&quot;error&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="App.ubdcc_update_depthcache_distribution">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.App.App.ubdcc_update_depthcache_distribution">[docs]</a>
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">ubdcc_update_depthcache_distribution</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                                                   <span class="n">exchange</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                                                   <span class="n">market</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                                                   <span class="n">last_restart_time</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                                                   <span class="n">status</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stdout_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Updating depthcache distribution ...&quot;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s2">&quot;info&quot;</span><span class="p">)</span>
+        <span class="n">endpoint</span> <span class="o">=</span> <span class="s2">&quot;/ubdcc_update_depthcache_distribution&quot;</span>
+        <span class="n">query</span> <span class="o">=</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;?exchange=</span><span class="si">{</span><span class="n">exchange</span><span class="si">}</span><span class="s2">&amp;&quot;</span>
+                 <span class="sa">f</span><span class="s2">&quot;market=</span><span class="si">{</span><span class="n">market</span><span class="si">}</span><span class="s2">&amp;&quot;</span>
+                 <span class="sa">f</span><span class="s2">&quot;pod_uid=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">[</span><span class="s1">&#39;uid&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&amp;&quot;</span>
+                 <span class="sa">f</span><span class="s2">&quot;last_restart_time=</span><span class="si">{</span><span class="n">last_restart_time</span><span class="si">}</span><span class="s2">&amp;&quot;</span>
+                 <span class="sa">f</span><span class="s2">&quot;status=</span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_shutdown</span><span class="p">()</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+            <span class="n">host</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_cluster_mgmt_address</span><span class="p">()</span>
+            <span class="n">url</span> <span class="o">=</span> <span class="n">host</span> <span class="o">+</span> <span class="n">endpoint</span> <span class="o">+</span> <span class="n">query</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;get&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;error_id&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;error&#39;</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">stdout_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DepthCache distribution update succeeded!&quot;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s2">&quot;info&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">elif</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;error_id&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;#1023&quot;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">stdout_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error during DepthCache distribution update: </span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                                <span class="n">log</span><span class="o">=</span><span class="s2">&quot;error&quot;</span><span class="p">)</span>
+                <span class="k">return</span> <span class="kc">False</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">stdout_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error during DepthCache distribution update: </span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                                <span class="n">log</span><span class="o">=</span><span class="s2">&quot;error&quot;</span><span class="p">)</span>
+            <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="App.verify_license">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.App.App.verify_license">[docs]</a>
+    <span class="k">def</span> <span class="nf">verify_license</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="n">llm</span> <span class="o">=</span> <span class="n">LucitLicensingManager</span><span class="p">(</span><span class="n">api_secret</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;db&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get_license_api_secret</span><span class="p">(),</span>
+                                    <span class="n">license_token</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;db&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get_license_license_token</span><span class="p">(),</span>
+                                    <span class="n">program_used</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">app_name</span><span class="p">,</span>
+                                    <span class="n">needed_license_type</span><span class="o">=</span><span class="s2">&quot;UNICORN-BINANCE-SUITE&quot;</span><span class="p">,</span>
+                                    <span class="n">start</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">llm</span><span class="o">.</span><span class="n">verify</span><span class="p">(</span><span class="n">api_secret</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;db&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get_license_api_secret</span><span class="p">(),</span>
+                            <span class="n">license_token</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;db&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get_license_license_token</span><span class="p">())</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">result</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;license&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;status&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;VALID&quot;</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">except</span> <span class="ne">AttributeError</span> <span class="k">as</span> <span class="n">error_msg</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">stdout_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid license! - AttributeError: </span><span class="si">{</span><span class="n">error_msg</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s2">&quot;error&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+</div>
+
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo">
+                <div style="text-align: center;">
+                    <a href="https://www.lucit.tech"><img src="https://www.lucit.tech/files/images/logos/LUCIT-LOGO.png"></a><br>
+                    <a href="https://shop.lucit.services/software/unicorn-binance-suite" style="font-size: 0.85em;font-weight: 900">Get a UNICORN Binance Suite License!</a><br>
+                    <br>
+                    <a href="https://github.com/LUCIT-Systems-and-Development" target="_blank" style="text-decoration:none;"><img src="../../_static/icons8-github-20.png"></a>
+                    <a href="https://fb.me/lucit.systems.and.development" target="_blank" style="text-decoration:none;"><img src="../../_static/icons8-facebook-20.png"></a>
+                    <a href="https://twitter.com/LUCIT_SysDev" target="_blank" style="text-decoration:none;"><img src="../../_static/icons8-twitter-20.png"></a>
+                    <a href="https://www.linkedin.com/company/lucit-systems-and-development" target="_blank" style="text-decoration:none;"><img src="../../_static/icons8-linkedin-20.png"></a>
+                    <a href="https://www.xing.com/pages/lucit-systems-and-development" target="_blank" style="text-decoration:none;"><img src="../../_static/icons8-xing-20.png"></a>
+                    <a href="https://medium.lucit.tech" target="_blank" style="text-decoration:none;"><img src="../../_static/icons8-medium-monogram-20.png"></a>
+                    <a href="https://www.youtube.com/channel/UCp57u8vaPqEWQTlfpYn-KnQ" target="_blank" style="text-decoration:none;"><img src="../../_static/icons8-youtube-20.png"></a>
+                </div>
+            </p>
+<div id="searchbox" style="display: block" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<div role="note" aria-label="source code">
+    <h3>GitHub</h3>
+    <ul class="this-page-menu">
+      <li><a href="https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance">Show Source</a></li>
+      
+<li>
+<a class="github-button" href="https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance"
+   data-icon="octicon-star" data-show-count="true"
+   aria-label="Star LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance on GitHub">Star</a>
+<br />
+<a class="github-button" href="https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance/subscription"
+   data-icon="octicon-eye" data-show-count="true"
+   aria-label="Watch LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance on GitHub">Watch</a>
+<br />
+<a class="github-button" href="https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance/fork"
+   data-icon="octicon-repo-forked" data-show-count="true"
+   aria-label="Fork LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance on GitHub">Fork</a>
+<br />
+<a class="github-button" href="https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance/issues"
+   data-icon="octicon-issue-opened"
+   data-show-count="true" aria-label="Issue LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance on GitHub">Issue</a>
+    
+</li>
+
+    </ul>
+</div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+              
+                  
+                  
+              <li><img src="../../_static/lucit.png" alt="LUCIT Logo"
+                       style="vertical-align: middle; margin-top: -1px"/></li>
+              <li><a href="https://docs.lucit.tech">Docs Index</a> | </li>
+              <li><a href="https://www.lucit.tech/unicorn-depthcache-cluster-for-binance.html">unicorn-depthcache-cluster-for-binance</a> &#187;</li>
+                  
+              
+              
+              <a href="../../index.html">Docs</a> &#187;
+              
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">lucit_ubdcc_shared_modules.App</a></li>
+                <li class="right">
+                    
+
+    <div class="inline-search" role="search">
+        <form class="inline-search" action="../../search.html" method="get">
+          <input placeholder="Quick search" aria-label="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+                     |
+                </li>
+            
+      </ul>
+    </div>  
+    <div class="footer">
+    <a href="https://docs.lucit.tech">Index of all LUCIT Software Documentation</a><br />
+    &copy; <a href="/license.html">Copyright</a> 2022-2023, LUCIT Systems and Development. All Rights Reserved..
+    See <a href="/license.html">License</a> for more information.<br />
+    Last updated on Oct 25 2024 at 19:15 (CET).
+    <a href="https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance/issues/new/choose">Found a bug</a>?
+    <br />
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.4.7.
+        with <a href="https://github.com/LUCIT-Systems-and-Development/python-docs-theme-lucit">python-docs-theme-lucit</a>
+        by <a href="https://www.lucit.tech">LUCIT Systems and Development</a>.
+    </div>
+    
+    <img referrerpolicy="no-referrer-when-downgrade" src="https://webmon.lucit.services/matomo.php?idsite=12&amp;rec=1" style="border:0" alt="" />
+    
+
+  </body>
+</html>

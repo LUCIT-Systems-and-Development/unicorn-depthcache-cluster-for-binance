@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>lucit_ubdcc_shared_modules.Database &#8212; unicorn-depthcache-cluster-for-binance 0.1.3 documentation</title><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=92fd9be5" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pydoctheme.css?v=fdf8e9ae" />
+    
+    <script src="../../_static/documentation_options.js?v=6efca38a"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /><link rel="shortcut icon" type="image/png" href="../../_static/lucit.png" />
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    
+    <script
+        src='//eu.fw-cdn.com/10659511/361973.js'
+        chat='true'>
+    </script>
+    
+            <script type="text/javascript" src="../../_static/copybutton.js"></script>
+            <script type="text/javascript" src="../../_static/menu.js"></script> 
+  </head>
+<body>
+<div class="mobile-nav">
+    <input type="checkbox" id="menuToggler" class="toggler__input" aria-controls="navigation"
+           aria-pressed="false" aria-expanded="false" role="button" aria-label="Menu" />
+    <label for="menuToggler" class="toggler__label">
+        <span></span>
+    </label>
+    <nav class="nav-content" role="navigation">
+        <form role="search" class="search" action="../../search.html" method="get">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" class="search-icon">
+                <path fill-rule="nonzero"
+                        d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 001.48-5.34c-.47-2.78-2.79-5-5.59-5.34a6.505 6.505 0 00-7.27 7.27c.34 2.8 2.56 5.12 5.34 5.59a6.5 6.5 0 005.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" fill="#444"></path>
+            </svg>
+            <input type="text" name="q" aria-label="Quick search"/>
+            <input type="submit" value="Go"/>
+        </form>
+    </nav>
+    <div class="menu-wrapper">
+        <nav class="menu" role="navigation" aria-label="main navigation">
+            <p class="logo">
+                <div style="text-align: center;">
+                    <a href="https://www.lucit.tech"><img src="https://www.lucit.tech/files/images/logos/LUCIT-LOGO.png"></a><br>
+                    <a href="https://shop.lucit.services/software/unicorn-binance-suite" style="font-size: 0.85em;font-weight: 900">Get a UNICORN Binance Suite License!</a><br>
+                    <br>
+                    <a href="https://github.com/LUCIT-Systems-and-Development" target="_blank" style="text-decoration:none;"><img src="../../_static/icons8-github-20.png"></a>
+                    <a href="https://fb.me/lucit.systems.and.development" target="_blank" style="text-decoration:none;"><img src="../../_static/icons8-facebook-20.png"></a>
+                    <a href="https://twitter.com/LUCIT_SysDev" target="_blank" style="text-decoration:none;"><img src="../../_static/icons8-twitter-20.png"></a>
+                    <a href="https://www.linkedin.com/company/lucit-systems-and-development" target="_blank" style="text-decoration:none;"><img src="../../_static/icons8-linkedin-20.png"></a>
+                    <a href="https://www.xing.com/pages/lucit-systems-and-development" target="_blank" style="text-decoration:none;"><img src="../../_static/icons8-xing-20.png"></a>
+                    <a href="https://medium.lucit.tech" target="_blank" style="text-decoration:none;"><img src="../../_static/icons8-medium-monogram-20.png"></a>
+                    <a href="https://www.youtube.com/channel/UCp57u8vaPqEWQTlfpYn-KnQ" target="_blank" style="text-decoration:none;"><img src="../../_static/icons8-youtube-20.png"></a>
+                </div>
+            </p>
+<div id="searchbox" style="display: block" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<div role="note" aria-label="source code">
+    <h3>GitHub</h3>
+    <ul class="this-page-menu">
+      <li><a href="https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance">Show Source</a></li>
+      
+<li>
+<a class="github-button" href="https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance"
+   data-icon="octicon-star" data-show-count="true"
+   aria-label="Star LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance on GitHub">Star</a>
+<br />
+<a class="github-button" href="https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance/subscription"
+   data-icon="octicon-eye" data-show-count="true"
+   aria-label="Watch LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance on GitHub">Watch</a>
+<br />
+<a class="github-button" href="https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance/fork"
+   data-icon="octicon-repo-forked" data-show-count="true"
+   aria-label="Fork LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance on GitHub">Fork</a>
+<br />
+<a class="github-button" href="https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance/issues"
+   data-icon="octicon-issue-opened"
+   data-show-count="true" aria-label="Issue LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance on GitHub">Issue</a>
+    
+</li>
+
+    </ul>
+</div>
+        </nav>
+    </div>
+</div>
+  
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+              
+                  
+                  
+              <li><img src="../../_static/lucit.png" alt="LUCIT Logo"
+                       style="vertical-align: middle; margin-top: -1px"/></li>
+              <li><a href="https://docs.lucit.tech">Docs Index</a> | </li>
+              <li><a href="https://www.lucit.tech/unicorn-depthcache-cluster-for-binance.html">unicorn-depthcache-cluster-for-binance</a> &#187;</li>
+                  
+              
+              
+              <a href="../../index.html">Docs</a> &#187;
+              
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">lucit_ubdcc_shared_modules.Database</a></li>
+                <li class="right">
+                    
+
+    <div class="inline-search" role="search">
+        <form class="inline-search" action="../../search.html" method="get">
+          <input placeholder="Quick search" aria-label="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+                     |
+                </li>
+            
+      </ul>
+    </div>    
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for lucit_ubdcc_shared_modules.Database</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1"># ¯\_(ツ)_/¯</span>
+<span class="c1">#</span>
+<span class="c1"># File: packages/lucit-ubdcc-mgmt/lucit_ubdcc_mgmt/Database.py</span>
+<span class="c1">#</span>
+<span class="c1"># Project website: https://www.lucit.tech/unicorn-depthcache-cluster-for-binance.html</span>
+<span class="c1"># Github: https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance</span>
+<span class="c1"># Documentation: https://unicorn-depthcache-cluster-for-binance.docs.lucit.tech</span>
+<span class="c1"># PyPI: https://pypi.org/project/lucit-ubdcc-shared-modules</span>
+<span class="c1"># LUCIT Online Shop: https://shop.lucit.services/software/unicorn-depthcache-cluster-for-binance</span>
+<span class="c1">#</span>
+<span class="c1"># License: LSOSL - LUCIT Synergetic Open Source License</span>
+<span class="c1"># https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance/blob/master/LICENSE</span>
+<span class="c1">#</span>
+<span class="c1"># Author: LUCIT Systems and Development</span>
+<span class="c1">#</span>
+<span class="c1"># Copyright (c) 2024-2024, LUCIT Systems and Development (https://www.lucit.tech)</span>
+<span class="c1"># All rights reserved.</span>
+
+<span class="kn">import</span> <span class="nn">threading</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+
+<div class="viewcode-block" id="Database">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.Database.Database">[docs]</a>
+<span class="k">class</span> <span class="nc">Database</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">app</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span> <span class="o">=</span> <span class="n">app</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;db&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_init</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_init</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">stdout_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Initiating Database ...&quot;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s2">&quot;info&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="s2">&quot;depthcaches&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="p">{})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="s2">&quot;license&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;api_secret&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                                       <span class="s2">&quot;license_token&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                                       <span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;INVALID&quot;</span><span class="p">})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="s2">&quot;nodes&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="p">{})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="s2">&quot;pods&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="p">{})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="s2">&quot;timestamp&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="nb">float</span><span class="p">())</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">info</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;lucit-ubdcc-mgmt&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">update_nodes</span><span class="p">()</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="k">def</span> <span class="nf">_set_update_timestamp</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;timestamp&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">get_unix_timestamp</span><span class="p">()</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+<div class="viewcode-block" id="Database.is_empty">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.Database.Database.is_empty">[docs]</a>
+    <span class="k">def</span> <span class="nf">is_empty</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;pods&#39;</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> \
+                <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;depthcaches&#39;</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> \
+                <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;license&#39;</span><span class="p">][</span><span class="s1">&#39;api_secret&#39;</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> \
+                <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;license&#39;</span><span class="p">][</span><span class="s1">&#39;license_token&#39;</span><span class="p">])</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="Database.add_depthcache">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.Database.Database.add_depthcache">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_depthcache</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                       <span class="n">exchange</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                       <span class="n">market</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                       <span class="n">desired_quantity</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                       <span class="n">update_interval</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                       <span class="n">refresh_interval</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">exchange</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">market</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Missing mandatory parameter: exchange, market&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">desired_quantity</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">desired_quantity</span> <span class="o">==</span> <span class="s2">&quot;None&quot;</span><span class="p">:</span>
+            <span class="n">desired_quantity</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">desired_quantity</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">desired_quantity</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">update_interval</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">update_interval</span> <span class="o">==</span> <span class="s2">&quot;None&quot;</span><span class="p">:</span>
+            <span class="n">update_interval</span> <span class="o">=</span> <span class="mi">1000</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">update_interval</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">update_interval</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">refresh_interval</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">refresh_interval</span> <span class="o">==</span> <span class="s2">&quot;None&quot;</span><span class="p">:</span>
+            <span class="n">refresh_interval</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">refresh_interval</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">refresh_interval</span><span class="p">)</span>
+        <span class="n">depthcache</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;CREATED_TIME&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">get_unix_timestamp</span><span class="p">(),</span>
+                      <span class="s2">&quot;DESIRED_QUANTITY&quot;</span><span class="p">:</span> <span class="n">desired_quantity</span><span class="p">,</span>
+                      <span class="s2">&quot;DISTRIBUTION&quot;</span><span class="p">:</span> <span class="p">{},</span>
+                      <span class="s2">&quot;EXCHANGE&quot;</span><span class="p">:</span> <span class="n">exchange</span><span class="p">,</span>
+                      <span class="s2">&quot;REFRESH_INTERVAL&quot;</span><span class="p">:</span> <span class="n">refresh_interval</span><span class="p">,</span>
+                      <span class="s2">&quot;MARKET&quot;</span><span class="p">:</span> <span class="n">market</span><span class="p">,</span>
+                      <span class="s2">&quot;UPDATE_INTERVAL&quot;</span><span class="p">:</span> <span class="n">update_interval</span><span class="p">}</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_lock</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;depthcaches&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">exchange</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;depthcaches&#39;</span><span class="p">][</span><span class="n">exchange</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;depthcaches&#39;</span><span class="p">][</span><span class="n">exchange</span><span class="p">][</span><span class="n">market</span><span class="p">]</span> <span class="o">=</span> <span class="n">depthcache</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_set_update_timestamp</span><span class="p">()</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="Database.add_depthcache_distribution">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.Database.Database.add_depthcache_distribution">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_depthcache_distribution</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                                    <span class="n">exchange</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                                    <span class="n">market</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                                    <span class="n">pod_uid</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                                    <span class="n">scheduled_start_time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">exchange</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">market</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">pod_uid</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">scheduled_start_time</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Missing mandatory parameter: exchange, pod_uid, market, scheduled_start_time&quot;</span><span class="p">)</span>
+        <span class="n">distribution</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;CREATED_TIME&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">get_unix_timestamp</span><span class="p">(),</span>
+                        <span class="s2">&quot;LAST_RESTART_TIME&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                        <span class="s2">&quot;POD_UID&quot;</span><span class="p">:</span> <span class="n">pod_uid</span><span class="p">,</span>
+                        <span class="s2">&quot;SCHEDULED_START_TIME&quot;</span><span class="p">:</span> <span class="n">scheduled_start_time</span><span class="p">,</span>
+                        <span class="s2">&quot;STATUS&quot;</span><span class="p">:</span> <span class="s2">&quot;starting&quot;</span><span class="p">}</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_lock</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;depthcaches&#39;</span><span class="p">][</span><span class="n">exchange</span><span class="p">][</span><span class="n">market</span><span class="p">][</span><span class="s1">&#39;DISTRIBUTION&#39;</span><span class="p">][</span><span class="n">pod_uid</span><span class="p">]</span> <span class="o">=</span> <span class="n">distribution</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_set_update_timestamp</span><span class="p">()</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="Database.add_pod">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.Database.Database.add_pod">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_pod</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">uid</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">role</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">ip</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="n">api_port_rest</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">status</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">ubldc_version</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">version</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">uid</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Missing mandatory parameter: uid&quot;</span><span class="p">)</span>
+        <span class="n">pod</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;NAME&quot;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
+               <span class="s2">&quot;UID&quot;</span><span class="p">:</span> <span class="n">uid</span><span class="p">,</span>
+               <span class="s2">&quot;NODE&quot;</span><span class="p">:</span> <span class="n">node</span><span class="p">,</span>
+               <span class="s2">&quot;ROLE&quot;</span><span class="p">:</span> <span class="n">role</span><span class="p">,</span>
+               <span class="s2">&quot;IP&quot;</span><span class="p">:</span> <span class="n">ip</span><span class="p">,</span>
+               <span class="s2">&quot;API_PORT_REST&quot;</span><span class="p">:</span> <span class="n">api_port_rest</span><span class="p">,</span>
+               <span class="s2">&quot;LAST_SEEN&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">get_unix_timestamp</span><span class="p">(),</span>
+               <span class="s2">&quot;STATUS&quot;</span><span class="p">:</span> <span class="n">status</span><span class="p">,</span>
+               <span class="s2">&quot;UBLDC_VERSION&quot;</span><span class="p">:</span> <span class="n">ubldc_version</span><span class="p">,</span>
+               <span class="s2">&quot;VERSION&quot;</span><span class="p">:</span> <span class="n">version</span><span class="p">}</span>
+        <span class="k">if</span> <span class="n">ubldc_version</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">del</span> <span class="n">pod</span><span class="p">[</span><span class="s1">&#39;UBLDC_VERSION&#39;</span><span class="p">]</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_lock</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;pods&#39;</span><span class="p">][</span><span class="n">uid</span><span class="p">]</span> <span class="o">=</span> <span class="n">pod</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_set_update_timestamp</span><span class="p">()</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="Database.delete">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.Database.Database.delete">[docs]</a>
+    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_lock</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">:</span>
+                <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_set_update_timestamp</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">stdout_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DB entry deleted: </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s2">&quot;debug&quot;</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                <span class="k">return</span> <span class="kc">True</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">stdout_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DB entry </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2"> not found.&quot;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s2">&quot;debug&quot;</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="Database.delete_depthcache">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.Database.Database.delete_depthcache">[docs]</a>
+    <span class="k">def</span> <span class="nf">delete_depthcache</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exchange</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">market</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">exchange</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">market</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Missing mandatory parameter: exchange, market&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_lock</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;depthcaches&quot;</span><span class="p">][</span><span class="n">exchange</span><span class="p">][</span><span class="n">market</span><span class="p">]</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_set_update_timestamp</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">stdout_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DB depthcaches deleted: </span><span class="si">{</span><span class="n">exchange</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">market</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s2">&quot;debug&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="Database.delete_depthcache_distribution">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.Database.Database.delete_depthcache_distribution">[docs]</a>
+    <span class="k">def</span> <span class="nf">delete_depthcache_distribution</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exchange</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">market</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">pod_uid</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">exchange</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">market</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">pod_uid</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Missing mandatory parameter: exchange, pod_uid, market&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_lock</span><span class="p">:</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;depthcaches&quot;</span><span class="p">][</span><span class="n">exchange</span><span class="p">][</span><span class="n">market</span><span class="p">][</span><span class="s1">&#39;DISTRIBUTION&#39;</span><span class="p">][</span><span class="n">pod_uid</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_set_update_timestamp</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">stdout_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DB depthcache distribution deleted: </span><span class="si">{</span><span class="n">exchange</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">market</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">pod_uid</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s2">&quot;debug&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="Database.delete_pod">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.Database.Database.delete_pod">[docs]</a>
+    <span class="k">def</span> <span class="nf">delete_pod</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uid</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">uid</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Missing mandatory parameter: uid&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_lock</span><span class="p">:</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;pods&quot;</span><span class="p">][</span><span class="n">uid</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_set_update_timestamp</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">stdout_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DB pod deleted: </span><span class="si">{</span><span class="n">uid</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s2">&quot;debug&quot;</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="Database.delete_old_pods">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.Database.Database.delete_old_pods">[docs]</a>
+    <span class="k">def</span> <span class="nf">delete_old_pods</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="n">old_pods</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">max_age</span> <span class="o">=</span> <span class="mi">60</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_lock</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">uid</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;pods&#39;</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">max_age</span><span class="p">)</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;pods&#39;</span><span class="p">][</span><span class="n">uid</span><span class="p">][</span><span class="s1">&#39;LAST_SEEN&#39;</span><span class="p">]:</span>
+                    <span class="n">old_pods</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">uid</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">uid</span> <span class="ow">in</span> <span class="n">old_pods</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">delete_pod</span><span class="p">(</span><span class="n">uid</span><span class="o">=</span><span class="n">uid</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="Database.exists_depthcache">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.Database.Database.exists_depthcache">[docs]</a>
+    <span class="k">def</span> <span class="nf">exists_depthcache</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exchange</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">market</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">exchange</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">market</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Missing mandatory parameter: exchange, market&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_lock</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">market</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;depthcaches&#39;</span><span class="p">][</span><span class="n">exchange</span><span class="p">]</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="Database.exists_pod">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.Database.Database.exists_pod">[docs]</a>
+    <span class="k">def</span> <span class="nf">exists_pod</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uid</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">uid</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Missing mandatory parameter: uid&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">uid</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;pods&#39;</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="Database.get">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.Database.Database.get">[docs]</a>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_lock</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Database.get_all">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.Database.Database.get_all">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_all</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_lock</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span></div>
+
+
+<div class="viewcode-block" id="Database.get_available_dcn_pods">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.Database.Database.get_available_dcn_pods">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_available_dcn_pods</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="n">available_dcn_pods</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">uid</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;pods&#39;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;pods&#39;</span><span class="p">][</span><span class="n">uid</span><span class="p">][</span><span class="s1">&#39;ROLE&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;lucit-ubdcc-dcn&quot;</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">available_dcn_pods</span><span class="p">[</span><span class="n">uid</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;nodes&#39;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;pods&#39;</span><span class="p">][</span><span class="n">uid</span><span class="p">][</span><span class="s1">&#39;NODE&#39;</span><span class="p">]][</span><span class="s1">&#39;USAGE_CPU_PERCENT&#39;</span><span class="p">]</span>
+                <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                    <span class="n">available_dcn_pods</span><span class="p">[</span><span class="n">uid</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">return</span> <span class="n">available_dcn_pods</span></div>
+
+
+<div class="viewcode-block" id="Database.get_backup_dict">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.Database.Database.get_backup_dict">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_backup_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_lock</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">sort_dict</span><span class="p">(</span><span class="n">input_dict</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;db&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Database.get_best_dcn">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.Database.Database.get_best_dcn">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_best_dcn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">available_pods</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">excluded_pods</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">available_pods</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">available_pods</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_available_dcn_pods</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">uid</span> <span class="ow">in</span> <span class="n">excluded_pods</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">del</span> <span class="n">available_pods</span><span class="p">[</span><span class="n">uid</span><span class="p">]</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="k">pass</span>
+        <span class="n">available_pods_uid</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="p">[</span><span class="n">uid</span> <span class="k">for</span> <span class="n">uid</span> <span class="ow">in</span> <span class="n">available_pods</span><span class="o">.</span><span class="n">keys</span><span class="p">()]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">get_dcn_uid_unused_longest_time</span><span class="p">(</span><span class="n">selection</span><span class="o">=</span><span class="n">available_pods_uid</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Database.get_dcn_responsibilities">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.Database.Database.get_dcn_responsibilities">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_dcn_responsibilities</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+        <span class="k">with</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_lock</span><span class="p">):</span>
+            <span class="n">responsibilities</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">exchange</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;depthcaches&#39;</span><span class="p">]:</span>
+                <span class="k">for</span> <span class="n">market</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;depthcaches&#39;</span><span class="p">][</span><span class="n">exchange</span><span class="p">]:</span>
+                    <span class="k">for</span> <span class="n">pod_uid</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;depthcaches&#39;</span><span class="p">][</span><span class="n">exchange</span><span class="p">][</span><span class="n">market</span><span class="p">][</span><span class="s1">&#39;DISTRIBUTION&#39;</span><span class="p">]:</span>
+                        <span class="k">if</span> <span class="n">pod_uid</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">id</span><span class="p">[</span><span class="s1">&#39;uid&#39;</span><span class="p">]</span> <span class="ow">and</span> \
+                            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;depthcaches&#39;</span><span class="p">][</span><span class="n">exchange</span><span class="p">][</span><span class="n">market</span><span class="p">][</span><span class="s1">&#39;DISTRIBUTION&#39;</span><span class="p">][</span><span class="n">pod_uid</span><span class="p">][</span><span class="s1">&#39;SCHEDULED_START_TIME&#39;</span><span class="p">]</span> <span class="o">&lt;</span> \
+                                <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">get_unix_timestamp</span><span class="p">():</span>
+                            <span class="n">responsibilities</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;exchange&quot;</span><span class="p">:</span> <span class="n">exchange</span><span class="p">,</span>
+                                                     <span class="s2">&quot;market&quot;</span><span class="p">:</span> <span class="n">market</span><span class="p">,</span>
+                                                     <span class="s2">&quot;refresh_interval&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;depthcaches&#39;</span><span class="p">][</span><span class="n">exchange</span><span class="p">][</span><span class="n">market</span><span class="p">][</span><span class="s1">&#39;REFRESH_INTERVAL&#39;</span><span class="p">],</span>
+                                                     <span class="s2">&quot;update_interval&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;depthcaches&#39;</span><span class="p">][</span><span class="n">exchange</span><span class="p">][</span><span class="n">market</span><span class="p">][</span><span class="s1">&#39;UPDATE_INTERVAL&#39;</span><span class="p">]})</span>
+        <span class="k">return</span> <span class="n">responsibilities</span></div>
+
+
+<div class="viewcode-block" id="Database.get_depthcache_list">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.Database.Database.get_depthcache_list">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_depthcache_list</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_lock</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;depthcaches&#39;</span><span class="p">]</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">{}</span></div>
+
+
+<div class="viewcode-block" id="Database.get_depthcache_info">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.Database.Database.get_depthcache_info">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_depthcache_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exchange</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">market</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">exchange</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">market</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Missing mandatory parameter: exchange, market&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_lock</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;depthcaches&#39;</span><span class="p">][</span><span class="n">exchange</span><span class="p">][</span><span class="n">market</span><span class="p">]</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">{}</span></div>
+
+
+<div class="viewcode-block" id="Database.get_license_api_secret">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.Database.Database.get_license_api_secret">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_license_api_secret</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_lock</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;license&#39;</span><span class="p">][</span><span class="s1">&#39;api_secret&#39;</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="Database.get_license_license_token">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.Database.Database.get_license_license_token">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_license_license_token</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_lock</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;license&#39;</span><span class="p">][</span><span class="s1">&#39;license_token&#39;</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="Database.get_license_status">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.Database.Database.get_license_status">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_license_status</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_lock</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;license&#39;</span><span class="p">][</span><span class="s1">&#39;status&#39;</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="Database.get_pod_by_address">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.Database.Database.get_pod_by_address">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_pod_by_address</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">address</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Missing mandatory parameter: address&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_lock</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">uid</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;pods&#39;</span><span class="p">]:</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;pods&#39;</span><span class="p">][</span><span class="n">uid</span><span class="p">][</span><span class="s1">&#39;IP&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">address</span><span class="p">:</span>
+                        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;pods&#39;</span><span class="p">][</span><span class="n">uid</span><span class="p">]</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="Database.get_pod_by_uid">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.Database.Database.get_pod_by_uid">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_pod_by_uid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uid</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">uid</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Missing mandatory parameter: uid&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_lock</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;pods&#39;</span><span class="p">][</span><span class="n">uid</span><span class="p">]</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">None</span></div>
+
+
+<div class="viewcode-block" id="Database.get_responsible_dcn_addresses">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.Database.Database.get_responsible_dcn_addresses">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_responsible_dcn_addresses</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exchange</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">market</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_lock</span><span class="p">:</span>
+            <span class="n">responsible_dcn</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">pod_uid</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;depthcaches&#39;</span><span class="p">][</span><span class="n">exchange</span><span class="p">][</span><span class="n">market</span><span class="p">][</span><span class="s1">&#39;DISTRIBUTION&#39;</span><span class="p">]:</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;depthcaches&#39;</span><span class="p">][</span><span class="n">exchange</span><span class="p">][</span><span class="n">market</span><span class="p">][</span><span class="s1">&#39;DISTRIBUTION&#39;</span><span class="p">][</span><span class="n">pod_uid</span><span class="p">][</span><span class="s1">&#39;STATUS&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;running&quot;</span><span class="p">:</span>
+                        <span class="n">responsible_dcn</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;pods&#39;</span><span class="p">][</span><span class="n">pod_uid</span><span class="p">][</span><span class="s1">&#39;IP&#39;</span><span class="p">],</span>
+                                                <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;pods&#39;</span><span class="p">][</span><span class="n">pod_uid</span><span class="p">][</span><span class="s1">&#39;API_PORT_REST&#39;</span><span class="p">],</span>
+                                                <span class="n">pod_uid</span><span class="p">])</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="k">pass</span>
+        <span class="k">return</span> <span class="n">responsible_dcn</span></div>
+
+
+<div class="viewcode-block" id="Database.get_worst_dcn">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.Database.Database.get_worst_dcn">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_worst_dcn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">available_pods</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">excluded_pods</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">available_pods</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">available_pods</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_available_dcn_pods</span><span class="p">()</span>
+        <span class="c1"># Todo:  Find worst pod (cpu or subscriptions or ...)</span>
+        <span class="n">worst_pod</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">uid</span> <span class="ow">in</span> <span class="n">available_pods</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">uid</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">excluded_pods</span><span class="p">:</span>
+                <span class="n">worst_pod</span> <span class="o">=</span> <span class="n">uid</span>
+        <span class="k">return</span> <span class="n">worst_pod</span></div>
+
+
+<div class="viewcode-block" id="Database.replace_data">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.Database.Database.replace_data">[docs]</a>
+    <span class="k">def</span> <span class="nf">replace_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_lock</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">data</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="Database.remove_orphaned_distribution_entries">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.Database.Database.remove_orphaned_distribution_entries">[docs]</a>
+    <span class="k">def</span> <span class="nf">remove_orphaned_distribution_entries</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_lock</span><span class="p">:</span>
+            <span class="n">remove_distributions</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">exchange</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;depthcaches&#39;</span><span class="p">]:</span>
+                <span class="k">for</span> <span class="n">market</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;depthcaches&#39;</span><span class="p">][</span><span class="n">exchange</span><span class="p">]:</span>
+                    <span class="k">for</span> <span class="n">pod_uid</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;depthcaches&#39;</span><span class="p">][</span><span class="n">exchange</span><span class="p">][</span><span class="n">market</span><span class="p">][</span><span class="s1">&#39;DISTRIBUTION&#39;</span><span class="p">]:</span>
+                        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">exists_pod</span><span class="p">(</span><span class="n">uid</span><span class="o">=</span><span class="n">pod_uid</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+                            <span class="n">remove_distributions</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;exchange&quot;</span><span class="p">:</span> <span class="n">exchange</span><span class="p">,</span>
+                                                         <span class="s2">&quot;market&quot;</span><span class="p">:</span> <span class="n">market</span><span class="p">,</span>
+                                                         <span class="s2">&quot;pod_uid&quot;</span><span class="p">:</span> <span class="n">pod_uid</span><span class="p">})</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_lock</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">remove_distributions</span><span class="p">:</span>
+                <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;depthcaches&#39;</span><span class="p">][</span><span class="n">item</span><span class="p">[</span><span class="s1">&#39;exchange&#39;</span><span class="p">]][</span><span class="n">item</span><span class="p">[</span><span class="s1">&#39;market&#39;</span><span class="p">]][</span><span class="s1">&#39;DISTRIBUTION&#39;</span><span class="p">][</span><span class="n">item</span><span class="p">[</span><span class="s1">&#39;pod_uid&#39;</span><span class="p">]]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_set_update_timestamp</span><span class="p">()</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="Database.revise">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.Database.Database.revise">[docs]</a>
+    <span class="k">def</span> <span class="nf">revise</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;db&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get_license_status</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;VALID&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">stdout_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Revise the Database ...&quot;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s2">&quot;info&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">update_nodes</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">delete_old_pods</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">remove_orphaned_distribution_entries</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">manage_distribution</span><span class="p">()</span>
+            <span class="n">run_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">stdout_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Database revised in </span><span class="si">{</span><span class="n">run_time</span><span class="si">}</span><span class="s2"> seconds!&quot;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s2">&quot;info&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">stdout_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Please submit a valid license!&quot;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s2">&quot;critical&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="Database.manage_distribution">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.Database.Database.manage_distribution">[docs]</a>
+    <span class="k">def</span> <span class="nf">manage_distribution</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="n">add_distributions</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">remove_distributions</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_lock</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">exchange</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;depthcaches&#39;</span><span class="p">]:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;exchange=</span><span class="si">{</span><span class="n">exchange</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">market</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;depthcaches&#39;</span><span class="p">][</span><span class="n">exchange</span><span class="p">]:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;market=</span><span class="si">{</span><span class="n">market</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                    <span class="n">existing_distribution</span> <span class="o">=</span> <span class="p">[]</span>
+                    <span class="k">for</span> <span class="n">pod_uid</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;depthcaches&#39;</span><span class="p">][</span><span class="n">exchange</span><span class="p">][</span><span class="n">market</span><span class="p">][</span><span class="s1">&#39;DISTRIBUTION&#39;</span><span class="p">]:</span>
+                        <span class="n">existing_distribution</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pod_uid</span><span class="p">)</span>
+                    <span class="n">existing_quantity</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;depthcaches&#39;</span><span class="p">][</span><span class="n">exchange</span><span class="p">][</span><span class="n">market</span><span class="p">][</span><span class="s1">&#39;DISTRIBUTION&#39;</span><span class="p">])</span>
+                    <span class="n">desired_quantity</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;depthcaches&#39;</span><span class="p">][</span><span class="n">exchange</span><span class="p">][</span><span class="n">market</span><span class="p">][</span><span class="s1">&#39;DESIRED_QUANTITY&#39;</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="n">existing_quantity</span> <span class="o">&lt;</span> <span class="n">desired_quantity</span><span class="p">:</span>
+                        <span class="n">add_quantity</span> <span class="o">=</span> <span class="n">desired_quantity</span> <span class="o">-</span> <span class="n">existing_quantity</span>
+                        <span class="n">delayed_start_time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">300.0</span>
+                        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">add_quantity</span><span class="p">):</span>
+                            <span class="n">best_dcn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_best_dcn</span><span class="p">(</span><span class="n">excluded_pods</span><span class="o">=</span><span class="n">existing_distribution</span><span class="p">)</span>
+                            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;best_dcn=</span><span class="si">{</span><span class="n">best_dcn</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                            <span class="k">if</span> <span class="n">best_dcn</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                                <span class="k">if</span> <span class="n">existing_quantity</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                                    <span class="n">multiplikator</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="n">existing_quantity</span>
+                                <span class="k">else</span><span class="p">:</span>
+                                    <span class="n">multiplikator</span> <span class="o">=</span> <span class="n">i</span>
+                                <span class="n">scheduled_start_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">get_unix_timestamp</span><span class="p">()</span> <span class="o">+</span> <span class="nb">float</span><span class="p">(</span><span class="n">multiplikator</span><span class="p">)</span> <span class="o">*</span> <span class="n">delayed_start_time</span>
+                                <span class="n">add_distributions</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;exchange&quot;</span><span class="p">:</span> <span class="n">exchange</span><span class="p">,</span>
+                                                          <span class="s2">&quot;market&quot;</span><span class="p">:</span> <span class="n">market</span><span class="p">,</span>
+                                                          <span class="s2">&quot;pod_uid&quot;</span><span class="p">:</span> <span class="n">best_dcn</span><span class="p">,</span>
+                                                          <span class="s2">&quot;scheduled_start_time&quot;</span><span class="p">:</span> <span class="n">scheduled_start_time</span><span class="p">})</span>
+                                <span class="n">existing_distribution</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">best_dcn</span><span class="p">)</span>
+                                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;ADDED: </span><span class="si">{</span><span class="n">add_distributions</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+                                <span class="k">break</span>
+                    <span class="k">elif</span> <span class="n">existing_quantity</span> <span class="o">&gt;</span> <span class="n">desired_quantity</span><span class="p">:</span>
+                        <span class="n">remove_quantity</span> <span class="o">=</span> <span class="n">existing_quantity</span> <span class="o">-</span> <span class="n">desired_quantity</span>
+                        <span class="n">exclude_dcn</span> <span class="o">=</span> <span class="p">[]</span>
+                        <span class="n">available_pods</span> <span class="o">=</span> <span class="p">{}</span>
+                        <span class="k">for</span> <span class="n">uid</span> <span class="ow">in</span> <span class="n">existing_distribution</span><span class="p">:</span>
+                            <span class="n">available_pods</span><span class="p">[</span><span class="n">uid</span><span class="p">]</span> <span class="o">=</span> <span class="n">uid</span>
+                        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">remove_quantity</span><span class="p">):</span>
+                            <span class="n">worst_dcn</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_worst_dcn</span><span class="p">(</span><span class="n">available_pods</span><span class="o">=</span><span class="n">available_pods</span><span class="p">,</span>
+                                                           <span class="n">excluded_pods</span><span class="o">=</span><span class="n">exclude_dcn</span><span class="p">)</span>
+                            <span class="k">if</span> <span class="n">worst_dcn</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                                <span class="n">exclude_dcn</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">worst_dcn</span><span class="p">)</span>
+                                <span class="n">remove_distributions</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;exchange&quot;</span><span class="p">:</span> <span class="n">exchange</span><span class="p">,</span>
+                                                             <span class="s2">&quot;market&quot;</span><span class="p">:</span> <span class="n">market</span><span class="p">,</span>
+                                                             <span class="s2">&quot;pod_uid&quot;</span><span class="p">:</span> <span class="n">worst_dcn</span><span class="p">})</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">add_distributions</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_depthcache_distribution</span><span class="p">(</span><span class="n">exchange</span><span class="o">=</span><span class="n">item</span><span class="p">[</span><span class="s1">&#39;exchange&#39;</span><span class="p">],</span>
+                                             <span class="n">market</span><span class="o">=</span><span class="n">item</span><span class="p">[</span><span class="s1">&#39;market&#39;</span><span class="p">],</span>
+                                             <span class="n">pod_uid</span><span class="o">=</span><span class="n">item</span><span class="p">[</span><span class="s1">&#39;pod_uid&#39;</span><span class="p">],</span>
+                                             <span class="n">scheduled_start_time</span><span class="o">=</span><span class="n">item</span><span class="p">[</span><span class="s1">&#39;scheduled_start_time&#39;</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">remove_distributions</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">delete_depthcache_distribution</span><span class="p">(</span><span class="n">exchange</span><span class="o">=</span><span class="n">item</span><span class="p">[</span><span class="s1">&#39;exchange&#39;</span><span class="p">],</span>
+                                                <span class="n">market</span><span class="o">=</span><span class="n">item</span><span class="p">[</span><span class="s1">&#39;market&#39;</span><span class="p">],</span>
+                                                <span class="n">pod_uid</span><span class="o">=</span><span class="n">item</span><span class="p">[</span><span class="s1">&#39;pod_uid&#39;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="Database.set">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.Database.Database.set">[docs]</a>
+    <span class="k">def</span> <span class="nf">set</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">list</span> <span class="o">|</span> <span class="nb">set</span> <span class="o">|</span> <span class="nb">tuple</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_lock</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_set_update_timestamp</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">stdout_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DB entry added/updated: </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2"> = </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s2">&quot;debug&quot;</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="Database.set_license_status">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.Database.Database.set_license_status">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_license_status</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">status</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">status</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Missing mandatory parameter: status&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_lock</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;license&#39;</span><span class="p">][</span><span class="s1">&#39;status&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">status</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_set_update_timestamp</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">stdout_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DB license status change to: </span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s2">&quot;debug&quot;</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="Database.submit_license">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.Database.Database.submit_license">[docs]</a>
+    <span class="k">def</span> <span class="nf">submit_license</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">api_secret</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">license_token</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">api_secret</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">license_token</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Missing mandatory parameter: api_secret, license_token&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_lock</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;license&#39;</span><span class="p">][</span><span class="s1">&#39;api_secret&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">api_secret</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;license&#39;</span><span class="p">][</span><span class="s1">&#39;license_token&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">license_token</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_set_update_timestamp</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">stdout_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DB license submitted: </span><span class="si">{</span><span class="n">api_secret</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">license_token</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s2">&quot;debug&quot;</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="Database.update_nodes">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.Database.Database.update_nodes">[docs]</a>
+    <span class="k">def</span> <span class="nf">update_nodes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="n">nodes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">get_k8s_nodes</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">nodes</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="s2">&quot;nodes&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">nodes</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">stdout_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DB all nodes updated!&quot;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s2">&quot;debug&quot;</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">stdout_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Timed update of the DB key &#39;nodes&#39;: Query of the k8s nodes was empty, no &quot;</span>
+                                <span class="sa">f</span><span class="s2">&quot;update is performed!&quot;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="Database.update_depthcache">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.Database.Database.update_depthcache">[docs]</a>
+    <span class="k">def</span> <span class="nf">update_depthcache</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                          <span class="n">desired_quantity</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                          <span class="n">exchange</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                          <span class="n">refresh_interval</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                          <span class="n">market</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                          <span class="n">update_interval</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">exchange</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">market</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Missing mandatory parameter: exchange, market&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_lock</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">desired_quantity</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;depthcaches&#39;</span><span class="p">][</span><span class="n">exchange</span><span class="p">][</span><span class="n">market</span><span class="p">][</span><span class="s1">&#39;DESIRED_QUANTITY&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">desired_quantity</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_set_update_timestamp</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">update_interval</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;depthcaches&#39;</span><span class="p">][</span><span class="n">exchange</span><span class="p">][</span><span class="n">market</span><span class="p">][</span><span class="s1">&#39;UPDATE_INTERVAL&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">update_interval</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_set_update_timestamp</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">refresh_interval</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;depthcaches&#39;</span><span class="p">][</span><span class="n">exchange</span><span class="p">][</span><span class="n">market</span><span class="p">][</span><span class="s1">&#39;REFRESH_INTERVAL&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">refresh_interval</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_set_update_timestamp</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">stdout_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DB depthcaches updated: </span><span class="si">{</span><span class="n">exchange</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">market</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">desired_quantity</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">update_interval</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                            <span class="n">log</span><span class="o">=</span><span class="s2">&quot;debug&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="Database.update_depthcache_distribution">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.Database.Database.update_depthcache_distribution">[docs]</a>
+    <span class="k">def</span> <span class="nf">update_depthcache_distribution</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                                       <span class="n">exchange</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                                       <span class="n">market</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                                       <span class="n">pod_uid</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                                       <span class="n">last_restart_time</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                                       <span class="n">status</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">exchange</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">market</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">pod_uid</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Missing mandatory parameter: exchange, pod_uid, market&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_lock</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">last_restart_time</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;depthcaches&#39;</span><span class="p">][</span><span class="n">exchange</span><span class="p">][</span><span class="n">market</span><span class="p">][</span><span class="s1">&#39;DISTRIBUTION&#39;</span><span class="p">][</span><span class="n">pod_uid</span><span class="p">][</span><span class="s1">&#39;LAST_RESTART_TIME&#39;</span><span class="p">]</span> <span class="o">=</span> \
+                    <span class="n">last_restart_time</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_set_update_timestamp</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">status</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;depthcaches&#39;</span><span class="p">][</span><span class="n">exchange</span><span class="p">][</span><span class="n">market</span><span class="p">][</span><span class="s1">&#39;DISTRIBUTION&#39;</span><span class="p">][</span><span class="n">pod_uid</span><span class="p">][</span><span class="s1">&#39;STATUS&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">status</span>
+                <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="kc">False</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_set_update_timestamp</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">stdout_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DB depthcache distribution updated: </span><span class="si">{</span><span class="n">exchange</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">market</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">pod_uid</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">last_restart_time</span><span class="si">}</span><span class="s2">,&quot;</span>
+                            <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s2">&quot;debug&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+
+<div class="viewcode-block" id="Database.update_pod">
+<a class="viewcode-back" href="../../lucit_ubdcc_shared_modules.html#lucit_ubdcc_shared_modules.Database.Database.update_pod">[docs]</a>
+    <span class="k">def</span> <span class="nf">update_pod</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">uid</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">ip</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">api_port_rest</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                   <span class="n">status</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">uid</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Missing mandatory parameter: uid&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_lock</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;pods&#39;</span><span class="p">][</span><span class="n">uid</span><span class="p">][</span><span class="s1">&#39;LAST_SEEN&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">get_unix_timestamp</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">api_port_rest</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;pods&#39;</span><span class="p">][</span><span class="n">uid</span><span class="p">][</span><span class="s1">&#39;API_PORT_REST&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">api_port_rest</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_set_update_timestamp</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">ip</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;pods&#39;</span><span class="p">][</span><span class="n">uid</span><span class="p">][</span><span class="s1">&#39;IP&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ip</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_set_update_timestamp</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">node</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;pods&#39;</span><span class="p">][</span><span class="n">uid</span><span class="p">][</span><span class="s1">&#39;NODE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">node</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_set_update_timestamp</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">status</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;pods&#39;</span><span class="p">][</span><span class="n">uid</span><span class="p">][</span><span class="s1">&#39;STATUS&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">status</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_set_update_timestamp</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">stdout_msg</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;DB pod updated: </span><span class="si">{</span><span class="n">uid</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s2">&quot;debug&quot;</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+</div>
+
+</pre></div>
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo">
+                <div style="text-align: center;">
+                    <a href="https://www.lucit.tech"><img src="https://www.lucit.tech/files/images/logos/LUCIT-LOGO.png"></a><br>
+                    <a href="https://shop.lucit.services/software/unicorn-binance-suite" style="font-size: 0.85em;font-weight: 900">Get a UNICORN Binance Suite License!</a><br>
+                    <br>
+                    <a href="https://github.com/LUCIT-Systems-and-Development" target="_blank" style="text-decoration:none;"><img src="../../_static/icons8-github-20.png"></a>
+                    <a href="https://fb.me/lucit.systems.and.development" target="_blank" style="text-decoration:none;"><img src="../../_static/icons8-facebook-20.png"></a>
+                    <a href="https://twitter.com/LUCIT_SysDev" target="_blank" style="text-decoration:none;"><img src="../../_static/icons8-twitter-20.png"></a>
+                    <a href="https://www.linkedin.com/company/lucit-systems-and-development" target="_blank" style="text-decoration:none;"><img src="../../_static/icons8-linkedin-20.png"></a>
+                    <a href="https://www.xing.com/pages/lucit-systems-and-development" target="_blank" style="text-decoration:none;"><img src="../../_static/icons8-xing-20.png"></a>
+                    <a href="https://medium.lucit.tech" target="_blank" style="text-decoration:none;"><img src="../../_static/icons8-medium-monogram-20.png"></a>
+                    <a href="https://www.youtube.com/channel/UCp57u8vaPqEWQTlfpYn-KnQ" target="_blank" style="text-decoration:none;"><img src="../../_static/icons8-youtube-20.png"></a>
+                </div>
+            </p>
+<div id="searchbox" style="display: block" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+<div role="note" aria-label="source code">
+    <h3>GitHub</h3>
+    <ul class="this-page-menu">
+      <li><a href="https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance">Show Source</a></li>
+      
+<li>
+<a class="github-button" href="https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance"
+   data-icon="octicon-star" data-show-count="true"
+   aria-label="Star LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance on GitHub">Star</a>
+<br />
+<a class="github-button" href="https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance/subscription"
+   data-icon="octicon-eye" data-show-count="true"
+   aria-label="Watch LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance on GitHub">Watch</a>
+<br />
+<a class="github-button" href="https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance/fork"
+   data-icon="octicon-repo-forked" data-show-count="true"
+   aria-label="Fork LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance on GitHub">Fork</a>
+<br />
+<a class="github-button" href="https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance/issues"
+   data-icon="octicon-issue-opened"
+   data-show-count="true" aria-label="Issue LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance on GitHub">Issue</a>
+    
+</li>
+
+    </ul>
+</div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>  
+    <div class="related" role="navigation" aria-label="Related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+              
+                  
+                  
+              <li><img src="../../_static/lucit.png" alt="LUCIT Logo"
+                       style="vertical-align: middle; margin-top: -1px"/></li>
+              <li><a href="https://docs.lucit.tech">Docs Index</a> | </li>
+              <li><a href="https://www.lucit.tech/unicorn-depthcache-cluster-for-binance.html">unicorn-depthcache-cluster-for-binance</a> &#187;</li>
+                  
+              
+              
+              <a href="../../index.html">Docs</a> &#187;
+              
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li>
+        <li class="nav-item nav-item-this"><a href="">lucit_ubdcc_shared_modules.Database</a></li>
+                <li class="right">
+                    
+
+    <div class="inline-search" role="search">
+        <form class="inline-search" action="../../search.html" method="get">
+          <input placeholder="Quick search" aria-label="Quick search" type="text" name="q" />
+          <input type="submit" value="Go" />
+          <input type="hidden" name="check_keywords" value="yes" />
+          <input type="hidden" name="area" value="default" />
+        </form>
+    </div>
+                     |
+                </li>
+            
+      </ul>
+    </div>  
+    <div class="footer">
+    <a href="https://docs.lucit.tech">Index of all LUCIT Software Documentation</a><br />
+    &copy; <a href="/license.html">Copyright</a> 2022-2023, LUCIT Systems and Development. All Rights Reserved..
+    See <a href="/license.html">License</a> for more information.<br />
+    Last updated on Oct 25 2024 at 19:15 (CET).
+    <a href="https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance/issues/new/choose">Found a bug</a>?
+    <br />
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.4.7.
+        with <a href="https://github.com/LUCIT-Systems-and-Development/python-docs-theme-lucit">python-docs-theme-lucit</a>
+        by <a href="https://www.lucit.tech">LUCIT Systems and Development</a>.
+    </div>
+    
+    <img referrerpolicy="no-referrer-when-downgrade" src="https://webmon.lucit.services/matomo.php?idsite=12&amp;rec=1" style="border:0" alt="" />
+    
+
+  </body>
+</html>
