@@ -19,8 +19,8 @@ Instances on a Kubernetes Cluster for high-frequency access to Binance's DepthCa
 [Get help](https://www.lucit.tech/get-support.html)!
 
 If you like the project, please 
-[![star](https://raw.githubusercontent.com/lucit-systems-and-development/unicorn-binance-local-depth-cache/master/images/misc/star.png)](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-local-depth-cache/stargazers) it on 
-[GitHub](https://github.com/LUCIT-Systems-and-Development/unicorn-binance-local-depth-cache)! 
+[![star](https://raw.githubusercontent.com/lucit-systems-and-development/unicorn-binance-local-depth-cache/master/images/misc/star.png)](https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance/stargazers) it on 
+[GitHub](https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance)! 
 
 ## Get a UNICORN DepthCache Cluster for Binance License
 
