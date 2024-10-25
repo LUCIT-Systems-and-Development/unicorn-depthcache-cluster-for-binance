@@ -65,7 +65,7 @@ For more information, check out the
 [Docs](https://unicorn-binance-depth-cache-cluster.docs.lucit.tech).
 
 ## Watch a Demo Video
-[![Watch the demo video](https://img.youtube.com/vi/LTWeBNcpIp4/maxresdefault.jpg)](https://www.youtube.com/watch?v=LTWeBNcpIp4)
+[![Watch the demo video](https://img.youtube.com/vi/hq2iZPiFnvE/maxresdefault.jpg)](https://www.youtube.com/watch?v=hq2iZPiFnvE)
 
 ## Installation
 
