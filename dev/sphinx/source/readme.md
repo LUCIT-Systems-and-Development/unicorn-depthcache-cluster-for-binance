@@ -52,7 +52,7 @@ a specific amount of top Asks/Bids or by setting a threshold.
 provided by 
 [UBLDC](https://unicorn-binance-local-depth-cache.docs.lucit.tech/unicorn_binance_local_depth_cache.html#module-unicorn_binance_local_depth_cache.cluster).
 - **Top Performance**: The entire code base is deployed in the Kubernetes cluster as a compiled C-Extension!
-- **Manages Binance Ceight Costs**: If the weight costs become too high, the cluster throttles the initialization.
+- **Manages Binance Weight Costs**: If the weight costs become too high, the cluster throttles the initialization.
 
 ## Current State
 
