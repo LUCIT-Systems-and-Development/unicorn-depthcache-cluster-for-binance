@@ -68,7 +68,7 @@ class Database:
         else:
             desired_quantity = int(desired_quantity)
         if update_interval is None or update_interval == "None":
-            update_interval = 1000
+            update_interval = None
         else:
             update_interval = int(update_interval)
         if refresh_interval is None or refresh_interval == "None":

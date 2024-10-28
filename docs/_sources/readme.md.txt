@@ -126,7 +126,7 @@ helm search repo lucit-ubdcc
 - Then
 
 ``` 
-helm install lucit-ubdcc lucit-ubdcc/lucit-ubdcc --version 0.1.3
+helm install lucit-ubdcc lucit-ubdcc/lucit-ubdcc --version 0.1.4
 ```
 
 #### Choose a namespace

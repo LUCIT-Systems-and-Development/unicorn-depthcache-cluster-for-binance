@@ -9,7 +9,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 [How to upgrade to the latest version!](https://unicorn-depthcache-cluster-for-binance.docs.lucit.tech/readme.html#installation-and-upgrade)
 
-## 0.1.3.dev (development stage/unreleased/unstable)
+## 0.1.4.dev (development stage/unreleased/unstable)
+
+## 0.1.4
+### Fixed
+- https://github.com/LUCIT-Systems-and-Development/unicorn-depthcache-cluster-for-binance/issues/8 - We don't overwrite 
+  the None anymore.
 
 ## 0.1.3
 MVP release!

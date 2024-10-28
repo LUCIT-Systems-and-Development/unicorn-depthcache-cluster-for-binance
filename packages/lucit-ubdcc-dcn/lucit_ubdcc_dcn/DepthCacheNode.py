@@ -53,7 +53,7 @@ class DepthCacheNode(ServiceBase):
                         self.app.data['depthcache_instances'][dc['exchange']] = {}
                     if self.app.data['depthcache_instances'][dc['exchange']].get(dc['update_interval']) is None:
                         if self.app.data['db'].get_license_status() == "VALID":
-                            if dc['update_interval'] == 1000:
+                            if dc['update_interval'] is None:
                                 try:
                                     self.app.data['depthcache_instances'][dc['exchange']][dc['update_interval']] = \
                                         BinanceLocalDepthCacheManager(
