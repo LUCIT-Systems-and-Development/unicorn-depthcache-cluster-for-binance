@@ -16,6 +16,9 @@
 A highly scalable Kubernetes application from LUCIT to manage multiple and redundant UNICORN Binance Local Depth Cache 
 Instances on a Kubernetes Cluster for high-frequency access to Binance's DepthCache data (order books). 
 
+The cluster can be accessed from any programming language via a REST API, allowing Asks and Bids to be retrieved in 
+JSON format.
+
 [Get help](https://www.lucit.tech/get-support.html)!
 
 If you like the project, please 
